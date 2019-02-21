@@ -6,28 +6,39 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.game.Screens.PlayScreen;
+import com.game.States.GameStateManager;
+import com.game.States.MapState;
 
-public class CopsAndRobbers extends Game {
+public class CopsAndRobbers extends ApplicationAdapter {
 
-	public static final int V_WIDTH = 400;
-	public final static int V_HEIGHT = 208;
-	public SpriteBatch batch;
+	public static final int WIDTH = 1000;
+	public static final int HEIGHT = 650;
+	public static final String TITLE = "CopsAndRobbers";
+	public SpriteBatch sb;
+	public GameStateManager gsm;
+
 
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		setScreen(new PlayScreen(this));
+
+		sb = new SpriteBatch();
+		gsm = new GameStateManager();
+		Gdx.gl.glClearColor(1,0,0,1);
+		gsm.push(new MapState(gsm));
+
 	}
 
 	@Override
 	public void render () {
-		super.render();
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		gsm.update(Gdx.graphics.getDeltaTime());
+		gsm.render(sb);
+
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
+		sb.dispose();
 
 	}
 }

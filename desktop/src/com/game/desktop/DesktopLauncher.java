@@ -7,6 +7,11 @@ import com.game.CopsAndRobbers;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.width = CopsAndRobbers.WIDTH;
+		config.height = CopsAndRobbers.HEIGHT;
+		config.title = CopsAndRobbers.TITLE;
+		config.x = 100;
+		config.y = 50;
 		new LwjglApplication(new CopsAndRobbers(), config);
 	}
 }
