@@ -1,13 +1,17 @@
 package com.game.States;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.CopsAndRobbers;
 import com.game.Objects.GameObject;
+import com.game.Objects.Target;
 import com.game.Objects.Wall;
 import com.game.Objects.Water;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class MapState extends State {
 
@@ -17,6 +21,7 @@ public class MapState extends State {
     public Texture cop;
     public Texture target;
     public Texture wall;
+    public String name;
 
 
     public MapState(GameStateManager gsm){
@@ -33,12 +38,38 @@ public class MapState extends State {
     }
     @Override
     public void handleInput() {
+        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
 
+            //why ?
+            try {
+                TimeUnit.MILLISECONDS.sleep(200);
+            } catch (Exception e) {
+                System.out.println("Error");
+            }
+            if (Gdx.input.getY() <= 100) {
+                int x = (int) Math.floor(Gdx.input.getX() / 100);
+                int y = (int) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY()) / 100);
+
+                int convX = x * 100 + 35;
+                int convY = y * 100 + 35;
+
+                name = "target.png";
+
+
+            }
+
+            if(name == "target.png"){
+                int x = (int) Math.floor(Gdx.input.getX());
+                int y = (int) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY()));
+
+                gameObjects.add(new Target(x,y,name));
+            }
+        }
     }
 
     @Override
     public void update(float dt) {
-
+        handleInput();
     }
 
     @Override
