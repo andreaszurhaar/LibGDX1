@@ -62,7 +62,7 @@ public class MapState extends State {
                 int x = (int) Math.floor(Gdx.input.getX());
                 int y = (int) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY()));
 
-                gameObjects.add(new Target(x,y,name));
+                gameObjects.add(new Wall(x,y,"wall.png"));
             }
         }
     }
@@ -79,7 +79,7 @@ public class MapState extends State {
         sb.draw(cop,10,570, 50,50);
 
         for(int i =0; i < gameObjects.size(); i++ ){
-            sb.draw(gameObjects.get(i).texture, gameObjects.get(i).xPos,gameObjects.get(i).yPos,50,50);
+            sb.draw(gameObjects.get(i).texture, gameObjects.get(i).xPos,gameObjects.get(i).yPos,gameObjects.get(i).width,gameObjects.get(i).height);
         }
 
 
