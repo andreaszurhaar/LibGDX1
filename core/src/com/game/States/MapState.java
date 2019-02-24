@@ -25,10 +25,8 @@ import java.util.concurrent.TimeUnit;
 
 public class MapState extends State {
 
-
     public ArrayList<GameObject> gameObjects;
     public ArrayList<GameObject> activeObjects;
-
     public Texture background;
     public Texture cop;
     public Texture target;
@@ -46,13 +44,13 @@ public class MapState extends State {
     public boolean horizontal;
     public BitmapFont font;
 
-
     public MapState(GameStateManager gsm){
         super(gsm);
         gameObjects = new ArrayList<GameObject>();
         activeObjects = new ArrayList<GameObject>();
         font = new BitmapFont();
         font.setColor(Color.BLACK);
+
         background = new Texture("desert.png");
         cop = new Texture("cop.png");
         target = new Texture("lookout.png");
@@ -77,12 +75,6 @@ public class MapState extends State {
         gameObjects.add(new Target(545,575));
         gameObjects.add(new LookOut(620,575));
         gameObjects.add(new Water(695,575));
-
-
-
-
-      //  gameObjects.add(new Water(150,570,"water.png"));
-
 
     }
     @Override
@@ -145,11 +137,16 @@ public class MapState extends State {
 
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
             try {
-                TimeUnit.MILLISECONDS.sleep(200);
+                TimeUnit.MILLISECONDS.sleep(300);
             } catch (Exception e) {
                 System.out.println("Error");
             }
-           // if (Gdx.input.getY() >= 100) {
+           // sb.draw(play,850,535, 120,120);
+            if(Gdx.input.getX() > 850 && Gdx.input.getY() < 535){
+
+                gsm.push(new MainState(gsm,activeObjects));
+            }
+            if (Gdx.input.getY() >= 150) {
             int x = (int) Math.floor(Gdx.input.getX());
             int y = (int) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY()));
 
@@ -193,7 +190,7 @@ public class MapState extends State {
 
 
             }
-        //}
+        }
     }
 
     @Override

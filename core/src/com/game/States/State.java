@@ -3,6 +3,9 @@ package com.game.States;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.game.Objects.GameObject;
+
+import java.util.ArrayList;
 
 public abstract class State {
 
@@ -11,6 +14,12 @@ public abstract class State {
     public GameStateManager gsm;
 
     public State(GameStateManager gsm){
+        this.gsm = gsm;
+        cam = new OrthographicCamera();
+        mouse = new Vector3();
+    }
+
+    public State(GameStateManager gsm, ArrayList<GameObject> gameObjects){
         this.gsm = gsm;
         cam = new OrthographicCamera();
         mouse = new Vector3();
