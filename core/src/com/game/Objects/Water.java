@@ -1,8 +1,13 @@
 package com.game.Objects;
 
-public class Water extends  GameObject {
+import com.badlogic.gdx.graphics.Texture;
 
-    public Water(int xPos, int yPos, String texture) {
-        super(xPos, yPos, texture,50,50);
+public class Water extends GameObject {
+
+    public Water(int xPos, int yPos) {
+        super(xPos, yPos);
+        this.texture = new Texture("water.png");
+        this.width = 50;
+        this.height = 50;
     }
 }

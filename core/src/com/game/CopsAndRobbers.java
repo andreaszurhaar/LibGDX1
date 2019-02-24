@@ -20,11 +20,10 @@ public class CopsAndRobbers extends ApplicationAdapter {
 
 	@Override
 	public void create () {
-
 		sb = new SpriteBatch();
 		gsm = new GameStateManager();
-		Gdx.gl.glClearColor(1,0,0,1);
 		gsm.push(new MapState(gsm));
+		Gdx.gl.glClearColor(1,0,0,1);
 
 	}
 
@@ -34,6 +33,7 @@ public class CopsAndRobbers extends ApplicationAdapter {
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(sb);
 
+
 	}
 	
 	@Override
@@ -41,4 +41,5 @@ public class CopsAndRobbers extends ApplicationAdapter {
 		sb.dispose();
 
 	}
+
 }

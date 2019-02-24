@@ -1,6 +1,9 @@
 package com.game.Objects;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 
 public abstract class GameObject {
 
@@ -10,18 +13,17 @@ public abstract class GameObject {
     public int height;
     public Texture texture;
     public String name;
+    public Rectangle bounds;
+    public Body body;
 
-    public GameObject(int xPos, int yPos, String texture,int width,int height){
+    public GameObject(int xPos, int yPos){
         this.xPos = xPos;
         this.yPos = yPos;
-        this.width = width;
-        this.height = height;
-        name = texture;
-        this.texture = new Texture(texture);
     }
 
     public void setX(int xPos){this.xPos = xPos;}
     public void setY(int yPos){this.yPos = yPos;}
+    public void setName(String string){this.name  =string;}
 
 
 

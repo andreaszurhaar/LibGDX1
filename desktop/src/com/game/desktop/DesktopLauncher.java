@@ -11,7 +11,7 @@ public class DesktopLauncher {
 		config.height = CopsAndRobbers.HEIGHT;
 		config.title = CopsAndRobbers.TITLE;
 		config.x = 100;
-		config.y = 50;
+		config.y = 30;
 		new LwjglApplication(new CopsAndRobbers(), config);
 	}
 }
