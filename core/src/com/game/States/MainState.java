@@ -14,7 +14,6 @@ import com.game.Objects.GameObject;
 import com.game.Objects.LookOut;
 import com.game.Objects.Robber;
 import com.game.Objects.Target;
-import com.game.Objects.Water;
 import com.game.Objects.hWall;
 import com.game.Objects.vWall;
 import com.game.Readers.SpriteReader;

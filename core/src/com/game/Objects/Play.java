@@ -12,7 +12,7 @@ public class Play extends GameObject {
         this.width = 100;
         this.height = 100;
         try {
-            this.texture = reader.getImage(36,228,20,20);
+            this.texture = reader.getImage(100,295,20,20);
         } catch (IOException e) {
             e.printStackTrace();
         }

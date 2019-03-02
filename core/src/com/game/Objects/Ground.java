@@ -1,18 +1,17 @@
 package com.game.Objects;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.game.Readers.SpriteReader;
 
 import java.io.IOException;
 
-public class LookOut extends GameObject {
-    public LookOut(int xPos, int yPos) {
+public class Ground extends GameObject {
+    public Ground(int xPos, int yPos) {
         super(xPos, yPos);
         SpriteReader reader = new SpriteReader();
-        this.width = 50;
-        this.height = 50;
+        this.width = 30;
+        this.height = 20;
         try {
-            this.texture = reader.getImage(65,417,30,30);
+            this.texture = reader.getImage(58,292,26,28);
         } catch (IOException e) {
             e.printStackTrace();
         }

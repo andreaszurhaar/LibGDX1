@@ -10,9 +10,8 @@ public class Door extends GameObject {
     public Door(int xPos, int yPos) {
         super(xPos, yPos);
         SpriteReader reader = new SpriteReader();
-
         this.width = 30;
-        this.height = 100;
+        this.height = 20;
         try {
             this.texture = reader.getImage(32,417,30,30);
         } catch (IOException e) {

@@ -9,8 +9,8 @@ public class VDoor extends GameObject {
         super(xPos, yPos);
         SpriteReader reader = new SpriteReader();
 
-        this.width = 30;
-        this.height = 100;
+        this.width = 20;
+        this.height = 30;
         try {
             this.texture = reader.getImage(106,450,12,30);
         } catch (IOException e) {

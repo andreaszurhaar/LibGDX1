@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import com.game.AI.AI;
 
 public abstract class GameObject extends AssetManager {
 
@@ -17,6 +18,7 @@ public abstract class GameObject extends AssetManager {
     public String name;
     public Rectangle bounds;
     public Body body;
+    public AI ai;
 
     public GameObject(int xPos, int yPos){
         this.xPos = xPos;

@@ -7,19 +7,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.game.AI.TestAI;
 import com.game.CopsAndRobbers;
 import com.game.Objects.Candle;
 import com.game.Objects.Cop;
 import com.game.Objects.Door;
 import com.game.Objects.GameObject;
-
+import com.game.Objects.Ground;
 import com.game.Objects.LookOut;
 import com.game.Objects.Play;
 import com.game.Objects.Robber;
 import com.game.Objects.Steps;
 import com.game.Objects.Target;
 import com.game.Objects.VDoor;
-import com.game.Objects.Water;
 import com.game.Objects.Web;
 import com.game.Objects.hWall;
 import com.game.Objects.vWall;
@@ -31,8 +31,10 @@ import java.util.concurrent.TimeUnit;
 
 public class MapState extends State {
 
-    public ArrayList<GameObject> gameObjects;
+    public ArrayList<GameObject> menuObjects;
     public ArrayList<GameObject> activeObjects;
+    public ArrayList<GameObject> copObjects;
+    public ArrayList<GameObject> robberObjects;
     public TextureRegion background;
     public String name;
     public boolean vertical;
@@ -41,17 +43,22 @@ public class MapState extends State {
     public Play play;
     public vWall vWall;
     public hWall hWall;
+    public Ground ground;
+    public TestAI ai;
 
     public MapState(GameStateManager gsm){
         super(gsm);
-        gameObjects = new ArrayList<GameObject>();
+        menuObjects = new ArrayList<GameObject>();
         activeObjects = new ArrayList<GameObject>();
+        copObjects = new ArrayList<GameObject>();
+        robberObjects = new ArrayList<GameObject>();
         reader = new SpriteReader();
         font = new BitmapFont();
         font.setColor(Color.WHITE);
+        ai = new TestAI();
 
         try {
-            background = reader.getImage(58,292,26,28);
+            background = reader.getImage(100,295,20,20);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,23 +66,33 @@ public class MapState extends State {
          play = new Play(865,545);
          vWall = new vWall(820,520);
          hWall = new hWall(0,520);
+         ground = new Ground(0,0);
 
 
-        gameObjects.add(new Robber(5,575));
-        gameObjects.add(new Cop(85,575));
-        gameObjects.add(new Steps(165,575));
-        gameObjects.add(new Candle(245,575));
-        gameObjects.add(new hWall(325,575));
-        gameObjects.add(new VDoor(405,575));
-        gameObjects.add(new Door(485,575));
-        gameObjects.add(new Target(565,575));
-        gameObjects.add(new LookOut(645,575));
-        gameObjects.add(new Web(725,575));
+        menuObjects.add(new Robber(5,575));
+        menuObjects.add(new Cop(85,575));
+        menuObjects.add(new Steps(165,575));
+        menuObjects.add(new Candle(245,575));
+        menuObjects.add(new hWall(325,575));
+        menuObjects.add(new VDoor(405,575));
+        menuObjects.add(new Door(485,575));
+        menuObjects.add(new Target(565,575));
+        menuObjects.add(new LookOut(645,575));
+        menuObjects.add(new Web(725,575));
 
 
     }
     @Override
     public void handleInput() {
+
+        for(int i =0; i < copObjects.size(); i++ ){
+           ai.move(copObjects.get(i));
+        }
+
+        for(int i =0; i < robberObjects.size(); i++ ){
+
+            ai.move(robberObjects.get(i));
+        }
 
         if(Gdx.input.isKeyPressed(Input.Keys.V)) {
             if(vertical == true){
@@ -162,7 +179,7 @@ public class MapState extends State {
                     }
                 }
                 if(name == "robber" ){
-                    activeObjects.add(new Robber(x, y));
+                    robberObjects.add(new Robber(x, y));
                 }
                 if(name == "candle" ){
                     activeObjects.add(new Candle(x, y));
@@ -177,7 +194,7 @@ public class MapState extends State {
                     activeObjects.add(new Door(x, y));
                 }
                 if(name == "cop" ){
-                    activeObjects.add(new Cop(x, y));
+                    copObjects.add(new Cop(x, y));
                 }
                 if(name == "web" ){
                     activeObjects.add(new Web(x, y));
@@ -198,20 +215,29 @@ public class MapState extends State {
     public void render(SpriteBatch sb) {
         int count = 1;
         sb.begin();
-        sb.draw(background,0,0, CopsAndRobbers.WIDTH,CopsAndRobbers.HEIGHT);
+        sb.draw(ground.texture,ground.xPos,ground.yPos, CopsAndRobbers.WIDTH,CopsAndRobbers.HEIGHT);
         sb.draw(play.texture,play.xPos,play.yPos, 100,100);
+        sb.draw(background,400,400, 100,100);
         sb.draw(hWall.texture,hWall.xPos,hWall.yPos, 1000,20);
         sb.draw(vWall.texture,vWall.xPos,vWall.yPos, 20,180);
 
-        for(int i =0; i < gameObjects.size(); i++ ){
-            sb.draw(gameObjects.get(i).texture, gameObjects.get(i).xPos,gameObjects.get(i).yPos,75,75);
-            font.draw(sb,String.valueOf(count), gameObjects.get(i).xPos+30,gameObjects.get(i).yPos-10);
+        for(int i =0; i < menuObjects.size(); i++ ){
+            sb.draw(menuObjects.get(i).texture, menuObjects.get(i).xPos,menuObjects.get(i).yPos,75,75);
+            font.draw(sb,String.valueOf(count), menuObjects.get(i).xPos+30,menuObjects.get(i).yPos-10);
             count++;
 
         }
 
         for(int i =0; i < activeObjects.size(); i++ ){
             sb.draw(activeObjects.get(i).texture, activeObjects.get(i).xPos,activeObjects.get(i).yPos,activeObjects.get(i).width,activeObjects.get(i).height);
+        }
+
+        for(int i =0; i < copObjects.size(); i++ ){
+            sb.draw(copObjects.get(i).texture, copObjects.get(i).xPos,copObjects.get(i).yPos,copObjects.get(i).width,copObjects.get(i).height);
+        }
+
+        for(int i =0; i < robberObjects.size(); i++ ){
+            sb.draw(robberObjects.get(i).texture, robberObjects.get(i).xPos,robberObjects.get(i).yPos,robberObjects.get(i).width,robberObjects.get(i).height);
         }
 
 
@@ -223,8 +249,17 @@ public class MapState extends State {
     public void dispose(){
         font.dispose();
 
-        for(int i = 0; i < gameObjects.size(); i++){
-           gameObjects.get(i).dispose();
+        for(int i = 0; i < menuObjects.size(); i++){
+           menuObjects.get(i).dispose();
+        }
+        for(int i = 0; i < activeObjects.size(); i++){
+            activeObjects.get(i).dispose();
+        }
+        for(int i = 0; i < copObjects.size(); i++){
+            copObjects.get(i).dispose();
+        }
+        for(int i = 0; i < robberObjects.size(); i++){
+            robberObjects.get(i).dispose();
         }
     }
 }

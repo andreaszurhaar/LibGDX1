@@ -9,7 +9,7 @@ public class Web extends GameObject {
         super(xPos, yPos);
         SpriteReader reader = new SpriteReader();
         this.width = 20;
-        this.height = 100;
+        this.height = 20;
         try {
             this.texture = reader.getImage(32,292,26,28);
         } catch (IOException e) {
