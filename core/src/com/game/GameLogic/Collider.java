@@ -27,7 +27,4 @@ public class Collider {
         return robbers;
     }
 
-   // public boolean overlap(Rectangle robber, Rectangle cop){
-
-   // }
 }
