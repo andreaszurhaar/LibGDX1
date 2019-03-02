@@ -6,19 +6,20 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.CopsAndRobbers;
 import com.game.Objects.Cop;
 import com.game.Objects.Door;
 import com.game.Objects.GameObject;
-import com.game.Objects.Hut;
 import com.game.Objects.LookOut;
-import com.game.Objects.Plant;
 import com.game.Objects.Robber;
 import com.game.Objects.Target;
 import com.game.Objects.Water;
 import com.game.Objects.hWall;
 import com.game.Objects.vWall;
+import com.game.Readers.SpriteReader;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -30,15 +31,23 @@ public class MainState extends State {
     public Texture play;
     public String name;
     public BitmapFont font;
+    public TextureRegion tR;
+    public SpriteReader reader;
 
     public MainState(GameStateManager gsm, ArrayList<GameObject> gameObjects) {
         super(gsm);
         this.gameObjects = gameObjects;
         font = new BitmapFont();
         font.setColor(Color.BLACK);
-        background = new Texture("desert.png");
+      //  background = new Texture("desert.png");
         wall = new Texture("wall.png");
         play = new Texture("play.png");
+        reader = new SpriteReader();
+        try {
+            tR = reader.getImage(100,100,25,25);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -70,7 +79,7 @@ public class MainState extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(background, 0, 0, CopsAndRobbers.WIDTH, CopsAndRobbers.HEIGHT);
+       // sb.draw(tR, 0, 0, CopsAndRobbers.WIDTH, CopsAndRobbers.HEIGHT);
         sb.draw(play, 850, 535, 120, 120);
         sb.draw(wall, 0, 520, 1000, 20);
         sb.draw(wall, 820, 520, 20, 180);
@@ -85,9 +94,6 @@ public class MainState extends State {
     }
 
     public void dispose() {
-        for (int i = 0; i < gameObjects.size(); i++) {
-            gameObjects.get(i).texture.dispose();
-        }
         font.dispose();
     }
 }

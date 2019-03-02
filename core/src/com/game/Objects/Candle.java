@@ -1,21 +1,20 @@
 package com.game.Objects;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.game.Readers.SpriteReader;
 
 import java.io.IOException;
 
-public class hWall extends GameObject{
-    public hWall(int xPos, int yPos) {
+public class Candle extends GameObject {
+
+    public Candle(int xPos, int yPos) {
         super(xPos, yPos);
         SpriteReader reader = new SpriteReader();
         this.width = 100;
-        this.height = 20;
+        this.height = 100;
         try {
-            this.texture = reader.getImage(225,191,60,32);
+            this.texture = reader.getImage(104,225,15,33);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

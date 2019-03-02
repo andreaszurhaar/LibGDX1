@@ -6,20 +6,26 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.CopsAndRobbers;
+import com.game.Objects.Candle;
 import com.game.Objects.Cop;
 import com.game.Objects.Door;
 import com.game.Objects.GameObject;
-import com.game.Objects.Hut;
+
 import com.game.Objects.LookOut;
-import com.game.Objects.Plant;
 import com.game.Objects.Play;
 import com.game.Objects.Robber;
+import com.game.Objects.Steps;
 import com.game.Objects.Target;
+import com.game.Objects.VDoor;
 import com.game.Objects.Water;
+import com.game.Objects.Web;
 import com.game.Objects.hWall;
 import com.game.Objects.vWall;
+import com.game.Readers.SpriteReader;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -27,109 +33,98 @@ public class MapState extends State {
 
     public ArrayList<GameObject> gameObjects;
     public ArrayList<GameObject> activeObjects;
-    public Texture background;
-    public Texture cop;
-    public Texture target;
-    public Texture wall;
-    public Texture robber;
-    public Texture vWall;
-    public Texture water;
-    public Texture plant;
-    public Texture lookout;
-    public Texture hWall;
-    public Texture hut;
-    public Texture door;
-    public Texture play;
+    public TextureRegion background;
     public String name;
-    public boolean horizontal;
+    public boolean vertical;
     public BitmapFont font;
+    public SpriteReader reader;
+    public Play play;
+    public vWall vWall;
+    public hWall hWall;
 
     public MapState(GameStateManager gsm){
         super(gsm);
         gameObjects = new ArrayList<GameObject>();
         activeObjects = new ArrayList<GameObject>();
+        reader = new SpriteReader();
         font = new BitmapFont();
-        font.setColor(Color.BLACK);
+        font.setColor(Color.WHITE);
 
-        background = new Texture("desert.png");
-        cop = new Texture("cop.png");
-        target = new Texture("lookout.png");
-        wall = new Texture("wall.png");
-        robber = new Texture("robber.png");
-        play = new Texture("play.png");
-        vWall = new Texture("wall.png");
-        plant = new Texture("plant.png");
-        lookout = new Texture("lookout.png");
-        hWall = new Texture("wall.png");
-        hut = new Texture("hut.png");
-        door = new Texture("door.png");
-        water = new Texture("water.png");
+        try {
+            background = reader.getImage(58,292,26,28);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        gameObjects.add(new Robber(10,575));
-        gameObjects.add(new Cop(95,575));
-        gameObjects.add(new LookOut(170,575));
-        gameObjects.add(new Hut(245,575));
-        gameObjects.add(new Plant(320,575));
-        gameObjects.add(new vWall(395,575));
-        gameObjects.add(new Door(470,575));
-        gameObjects.add(new Target(545,575));
-        gameObjects.add(new LookOut(620,575));
-        gameObjects.add(new Water(695,575));
+         play = new Play(865,545);
+         vWall = new vWall(820,520);
+         hWall = new hWall(0,520);
+
+
+        gameObjects.add(new Robber(5,575));
+        gameObjects.add(new Cop(85,575));
+        gameObjects.add(new Steps(165,575));
+        gameObjects.add(new Candle(245,575));
+        gameObjects.add(new hWall(325,575));
+        gameObjects.add(new VDoor(405,575));
+        gameObjects.add(new Door(485,575));
+        gameObjects.add(new Target(565,575));
+        gameObjects.add(new LookOut(645,575));
+        gameObjects.add(new Web(725,575));
+
 
     }
     @Override
     public void handleInput() {
 
-
-
-        if(Gdx.input.isKeyPressed(Input.Keys.H)) {
-            if(horizontal == true){
-                horizontal = false;
+        if(Gdx.input.isKeyPressed(Input.Keys.V)) {
+            if(vertical == true){
+                vertical = false;
             }
             else{
-                horizontal = true;
+                vertical  = true;
             }
 
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
-            this.name = "robber.png";
+            this.name = "robber";
          ////   System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
-            this.name = "cop.png";
+            this.name = "cop";
            // System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
-            this.name = "lookout.png";
+            this.name = "steps";
            // System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_4)) {
-            this.name = "hut.png";
+            this.name = "candle";
            // System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_5)) {
-            this.name = "plant.png";
+            this.name = "wall";
          //   System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_6)) {
-            this.name = "wall.png";
+            this.name = "Vdoor";
           //  System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_7)) {
-            this.name = "door.png";
+            this.name = "door";
           //  System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_8)) {
-            this.name = "target.png";
+            this.name = "target";
             System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_9)) {
-            this.name = "glass.png";
+            this.name = "lookout";
           //  System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_0)) {
-            this.name = "water.png";
+            this.name = "web";
             //  System.out.println("Made it");
         }
 
@@ -142,8 +137,8 @@ public class MapState extends State {
                 System.out.println("Error");
             }
            // sb.draw(play,850,535, 120,120);
-            if(Gdx.input.getX() > 850 && Gdx.input.getY() < 535){
-
+            if(Gdx.input.getX() > 860 && Gdx.input.getY() < 100){
+                dispose();
                 gsm.push(new MainState(gsm,activeObjects));
             }
             if (Gdx.input.getY() >= 150) {
@@ -151,41 +146,41 @@ public class MapState extends State {
             int y = (int) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY()));
 
 
-               if(this.name == "target.png") {
+               if(this.name == "target") {
                     activeObjects.add(new Target(x, y));
                 }
 
-                if(name == "water.png" ){
-                    activeObjects.add(new Water(x, y));
+                if(name == "steps" ){
+                    activeObjects.add(new Steps(x, y));
                 }
-                if(name == "wall.png" ){
-                    if(horizontal == true){
-                        activeObjects.add(new hWall(x,y));
-                    }
-                    else{
+                if(name == "wall" ){
+                    if(vertical == true){
                         activeObjects.add(new vWall(x,y));
                     }
+                    else{
+                        activeObjects.add(new hWall(x,y));
+                    }
                 }
-                if(name == "robber.png" ){
+                if(name == "robber" ){
                     activeObjects.add(new Robber(x, y));
                 }
-                if(name == "plant.png" ){
-                    activeObjects.add(new Plant(x, y));
+                if(name == "candle" ){
+                    activeObjects.add(new Candle(x, y));
                 }
-                if(name == "lookout.png" ){
+                if(name == "lookout" ){
                     activeObjects.add(new LookOut(x, y));
                 }
-                if(name == "hut.png" ){
-                    activeObjects.add(new Hut(x, y));
+                if(name == "Vdoor" ){
+                   activeObjects.add(new VDoor(x, y));
                 }
-                if(name == "door.png" ){
+                if(name == "door" ){
                     activeObjects.add(new Door(x, y));
                 }
-                if(name == "cop.png" ){
+                if(name == "cop" ){
                     activeObjects.add(new Cop(x, y));
                 }
-                if(name == "water.png" ){
-                    activeObjects.add(new Water(x, y));
+                if(name == "web" ){
+                    activeObjects.add(new Web(x, y));
                 }
 
 
@@ -196,6 +191,7 @@ public class MapState extends State {
     @Override
     public void update(float dt) {
         handleInput();
+      //  dispose();
     }
 
     @Override
@@ -203,10 +199,9 @@ public class MapState extends State {
         int count = 1;
         sb.begin();
         sb.draw(background,0,0, CopsAndRobbers.WIDTH,CopsAndRobbers.HEIGHT);
-        sb.draw(play,850,535, 120,120);
-        sb.draw(wall,0,520, 1000,20);
-        sb.draw(wall,820,520, 20,180);
-
+        sb.draw(play.texture,play.xPos,play.yPos, 100,100);
+        sb.draw(hWall.texture,hWall.xPos,hWall.yPos, 1000,20);
+        sb.draw(vWall.texture,vWall.xPos,vWall.yPos, 20,180);
 
         for(int i =0; i < gameObjects.size(); i++ ){
             sb.draw(gameObjects.get(i).texture, gameObjects.get(i).xPos,gameObjects.get(i).yPos,75,75);
@@ -222,15 +217,14 @@ public class MapState extends State {
 
         sb.end();
 
+
     }
 
     public void dispose(){
-        for(int i = 0; i < gameObjects.size(); i++){
-            gameObjects.get(i).texture.dispose();
-        }
-        for(int i = 0; i < activeObjects.size(); i++){
-            activeObjects.get(i).texture.dispose();
-        }
         font.dispose();
+
+        for(int i = 0; i < gameObjects.size(); i++){
+           gameObjects.get(i).dispose();
+        }
     }
 }
