@@ -25,8 +25,14 @@ public abstract class GameObject extends AssetManager {
         this.yPos = yPos;
     }
 
-    public void setX(int xPos){this.xPos += xPos;}
-    public void setY(int yPos){this.yPos += yPos;}
+    public void setX(int xPos){
+        this.xPos += xPos;
+        bounds.setX(this.xPos);
+    }
+    public void setY(int yPos){
+        this.yPos += yPos;
+        bounds.setY(this.yPos);
+    }
     public void setName(String string){this.name  =string;}
 
 

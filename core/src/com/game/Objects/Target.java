@@ -2,6 +2,7 @@ package com.game.Objects;
 
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
 import com.game.Readers.SpriteReader;
 
@@ -15,6 +16,7 @@ public class Target extends GameObject {
         SpriteReader reader = new SpriteReader();
         this.width = 30;
         this.height = 30;
+        bounds = new Rectangle(xPos,yPos,width,height);
         try {
             this.texture = reader.getImage(36,228,20,20);
         } catch (IOException e) {
