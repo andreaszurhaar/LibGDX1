@@ -8,12 +8,22 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.CopsAndRobbers;
+import com.game.Board.Agent;
+import com.game.Board.Area;
+import com.game.Board.Board;
+import com.game.Board.Guard;
+import com.game.Board.Intruder;
+import com.game.Board.OuterWall;
+import com.game.Board.SentryTower;
+import com.game.Board.Structure;
+import com.game.Board.TargetArea;
 import com.game.Objects.Cop;
 import com.game.Objects.Door;
 import com.game.Objects.GameObject;
 import com.game.Objects.LookOut;
 import com.game.Objects.Robber;
 import com.game.Objects.Target;
+import com.game.Objects.Web;
 import com.game.Objects.hWall;
 import com.game.Objects.vWall;
 import com.game.Readers.SpriteReader;
@@ -32,6 +42,7 @@ public class MainState extends State {
     public BitmapFont font;
     public TextureRegion tR;
     public SpriteReader reader;
+    public Board board;
 
     public MainState(GameStateManager gsm, ArrayList<GameObject> gameObjects) {
         super(gsm);
@@ -47,8 +58,53 @@ public class MainState extends State {
         } catch (IOException e) {
             e.printStackTrace();
         }
+      //separate the agents and structures
+        ArrayList<Area> structures = new ArrayList<Area>();
+        ArrayList<Agent> agents = new ArrayList<Agent>();
+        for(int i=0; i<gameObjects.size(); i++) {
+	        GameObject go = gameObjects.get(i);
+	        float x = go.xPos/5;
+	        float y = go.yPos/5;
+	        float wid = go.width/5;
+	        float hei = go.height/5;
+	        if(x >= 0 && x+wid <200 && y >= 0 && y+hei <200) {
+	        	if(go instanceof LookOut) {
+	        		structures.add(new SentryTower( x, y,wid,hei));
+	        	}
+	        	
+	        	if(go instanceof Target) {
+	        		structures.add(new TargetArea( x, y, wid, hei));
+	        	}
+	        	
+	        	if(go instanceof hWall || go instanceof vWall) {
+	        		structures.add(new Structure( x, y, wid, hei));
+	        	}
+	        	
+	        	if(go instanceof Web) {
+	        		structures.add(new OuterWall( x, y, wid, hei));
+	        	}
+	        	
+	        	if(go instanceof Cop) {
+	        		agents.add(new Guard( x, y));
+	        	}
+	        	
+	        	if(go instanceof Robber) {
+	        		System.out.println("placed in: "+ x+"   "+ y);
+	        		agents.add(new Intruder( x, y));
+	        	}
+        	}
+        }
+        
+        
+        board = new Board();
+		System.out.println("got here and sizes are: "+structures.size()+"  "+agents.size());
 
+        if(!structures.isEmpty()) {board.setUp(structures);}
+        if(!agents.isEmpty()) {board.putInAgents(agents);}
+        
     }
+    
+    
 
     @Override
     public void handleInput() {
@@ -94,5 +150,6 @@ public class MainState extends State {
 
     public void dispose() {
         font.dispose();
+        board.updateAgents();
     }
 }
