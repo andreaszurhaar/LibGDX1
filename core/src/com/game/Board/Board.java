@@ -46,7 +46,7 @@ public class Board {
 			//extend presence depending on the structure type
 			int range = 2;
 			if(entities.get(i) instanceof SentryTower) {
-				range = 3;
+				range = 4;
 			}
 			
 			//mark the presence of the structures in the tracker

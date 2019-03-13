@@ -9,6 +9,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.AI.TestAI;
 import com.game.AI.TestAI2;
+import com.game.Board.Agent;
+import com.game.Board.Area;
+import com.game.Board.Guard;
+import com.game.Board.Intruder;
 import com.game.CopsAndRobbers;
 import com.game.GameLogic.Collider;
 import com.game.Objects.Candle;
@@ -37,6 +41,8 @@ public class MapState extends State {
     public ArrayList<GameObject> activeObjects;
     public ArrayList<GameObject> copObjects;
     public ArrayList<GameObject> robberObjects;
+    public ArrayList<Agent> agents;
+    public ArrayList<Area> structures;
     public String name;
     public boolean vertical;
     public BitmapFont font;
@@ -54,6 +60,8 @@ public class MapState extends State {
         activeObjects = new ArrayList<GameObject>();
         copObjects = new ArrayList<GameObject>();
         robberObjects = new ArrayList<GameObject>();
+        agents = new ArrayList<Agent>();
+        structures = new ArrayList<Area>();
         reader = new SpriteReader();
         font = new BitmapFont();
         font.setColor(Color.WHITE);
@@ -168,7 +176,7 @@ public class MapState extends State {
                     }
                 }
                 if(name == "robber" ){
-                    robberObjects.add(new Robber(x, y));
+                    agents.add(new Intruder(x, y));
                 }
                 if(name == "candle" ){
                     activeObjects.add(new Candle(x, y));
@@ -183,7 +191,7 @@ public class MapState extends State {
                     activeObjects.add(new Door(x, y));
                 }
                 if(name == "cop" ){
-                    copObjects.add(new Cop(x, y));
+                    agents.add(new Guard(x, y));
                 }
                 if(name == "web" ){
                     activeObjects.add(new Web(x, y));
@@ -226,7 +234,13 @@ public class MapState extends State {
         for(int i =0; i < activeObjects.size(); i++ ){
             sb.draw(activeObjects.get(i).texture, activeObjects.get(i).xPos,activeObjects.get(i).yPos,activeObjects.get(i).width,activeObjects.get(i).height);
         }
-
+        
+        for(int i =0; i < agents.size(); i++ ){
+            sb.draw(agents.get(i).texture, agents.get(i).xPos,agents.get(i).yPos,30,30);
+        }
+        
+        
+        /*
         for(int i =0; i < copObjects.size(); i++ ){
             sb.draw(copObjects.get(i).texture, copObjects.get(i).xPos,copObjects.get(i).yPos,copObjects.get(i).width,copObjects.get(i).height);
         }
@@ -234,7 +248,7 @@ public class MapState extends State {
         for(int i =0; i < robberObjects.size(); i++ ){
             sb.draw(robberObjects.get(i).texture, robberObjects.get(i).xPos,robberObjects.get(i).yPos,robberObjects.get(i).width,robberObjects.get(i).height);
         }
-
+		**/
 
         sb.end();
 
