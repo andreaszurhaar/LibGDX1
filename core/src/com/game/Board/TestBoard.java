@@ -18,17 +18,18 @@ public class TestBoard {
 		ArrayList[][] result = board.getTrackerBoard();
 		for(int i=0; i<result.length; i++) {
 			for(int j=0; j<result[0].length; j++) {
-				System.out.print("{");
+				//System.out.print("{");
 				for(int a=0; a<result[i][j].size(); a++) {
-					System.out.print(result[i][j].get(a));
+				//	System.out.print(result[i][j].get(a));
 				}
-				System.out.print("} ");
+				//System.out.print("} ");
 				for(int l=result[i][j].size(); l<3; l++) {
-					System.out.print(" ");
+				//	System.out.print(" ");
 				}
 			}
-			System.out.println();
+			//System.out.println();
 		}
 	}
+
 
 }
