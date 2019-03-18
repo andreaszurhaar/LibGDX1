@@ -80,7 +80,7 @@ public class Agent extends AssetManager {
 		speed = sp;
 	}
 	
-	public void hearSound(float x, float y) {
+	public void hearSound(float directionAngle) {
 		//heard a sound
 	}
 	
@@ -92,11 +92,11 @@ public class Agent extends AssetManager {
 
     public void setX(int xPos){
         this.xPos += xPos;
-        bounds.setX((int) this.xPos);
+        //bounds.setX((int) this.xPos);
     }
     public void setY(int yPos){
         this.yPos += yPos;
-        bounds.setY((int) this.yPos);
+        //bounds.setY((int) this.yPos);
     }
     public void setName(String string){this.name  =string;}
 
