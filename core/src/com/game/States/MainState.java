@@ -34,7 +34,8 @@ import java.util.concurrent.TimeUnit;
 
 public class MainState extends State {
 
-    public ArrayList<GameObject> gameObjects;
+    public ArrayList<Area> structures;
+    public ArrayList<Agent> agents;
     public Texture background;
     public Texture wall;
     public Texture play;
@@ -44,9 +45,8 @@ public class MainState extends State {
     public SpriteReader reader;
     public Board board;
 
-    public MainState(GameStateManager gsm, ArrayList<GameObject> gameObjects) {
+    public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents) {
         super(gsm);
-        this.gameObjects = gameObjects;
         font = new BitmapFont();
         font.setColor(Color.BLACK);
       //  background = new Texture("desert.png");
@@ -59,8 +59,9 @@ public class MainState extends State {
             e.printStackTrace();
         }
       //separate the agents and structures
-        ArrayList<Area> structures = new ArrayList<Area>();
-        ArrayList<Agent> agents = new ArrayList<Agent>();
+        structures = new ArrayList<Area>();
+        agents = new ArrayList<Agent>();
+        /*
         for(int i=0; i<gameObjects.size(); i++) {
 	        GameObject go = gameObjects.get(i);
 	        float x = go.xPos/5;
@@ -94,6 +95,7 @@ public class MainState extends State {
 	        	}
         	}
         }
+        */
         
         
         board = new Board();
@@ -139,17 +141,16 @@ public class MainState extends State {
         sb.draw(wall, 0, 520, 1000, 20);
         sb.draw(wall, 820, 520, 20, 180);
 
-
+        /*
         for (int i = 0; i < gameObjects.size(); i++) {
             sb.draw(gameObjects.get(i).texture, gameObjects.get(i).xPos, gameObjects.get(i).yPos, gameObjects.get(i).width, gameObjects.get(i).height);
         }
-
+		*/
         sb.end();
 
     }
 
     public void dispose() {
         font.dispose();
-        board.updateAgents();
     }
 }
