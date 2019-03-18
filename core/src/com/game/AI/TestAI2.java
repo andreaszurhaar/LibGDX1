@@ -15,6 +15,7 @@ public class TestAI2 extends AI {
             }
 
             object.get(i).setX(-1);
+           // object.get(i).setY(-1);
         }
     }
 }

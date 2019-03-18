@@ -98,6 +98,11 @@ public class MapState extends State {
     public void handleInput() {
 
         if(Gdx.input.isKeyPressed(Input.Keys.V)) {
+            try {
+                TimeUnit.MILLISECONDS.sleep(300);
+            } catch (Exception e) {
+                System.out.println("Error");
+            }
             if(vertical == true){
                 vertical = false;
             }
