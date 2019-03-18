@@ -4,6 +4,7 @@
 package com.game.Board;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 /**
@@ -27,6 +28,7 @@ public class Board {
 				
 			}
 		}
+		generateSounds();
 	}
 	
 	
@@ -108,6 +110,20 @@ public class Board {
 			
 			
 		}		
+	}
+
+	public void generateSounds() {
+		for (int i = 0; i < positionTracker.length; i++) {
+			for (int j = 0; j < positionTracker[0].length; j++) {
+				for (int k = 0; k < 25; k++) {
+					Random rand = new Random();
+					if (rand.nextDouble() < 0.1) {
+						SoundOccurence s = new SoundOccurence(System.currentTimeMillis(), positionTracker[i][j], k);
+						System.out.println("Sound generated in square " + i + " " +  j + " in cell " + k);
+					}
+				}
+			}
+		}
 	}
 
 }
