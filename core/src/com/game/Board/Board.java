@@ -90,6 +90,7 @@ public class Board {
 			
 			//check collision with all nearby structures
 			boolean collided = false;
+			System.out.println("x: "+x+"  y: "+y);
 			for(int i=0; i<positionTracker[x][y].size(); i++) {
 				if(territories.get(positionTracker[x][y].get(i)).contains(agents.get(a).getX(),agents.get(a).getY())) {collided = true;}
 			}
@@ -98,13 +99,16 @@ public class Board {
 			if(!collided) {
 				float speed = agents.get(a).getSpeed()/fps;
 				double angle = agents.get(a).getAngle();
-				System.out.println("position of agent "+a+" was: "+agents.get(a).getX()+" ; "+agents.get(a).getY()+"  with angle: "+angle+"  and speed: "+speed);
+				//System.out.println("position of agent "+a+" was: "+agents.get(a).getX()+" ; "+agents.get(a).getY()+"  with angle: "+angle+"  and speed: "+speed);
 
 				float newX = agents.get(a).getX()+(float) Math.cos(angle)*speed;
 				float newY = agents.get(a).getY()+(float) Math.sin(angle)*speed;
+				//System.out.println("compare x: "+agents.get(a).getX()+" ; "+newX);
+				//System.out.println("compare y: "+agents.get(a).getY()+" ; "+newY);
 				agents.get(a).setPos(newX,newY);
-				System.out.println("position of agent "+a+": "+newX+" ; "+newY);
+				//System.out.println("position of agent "+a+": "+newX+" ; "+newY);
 				agents.get(a).triggerStep();
+				//System.out.println("position of agent becomes: "+a+" was: "+agents.get(a).getX()+" ; "+agents.get(a).getY()+"  with angle: "+agents.get(a).getAngle()+"  and speed: "+agents.get(a).getSpeed());
 			}
 			
 			

@@ -19,15 +19,14 @@ public class Agent extends AssetManager {
 
 	public float xPos;
 	public float yPos;
-	private Vector2 viewAngle;
+	public Vector2 viewAngle;
 	private float speed;
 	private float rotation;
 	private float maxRotation;
 	private float maxSpeed;
-	private float soundRange;
+	public float soundRange;
 	
 	public String name;
-    public Rectangle bounds;
     public TextureRegion texture;
 
 	
@@ -36,9 +35,6 @@ public class Agent extends AssetManager {
 		xPos = x;
 		yPos = y;
 		viewAngle = new Vector2(1,1);
-		viewAngle.setToRandomDirection();
-		speed = 0;
-		soundRange = 0;
 	}
 	
 	public float getX() {
@@ -52,9 +48,7 @@ public class Agent extends AssetManager {
 	public void setPos(float x, float y) {
 		xPos = x;
 		yPos = y;
-        bounds.setX((int) this.xPos);
-        bounds.setY((int) this.yPos);
-	}
+   	}
 	
 	public float getAngle() {
 		return viewAngle.angle();
@@ -80,7 +74,7 @@ public class Agent extends AssetManager {
 		speed = sp;
 	}
 	
-	public void hearSound(float x, float y) {
+	public void hearSound(float directionAngle) {
 		//heard a sound
 	}
 	
@@ -92,11 +86,11 @@ public class Agent extends AssetManager {
 
     public void setX(int xPos){
         this.xPos += xPos;
-        bounds.setX((int) this.xPos);
+        //bounds.setX((int) this.xPos);
     }
     public void setY(int yPos){
         this.yPos += yPos;
-        bounds.setY((int) this.yPos);
+        //bounds.setY((int) this.yPos);
     }
     public void setName(String string){this.name  =string;}
 

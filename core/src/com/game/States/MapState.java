@@ -13,6 +13,10 @@ import com.game.Board.Agent;
 import com.game.Board.Area;
 import com.game.Board.Guard;
 import com.game.Board.Intruder;
+import com.game.Board.SentryTower;
+import com.game.Board.Structure;
+import com.game.Board.TargetArea;
+import com.game.Board.LowVisionArea;
 import com.game.CopsAndRobbers;
 import com.game.GameLogic.Collider;
 import com.game.Objects.Candle;
@@ -43,6 +47,7 @@ public class MapState extends State {
     public ArrayList<GameObject> robberObjects;
     public ArrayList<Agent> agents;
     public ArrayList<Area> structures;
+    public ArrayList<Structure> walls;
     public String name;
     public boolean vertical;
     public BitmapFont font;
@@ -62,6 +67,7 @@ public class MapState extends State {
         robberObjects = new ArrayList<GameObject>();
         agents = new ArrayList<Agent>();
         structures = new ArrayList<Area>();
+        walls = new ArrayList<Structure>();
         reader = new SpriteReader();
         font = new BitmapFont();
         font.setColor(Color.WHITE);
@@ -69,22 +75,22 @@ public class MapState extends State {
         ai2 = new TestAI2();
         collider = new Collider();
 
-         play = new Play(865,545);
-         vWall = new vWall(820,520);
-         hWall = new hWall(0,520);
+         play = new Play(865,845);
+         vWall = new vWall(820,820);
+         hWall = new hWall(0,820);
          ground = new Ground(0,0);
 
 
-        menuObjects.add(new Robber(5,575));
-        menuObjects.add(new Cop(85,575));
-        menuObjects.add(new Steps(165,575));
-        menuObjects.add(new Candle(245,575));
-        menuObjects.add(new hWall(325,575));
-        menuObjects.add(new VDoor(405,575));
-        menuObjects.add(new Door(485,575));
-        menuObjects.add(new Target(565,575));
-        menuObjects.add(new LookOut(645,575));
-        menuObjects.add(new Web(725,575));
+        menuObjects.add(new Robber(5,875));
+        menuObjects.add(new Cop(85,875));
+        menuObjects.add(new Steps(165,875));
+        menuObjects.add(new Candle(245,875));
+        menuObjects.add(new hWall(325,875));
+        menuObjects.add(new VDoor(405,875));
+        menuObjects.add(new Door(485,875));
+        menuObjects.add(new Target(565,875));
+        menuObjects.add(new LookOut(645,875));
+        menuObjects.add(new Web(725,875));
 
 
     }
@@ -158,48 +164,59 @@ public class MapState extends State {
            // sb.draw(play,850,535, 120,120);
             if(Gdx.input.getX() > 860 && Gdx.input.getY() < 100){
                 dispose();
-                gsm.push(new MainState(gsm,activeObjects));
+                gsm.push(new MainState(gsm,structures,agents));
             }
             if (Gdx.input.getY() >= 150) {
-            int x = (int) Math.floor(Gdx.input.getX());
-            int y = (int) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY()));
+            float x = (float) Math.floor(Gdx.input.getX()/5f);
+            float y = (float) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY())/4f);
 
 
                if(this.name == "target") {
-                    activeObjects.add(new Target(x, y));
+                    structures.add(new TargetArea(x, y,20,20));
                 }
 
                 if(name == "steps" ){
-                    activeObjects.add(new Steps(x, y));
+                    activeObjects.add(new Steps((int) x,(int) y));
                 }
                 if(name == "wall" ){
                     if(vertical == true){
-                        activeObjects.add(new vWall(x,y));
+                        walls.add(new Structure(x,y,20,100,false));
+                        structures.add(walls.get(walls.size()-1));
+                        
                     }
                     else{
-                        activeObjects.add(new hWall(x,y));
+                    	walls.add(new Structure(x,y,100,20,true));
+                        structures.add(walls.get(walls.size()-1));
                     }
                 }
                 if(name == "robber" ){
                     agents.add(new Intruder(x, y));
                 }
                 if(name == "candle" ){
-                    activeObjects.add(new Candle(x, y));
+                    structures.add(new LowVisionArea(x,y,20,40));
                 }
                 if(name == "lookout" ){
-                    activeObjects.add(new LookOut(x, y));
+                    structures.add(new SentryTower(x, y, 50, 50));
                 }
                 if(name == "Vdoor" ){
-                   activeObjects.add(new VDoor(x, y));
+                	for(int i=0; i<walls.size(); i++) {
+                		if(walls.get(i).contains(x,y)) {
+                			walls.get(i).placeDoor(x,y);
+                		}
+                	}
                 }
                 if(name == "door" ){
-                    activeObjects.add(new Door(x, y));
+                	for(int i=0; i<walls.size(); i++) {
+                		if(walls.get(i).contains(x,y)) {
+                			walls.get(i).placeDoor(x,y);
+                		}
+                	}
                 }
                 if(name == "cop" ){
                     agents.add(new Guard(x, y));
                 }
                 if(name == "web" ){
-                    activeObjects.add(new Web(x, y));
+                    activeObjects.add(new Web((int) x,(int) y));
                 }
 
 
@@ -207,9 +224,9 @@ public class MapState extends State {
         }
 
 
-        ai.move(copObjects);
+        //ai.move(agents);
 
-        ai2.move(robberObjects);
+        //ai2.move(robberObjects);
 
         robberObjects = collider.copVsRobber(robberObjects, copObjects);
     }
@@ -237,11 +254,15 @@ public class MapState extends State {
         }
 
         for(int i =0; i < activeObjects.size(); i++ ){
-            sb.draw(activeObjects.get(i).texture, activeObjects.get(i).xPos,activeObjects.get(i).yPos,activeObjects.get(i).width,activeObjects.get(i).height);
+            sb.draw(activeObjects.get(i).texture, activeObjects.get(i).xPos*5f,activeObjects.get(i).yPos*4f,activeObjects.get(i).width,activeObjects.get(i).height);
         }
         
         for(int i =0; i < agents.size(); i++ ){
-            sb.draw(agents.get(i).texture, agents.get(i).xPos,agents.get(i).yPos,30,30);
+            sb.draw(agents.get(i).texture, agents.get(i).xPos*5f,agents.get(i).yPos*4f,30,30);
+        }
+        
+        for(int i =0; i < structures.size(); i++ ){
+            structures.get(i).drawTexture(sb,5f,4f);
         }
         
         
@@ -275,5 +296,12 @@ public class MapState extends State {
         for(int i = 0; i < robberObjects.size(); i++){
             robberObjects.get(i).dispose();
         }
+        /*
+        for(int i = 0; i < structures.size(); i++){
+            structures.get(i).dispose();
+        }
+        for(int i = 0; i < agents.size(); i++){
+            agents.get(i).dispose();
+        }*/
     }
 }
