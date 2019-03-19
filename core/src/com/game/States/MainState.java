@@ -123,7 +123,7 @@ public class MainState extends State {
                 System.out.println("Error");
             }
             // sb.draw(play,850,535, 120,120);
-            if (Gdx.input.getX() > 850 && Gdx.input.getY() < 535) {
+            if (Gdx.input.getX() > 850 && Gdx.input.getY() < 835) {
                 gsm.pop();
             }
             int x = (int) Math.floor(Gdx.input.getX());
@@ -142,16 +142,16 @@ public class MainState extends State {
     	board.updateAgents();
         sb.begin();
         sb.draw(ground.texture,ground.xPos,ground.yPos, CopsAndRobbers.WIDTH,CopsAndRobbers.HEIGHT);
-        sb.draw(play, 850, 535, 120, 120);
-        sb.draw(wall, 0, 520, 1000, 20);
-        sb.draw(wall, 820, 520, 20, 180);
+        sb.draw(play, 850, 835, 120, 120);
+        sb.draw(wall, 0, 820, 1000, 20);
+        sb.draw(wall, 820, 820, 20, 180);
 
         for(int i =0; i < agents.size(); i++ ){
-            sb.draw(agents.get(i).texture, agents.get(i).xPos*5f,agents.get(i).yPos*2.5f,30,30);
+            sb.draw(agents.get(i).texture, agents.get(i).xPos*5f,agents.get(i).yPos*4f,30,30);
         }
         
         for(int i =0; i < structures.size(); i++ ){
-            structures.get(i).drawTexture(sb,5f,2.5f);
+            structures.get(i).drawTexture(sb,5f,4f);
         }
         
         /*

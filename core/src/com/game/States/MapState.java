@@ -75,22 +75,22 @@ public class MapState extends State {
         ai2 = new TestAI2();
         collider = new Collider();
 
-         play = new Play(865,545);
-         vWall = new vWall(820,520);
-         hWall = new hWall(0,520);
+         play = new Play(865,845);
+         vWall = new vWall(820,820);
+         hWall = new hWall(0,820);
          ground = new Ground(0,0);
 
 
-        menuObjects.add(new Robber(5,575));
-        menuObjects.add(new Cop(85,575));
-        menuObjects.add(new Steps(165,575));
-        menuObjects.add(new Candle(245,575));
-        menuObjects.add(new hWall(325,575));
-        menuObjects.add(new VDoor(405,575));
-        menuObjects.add(new Door(485,575));
-        menuObjects.add(new Target(565,575));
-        menuObjects.add(new LookOut(645,575));
-        menuObjects.add(new Web(725,575));
+        menuObjects.add(new Robber(5,875));
+        menuObjects.add(new Cop(85,875));
+        menuObjects.add(new Steps(165,875));
+        menuObjects.add(new Candle(245,875));
+        menuObjects.add(new hWall(325,875));
+        menuObjects.add(new VDoor(405,875));
+        menuObjects.add(new Door(485,875));
+        menuObjects.add(new Target(565,875));
+        menuObjects.add(new LookOut(645,875));
+        menuObjects.add(new Web(725,875));
 
 
     }
@@ -168,7 +168,7 @@ public class MapState extends State {
             }
             if (Gdx.input.getY() >= 150) {
             float x = (float) Math.floor(Gdx.input.getX()/5f);
-            float y = (float) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY())/2.5f);
+            float y = (float) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY())/4f);
 
 
                if(this.name == "target") {
@@ -254,15 +254,15 @@ public class MapState extends State {
         }
 
         for(int i =0; i < activeObjects.size(); i++ ){
-            sb.draw(activeObjects.get(i).texture, activeObjects.get(i).xPos*5f,activeObjects.get(i).yPos*2.5f,activeObjects.get(i).width,activeObjects.get(i).height);
+            sb.draw(activeObjects.get(i).texture, activeObjects.get(i).xPos*5f,activeObjects.get(i).yPos*4f,activeObjects.get(i).width,activeObjects.get(i).height);
         }
         
         for(int i =0; i < agents.size(); i++ ){
-            sb.draw(agents.get(i).texture, agents.get(i).xPos*5f,agents.get(i).yPos*2.5f,30,30);
+            sb.draw(agents.get(i).texture, agents.get(i).xPos*5f,agents.get(i).yPos*4f,30,30);
         }
         
         for(int i =0; i < structures.size(); i++ ){
-            structures.get(i).drawTexture(sb,5f,2.5f);
+            structures.get(i).drawTexture(sb,5f,4f);
         }
         
         
