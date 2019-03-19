@@ -58,8 +58,8 @@ public class Area extends AssetManager {
     }
     public void setName(String string){this.name  =string;}
     
-    public void drawTexture(SpriteBatch sb) {
-    	sb.draw(texture, xPos, yPos, 
+    public void drawTexture(SpriteBatch sb, float xReduc, float yReduc) {
+    	sb.draw(texture, xPos*xReduc, yPos*yReduc, 
     			(float) area.getWidth(), (float) area.getHeight());}
 
 

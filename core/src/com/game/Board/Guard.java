@@ -13,14 +13,17 @@ import com.game.Readers.SpriteReader;
  */
 public class Guard extends Agent {
 
-	private float speed;
-	private float angle;
+	public float speed;
+	public float angle;
+	public float soundRange;
     SpriteReader reader = new SpriteReader();
 
 	
 	public Guard(float x, float y) {
 		super(x, y);
-
+		viewAngle.setToRandomDirection();
+		speed = 1;
+		soundRange = 0;
 		try {
 	        this.texture = reader.getImage(65,255,30,33);
 	    } catch (IOException e) {
@@ -29,11 +32,24 @@ public class Guard extends Agent {
 
 	}
 	
+	public void setPos(float x, float y) {
+		xPos = x;
+		yPos = y;
+   	}
+	
+	public float getSpeed() {
+		return speed;
+	}
+	
+	public float getAngle() {
+		return angle;
+	}
+	
 	public void triggerStep() {
-		System.out.println("activated trigger and changed speed from: "+speed+"  "+angle);
-		speed = (float) Math.random()*1.4f;
-		angle = (float) Math.random()*360-180;
-		System.out.println("to: "+speed+"  "+angle);
+		//System.out.println("activated trigger and changed speed from: "+speed+"  "+angle);
+		this.speed = (float) (Math.random()*2f);
+		this.angle = angle - 0.03f;//(float) (Math.random()*0.9f-0.45f)/5;
+		//System.out.println("to: "+speed+"  "+angle);
 	}
 
 }

@@ -40,11 +40,11 @@ public class Structure extends Area {
 	public void placeDoor(float x, float y) {
 		if(horizontal) {
 			float xDist = x-xPos;
-			doorsAndWindows.add(new Door(xPos+xDist-15,yPos,30,20,horizontal));
+			doorsAndWindows.add(new Door(xPos+xDist-3,yPos,30,20,horizontal));
 		}
 		if(!horizontal) {
 			float yDist = y-yPos;
-			doorsAndWindows.add(new Door(xPos,yPos+yDist-15,20,30,horizontal));
+			doorsAndWindows.add(new Door(xPos,yPos+yDist-6,20,30,horizontal));
 		}
 	}
 		
@@ -61,10 +61,10 @@ public class Structure extends Area {
 	}
 	
 	@Override
-    public void drawTexture(SpriteBatch sb) {
-		sb.draw(texture, xPos, yPos,(float) area.getWidth(),(float) area.getHeight());
+    public void drawTexture(SpriteBatch sb, float xReduc, float yReduc) {
+		sb.draw(texture, xPos*xReduc, yPos*yReduc,(float) area.getWidth(),(float) area.getHeight());
 		for(int i=0; i<doorsAndWindows.size(); i++) {
-			doorsAndWindows.get(i).drawTexture(sb);
+			doorsAndWindows.get(i).drawTexture(sb,xReduc,yReduc);
 		}
     }
 

@@ -167,8 +167,8 @@ public class MapState extends State {
                 gsm.push(new MainState(gsm,structures,agents));
             }
             if (Gdx.input.getY() >= 150) {
-            float x = (float) Math.floor(Gdx.input.getX());
-            float y = (float) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY()));
+            float x = (float) Math.floor(Gdx.input.getX()/5f);
+            float y = (float) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY())/2.5f);
 
 
                if(this.name == "target") {
@@ -200,15 +200,15 @@ public class MapState extends State {
                 }
                 if(name == "Vdoor" ){
                 	for(int i=0; i<walls.size(); i++) {
-                		if(walls.get(i).contains(Gdx.input.getX(), CopsAndRobbers.HEIGHT -Gdx.input.getY())) {
-                			walls.get(i).placeDoor(Gdx.input.getX(), CopsAndRobbers.HEIGHT -Gdx.input.getY());
+                		if(walls.get(i).contains(x,y)) {
+                			walls.get(i).placeDoor(x,y);
                 		}
                 	}
                 }
                 if(name == "door" ){
                 	for(int i=0; i<walls.size(); i++) {
-                		if(walls.get(i).contains(Gdx.input.getX(), CopsAndRobbers.HEIGHT -Gdx.input.getY())) {
-                			walls.get(i).placeDoor(Gdx.input.getX(), CopsAndRobbers.HEIGHT -Gdx.input.getY());
+                		if(walls.get(i).contains(x,y)) {
+                			walls.get(i).placeDoor(x,y);
                 		}
                 	}
                 }
@@ -224,7 +224,7 @@ public class MapState extends State {
         }
 
 
-        ai.move(agents);
+        //ai.move(agents);
 
         //ai2.move(robberObjects);
 
@@ -254,15 +254,15 @@ public class MapState extends State {
         }
 
         for(int i =0; i < activeObjects.size(); i++ ){
-            sb.draw(activeObjects.get(i).texture, activeObjects.get(i).xPos,activeObjects.get(i).yPos,activeObjects.get(i).width,activeObjects.get(i).height);
+            sb.draw(activeObjects.get(i).texture, activeObjects.get(i).xPos*5f,activeObjects.get(i).yPos*2.5f,activeObjects.get(i).width,activeObjects.get(i).height);
         }
         
         for(int i =0; i < agents.size(); i++ ){
-            sb.draw(agents.get(i).texture, agents.get(i).xPos,agents.get(i).yPos,30,30);
+            sb.draw(agents.get(i).texture, agents.get(i).xPos*5f,agents.get(i).yPos*2.5f,30,30);
         }
         
         for(int i =0; i < structures.size(); i++ ){
-            structures.get(i).drawTexture(sb);
+            structures.get(i).drawTexture(sb,5f,2.5f);
         }
         
         
