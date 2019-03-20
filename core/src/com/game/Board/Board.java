@@ -18,6 +18,7 @@ public class Board {
 	private ArrayList<Area> territories;
 	private ArrayList<Agent> agents;
 	private int fps = 10;
+	private final int VISUAL_RANGE = 20;
 	
 	public Board() {
 		territories = new ArrayList<Area>();
@@ -147,12 +148,42 @@ public class Board {
 				for (int k = 0; k < 25; k++) {
 					Random rand = new Random();
 					if (rand.nextDouble() < 0.1) {
-						SoundOccurence s = new SoundOccurence(System.currentTimeMillis(), positionTracker[i][j], k);
+						//are we using xpos and ypos or positiontracker to store coordinates?
+						//SoundOccurence s = new SoundOccurence(System.currentTimeMillis(), positionTracker[i][j], k);
+						double xpos = i * 200;
+						double ypos = j* 200;
+						SoundOccurence s = new SoundOccurence(System.currentTimeMillis(), xpos, ypos);
 						System.out.println("Sound generated in square " + i + " " +  j + " in cell " + k);
+						checkIfAgentHears(s);
 					}
 				}
 			}
 		}
 	}
 
+	public void checkIfAgentHears(SoundOccurence s) {
+		for (Agent a : agents) {
+			//check if distance between sound and agent is within the sound range
+			if (Math.sqrt((s.xpos - a.getX()) * (s.xpos - a.getX()) + (s.ypos - a.getY()) * (s.ypos - a.getY())) < s.SOUND_RANGE) {
+				a.setLastHeardSound(s);
+			}
+		}
+	}
+
+	public void checkIfAgentSees(){
+		for(Agent a : agents){
+			for(Area t: territories){
+				//TODO change distance calculation so that it takes every point of the terrotitory in to account
+				if 		((Math.sqrt((t.getMinX() - a.getX()) * (t.getMinX() - a.getX()) + (t.getMinY() - a.getY()) * (t.getMinY() - a.getY())) < VISUAL_RANGE) ||
+						(Math.sqrt((t.getMaxX() - a.getX()) * (t.getMaxX() - a.getX()) + (t.getMinY() - a.getY()) * (t.getMinY() - a.getY()))   < VISUAL_RANGE) ||
+						(Math.sqrt((t.getMinX() - a.getX()) * (t.getMinX() - a.getX()) + (t.getMaxY() - a.getY()) * (t.getMaxY() - a.getY()))   < VISUAL_RANGE) ||
+						(Math.sqrt((t.getMaxX() - a.getX()) * (t.getMaxX() - a.getX()) + (t.getMaxY() - a.getY()) * (t.getMaxY() - a.getY()))   < VISUAL_RANGE)){
+					a.see(t);
+				}
+
+			}
+		}
+	}
+
 }
+

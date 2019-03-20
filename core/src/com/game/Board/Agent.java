@@ -3,6 +3,7 @@
  */
 package com.game.Board;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.game.States.MapState;
 import com.badlogic.gdx.assets.AssetManager;
@@ -27,7 +28,8 @@ public class Agent extends AssetManager {
 	private float maxRotation;
 	private float maxSpeed;
 	public float soundRange;
-	
+	public SoundOccurence lastHeardSound;
+
 	public String name;
     public TextureRegion texture;
 
@@ -102,5 +104,7 @@ public class Agent extends AssetManager {
     }
     public void setName(String string){this.name  =string;}
 
-
+	public void setLastHeardSound(SoundOccurence lastHeardSound) {
+		this.lastHeardSound = lastHeardSound;
+	}
 }
