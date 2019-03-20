@@ -4,11 +4,12 @@
 package com.game.Board;
 
 import com.badlogic.gdx.math.Vector2;
-
+import com.game.States.MapState;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+
 
 /**
  * @author Lukas Padolevicius
@@ -17,11 +18,12 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Agent extends AssetManager {
 
+	public Rectangle area;
 	public float xPos;
 	public float yPos;
 	public Vector2 viewAngle;
-	private float speed;
-	private float rotation;
+	public float speed;
+	public float rotation;
 	private float maxRotation;
 	private float maxSpeed;
 	public float soundRange;
@@ -31,7 +33,8 @@ public class Agent extends AssetManager {
 
 	
 	
-	public Agent(float x, float y) {
+	public Agent(float x, float y, float width, float height) {
+        area = new Rectangle(x,y,width,height);
 		xPos = x;
 		yPos = y;
 		viewAngle = new Vector2(1,1);
@@ -48,10 +51,15 @@ public class Agent extends AssetManager {
 	public void setPos(float x, float y) {
 		xPos = x;
 		yPos = y;
+		area.setPosition(x,y);
    	}
 	
 	public float getAngle() {
 		return viewAngle.angle();
+	}
+
+	public float getAngleRad() {
+		return viewAngle.angleRad();
 	}
 
 	public float getRotation() {

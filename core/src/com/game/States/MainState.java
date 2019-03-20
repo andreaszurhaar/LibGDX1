@@ -143,15 +143,15 @@ public class MainState extends State {
         sb.begin();
         sb.draw(ground.texture,ground.xPos,ground.yPos, CopsAndRobbers.WIDTH,CopsAndRobbers.HEIGHT);
         sb.draw(play, 850, 835, 120, 120);
-        sb.draw(wall, 0, 820, 1000, 20);
+        sb.draw(wall, 0, 800, 1000, 20);
         sb.draw(wall, 820, 820, 20, 180);
 
         for(int i =0; i < agents.size(); i++ ){
-            sb.draw(agents.get(i).texture, agents.get(i).xPos*5f,agents.get(i).yPos*4f,30,30);
+            sb.draw(agents.get(i).texture, agents.get(i).xPos*MapState.X_REDUC,agents.get(i).yPos*MapState.Y_REDUC,30,30);
         }
         
         for(int i =0; i < structures.size(); i++ ){
-            structures.get(i).drawTexture(sb,5f,4f);
+            structures.get(i).drawTexture(sb,MapState.X_REDUC,MapState.Y_REDUC);
         }
         
         /*

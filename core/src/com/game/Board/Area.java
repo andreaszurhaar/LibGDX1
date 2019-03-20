@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Intersector;
+import com.game.States.MapState;
 
 /**
  * @author Lukas Padolevicius
@@ -29,24 +31,28 @@ public class Area extends AssetManager {
     }
 
     public float getMinX() {
-        return area.getX();
+        return xPos;
     }
     
     public float getMaxX() {
-        return area.getX()+area.getWidth();
+        return xPos+area.getWidth();
     }
 
     public float getMinY() {
-        return area.getY();
+        return yPos;
     }
 
     public float getMaxY() {
-        return area.getY()+area.getHeight();
+        return yPos+area.getHeight();
     }
 
     public boolean contains(float x, float y) {
         return area.contains(x,y);
     }
+    
+    public boolean intersects(Rectangle rect) {
+		return Intersector.overlaps(rect,this.area);
+   	}
     
     public void setX(int xPos){
         this.xPos += xPos;
@@ -58,9 +64,9 @@ public class Area extends AssetManager {
     }
     public void setName(String string){this.name  =string;}
     
-    public void drawTexture(SpriteBatch sb, float xReduc, float yReduc) {
+    public void drawTexture(SpriteBatch sb, int xReduc, int yReduc) {
     	sb.draw(texture, xPos*xReduc, yPos*yReduc, 
-    			(float) area.getWidth(), (float) area.getHeight());}
+    			(float) area.getWidth()*xReduc, (float) area.getHeight()*yReduc);}
 
 
 }

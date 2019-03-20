@@ -19,8 +19,8 @@ public class Guard extends Agent {
     SpriteReader reader = new SpriteReader();
 
 	
-	public Guard(float x, float y) {
-		super(x, y);
+	public Guard(float x, float y, float width, float height) {
+		super(x, y, width, height);
 		viewAngle.setToRandomDirection();
 		speed = 1;
 		soundRange = 0;
@@ -31,11 +31,6 @@ public class Guard extends Agent {
 	    }
 
 	}
-	
-	public void setPos(float x, float y) {
-		xPos = x;
-		yPos = y;
-   	}
 	
 	public float getSpeed() {
 		return speed;
@@ -48,7 +43,7 @@ public class Guard extends Agent {
 	public void triggerStep() {
 		//System.out.println("activated trigger and changed speed from: "+speed+"  "+angle);
 		this.speed = (float) (Math.random()*2f);
-		this.angle = angle - 0.03f;//(float) (Math.random()*0.9f-0.45f)/5;
+		rotation = (float) (Math.random()*45/10);//this.angle = angle - 0.03f;//(float) (Math.random()*0.9f-0.45f)/5;
 		//System.out.println("to: "+speed+"  "+angle);
 	}
 

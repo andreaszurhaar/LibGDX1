@@ -17,6 +17,7 @@ import com.game.Board.SentryTower;
 import com.game.Board.Structure;
 import com.game.Board.TargetArea;
 import com.game.Board.LowVisionArea;
+import com.game.Board.OuterWall;
 import com.game.CopsAndRobbers;
 import com.game.GameLogic.Collider;
 import com.game.Objects.Candle;
@@ -59,6 +60,10 @@ public class MapState extends State {
     public TestAI ai;
     public TestAI2 ai2;
     public Collider collider;
+    public static final int X_REDUC = 5;
+    public static final int Y_REDUC = 4;
+    
+    
     public MapState(GameStateManager gsm){
         super(gsm);
         menuObjects = new ArrayList<GameObject>();
@@ -77,7 +82,7 @@ public class MapState extends State {
 
          play = new Play(865,845);
          vWall = new vWall(820,820);
-         hWall = new hWall(0,820);
+         hWall = new hWall(0,800);
          ground = new Ground(0,0);
 
 
@@ -92,6 +97,30 @@ public class MapState extends State {
         menuObjects.add(new LookOut(645,875));
         menuObjects.add(new Web(725,875));
 
+        /*
+        OuterWall wall1 = new OuterWall(10,10,5,5);
+        OuterWall wall2 = new OuterWall(11,11,3,3);
+        System.out.println(wall1.contains(wall2.area));
+    	System.exit(0);
+        */
+        
+        for(int i=0; i<50; i++) {
+        	structures.add(new OuterWall(i*Y_REDUC,0,20/X_REDUC,20/Y_REDUC));
+        	structures.add(new OuterWall(i*Y_REDUC,200-X_REDUC,20/X_REDUC,20/Y_REDUC));
+        	/*
+        	if(i==34) {
+        		System.out.println(structures.get(69).getMinX()+"  "+structures.get(69).getMinY());
+        		System.out.println("collision is working: "+structures.get(68).contains(136f, 2)+structures.get(69).contains(136f, 198));
+        	System.exit(0);
+        	}
+        	*/
+        }
+        
+        for(int i=1; i<40; i++) {
+        	structures.add(new OuterWall(0,i*X_REDUC,20/X_REDUC,20/Y_REDUC));
+        	structures.add(new OuterWall(200-Y_REDUC,i*X_REDUC,20/X_REDUC,20/Y_REDUC));
+        }
+        
 
     }
     @Override
@@ -167,12 +196,13 @@ public class MapState extends State {
                 gsm.push(new MainState(gsm,structures,agents));
             }
             if (Gdx.input.getY() >= 150) {
-            float x = (float) Math.floor(Gdx.input.getX()/5f);
-            float y = (float) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY())/4f);
+            float x = (float) Math.floor(Gdx.input.getX()/X_REDUC);
+            float y = (float) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY())/Y_REDUC);
 
+            System.out.println("pressed at x: "+x+"  y: "+y);
 
                if(this.name == "target") {
-                    structures.add(new TargetArea(x, y,20,20));
+                    structures.add(new TargetArea(x, y,20/X_REDUC,20/Y_REDUC));
                 }
 
                 if(name == "steps" ){
@@ -180,23 +210,23 @@ public class MapState extends State {
                 }
                 if(name == "wall" ){
                     if(vertical == true){
-                        walls.add(new Structure(x,y,20,100,false));
+                        walls.add(new Structure(x,y,20/X_REDUC,100/Y_REDUC,false));
                         structures.add(walls.get(walls.size()-1));
                         
                     }
                     else{
-                    	walls.add(new Structure(x,y,100,20,true));
+                    	walls.add(new Structure(x,y,100/X_REDUC,20/Y_REDUC,true));
                         structures.add(walls.get(walls.size()-1));
                     }
                 }
                 if(name == "robber" ){
-                    agents.add(new Intruder(x, y));
+                    agents.add(new Intruder(x, y,30/X_REDUC,30/Y_REDUC));
                 }
                 if(name == "candle" ){
-                    structures.add(new LowVisionArea(x,y,20,40));
+                    structures.add(new LowVisionArea(x,y,20/X_REDUC,40/Y_REDUC));
                 }
                 if(name == "lookout" ){
-                    structures.add(new SentryTower(x, y, 50, 50));
+                    structures.add(new SentryTower(x, y, 50/X_REDUC, 50/Y_REDUC));
                 }
                 if(name == "Vdoor" ){
                 	for(int i=0; i<walls.size(); i++) {
@@ -213,10 +243,10 @@ public class MapState extends State {
                 	}
                 }
                 if(name == "cop" ){
-                    agents.add(new Guard(x, y));
+                    agents.add(new Guard(x, y,30/X_REDUC,30/Y_REDUC));
                 }
                 if(name == "web" ){
-                    activeObjects.add(new Web((int) x,(int) y));
+                    structures.add(new OuterWall(x,y,20/X_REDUC,20/Y_REDUC));
                 }
 
 
@@ -254,15 +284,15 @@ public class MapState extends State {
         }
 
         for(int i =0; i < activeObjects.size(); i++ ){
-            sb.draw(activeObjects.get(i).texture, activeObjects.get(i).xPos*5f,activeObjects.get(i).yPos*4f,activeObjects.get(i).width,activeObjects.get(i).height);
+            sb.draw(activeObjects.get(i).texture, activeObjects.get(i).xPos*X_REDUC,activeObjects.get(i).yPos*Y_REDUC,activeObjects.get(i).width,activeObjects.get(i).height);
         }
         
         for(int i =0; i < agents.size(); i++ ){
-            sb.draw(agents.get(i).texture, agents.get(i).xPos*5f,agents.get(i).yPos*4f,30,30);
+            sb.draw(agents.get(i).texture, agents.get(i).xPos*X_REDUC,agents.get(i).yPos*Y_REDUC,30,30);
         }
         
         for(int i =0; i < structures.size(); i++ ){
-            structures.get(i).drawTexture(sb,5f,4f);
+            structures.get(i).drawTexture(sb,X_REDUC,Y_REDUC);
         }
         
         

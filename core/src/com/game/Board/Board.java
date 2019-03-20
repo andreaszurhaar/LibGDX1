@@ -5,6 +5,7 @@ package com.game.Board;
 
 import java.util.ArrayList;
 import java.util.Random;
+import com.badlogic.gdx.math.Rectangle;
 
 
 /**
@@ -88,28 +89,52 @@ public class Board {
 			float rot = agents.get(a).getRotation();
 			agents.get(a).rotate(rot/fps);
 			
+			
+			float speed = agents.get(a).getSpeed()/fps;
+			double angle = (double) agents.get(a).getAngleRad();
+			float newX = agents.get(a).getX()+(float) Math.cos(angle)*speed;
+			float newY = agents.get(a).getY()+(float) Math.sin(angle)*speed;
+			System.out.println("projected x: "+newX+"  y: "+newY);
+			
 			//check collision with all nearby structures
 			boolean collided = false;
+			
 			System.out.println("x: "+x+"  y: "+y);
+			System.out.println("agentX: "+agents.get(a).area.getX()+"  agentY: "+agents.get(a).area.getX());
+			System.out.println("agentX: "+agents.get(a).area.getWidth()+"  agentY: "+agents.get(a).area.getHeight());
+			
 			for(int i=0; i<positionTracker[x][y].size(); i++) {
-				if(territories.get(positionTracker[x][y].get(i)).contains(agents.get(a).getX(),agents.get(a).getY())) {collided = true;}
+				
+				System.out.println("agentX: "+territories.get(positionTracker[x][y].get(i)).getMinX()+"  agentY: "+territories.get(positionTracker[x][y].get(i)).getMinY()+
+						"strX: "+territories.get(positionTracker[x][y].get(i)).getMaxX()+"  strY: "+territories.get(positionTracker[x][y].get(i)).getMaxY());
+				System.out.print(territories.get(positionTracker[x][y].get(i)).intersects(agents.get(a).area));
+				Rectangle projected = new Rectangle(newX,newY,agents.get(a).area.width,agents.get(a).area.height);
+				if(territories.get(positionTracker[x][y].get(i)).intersects(projected)) {collided = true;
+				System.out.println("collided");}
+
+				/*
+				if(territories.get(positionTracker[x][y].get(i)).contains(newX,newY)
+						|| territories.get(positionTracker[x][y].get(i)).contains(newX,newY+30)
+						|| territories.get(positionTracker[x][y].get(i)).contains(newX+30,newY)
+						|| territories.get(positionTracker[x][y].get(i)).contains(newX+30,newY+30)) {collided = true;
+				System.out.println("collided");}
+				*/
 			}
 			
 			//move the agent if it's not colliding
 			if(!collided) {
-				float speed = agents.get(a).getSpeed()/fps;
-				double angle = agents.get(a).getAngle();
-				//System.out.println("position of agent "+a+" was: "+agents.get(a).getX()+" ; "+agents.get(a).getY()+"  with angle: "+angle+"  and speed: "+speed);
-
-				float newX = agents.get(a).getX()+(float) Math.cos(angle)*speed;
-				float newY = agents.get(a).getY()+(float) Math.sin(angle)*speed;
+				
 				//System.out.println("compare x: "+agents.get(a).getX()+" ; "+newX);
 				//System.out.println("compare y: "+agents.get(a).getY()+" ; "+newY);
 				agents.get(a).setPos(newX,newY);
-				//System.out.println("position of agent "+a+": "+newX+" ; "+newY);
-				agents.get(a).triggerStep();
+				System.out.println("position of agent "+a+": "+newX+" ; "+newY);
+				System.out.println("position tracker of size: "+positionTracker[x][y].size());
 				//System.out.println("position of agent becomes: "+a+" was: "+agents.get(a).getX()+" ; "+agents.get(a).getY()+"  with angle: "+agents.get(a).getAngle()+"  and speed: "+agents.get(a).getSpeed());
 			}
+			System.out.println("position of agent was: "+a+" was: "+agents.get(a).getX()+" ; "+agents.get(a).getY()+"  with angle: "+agents.get(a).getAngleRad()+"  and speed: "+agents.get(a).getSpeed());
+			agents.get(a).triggerStep();
+			System.out.println("position of agent becomes: "+a+" was: "+agents.get(a).getX()+" ; "+agents.get(a).getY()+"  with angle: "+agents.get(a).getAngleRad()+"  and speed: "+agents.get(a).getSpeed());
+
 			
 			
 			
