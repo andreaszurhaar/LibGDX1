@@ -60,8 +60,8 @@ public class MapState extends State {
     public TestAI ai;
     public TestAI2 ai2;
     public Collider collider;
-    public static final int X_REDUC = 1;
-    public static final int Y_REDUC = 1;
+    public static final int X_REDUC = 5;
+    public static final int Y_REDUC = 4;
     
     
     public MapState(GameStateManager gsm){
@@ -80,22 +80,22 @@ public class MapState extends State {
         ai2 = new TestAI2();
         collider = new Collider();
 
-         play = new Play(865,545);
-         vWall = new vWall(820,520);
-         hWall = new hWall(0,500);
+         play = new Play(865,845);
+         vWall = new vWall(820,820);
+         hWall = new hWall(0,800);
          ground = new Ground(0,0);
 
 
-        menuObjects.add(new Robber(5,575));
-        menuObjects.add(new Cop(85,575));
-        menuObjects.add(new Steps(165,575));
-        menuObjects.add(new Candle(245,575));
-        menuObjects.add(new hWall(325,575));
-        menuObjects.add(new VDoor(405,575));
-        menuObjects.add(new Door(485,575));
-        menuObjects.add(new Target(565,575));
-        menuObjects.add(new LookOut(645,575));
-        menuObjects.add(new Web(725,575));
+        menuObjects.add(new Robber(5,525));
+        menuObjects.add(new Cop(85,525));
+        menuObjects.add(new Steps(165,525));
+        menuObjects.add(new Candle(245,525));
+        menuObjects.add(new hWall(325,525));
+        menuObjects.add(new VDoor(405,525));
+        menuObjects.add(new Door(485,525));
+        menuObjects.add(new Target(565,525));
+        menuObjects.add(new LookOut(645,525));
+        menuObjects.add(new Web(725,525));
 
         /*
         OuterWall wall1 = new OuterWall(10,10,5,5);
@@ -105,8 +105,8 @@ public class MapState extends State {
         */
         
         for(int i=0; i<50; i++) {
-        	structures.add(new OuterWall(i*20/Y_REDUC,0,20/X_REDUC,20/Y_REDUC));
-        	structures.add(new OuterWall(i*20/Y_REDUC,500-20/X_REDUC,20/X_REDUC,20/Y_REDUC));
+        	structures.add(new OuterWall(i*Y_REDUC,0,20/X_REDUC,20/Y_REDUC));
+        	structures.add(new OuterWall(i*Y_REDUC,200-X_REDUC,20/X_REDUC,20/Y_REDUC));
         	/*
         	if(i==34) {
         		System.out.println(structures.get(69).getMinX()+"  "+structures.get(69).getMinY());
@@ -116,9 +116,9 @@ public class MapState extends State {
         	*/
         }
         
-        for(int i=1; i<25; i++) {
-        	structures.add(new OuterWall(0,i*20/X_REDUC,20/X_REDUC,20/Y_REDUC));
-        	structures.add(new OuterWall(1000-20/Y_REDUC,i*20/X_REDUC,20/X_REDUC,20/Y_REDUC));
+        for(int i=1; i<40; i++) {
+        	structures.add(new OuterWall(0,i*X_REDUC,20/X_REDUC,20/Y_REDUC));
+        	structures.add(new OuterWall(200-Y_REDUC,i*X_REDUC,20/X_REDUC,20/Y_REDUC));
         }
         
 
