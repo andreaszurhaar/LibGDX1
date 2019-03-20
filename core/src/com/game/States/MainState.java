@@ -20,6 +20,7 @@ import com.game.Board.TargetArea;
 import com.game.Objects.Cop;
 import com.game.Objects.Door;
 import com.game.Objects.GameObject;
+import com.game.Objects.Ground;
 import com.game.Objects.LookOut;
 import com.game.Objects.Robber;
 import com.game.Objects.Target;
@@ -44,6 +45,8 @@ public class MainState extends State {
     public TextureRegion tR;
     public SpriteReader reader;
     public Board board;
+    public Ground ground;
+
 
     public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents) {
         super(gsm);
@@ -52,6 +55,7 @@ public class MainState extends State {
       //  background = new Texture("desert.png");
         wall = new Texture("wall.png");
         play = new Texture("play.png");
+        ground = new Ground(0,0);
         reader = new SpriteReader();
         try {
             tR = reader.getImage(100,100,25,25);
@@ -59,8 +63,8 @@ public class MainState extends State {
             e.printStackTrace();
         }
       //separate the agents and structures
-        structures = new ArrayList<Area>();
-        agents = new ArrayList<Agent>();
+        this.structures = structures;
+        this.agents = agents;
         /*
         for(int i=0; i<gameObjects.size(); i++) {
 	        GameObject go = gameObjects.get(i);
@@ -119,7 +123,7 @@ public class MainState extends State {
                 System.out.println("Error");
             }
             // sb.draw(play,850,535, 120,120);
-            if (Gdx.input.getX() > 850 && Gdx.input.getY() < 535) {
+            if (Gdx.input.getX() > 850 && Gdx.input.getY() < 835) {
                 gsm.pop();
             }
             int x = (int) Math.floor(Gdx.input.getX());
@@ -135,12 +139,21 @@ public class MainState extends State {
 
     @Override
     public void render(SpriteBatch sb) {
+    	board.updateAgents();
         sb.begin();
-       // sb.draw(tR, 0, 0, CopsAndRobbers.WIDTH, CopsAndRobbers.HEIGHT);
-        sb.draw(play, 850, 535, 120, 120);
-        sb.draw(wall, 0, 520, 1000, 20);
-        sb.draw(wall, 820, 520, 20, 180);
+        sb.draw(ground.texture,ground.xPos,ground.yPos, CopsAndRobbers.WIDTH,CopsAndRobbers.HEIGHT);
+        sb.draw(play, 850, 835, 120, 120);
+        sb.draw(wall, 0, 800, 1000, 20);
+        sb.draw(wall, 820, 820, 20, 180);
 
+        for(int i =0; i < agents.size(); i++ ){
+            sb.draw(agents.get(i).texture, agents.get(i).xPos*MapState.X_REDUC,agents.get(i).yPos*MapState.Y_REDUC,30,30);
+        }
+        
+        for(int i =0; i < structures.size(); i++ ){
+            structures.get(i).drawTexture(sb,MapState.X_REDUC,MapState.Y_REDUC);
+        }
+        
         /*
         for (int i = 0; i < gameObjects.size(); i++) {
             sb.draw(gameObjects.get(i).texture, gameObjects.get(i).xPos, gameObjects.get(i).yPos, gameObjects.get(i).width, gameObjects.get(i).height);

@@ -3,12 +3,15 @@
  */
 package com.game.Board;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
-
+import com.game.States.MapState;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Intersector;
+
 
 /**
  * @author Lukas Padolevicius
@@ -17,28 +20,27 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Agent extends AssetManager {
 
+	public Rectangle area;
 	public float xPos;
 	public float yPos;
-	private Vector2 viewAngle;
-	private float speed;
-	private float rotation;
+	public Vector2 viewAngle;
+	public float speed;
+	public float rotation;
 	private float maxRotation;
 	private float maxSpeed;
-	private float soundRange;
-	
+	public float soundRange;
+	public SoundOccurence lastHeardSound;
+
 	public String name;
-    public Rectangle bounds;
     public TextureRegion texture;
 
 	
 	
-	public Agent(float x, float y) {
+	public Agent(float x, float y, float width, float height) {
+        area = new Rectangle(x,y,width,height);
 		xPos = x;
 		yPos = y;
 		viewAngle = new Vector2(1,1);
-		viewAngle.setToRandomDirection();
-		speed = 0;
-		soundRange = 0;
 	}
 	
 	public float getX() {
@@ -52,12 +54,19 @@ public class Agent extends AssetManager {
 	public void setPos(float x, float y) {
 		xPos = x;
 		yPos = y;
-        bounds.setX((int) this.xPos);
-        bounds.setY((int) this.yPos);
-	}
+		area.setPosition(x,y);
+   	}
+	
+	public boolean intersects(Rectangle rect) {
+		return Intersector.overlaps(rect,this.area);
+   	}
 	
 	public float getAngle() {
 		return viewAngle.angle();
+	}
+
+	public float getAngleRad() {
+		return viewAngle.angleRad();
 	}
 
 	public float getRotation() {
@@ -100,5 +109,7 @@ public class Agent extends AssetManager {
     }
     public void setName(String string){this.name  =string;}
 
-
+	public void setLastHeardSound(SoundOccurence lastHeardSound) {
+		this.lastHeardSound = lastHeardSound;
+	}
 }

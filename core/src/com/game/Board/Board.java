@@ -5,6 +5,7 @@ package com.game.Board;
 
 import java.util.ArrayList;
 import java.util.Random;
+import com.badlogic.gdx.math.Rectangle;
 
 
 /**
@@ -17,6 +18,7 @@ public class Board {
 	private ArrayList<Area> territories;
 	private ArrayList<Agent> agents;
 	private int fps = 10;
+	private final int VISUAL_RANGE = 20;
 	
 	public Board() {
 		territories = new ArrayList<Area>();
@@ -88,24 +90,52 @@ public class Board {
 			float rot = agents.get(a).getRotation();
 			agents.get(a).rotate(rot/fps);
 			
+			
+			float speed = agents.get(a).getSpeed()/fps;
+			double angle = (double) agents.get(a).getAngleRad();
+			float newX = agents.get(a).getX()+(float) Math.cos(angle)*speed;
+			float newY = agents.get(a).getY()+(float) Math.sin(angle)*speed;
+			System.out.println("projected x: "+newX+"  y: "+newY);
+			
 			//check collision with all nearby structures
 			boolean collided = false;
+			
+			System.out.println("x: "+x+"  y: "+y);
+			System.out.println("agentX: "+agents.get(a).area.getX()+"  agentY: "+agents.get(a).area.getX());
+			System.out.println("agentX: "+agents.get(a).area.getWidth()+"  agentY: "+agents.get(a).area.getHeight());
+			
 			for(int i=0; i<positionTracker[x][y].size(); i++) {
-				if(territories.get(positionTracker[x][y].get(i)).contains(agents.get(a).getX(),agents.get(a).getY())) {collided = true;}
+				
+				System.out.println("agentX: "+territories.get(positionTracker[x][y].get(i)).getMinX()+"  agentY: "+territories.get(positionTracker[x][y].get(i)).getMinY()+
+						"strX: "+territories.get(positionTracker[x][y].get(i)).getMaxX()+"  strY: "+territories.get(positionTracker[x][y].get(i)).getMaxY());
+				System.out.print(territories.get(positionTracker[x][y].get(i)).intersects(agents.get(a).area));
+				Rectangle projected = new Rectangle(newX,newY,agents.get(a).area.width,agents.get(a).area.height);
+				if(territories.get(positionTracker[x][y].get(i)).intersects(projected)) {collided = true;
+				System.out.println("collided");}
+
+				/*
+				if(territories.get(positionTracker[x][y].get(i)).contains(newX,newY)
+						|| territories.get(positionTracker[x][y].get(i)).contains(newX,newY+30)
+						|| territories.get(positionTracker[x][y].get(i)).contains(newX+30,newY)
+						|| territories.get(positionTracker[x][y].get(i)).contains(newX+30,newY+30)) {collided = true;
+				System.out.println("collided");}
+				*/
 			}
 			
 			//move the agent if it's not colliding
 			if(!collided) {
-				float speed = agents.get(a).getSpeed()/fps;
-				double angle = agents.get(a).getAngle();
-				System.out.println("position of agent "+a+" was: "+agents.get(a).getX()+" ; "+agents.get(a).getY()+"  with angle: "+angle+"  and speed: "+speed);
-
-				float newX = agents.get(a).getX()+(float) Math.cos(angle)*speed;
-				float newY = agents.get(a).getY()+(float) Math.sin(angle)*speed;
+				
+				//System.out.println("compare x: "+agents.get(a).getX()+" ; "+newX);
+				//System.out.println("compare y: "+agents.get(a).getY()+" ; "+newY);
 				agents.get(a).setPos(newX,newY);
 				System.out.println("position of agent "+a+": "+newX+" ; "+newY);
-				agents.get(a).triggerStep();
+				System.out.println("position tracker of size: "+positionTracker[x][y].size());
+				//System.out.println("position of agent becomes: "+a+" was: "+agents.get(a).getX()+" ; "+agents.get(a).getY()+"  with angle: "+agents.get(a).getAngle()+"  and speed: "+agents.get(a).getSpeed());
 			}
+			System.out.println("position of agent was: "+a+" was: "+agents.get(a).getX()+" ; "+agents.get(a).getY()+"  with angle: "+agents.get(a).getAngleRad()+"  and speed: "+agents.get(a).getSpeed());
+			agents.get(a).triggerStep();
+			System.out.println("position of agent becomes: "+a+" was: "+agents.get(a).getX()+" ; "+agents.get(a).getY()+"  with angle: "+agents.get(a).getAngleRad()+"  and speed: "+agents.get(a).getSpeed());
+
 			
 			
 			
@@ -118,12 +148,42 @@ public class Board {
 				for (int k = 0; k < 25; k++) {
 					Random rand = new Random();
 					if (rand.nextDouble() < 0.1) {
-						SoundOccurence s = new SoundOccurence(System.currentTimeMillis(), positionTracker[i][j], k);
+						//are we using xpos and ypos or positiontracker to store coordinates?
+						//SoundOccurence s = new SoundOccurence(System.currentTimeMillis(), positionTracker[i][j], k);
+						double xpos = i * 200;
+						double ypos = j* 200;
+						SoundOccurence s = new SoundOccurence(System.currentTimeMillis(), xpos, ypos);
 						System.out.println("Sound generated in square " + i + " " +  j + " in cell " + k);
+						checkIfAgentHears(s);
 					}
 				}
 			}
 		}
 	}
 
+	public void checkIfAgentHears(SoundOccurence s) {
+		for (Agent a : agents) {
+			//check if distance between sound and agent is within the sound range
+			if (Math.sqrt((s.xpos - a.getX()) * (s.xpos - a.getX()) + (s.ypos - a.getY()) * (s.ypos - a.getY())) < s.SOUND_RANGE) {
+				a.setLastHeardSound(s);
+			}
+		}
+	}
+
+	public void checkIfAgentSees(){
+		for(Agent a : agents){
+			for(Area t: territories){
+				//TODO change distance calculation so that it takes every point of the terrotitory in to account
+				if 		((Math.sqrt((t.getMinX() - a.getX()) * (t.getMinX() - a.getX()) + (t.getMinY() - a.getY()) * (t.getMinY() - a.getY())) < VISUAL_RANGE) ||
+						(Math.sqrt((t.getMaxX() - a.getX()) * (t.getMaxX() - a.getX()) + (t.getMinY() - a.getY()) * (t.getMinY() - a.getY()))   < VISUAL_RANGE) ||
+						(Math.sqrt((t.getMinX() - a.getX()) * (t.getMinX() - a.getX()) + (t.getMaxY() - a.getY()) * (t.getMaxY() - a.getY()))   < VISUAL_RANGE) ||
+						(Math.sqrt((t.getMaxX() - a.getX()) * (t.getMaxX() - a.getX()) + (t.getMaxY() - a.getY()) * (t.getMaxY() - a.getY()))   < VISUAL_RANGE)){
+					a.see(t);
+				}
+
+			}
+		}
+	}
+
 }
+

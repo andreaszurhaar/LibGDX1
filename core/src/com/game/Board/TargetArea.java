@@ -9,7 +9,7 @@ import com.game.Readers.SpriteReader;
 
 /**
  * @author Lukas Padolevicius
- *
+ * @author Andreas Zurhaar
  */
 public class TargetArea extends Area {
 
