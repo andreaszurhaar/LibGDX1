@@ -12,7 +12,7 @@ import com.game.States.MapState;
 
 /**
  * @author Lukas Padolevicius
- *
+ * @author Andreas Zurhaar
  */
 
 public class Area extends AssetManager {

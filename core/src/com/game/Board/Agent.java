@@ -10,6 +10,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Intersector;
 
 
 /**
@@ -54,6 +55,10 @@ public class Agent extends AssetManager {
 		xPos = x;
 		yPos = y;
 		area.setPosition(x,y);
+   	}
+	
+	public boolean intersects(Rectangle rect) {
+		return Intersector.overlaps(rect,this.area);
    	}
 	
 	public float getAngle() {

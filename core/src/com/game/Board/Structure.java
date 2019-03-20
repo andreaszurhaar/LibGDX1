@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * @author Lukas Padolevicius
- *
+ * @author Andreas Zurhaar
  */
 public class Structure extends Area {
 
