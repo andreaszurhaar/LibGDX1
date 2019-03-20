@@ -144,8 +144,8 @@ public class MainState extends State {
         sb.begin();
         sb.draw(ground.texture,ground.xPos,ground.yPos, CopsAndRobbers.WIDTH,CopsAndRobbers.HEIGHT);
         sb.draw(play, 850, 835, 120, 120);
-        sb.draw(wall, 0, 800, 1000, 20);
-        sb.draw(wall, 820, 820, 20, 180);
+        sb.draw(wall, 0, 500, 1000, 20);
+        sb.draw(wall, 820, 520, 20, 180);
 
         for(int i =0; i < agents.size(); i++ ){
             sb.draw(agents.get(i).texture, agents.get(i).xPos*MapState.X_REDUC,agents.get(i).yPos*MapState.Y_REDUC,30,30);
