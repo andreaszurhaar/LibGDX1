@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.game.AI.TestAI;
 import com.game.AI.TestAI2;
 import com.game.Board.Agent;
@@ -36,6 +37,8 @@ import com.game.Objects.hWall;
 import com.game.Objects.vWall;
 import com.game.Readers.SpriteReader;
 
+import org.w3c.dom.css.Rect;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -60,8 +63,8 @@ public class MapState extends State {
     public TestAI ai;
     public TestAI2 ai2;
     public Collider collider;
-    public static final int X_REDUC = 5;
-    public static final int Y_REDUC = 4;
+    public static final int X_REDUC = 1;
+    public static final int Y_REDUC = 1;
     
     
     public MapState(GameStateManager gsm){
@@ -80,22 +83,27 @@ public class MapState extends State {
         ai2 = new TestAI2();
         collider = new Collider();
 
-         play = new Play(865,845);
-         vWall = new vWall(820,820);
-         hWall = new hWall(0,800);
+         play = new Play(865,545);
+         vWall = new vWall(820,520);
+         hWall = new hWall(0,500);
          ground = new Ground(0,0);
 
 
-        menuObjects.add(new Robber(5,525));
-        menuObjects.add(new Cop(85,525));
-        menuObjects.add(new Steps(165,525));
-        menuObjects.add(new Candle(245,525));
-        menuObjects.add(new hWall(325,525));
-        menuObjects.add(new VDoor(405,525));
-        menuObjects.add(new Door(485,525));
-        menuObjects.add(new Target(565,525));
-        menuObjects.add(new LookOut(645,525));
-        menuObjects.add(new Web(725,525));
+
+        menuObjects.add(new Robber(5,575));
+        menuObjects.add(new Cop(85,575));
+        menuObjects.add(new Steps(165,575));
+        menuObjects.add(new Candle(245,575));
+        menuObjects.add(new hWall(325,575));
+        menuObjects.add(new VDoor(405,575));
+        menuObjects.add(new Door(485,575));
+        menuObjects.add(new Target(565,575));
+        menuObjects.add(new LookOut(645,575));
+        menuObjects.add(new Web(725,575));
+
+  
+
+
 
         /*
         OuterWall wall1 = new OuterWall(10,10,5,5);
@@ -105,8 +113,8 @@ public class MapState extends State {
         */
         
         for(int i=0; i<50; i++) {
-        	structures.add(new OuterWall(i*Y_REDUC,0,20/X_REDUC,20/Y_REDUC));
-        	structures.add(new OuterWall(i*Y_REDUC,200-X_REDUC,20/X_REDUC,20/Y_REDUC));
+        	structures.add(new OuterWall(i*20/Y_REDUC,0,20/X_REDUC,20/Y_REDUC));
+        	structures.add(new OuterWall(i*20/Y_REDUC,500-20/X_REDUC,20/X_REDUC,20/Y_REDUC));
         	/*
         	if(i==34) {
         		System.out.println(structures.get(69).getMinX()+"  "+structures.get(69).getMinY());
@@ -116,9 +124,9 @@ public class MapState extends State {
         	*/
         }
         
-        for(int i=1; i<40; i++) {
-        	structures.add(new OuterWall(0,i*X_REDUC,20/X_REDUC,20/Y_REDUC));
-        	structures.add(new OuterWall(200-Y_REDUC,i*X_REDUC,20/X_REDUC,20/Y_REDUC));
+        for(int i=1; i<25; i++) {
+        	structures.add(new OuterWall(0,i*20/X_REDUC,20/X_REDUC,20/Y_REDUC));
+        	structures.add(new OuterWall(1000-20/Y_REDUC,i*20/X_REDUC,20/X_REDUC,20/Y_REDUC));
         }
         
 
@@ -195,58 +203,83 @@ public class MapState extends State {
                 dispose();
                 gsm.push(new MainState(gsm,structures,agents));
             }
+
             if (Gdx.input.getY() >= 150) {
             float x = (float) Math.floor(Gdx.input.getX()/X_REDUC);
             float y = (float) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY())/Y_REDUC);
+            Rectangle area = new Rectangle(x,y,10,10);
+            Boolean overlaps = false;
 
-            System.out.println("pressed at x: "+x+"  y: "+y);
+           // System.out.println("pressed at x: "+x+"  y: "+y);
+               for(int i = 0; i < structures.size(); i++){
+                   if(structures.get(i).area.overlaps(area)){
+                       structures.remove(i);
+                       overlaps = true;
 
-               if(this.name == "target") {
-                    structures.add(new TargetArea(x, y,20/X_REDUC,20/Y_REDUC));
-                }
-
-                if(name == "steps" ){
-                    activeObjects.add(new Steps((int) x,(int) y));
-                }
-                if(name == "wall" ){
-                    if(vertical == true){
-                        walls.add(new Structure(x,y,20/X_REDUC,100/Y_REDUC,false));
-                        structures.add(walls.get(walls.size()-1));
-                        
-                    }
-                    else{
-                    	walls.add(new Structure(x,y,100/X_REDUC,20/Y_REDUC,true));
-                        structures.add(walls.get(walls.size()-1));
+                   }
+               }
+                for(int i = 0; i < agents.size(); i++){
+                    if(agents.get(i).area.overlaps(area)){
+                        agents.remove(i);
+                        overlaps = true;
                     }
                 }
-                if(name == "robber" ){
-                    agents.add(new Intruder(x, y,30/X_REDUC,30/Y_REDUC));
+
+                for(int i = 0; i < walls.size(); i++){
+                    if(walls.get(i).area.overlaps(area)){
+                        walls.remove(i);
+                        overlaps = true;
+                    }
                 }
-                if(name == "candle" ){
-                    structures.add(new LowVisionArea(x,y,20/X_REDUC,40/Y_REDUC));
-                }
-                if(name == "lookout" ){
-                    structures.add(new SentryTower(x, y, 50/X_REDUC, 50/Y_REDUC));
-                }
-                if(name == "Vdoor" ){
-                	for(int i=0; i<walls.size(); i++) {
-                		if(walls.get(i).contains(x,y)) {
-                			walls.get(i).placeDoor(x,y);
-                		}
-                	}
-                }
-                if(name == "door" ){
-                	for(int i=0; i<walls.size(); i++) {
-                		if(walls.get(i).contains(x,y)) {
-                			walls.get(i).placeDoor(x,y);
-                		}
-                	}
-                }
-                if(name == "cop" ){
-                    agents.add(new Guard(x, y,30/X_REDUC,30/Y_REDUC));
-                }
-                if(name == "web" ){
-                    structures.add(new OuterWall(x,y,20/X_REDUC,20/Y_REDUC));
+
+                if(!overlaps) {
+
+                    if (this.name == "target") {
+                        structures.add(new TargetArea(x, y, 20 / X_REDUC, 20 / Y_REDUC));
+                    }
+
+                    if (name == "steps") {
+                        activeObjects.add(new Steps((int) x, (int) y));
+                    }
+                    if (name == "wall") {
+                        if (vertical == true) {
+                            walls.add(new Structure(x, y, 20 / X_REDUC, 100 / Y_REDUC, false));
+                            structures.add(walls.get(walls.size() - 1));
+
+                        } else {
+                            walls.add(new Structure(x, y, 100 / X_REDUC, 20 / Y_REDUC, true));
+                            structures.add(walls.get(walls.size() - 1));
+                        }
+                    }
+                    if (name == "robber") {
+                        agents.add(new Intruder(x, y, 30 / X_REDUC, 30 / Y_REDUC));
+                    }
+                    if (name == "candle") {
+                        structures.add(new LowVisionArea(x, y, 20 / X_REDUC, 40 / Y_REDUC));
+                    }
+                    if (name == "lookout") {
+                        structures.add(new SentryTower(x, y, 50 / X_REDUC, 50 / Y_REDUC));
+                    }
+                    if (name == "Vdoor") {
+                        for (int i = 0; i < walls.size(); i++) {
+                            if (walls.get(i).contains(x, y)) {
+                                walls.get(i).placeDoor(x, y);
+                            }
+                        }
+                    }
+                    if (name == "door") {
+                        for (int i = 0; i < walls.size(); i++) {
+                            if (walls.get(i).contains(x, y)) {
+                                walls.get(i).placeDoor(x, y);
+                            }
+                        }
+                    }
+                    if (name == "cop") {
+                        agents.add(new Guard(x, y, 30 / X_REDUC, 30 / Y_REDUC));
+                    }
+                    if (name == "web") {
+                        structures.add(new OuterWall(x, y, 20 / X_REDUC, 20 / Y_REDUC));
+                    }
                 }
 
 

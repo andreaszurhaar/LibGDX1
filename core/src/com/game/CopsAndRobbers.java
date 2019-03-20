@@ -12,7 +12,7 @@ import com.game.States.MapState;
 public class CopsAndRobbers extends ApplicationAdapter {
 
 	public static final int WIDTH = 1000;
-	public static final int HEIGHT = 600;
+	public static final int HEIGHT = 650;
 	public static final String TITLE = "CopsAndRobbers";
 	public SpriteBatch sb;
 	public GameStateManager gsm;
