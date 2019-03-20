@@ -121,6 +121,15 @@ public class Board {
 				System.out.println("collided");}
 				*/
 			}
+			for(int i=0; i<agents.size(); i++) {
+				if(a==i) { 
+				} else {
+					Rectangle projected = new Rectangle(newX,newY,agents.get(a).area.width,agents.get(a).area.height);
+					if(agents.get(i).intersects(projected)) {collided = true;}
+				}
+				
+			}
+			
 			
 			//move the agent if it's not colliding
 			if(!collided) {
