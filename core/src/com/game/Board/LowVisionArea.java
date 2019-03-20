@@ -11,17 +11,18 @@ import com.game.Readers.SpriteReader;
  * @author Lukas Padolevicius
  * @author Andreas Zurhaar
  */
-public class OuterWall extends Area{
-
+public class LowVisionArea extends Area {
+	
 	SpriteReader reader = new SpriteReader();
 
-	public OuterWall(float startX, float startY, float width, float height) {
+	public LowVisionArea(float startX, float startY, float width, float height) {
 		super(startX, startY, width, height);
 		try {
-            this.texture = reader.getImage(32,292,26,28);
+            this.texture = reader.getImage(104,225,15,33);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 	}
+
 }

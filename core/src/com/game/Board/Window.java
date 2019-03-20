@@ -11,17 +11,23 @@ import com.game.Readers.SpriteReader;
  * @author Lukas Padolevicius
  * @author Andreas Zurhaar
  */
-public class OuterWall extends Area{
-
+public class Window extends Area {
+	
 	SpriteReader reader = new SpriteReader();
 
-	public OuterWall(float startX, float startY, float width, float height) {
+	public Window(float startX, float startY, float width, float height, boolean horizontal) {
 		super(startX, startY, width, height);
 		try {
-            this.texture = reader.getImage(32,292,26,28);
+			if(horizontal) {
+        		this.texture = reader.getImage(32,417,30,30);
+        	} else {
+                this.texture = reader.getImage(106,450,12,30);
+        	}
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 	}
+
+
 }

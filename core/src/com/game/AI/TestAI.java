@@ -1,5 +1,6 @@
 package com.game.AI;
 
+import com.game.Board.Agent;
 import com.game.Objects.Cop;
 import com.game.Objects.GameObject;
 
@@ -11,13 +12,13 @@ public class TestAI extends AI {
 
     }
     @Override
-    public void move(ArrayList<GameObject> object) {
-        for(int i = 0; i < object.size(); i++) {
-            if (object.get(i).xPos > 1000) {
-                object.get(i).xPos = 0;
+    public void move(ArrayList<Agent> agents) {
+        for(int i = 0; i < agents.size(); i++) {
+            if (agents.get(i).xPos > 1000) {
+                agents.get(i).xPos = 0;
             }
 
-            object.get(i).setX(1);
+            agents.get(i).setX(1);
         }
 
     }
