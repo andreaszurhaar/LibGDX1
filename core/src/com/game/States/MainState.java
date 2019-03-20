@@ -130,6 +130,7 @@ public class MainState extends State {
             int y = (int) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY()));
 
         }
+        board.updateAgents();
     }
 
     @Override
@@ -139,7 +140,7 @@ public class MainState extends State {
 
     @Override
     public void render(SpriteBatch sb) {
-    	board.updateAgents();
+    	
         sb.begin();
         sb.draw(ground.texture,ground.xPos,ground.yPos, CopsAndRobbers.WIDTH,CopsAndRobbers.HEIGHT);
         sb.draw(play, 850, 835, 120, 120);
