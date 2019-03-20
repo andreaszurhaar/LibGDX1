@@ -15,7 +15,7 @@ public class Graph {
     List<Node> neighbours = new ArrayList<Node>();
     private Node target;
     private ArrayList<Area> structures;
-    private final int mapSize = 35;
+    private final int mapSize = 200;
 
     public Graph(ArrayList<Area> structures, Node target) {
         this.structures = structures;
@@ -28,7 +28,7 @@ public class Graph {
     {
         nodes = new ArrayList<Node>();
         edges = new ArrayList<Edge>();
-        System.out.println("We're creating the vertices");
+        //System.out.println("We're creating the vertices");
         int counter = 0;
         int row = 0;
         for (int i = 0; i<mapSize; i++)
@@ -36,14 +36,14 @@ public class Graph {
             for (int j = 0; j<mapSize; j++) {
 
                     nodes.add(new Node(i, j, target));
-                    System.out.println("create node " + nodes.get(counter+row*mapSize).id);
+                    //System.out.println("create node " + nodes.get(counter+row*mapSize).id);
 
                     if (counter > 0) {
-                        System.out.println("We add a new edge");
+                        //System.out.println("We add a new edge");
                         edges.add(new Edge(nodes.get(counter - 1 + row * mapSize), nodes.get(counter + row * mapSize), 1));
                     }
                     if (row != 0) {
-                        System.out.println("We add a new edge");
+                        //System.out.println("We add a new edge");
                         edges.add(new Edge(nodes.get(counter + row * mapSize), nodes.get(counter + row * mapSize - mapSize), 1));
                     }
                     counter++;
@@ -98,7 +98,7 @@ public class Graph {
 
     public Node setStartNode(int x, int y)
     {
-        System.out.println("Setting the start node");
+        //System.out.println("Setting the start node");
         for (int i = 0; i<nodes.size();i++)
         {
             if (nodes.get(i).xcoord == x && nodes.get(i).ycoord == y)
@@ -112,7 +112,7 @@ public class Graph {
 
     public Node setTargetNode(int x, int y)
     {
-        System.out.println("Setting the target node");
+        //System.out.println("Setting the target node");
         for (int i = 0; i<nodes.size();i++)
         {
             if (nodes.get(i).xcoord == x && nodes.get(i).ycoord == y)
@@ -128,7 +128,7 @@ public class Graph {
     {
         for (int i = 0; i<edges.size(); i++) {
 
-        System.out.println("edge " + i + " has start node " + edges.get(i).start.id + " and end node " + edges.get(i).end.id);
+        //System.out.println("edge " + i + " has start node " + edges.get(i).start.id + " and end node " + edges.get(i).end.id);
         }
     }
 
@@ -136,7 +136,7 @@ public class Graph {
     {
         neighbours.clear();
 
-        System.out.println("Finding the neighbours of node " + node.xcoord + " , " + node.ycoord);
+        //System.out.println("Finding the neighbours of node " + node.xcoord + " , " + node.ycoord);
 
         for (int i = 0; i<edges.size(); i++)
         {

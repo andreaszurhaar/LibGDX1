@@ -92,7 +92,7 @@ public class Node {
     public double estimatedCostTarget()
     {
         hCost = Math.abs(xcoord - targetNode.xcoord) + Math.abs(ycoord - targetNode.ycoord);
-        System.out.println("Calculating estimatedCostTarget to be: " + hCost );
+        //System.out.println("Calculating estimatedCostTarget to be: " + hCost );
         return hCost;
     }
 
@@ -119,7 +119,7 @@ public class Node {
         {
             if (neighbours.get(i).isEqual(node))
             {
-                System.out.println("Weight of edge is: " + connections.get(i).weight);
+                //System.out.println("Weight of edge is: " + connections.get(i).weight);
                 return connections.get(i).weight;
             }
         }
@@ -166,8 +166,8 @@ public class Node {
 
     public void addConnection(Edge edge, Node neighbour)
     {
-        System.out.println("Edge we're adding: " + edge.id);
-        System.out.println("Neighbour of current node: " + neighbour.id);
+        //System.out.println("Edge we're adding: " + edge.id);
+        //System.out.println("Neighbour of current node: " + neighbour.id);
         neighbours.add(neighbour);
         connections.add(edge);
     }

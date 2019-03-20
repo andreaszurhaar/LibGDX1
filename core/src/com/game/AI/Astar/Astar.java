@@ -14,6 +14,7 @@ public class Astar {
     private Graph map;
     private double lowestCost = 1000.0;
 
+
    /* public Astar(Agent agent, int startx, int starty, ArrayList areas)
     {
         this.agent = agent;
@@ -27,7 +28,7 @@ public class Astar {
     public Astar(ArrayList areas)
     {
         createInitialGraph(areas);
-        setStart(3, 3);
+        setStart(199, 199);
         //Take random target coordinates
         setTarget(0,1);
         start();
@@ -50,65 +51,66 @@ public class Astar {
 
     public void start()
     {
-        System.out.println("Running the a-star algorithm");
+        //System.out.println("Running the a-star algorithm");
         open.add(start);
         start.setTotalCost(0);
         int steps = 0;
         Node currentNode = start;
         while (!open.isEmpty())
         {
-            lowestCost = 100;
-            System.out.println("In while loop: " + steps);
-            System.out.println("Open-list:" );
+            lowestCost = 100000;
+            //System.out.println("In while loop: " + steps);
+            //System.out.println("Open-list:" );
             for (Node n:open)
             {
-                System.out.println("Node " + n.id );
+                //System.out.println("Node " + n.id );
             }
+            //System.out.println("lowest cost = " + lowestCost);
             for (int j = 0; j<open.size(); j++)
             {
 
                 //System.out.println("gcost of node " + open.get(j).id + " is " + open.get(j).gCost );
-                //System.out.println("hcost of node " + open.get(j).id + " is " + open.get(j).hCost );
-                //System.out.println("Fcost of node " + open.get(j).id + " is " + open.get(j).fCost );
+               //System.out.println("hcost of node " + open.get(j).id + " is " + open.get(j).hCost );
+               // System.out.println("Fcost of node " + open.get(j).id + " is " + open.get(j).fCost );
                 if (open.get(j).fCost < lowestCost) //find the lowest cost
                 {
                     lowestCost = open.get(j).fCost;
-                    System.out.println("New lowest cost: "+ lowestCost);
+                    //System.out.println("New lowest cost: "+ lowestCost);
                     currentNode = open.get(j);
                 }
             }
-            System.out.println("Node with lowest cost:" + currentNode.id);
+            //System.out.println("Node with lowest cost:" + currentNode.id);
             open.remove(currentNode);
 
             List<Node> neighbours = map.findAdjacentNodes(currentNode);
-            System.out.println("Number of neighbours:" + neighbours.size());
+            //System.out.println("Number of neighbours:" + neighbours.size());
             for (int i=0; i<neighbours.size(); i++ )
             {
-                System.out.println("neighbour node is " + neighbours.get(i).id);
+                //System.out.println("neighbour node is " + neighbours.get(i).id);
                 if (!closed.contains(neighbours.get(i))) {
                     if (neighbours.get(i).hasParent()) {
-                        System.out.println("Node has already a parent");
+                        //System.out.println("Node has already a parent");
                         if ((currentNode.fCost + neighbours.get(i).gCost) < (neighbours.get(i).getParent().fCost + neighbours.get(i).gCost)) {
-                            System.out.println("Currentnode as parent gives lower total cost so we update the parent");
+                            //System.out.println("Currentnode as parent gives lower total cost so we update the parent");
                             neighbours.get(i).setParent(currentNode);
                         }
                     } else {
                         neighbours.get(i).setParent(currentNode);
                     }
-                    System.out.println("Node " + neighbours.get(i).id + " has parent "  + neighbours.get(i).getParent().id);
+                    //System.out.println("Node " + neighbours.get(i).id + " has parent "  + neighbours.get(i).getParent().id);
                 }
 
                 neighbours.get(i).calcTotalCost(currentNode);
 
                 if(neighbours.get(i).isEqual(target))
                 {
-                    System.out.println("Target is reached");
+                    //System.out.println("Target is reached");
                     break;
                 }
 
                 else if (!open.contains(neighbours.get(i)) && !closed.contains(neighbours.get(i)))
                 {
-                    System.out.println("Open-list does not contain node");
+                    //System.out.println("Open-list does not contain node");
                     open.add(neighbours.get(i));
                 }
                 /*else if (closed.contains(neighbours.get(i)))
@@ -136,14 +138,14 @@ public class Astar {
                 }*/
 
             }
-            System.out.println("Adding node " + currentNode.id + " to closed-list");
+            //System.out.println("Adding node " + currentNode.id + " to closed-list");
             closed.add(currentNode);
             steps++;
 
         }
         if (!currentNode.isEqual(target))
         {
-            System.out.println("Failure");
+            //System.out.println("Failure");
         }
 
         printPath(target);
@@ -164,7 +166,7 @@ public class Astar {
             temp = temp.getParent();
         }
         System.out.println("Node " + start.id);
-        System.out.println("Total cost of path is: " + target.fCost );
+        //System.out.println("Total cost of path is: " + target.fCost );
     }
 
 
