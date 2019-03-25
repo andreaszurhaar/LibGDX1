@@ -12,9 +12,8 @@ public class Collider {
     }
 
     public ArrayList<GameObject> copVsRobber(ArrayList<GameObject> robbers, ArrayList<GameObject> cops){
-       // System.out.println("start method");
+       /* Checks if  any of the agents or*/
        if(cops.size() > 0 && robbers.size() > 0) {
-          // System.out.println("make it");
            for (int i = 0; i < cops.size(); i++) {
                for (int j = 0; j < robbers.size(); j++) {
                    if (cops.get(i).bounds.overlaps(robbers.get(j).bounds) == true) {

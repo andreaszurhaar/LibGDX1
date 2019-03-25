@@ -38,7 +38,6 @@ import com.game.Objects.vWall;
 import com.game.Readers.SpriteReader;
 
 import org.w3c.dom.css.Rect;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -54,14 +53,13 @@ public class MapState extends State {
     public ArrayList<Structure> walls;
     public String name;
     public boolean vertical;
+    public boolean delete;
     public BitmapFont font;
     public SpriteReader reader;
     public Play play;
     public vWall vWall;
     public hWall hWall;
-    public Ground ground;
-    public TestAI ai;
-    public TestAI2 ai2;
+    public Ground ground;;
     public Collider collider;
     public static final int X_REDUC = 1;
     public static final int Y_REDUC = 1;
@@ -79,8 +77,6 @@ public class MapState extends State {
         reader = new SpriteReader();
         font = new BitmapFont();
         font.setColor(Color.WHITE);
-        ai = new TestAI();
-        ai2 = new TestAI2();
         collider = new Collider();
 
          play = new Play(865,545);
@@ -101,27 +97,11 @@ public class MapState extends State {
         menuObjects.add(new LookOut(645,575));
         menuObjects.add(new Web(725,575));
 
-  
-
-
-
-        /*
-        OuterWall wall1 = new OuterWall(10,10,5,5);
-        OuterWall wall2 = new OuterWall(11,11,3,3);
-        System.out.println(wall1.contains(wall2.area));
-    	System.exit(0);
-        */
         
         for(int i=0; i<50; i++) {
         	structures.add(new OuterWall(i*20/Y_REDUC,0,20/X_REDUC,20/Y_REDUC));
         	structures.add(new OuterWall(i*20/Y_REDUC,500-20/X_REDUC,20/X_REDUC,20/Y_REDUC));
-        	/*
-        	if(i==34) {
-        		System.out.println(structures.get(69).getMinX()+"  "+structures.get(69).getMinY());
-        		System.out.println("collision is working: "+structures.get(68).contains(136f, 2)+structures.get(69).contains(136f, 198));
-        	System.exit(0);
-        	}
-        	*/
+
         }
         
         for(int i=1; i<25; i++) {
@@ -145,6 +125,20 @@ public class MapState extends State {
             }
             else{
                 vertical  = true;
+            }
+
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+            try {
+                TimeUnit.MILLISECONDS.sleep(300);
+            } catch (Exception e) {
+                System.out.println("Error");
+            }
+            if(delete == true){
+                delete = false;
+            }
+            else{
+                delete  = true;
             }
 
         }
@@ -211,24 +205,26 @@ public class MapState extends State {
             Boolean overlaps = false;
 
            // System.out.println("pressed at x: "+x+"  y: "+y);
-               for(int i = 0; i < structures.size(); i++){
-                   if(structures.get(i).area.overlaps(area)){
-                       structures.remove(i);
-                       overlaps = true;
+                if(delete == true) {
+                    for (int i = 0; i < structures.size(); i++) {
+                        if (structures.get(i).area.overlaps(area)) {
+                            structures.remove(i);
+                            overlaps = true;
 
-                   }
-               }
-                for(int i = 0; i < agents.size(); i++){
-                    if(agents.get(i).area.overlaps(area)){
-                        agents.remove(i);
-                        overlaps = true;
+                        }
                     }
-                }
+                    for (int i = 0; i < agents.size(); i++) {
+                        if (agents.get(i).area.overlaps(area)) {
+                            agents.remove(i);
+                            overlaps = true;
+                        }
+                    }
 
-                for(int i = 0; i < walls.size(); i++){
-                    if(walls.get(i).area.overlaps(area)){
-                        walls.remove(i);
-                        overlaps = true;
+                    for (int i = 0; i < walls.size(); i++) {
+                        if (walls.get(i).area.overlaps(area)) {
+                            walls.remove(i);
+                            overlaps = true;
+                        }
                     }
                 }
 
@@ -287,17 +283,12 @@ public class MapState extends State {
         }
 
 
-        //ai.move(agents);
-
-        //ai2.move(robberObjects);
-
         robberObjects = collider.copVsRobber(robberObjects, copObjects);
     }
 
     @Override
     public void update(float dt) {
         handleInput();
-      //  dispose();
     }
 
     @Override
@@ -327,17 +318,7 @@ public class MapState extends State {
         for(int i =0; i < structures.size(); i++ ){
             structures.get(i).drawTexture(sb,X_REDUC,Y_REDUC);
         }
-        
-        
-        /*
-        for(int i =0; i < copObjects.size(); i++ ){
-            sb.draw(copObjects.get(i).texture, copObjects.get(i).xPos,copObjects.get(i).yPos,copObjects.get(i).width,copObjects.get(i).height);
-        }
 
-        for(int i =0; i < robberObjects.size(); i++ ){
-            sb.draw(robberObjects.get(i).texture, robberObjects.get(i).xPos,robberObjects.get(i).yPos,robberObjects.get(i).width,robberObjects.get(i).height);
-        }
-		**/
 
         sb.end();
 
