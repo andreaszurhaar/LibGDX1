@@ -4,34 +4,27 @@ import java.util.ArrayList;
 
 public class SoundOccurence {
 
-    final int SOUND_RANGE = 10;
+    int soundRange;
     private long time;
-    ArrayList<Integer> position;
-    int cell;
-    double xpos;
-    double ypos;
+    float xpos;
+    float ypos;
 
-    public SoundOccurence(long time, ArrayList<Integer> positionTracker, int cell) {
-        this.time = time;
-        this.position = position;
-        this.cell = cell;
-    }
-
-    public SoundOccurence(long time, double xpos, double ypos) {
+    public SoundOccurence(long time, float xPos, float yPos, int range) {
         this.time = time;
         this.xpos = xpos;
         this.ypos = ypos;
+        this.soundRange = range;
+    }
+
+    public SoundOccurence(long time, float xpos, float ypos) {
+        this.time = time;
+        this.xpos = xpos;
+        this.ypos = ypos;
+        soundRange = 10;
     }
 
     public long getTime() {
         return time;
     }
-
-    public ArrayList<Integer> getPosition(){
-        return position;
-    }
-
-    public int getCell() {
-        return cell;
-    }
 }
+

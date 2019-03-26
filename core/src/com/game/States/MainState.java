@@ -148,7 +148,7 @@ public class MainState extends State {
         sb.draw(wall, 820, 520, 20, 180);
 
         for(int i =0; i < agents.size(); i++ ){
-            sb.draw(agents.get(i).texture, agents.get(i).xPos*MapState.X_REDUC,agents.get(i).yPos*MapState.Y_REDUC,30,30);
+            agents.get(i).drawTexture(sb,MapState.X_REDUC,MapState.Y_REDUC);
         }
         
         for(int i =0; i < structures.size(); i++ ){

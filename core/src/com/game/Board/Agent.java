@@ -9,6 +9,7 @@ import com.game.States.MapState;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Intersector;
 
@@ -23,24 +24,33 @@ public class Agent extends AssetManager {
 	public Rectangle area;
 	public float xPos;
 	public float yPos;
+	public float xCenter;
+	public float yCenter;
 	public Vector2 viewAngle;
 	public float speed;
 	public float rotation;
-	private float maxRotation;
+	public float turningCircle;
 	private float maxSpeed;
 	public float soundRange;
 	public SoundOccurence lastHeardSound;
+	public boolean hearing;
+	public int hearingCount;
 
 	public String name;
     public TextureRegion texture;
-
+    public TextureRegion visionCone;
+    public TextureRegion noticeSound;
 	
 	
 	public Agent(float x, float y, float width, float height) {
         area = new Rectangle(x,y,width,height);
-		xPos = x;
+        xPos = x;
 		yPos = y;
+		xCenter = xPos+width/2;
+		yCenter = yPos+height/2;
 		viewAngle = new Vector2(1,1);
+		turningCircle = 180;
+		hearing = false;
 	}
 	
 	public float getX() {
@@ -90,11 +100,14 @@ public class Agent extends AssetManager {
 	}
 	
 	public void hearSound(float directionAngle) {
+		hearing = true;
 		//heard a sound
+		//System.out.println("heard sound");
 	}
 	
 	public void see(Area object) {
 		//saw object
+		System.out.println("saw something");
 	}
 	
 	public void triggerStep() {	}
@@ -112,4 +125,19 @@ public class Agent extends AssetManager {
 	public void setLastHeardSound(SoundOccurence lastHeardSound) {
 		this.lastHeardSound = lastHeardSound;
 	}
+	
+	public void drawTexture(SpriteBatch sb, int xReduc, int yReduc) {
+    	sb.draw(texture, xPos*xReduc, yPos*yReduc, 
+    			(float) area.getWidth()*xReduc, (float) area.getHeight()*yReduc);
+    	if(hearing == true) {
+    		hearingCount++;
+    		if(hearingCount>10) {
+    			hearingCount = 0;
+    			hearing = false;
+    		}
+    		sb.draw(noticeSound, xPos*xReduc+area.getWidth()*xReduc/4, yPos*yReduc+area.getHeight()*xReduc*1.25f, 
+        			(float) area.getWidth()*xReduc/2, (float) area.getHeight()*yReduc/2);
+    	}
+    }
+
 }
