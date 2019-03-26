@@ -87,10 +87,6 @@ public class Board {
 			//check collision with all nearby structures
 			boolean collided = false;
 			
-			//find agent's array cell in positionTracker
-			int x = (int) agents.get(a).getX()/5;
-			int y = (int) agents.get(a).getY()/5;
-			
 			//update angle
 			float rot = agents.get(a).getRotation();
 			agents.get(a).rotate(rot/fps);
@@ -121,6 +117,7 @@ public class Board {
 			}
 			agents.get(a).triggerStep();
 		}
+		
 		generateSounds();
 		
 	}

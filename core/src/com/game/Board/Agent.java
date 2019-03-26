@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 
 /**
@@ -30,15 +32,17 @@ public class Agent extends AssetManager {
 	public float speed;
 	public float rotation;
 	public float turningCircle;
+	public float viewRadius;
 	private float maxSpeed;
 	public float soundRange;
 	public SoundOccurence lastHeardSound;
 	public boolean hearing;
+	public boolean seeing;
 	public int hearingCount;
 
 	public String name;
     public TextureRegion texture;
-    public TextureRegion visionCone;
+    public ShapeRenderer renderer;
     public TextureRegion noticeSound;
 	
 	
@@ -50,7 +54,9 @@ public class Agent extends AssetManager {
 		yCenter = yPos+height/2;
 		viewAngle = new Vector2(1,1);
 		turningCircle = 180;
+		viewRadius = 45;
 		hearing = false;
+		renderer = new ShapeRenderer();
 	}
 	
 	public float getX() {
@@ -108,6 +114,7 @@ public class Agent extends AssetManager {
 	}
 	
 	public void see(Area object) {
+		seeing = true;
 		//saw object
 		System.out.println("saw something");
 	}
@@ -129,6 +136,13 @@ public class Agent extends AssetManager {
 	}
 	
 	public void drawTexture(SpriteBatch sb, int xReduc, int yReduc) {
+		sb.end();
+       	renderer.begin(ShapeType.Line);
+       	if(seeing) {renderer.setColor(1, 1, 0, 1);}
+       	else {renderer.setColor(1, 1, 0, 1);}
+       	renderer.arc(xCenter, yCenter, 40,viewAngle.angle()-(viewRadius/2),viewRadius);
+       	renderer.end();
+    	sb.begin();
     	sb.draw(texture, xPos*xReduc, yPos*yReduc, 
     			(float) area.getWidth()*xReduc, (float) area.getHeight()*yReduc);
     	if(hearing == true) {
@@ -141,5 +155,6 @@ public class Agent extends AssetManager {
         			(float) area.getWidth()*xReduc/2, (float) area.getHeight()*yReduc/2);
     	}
     }
+	
 
 }
