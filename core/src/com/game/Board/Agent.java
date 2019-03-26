@@ -64,6 +64,8 @@ public class Agent extends AssetManager {
 	public void setPos(float x, float y) {
 		xPos = x;
 		yPos = y;
+		xCenter = xPos+this.area.width/2;
+		yCenter = yPos+this.area.height/2;
 		area.setPosition(x,y);
    	}
 	
