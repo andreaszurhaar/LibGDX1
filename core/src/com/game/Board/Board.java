@@ -72,7 +72,7 @@ public class Board {
 		
 	public ArrayList[][] getTrackerBoard() {
 		
-		System.out.println(positionTracker.length);
+		//System.out.println(positionTracker.length);
 		return positionTracker;
 	}
 	

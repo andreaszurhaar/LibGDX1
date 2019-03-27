@@ -138,20 +138,25 @@ public class FileHandler {
          ArrayList<Agent> agents = new ArrayList<Agent>();
          ArrayList<Area> structures = new ArrayList<Area>();
          ArrayList<Structure> walls = new ArrayList<Structure>();
-        /*
+
         File file=new File("Levels.txt");
         Scanner sc= null;
         try {
             sc = new Scanner(file);
+            for(int i = 0; i < 4; i++) {
+                sc.nextLine();
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        while(sc.hasNextLine()){
-            while(sc.next() != ":") {
-                System.out.println(sc.next(":"));
-            }
+        for(int i = (level-1)*4; i > 0; i--){
+            sc.nextLine();
         }
-        */
+        while(sc.hasNextLine()){
+
+            System.out.println(sc.nextLine());
+        }
+
 
          ArrayList<ArrayList> master = new ArrayList<ArrayList>();
          master.add(agents);
