@@ -25,6 +25,7 @@ public class Structure extends Area {
 		super(startX, startY, width, height);
 	    doorsAndWindows = new ArrayList<Area>();
 		this.horizontal = horizontal;
+		viewDistance = 10;
         SpriteReader reader = new SpriteReader();
         try {
         	if(horizontal) {

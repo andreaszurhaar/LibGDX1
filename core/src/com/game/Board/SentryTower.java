@@ -15,6 +15,7 @@ public class SentryTower extends Area {
 
 	public SentryTower(float startX, float startY, float width, float height) {
 		super(startX, startY, width, height);
+		viewDistance = 18;
 		try {
             this.texture = reader.getImage(65,417,30,30);
         } catch (IOException e) {

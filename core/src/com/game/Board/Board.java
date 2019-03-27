@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Polygon;
 
 /**
  * @author Lukas Padolevicius
@@ -22,8 +23,10 @@ public class Board {
 	private final int VISUAL_RANGE = 20;
 	private final static int BOARD_WIDTH = 200;
 	private final static int BOARD_HEIGHT = 100;
+	private Intersector intersector;
 	
 	public Board() {
+		intersector = new Intersector();
 		territories = new ArrayList<Area>();
 		agents = new ArrayList<Agent>();
 		positionTracker = new ArrayList[BOARD_WIDTH][BOARD_HEIGHT];
@@ -81,7 +84,26 @@ public class Board {
 	}
 	
 	public void updateAgents() {
-				
+		
+		/*
+		Vector2 test = new Vector2(20,30);
+		Vector2 testi = new Vector2(test);
+		Vector2 test2 = new Vector2(-10,10);
+		Vector2 testf = testi.add(test2);
+		
+		Rectangle re = new Rectangle(10,35,20,20);
+		System.out.println(intersector.intersectLinePolygon(test,testf,rectToPoly(re)));
+		
+		
+		
+		System.out.println(test.x);
+		System.out.println(test.y);
+		System.out.println(testi.x);
+		System.out.println(testi.y);
+		System.out.println(testf.x);
+		System.out.println(testf.y);
+		System.exit(0);
+			*/	
 		//update every agent's x,y coordinates and rotate his view angle
 		for(int a=0; a<agents.size(); a++) {
 			//check collision with all nearby structures
@@ -118,6 +140,142 @@ public class Board {
 			agents.get(a).triggerStep();
 		}
 		
+		for(int a=0; a<agents.size(); a++) {
+						
+	        //find agent's array cell in positionTracker
+	        int x = (int) agents.get(a).getX()/5;
+	        int y = (int) agents.get(a).getY()/5;
+	        int endX = (int) (agents.get(a).getX()+agents.get(a).area.width)/5;
+	        int endY = (int) (agents.get(a).getY()+agents.get(a).area.height)/5;
+	        System.out.println(x+"   "+y+"   "+endX+"   "+endY);
+	        
+	        
+	        ArrayList<Integer> sub = positionTracker[x][y];
+	        ArrayList<Integer> sub2 = positionTracker[endX][y];
+	        ArrayList<Integer> sub3 = positionTracker[x][endY];
+	        ArrayList<Integer> sub4 = positionTracker[endX][endY];
+	        for(int u=0; u<sub2.size(); u++) {
+	        	boolean cont = false;
+	        	for(int o=0; o<sub.size(); o++) {
+	        		if(sub.get(o) == sub2.get(u)) {cont = true;}
+	        	}
+	        	if(!cont) {sub.add(sub2.get(u));}
+	        }
+	        
+	        for(int u=0; u<sub3.size(); u++) {
+	        	boolean cont = false;
+	        	for(int o=0; o<sub.size(); o++) {
+	        		if(sub.get(o) == sub3.get(u)) {cont = true;}
+	        	}
+	        	if(!cont) {sub.add(sub3.get(u));}
+	        }
+	        
+	        for(int u=0; u<sub4.size(); u++) {
+	        	boolean cont = false;
+	        	for(int o=0; o<sub.size(); o++) {
+	        		if(sub.get(o) == sub4.get(u)) {cont = true;}
+	        	}
+	        	if(!cont) {sub.add(sub4.get(u));}
+	        }
+	        
+	        
+	        //look for agents seeing agents
+	        for(int i=0; i<agents.size(); i++) {
+				if(i==a) break;
+				System.out.println("agent at x: "+agents.get(a).xCenter+"  y: "+agents.get(a).yCenter+"   saw this: "+i);
+				float range = agents.get(a).viewRange;
+				Vector2 dis = distPointToRect(agents.get(a).xCenter,agents.get(a).yCenter,agents.get(i).area);
+				Vector2 vec = new Vector2(agents.get(a).viewAngle);
+				vec.scl(4*range);
+				System.out.println(vec.len()+"    length   x: "+vec.x+"  y: "+vec.y);
+				System.out.println(dis.len()+"    lengthDist x: "+dis.x+"  y: "+dis.y);
+				Vector2 pos = new Vector2(agents.get(a).xCenter,agents.get(a).yCenter);
+				Vector2 fullVec = (new Vector2(pos)).add(vec);
+				System.out.println(fullVec.len()+"    lengthfull x: "+fullVec.x+"  y: "+fullVec.y);
+
+				if(dis.len() < range*4) {
+					//intersector.intersectLinePolygon();
+					
+					//System.out.println("agent "+a+"  sawwwwwwwwwwwwwwwwwwwwww this: "+i);
+					Vector2 rightVec = new Vector2(vec);
+					rightVec.rotate(agents.get(a).viewRadius/2);
+					Vector2 leftVec = new Vector2(vec);
+					leftVec.rotate(-agents.get(a).viewRadius/2);
+					Vector2 fullRightVec = (new Vector2(pos)).add(rightVec);
+					Vector2 fullLeftVec = (new Vector2(pos)).add(leftVec);
+					System.out.println(rightVec.len()+"    lengthright   x: "+rightVec.x+"  y: "+rightVec.y);
+					System.out.println(leftVec.len()+"    lengthleft   x: "+leftVec.x+"  y: "+leftVec.y);
+					System.out.println(fullRightVec.len()+"    lengthfullRigh   x: "+fullRightVec.x+"  y: "+fullRightVec.y);
+					System.out.println(fullLeftVec.len()+"    lengthfullLeft  x: "+fullLeftVec.x+"  y: "+fullLeftVec.y);
+
+					/*
+					if(Math.abs(vec.angle(agents.get(a).viewAngle)) < agents.get(a).viewRadius/2 
+							|| agents.get(i).contains(agents.get(a).xCenter+rightVec.x*vec.len(), agents.get(a).xCenter+rightVec.y*vec.len())
+							|| agents.get(i).contains(agents.get(a).yCenter+leftVec.x*vec.len(), agents.get(a).yCenter+leftVec.y*vec.len())) {
+						*/
+					Polygon poly = rectToPoly(agents.get(i).area);
+					//System.out.println("go from: "+pos.x+"  to: "+fullVec.x+"    from: "+pos.y+"  to: "+fullVec.y);
+					if(intersector.intersectLinePolygon(pos,fullVec,poly)
+							|| intersector.intersectLinePolygon(pos,fullRightVec,poly)
+							|| intersector.intersectLinePolygon(pos,fullLeftVec,poly)
+							|| intersector.intersectLinePolygon(fullVec,fullRightVec,poly)
+							|| intersector.intersectLinePolygon(fullVec,fullLeftVec,poly)) {
+						agents.get(a).see(agents.get(i));
+						System.out.println("its: center "+intersector.intersectLinePolygon(pos,fullVec,poly)+" right "+intersector.intersectLinePolygon(pos,fullRightVec,poly)
+						+" left "+intersector.intersectLinePolygon(pos,fullLeftVec,poly)+" rightForw "+intersector.intersectLinePolygon(fullVec,fullRightVec,poly)+" leftForw "+intersector.intersectLinePolygon(fullVec,fullLeftVec,poly));
+					}
+				}
+	        }
+				
+				//repeat for agents seeing structures
+				for(int i=0; i<sub.size(); i++) {
+					
+					//System.out.println("agent at x: "+agents.get(a).xCenter+"  y: "+agents.get(a).yCenter+"   saw this: "+i);
+					float range = Math.max(agents.get(a).viewRange, territories.get(sub.get(i)).viewDistance);
+					Vector2 dis = distPointToRect(agents.get(a).xCenter,agents.get(a).yCenter,territories.get(sub.get(i)).area);
+					Vector2 vec = new Vector2(agents.get(a).viewAngle);
+					vec.scl(4*range);
+					//System.out.println(vec.len()+"    length   x: "+vec.x+"  y: "+vec.y);
+					//System.out.println(dis.len()+"    lengthDist x: "+dis.x+"  y: "+dis.y);
+					Vector2 pos = new Vector2(agents.get(a).xCenter,agents.get(a).yCenter);
+					Vector2 fullVec = (new Vector2(pos)).add(vec);
+					//System.out.println(fullVec.len()+"    lengthfull x: "+fullVec.x+"  y: "+fullVec.y);
+
+					if(dis.len() < range*4) {
+						//intersector.intersectLinePolygon();
+						
+						//System.out.println("agent "+a+"  sawwwwwwwwwwwwwwwwwwwwww this: "+i);
+						Vector2 rightVec = new Vector2(vec);
+						rightVec.rotate(agents.get(a).viewRadius/2);
+						Vector2 leftVec = new Vector2(vec);
+						leftVec.rotate(-agents.get(a).viewRadius/2);
+						Vector2 fullRightVec = (new Vector2(pos)).add(rightVec);
+						Vector2 fullLeftVec = (new Vector2(pos)).add(leftVec);
+						//System.out.println(rightVec.len()+"    lengthright   x: "+rightVec.x+"  y: "+rightVec.y);
+						//System.out.println(leftVec.len()+"    lengthleft   x: "+leftVec.x+"  y: "+leftVec.y);
+						//System.out.println(fullRightVec.len()+"    lengthfullRigh   x: "+fullRightVec.x+"  y: "+fullRightVec.y);
+						//System.out.println(fullLeftVec.len()+"    lengthfullLeft  x: "+fullLeftVec.x+"  y: "+fullLeftVec.y);
+
+						/*
+						if(Math.abs(vec.angle(agents.get(a).viewAngle)) < agents.get(a).viewRadius/2 
+								|| territories.get(sub.get(i)).contains(agents.get(a).xCenter+rightVec.x*vec.len(), agents.get(a).xCenter+rightVec.y*vec.len())
+								|| territories.get(sub.get(i)).contains(agents.get(a).yCenter+leftVec.x*vec.len(), agents.get(a).yCenter+leftVec.y*vec.len())) {
+							*/
+						Polygon poly = rectToPoly(territories.get(sub.get(i)).area);
+						//System.out.println("go from: "+pos.x+"  to: "+fullVec.x+"    from: "+pos.y+"  to: "+fullVec.y);
+						if(intersector.intersectLinePolygon(pos,fullVec,poly)
+								|| intersector.intersectLinePolygon(pos,fullRightVec,poly)
+								|| intersector.intersectLinePolygon(pos,fullLeftVec,poly)
+								|| intersector.intersectLinePolygon(fullVec,fullRightVec,poly)
+								|| intersector.intersectLinePolygon(fullVec,fullLeftVec,poly)) {
+							agents.get(a).see(territories.get(sub.get(i)));
+							System.out.println("its: center "+intersector.intersectLinePolygon(pos,fullVec,poly)+" right "+intersector.intersectLinePolygon(pos,fullRightVec,poly)
+							+" left "+intersector.intersectLinePolygon(pos,fullLeftVec,poly)+" rightForw "+intersector.intersectLinePolygon(fullVec,fullRightVec,poly)+" leftForw "+intersector.intersectLinePolygon(fullVec,fullLeftVec,poly));
+						}
+					}
+			}
+		}
+		
 		generateSounds();
 		
 	}
@@ -146,9 +304,9 @@ public class Board {
 				if(i!=j) {
 					Agent a = agents.get(j);
 					//check if distance between sound and agent is within the sound range
-					if (distPointToRect(s.xpos,s.ypos,a.area) < s.soundRange+20) {
+					if (distPointToRect(s.xpos,s.ypos,a.area).len() < s.soundRange+20) {
 						a.hearSound(estimateDirection(s,a.xCenter,a.yCenter));
-						System.out.println("heard sound between: "+i+"  and "+j+"   "+Math.random());
+						//System.out.println("heard sound between: "+i+"  and "+j+"   "+Math.random());
 					}
 				}
 			}
@@ -158,7 +316,7 @@ public class Board {
 	public void checkIfAgentHears(SoundOccurence s) {
 		for (Agent a : agents) {
 			//check if distance between sound and agent is within the sound range
-			if (distPointToRect(s.xpos,s.ypos,a.area) < s.soundRange) {
+			if (distPointToRect(s.xpos,s.ypos,a.area).len() < s.soundRange) {
 				a.hearSound(estimateDirection(s,a.getX(),a.getY()));
 				//System.out.println("heard sound");
 			}
@@ -189,9 +347,15 @@ public class Board {
 		}
 	}
 	
+	public Polygon rectToPoly(Rectangle rect)  {
+        float[] f1 = {rect.x, rect.y,rect.x + rect.width, rect.y,rect.x + rect.width, rect.y + rect.height,rect.x, rect.y + rect.height};
+        Polygon poly = new Polygon(f1);
+        return poly;
+    }
+	
 	/**simplified method for distance between a point outside a rectangle and the rectangle
 	 */
-	public float distPointToRect(float xPos, float yPos, Rectangle rect) {
+	public Vector2 distPointToRect(float xPos, float yPos, Rectangle rect) {
 		float x = xPos;
 		float y = yPos;
 		if(x<rect.x) {x=rect.x;}
@@ -200,7 +364,7 @@ public class Board {
 		else if(y>rect.y+rect.height) {y=rect.y+rect.height;}
 		
 		Vector2 v = new Vector2(x-xPos,y-yPos);
-		return v.len();
+		return v;
 	}
 
 }

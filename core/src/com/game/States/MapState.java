@@ -248,7 +248,7 @@ public class MapState extends State {
                         }
                     }
                     if (name == "robber") {
-                        agents.add(new Intruder(x, y, 30 / X_REDUC, 30 / Y_REDUC));
+                        agents.add(new Intruder(x, y, 20 / X_REDUC, 20 / Y_REDUC));
                     }
                     if (name == "candle") {
                         structures.add(new LowVisionArea(x, y, 20 / X_REDUC, 40 / Y_REDUC));
@@ -271,7 +271,7 @@ public class MapState extends State {
                         }
                     }
                     if (name == "cop") {
-                        agents.add(new Guard(x, y, 30 / X_REDUC, 30 / Y_REDUC));
+                        agents.add(new Guard(x, y, 20 / X_REDUC, 20 / Y_REDUC));
                     }
                     if (name == "web") {
                         structures.add(new OuterWall(x, y, 20 / X_REDUC, 20 / Y_REDUC));
@@ -312,7 +312,7 @@ public class MapState extends State {
         }
         
         for(int i =0; i < agents.size(); i++ ){
-            sb.draw(agents.get(i).texture, agents.get(i).xPos*X_REDUC,agents.get(i).yPos*Y_REDUC,30,30);
+            agents.get(i).drawTexture(sb,X_REDUC,Y_REDUC);
         }
         
         for(int i =0; i < structures.size(); i++ ){
