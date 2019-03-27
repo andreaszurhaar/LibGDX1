@@ -6,6 +6,7 @@ package com.game.Board;
 import java.io.IOException;
 
 import com.game.Readers.SpriteReader;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * @author Lukas Padolevicius
@@ -17,18 +18,20 @@ public class Intruder extends Agent {
 	public float angle;
 	public float soundRange;
     SpriteReader reader = new SpriteReader();
+    public int sprintCount;
 
 	public Intruder(float x, float y, float width, float height) {
 		super(x, y, width, height);
 		viewAngle.setToRandomDirection();
 		speed = 1;
 		soundRange = 0;
+		sprintCount = 0;
         try {
             this.texture = reader.getImage(225,255,30,33);
+            this.noticeSound = reader.getImage(135,425,20,20);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 	}
 	
 	public float getSpeed() {
@@ -40,8 +43,18 @@ public class Intruder extends Agent {
 	}
 
 	public void triggerStep() {
-		this.speed = (float) Math.random()*2f;
-		rotation = (float) (Math.random()*45/10);//this.angle = angle + 0.2f+(float) (Math.random()*0.9f-0.45f)/2;//(float) (Math.random()*0.9f-0.45f)/5;
+		sprintCount++;
+		this.speed = 1.4f;//(float) Math.random()*1.4f;
+		if(speed < 0.5) {
+			soundRange = 1;
+		} else if(speed < 1) {
+			soundRange = 3;
+		} else if(speed < 2) {
+			soundRange = 5;
+		} else {
+			soundRange = 10;
+		}
+		rotation = (float) Math.toRadians(Math.random()*turningCircle/2);
 	}
 	
 }

@@ -6,6 +6,7 @@ package com.game.Board;
 import java.io.IOException;
 
 import com.game.Readers.SpriteReader;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * @author Lukas Padolevicius
@@ -26,6 +27,7 @@ public class Guard extends Agent {
 		soundRange = 0;
 		try {
 	        this.texture = reader.getImage(65,255,30,33);
+            this.noticeSound = reader.getImage(135,425,20,20);
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
@@ -42,9 +44,10 @@ public class Guard extends Agent {
 	
 	public void triggerStep() {
 		//System.out.println("activated trigger and changed speed from: "+speed+"  "+angle);
-		this.speed = (float) (Math.random()*2f);
-		rotation = (float) (Math.random()*45/10);//this.angle = angle - 0.03f;//(float) (Math.random()*0.9f-0.45f)/5;
+		this.speed = 1.4f;//(float) (Math.random()*1.4f);
+		this.rotation = (float) -Math.toRadians(Math.random()*turningCircle/2);
 		//System.out.println("to: "+speed+"  "+angle);
 	}
+	
 
 }
