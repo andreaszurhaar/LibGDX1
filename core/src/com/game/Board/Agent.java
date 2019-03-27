@@ -117,13 +117,13 @@ public class Agent extends AssetManager {
 	public void see(Area object) {
 		seeing = true;
 		//saw object
-		System.out.println("saw something");
+		//System.out.println("saw something");
 	}
 	
 	public void see(Agent object) {
 		seeing = true;
 		//saw object
-		System.out.println("saw something");
+		//System.out.println("saw something");
 	}
 	
 	public void triggerStep() {	}

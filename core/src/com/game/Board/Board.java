@@ -181,50 +181,53 @@ public class Board {
 	        
 	        //look for agents seeing agents
 	        for(int i=0; i<agents.size(); i++) {
-				if(i==a) break;
-				//System.out.println("agent at x: "+agents.get(a).xCenter+"  y: "+agents.get(a).yCenter+"   saw this: "+i);
-				float range = agents.get(a).viewRange;
-				Vector2 dis = distPointToRect(agents.get(a).xCenter,agents.get(a).yCenter,agents.get(i).area);
-				Vector2 vec = new Vector2(agents.get(a).viewAngle);
-				vec.scl(4*range);
-				//System.out.println(vec.len()+"    length   x: "+vec.x+"  y: "+vec.y);
-				//System.out.println(dis.len()+"    lengthDist x: "+dis.x+"  y: "+dis.y);
-				Vector2 pos = new Vector2(agents.get(a).xCenter,agents.get(a).yCenter);
-				Vector2 fullVec = (new Vector2(pos)).add(vec);
-				//System.out.println(fullVec.len()+"    lengthfull x: "+fullVec.x+"  y: "+fullVec.y);
-
-				if(dis.len() < range*4) {
-					//intersector.intersectLinePolygon();
-					
-					//System.out.println("agent "+a+"  sawwwwwwwwwwwwwwwwwwwwww this: "+i);
-					Vector2 rightVec = new Vector2(vec);
-					rightVec.rotate(agents.get(a).viewRadius/2);
-					Vector2 leftVec = new Vector2(vec);
-					leftVec.rotate(-agents.get(a).viewRadius/2);
-					Vector2 fullRightVec = (new Vector2(pos)).add(rightVec);
-					Vector2 fullLeftVec = (new Vector2(pos)).add(leftVec);
-					//System.out.println(rightVec.len()+"    lengthright   x: "+rightVec.x+"  y: "+rightVec.y);
-					//System.out.println(leftVec.len()+"    lengthleft   x: "+leftVec.x+"  y: "+leftVec.y);
-					//System.out.println(fullRightVec.len()+"    lengthfullRigh   x: "+fullRightVec.x+"  y: "+fullRightVec.y);
-					//System.out.println(fullLeftVec.len()+"    lengthfullLeft  x: "+fullLeftVec.x+"  y: "+fullLeftVec.y);
-
-					/*
-					if(Math.abs(vec.angle(agents.get(a).viewAngle)) < agents.get(a).viewRadius/2 
-							|| agents.get(i).contains(agents.get(a).xCenter+rightVec.x*vec.len(), agents.get(a).xCenter+rightVec.y*vec.len())
-							|| agents.get(i).contains(agents.get(a).yCenter+leftVec.x*vec.len(), agents.get(a).yCenter+leftVec.y*vec.len())) {
-						*/
-					Polygon poly = rectToPoly(agents.get(i).area);
-					//System.out.println("go from: "+pos.x+"  to: "+fullVec.x+"    from: "+pos.y+"  to: "+fullVec.y);
-					if(intersector.intersectLinePolygon(pos,fullVec,poly)
-							|| intersector.intersectLinePolygon(pos,fullRightVec,poly)
-							|| intersector.intersectLinePolygon(pos,fullLeftVec,poly)
-							|| intersector.intersectLinePolygon(fullVec,fullRightVec,poly)
-							|| intersector.intersectLinePolygon(fullVec,fullLeftVec,poly)) {
-						agents.get(a).see(agents.get(i));
-						//System.out.println("its: center "+intersector.intersectLinePolygon(pos,fullVec,poly)+" right "+intersector.intersectLinePolygon(pos,fullRightVec,poly)
-						//+" left "+intersector.intersectLinePolygon(pos,fullLeftVec,poly)+" rightForw "+intersector.intersectLinePolygon(fullVec,fullRightVec,poly)+" leftForw "+intersector.intersectLinePolygon(fullVec,fullLeftVec,poly));
+				if(i!=a) {
+					//System.out.println("agent at x: "+agents.get(a).xCenter+"  y: "+agents.get(a).yCenter+"   saw this: "+i);
+					float range = agents.get(a).viewRange;
+					Vector2 dis = distPointToRect(agents.get(a).xCenter,agents.get(a).yCenter,agents.get(i).area);
+					Vector2 vec = new Vector2(agents.get(a).viewAngle);
+					vec.scl(4*range);
+					//System.out.println(vec.len()+"    length   x: "+vec.x+"  y: "+vec.y);
+					//System.out.println(dis.len()+"    lengthDist x: "+dis.x+"  y: "+dis.y);
+					Vector2 pos = new Vector2(agents.get(a).xCenter,agents.get(a).yCenter);
+					Vector2 fullVec = (new Vector2(pos)).add(vec);
+					//System.out.println(fullVec.len()+"    lengthfull x: "+fullVec.x+"  y: "+fullVec.y);
+	
+					if(dis.len() < range*4) {
+						//intersector.intersectLinePolygon();
+						
+						//System.out.println("agent "+a+"  sawwwwwwwwwwwwwwwwwwwwww this: "+i);
+						Vector2 rightVec = new Vector2(vec);
+						rightVec.rotate(agents.get(a).viewRadius/2);
+						Vector2 leftVec = new Vector2(vec);
+						leftVec.rotate(-agents.get(a).viewRadius/2);
+						Vector2 fullRightVec = (new Vector2(pos)).add(rightVec);
+						Vector2 fullLeftVec = (new Vector2(pos)).add(leftVec);
+						//System.out.println(rightVec.len()+"    lengthright   x: "+rightVec.x+"  y: "+rightVec.y);
+						//System.out.println(leftVec.len()+"    lengthleft   x: "+leftVec.x+"  y: "+leftVec.y);
+						//System.out.println(fullRightVec.len()+"    lengthfullRigh   x: "+fullRightVec.x+"  y: "+fullRightVec.y);
+						//System.out.println(fullLeftVec.len()+"    lengthfullLeft  x: "+fullLeftVec.x+"  y: "+fullLeftVec.y);
+	
+						/*
+						if(Math.abs(vec.angle(agents.get(a).viewAngle)) < agents.get(a).viewRadius/2 
+								|| agents.get(i).contains(agents.get(a).xCenter+rightVec.x*vec.len(), agents.get(a).xCenter+rightVec.y*vec.len())
+								|| agents.get(i).contains(agents.get(a).yCenter+leftVec.x*vec.len(), agents.get(a).yCenter+leftVec.y*vec.len())) {
+							*/
+						Polygon poly = rectToPoly(agents.get(i).area);
+						Rectangle roi = poly.getBoundingRectangle();
+						//System.out.println(" polygon of :"+i+"  x: "+roi.x+"  y: "+roi.y+"   wid: "+roi.width+"  hei: "+roi.height);
+						//System.out.println("go from: "+pos.x+"  to: "+fullVec.x+"    from: "+pos.y+"  to: "+fullVec.y);
+						if(intersector.intersectLinePolygon(pos,fullVec,poly)
+								|| intersector.intersectLinePolygon(pos,fullRightVec,poly)
+								|| intersector.intersectLinePolygon(pos,fullLeftVec,poly)
+								|| intersector.intersectLinePolygon(fullVec,fullRightVec,poly)
+								|| intersector.intersectLinePolygon(fullVec,fullLeftVec,poly)) {
+							agents.get(a).see(agents.get(i));
+							//System.out.println("its: center "+intersector.intersectLinePolygon(pos,fullVec,poly)+" right "+intersector.intersectLinePolygon(pos,fullRightVec,poly)
+							//+" left "+intersector.intersectLinePolygon(pos,fullLeftVec,poly)+" rightForw "+intersector.intersectLinePolygon(fullVec,fullRightVec,poly)+" leftForw "+intersector.intersectLinePolygon(fullVec,fullLeftVec,poly));
+						}
 					}
-				}
+		        }
 	        }
 				
 				//repeat for agents seeing structures
