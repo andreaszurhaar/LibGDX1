@@ -244,8 +244,8 @@ public class Board {
 					Vector2 dis = distPointToRect(agents.get(a).xCenter,agents.get(a).yCenter,territories.get(sub.get(i)).area);
 					Vector2 vec = new Vector2(agents.get(a).viewAngle);
 					vec.scl(4*range);
-					System.out.println(vec.len()+"    length   x: "+vec.x+"  y: "+vec.y);
-					System.out.println(dis.len()+"    lengthDist x: "+dis.x+"  y: "+dis.y);
+					//System.out.println(vec.len()+"    length   x: "+vec.x+"  y: "+vec.y);
+					//System.out.println(dis.len()+"    lengthDist x: "+dis.x+"  y: "+dis.y);
 					Vector2 pos = new Vector2(agents.get(a).xCenter,agents.get(a).yCenter);
 					Vector2 fullVec = (new Vector2(pos)).add(vec);
 					//System.out.println(fullVec.len()+"    lengthfull x: "+fullVec.x+"  y: "+fullVec.y);
@@ -260,10 +260,10 @@ public class Board {
 						leftVec.rotate(-agents.get(a).viewRadius/2);
 						Vector2 fullRightVec = (new Vector2(pos)).add(rightVec);
 						Vector2 fullLeftVec = (new Vector2(pos)).add(leftVec);
-						System.out.println(rightVec.len()+"    lengthright   x: "+rightVec.x+"  y: "+rightVec.y);
-						System.out.println(leftVec.len()+"    lengthleft   x: "+leftVec.x+"  y: "+leftVec.y);
-						System.out.println(fullRightVec.len()+"    lengthfullRigh   x: "+fullRightVec.x+"  y: "+fullRightVec.y);
-						System.out.println(fullLeftVec.len()+"    lengthfullLeft  x: "+fullLeftVec.x+"  y: "+fullLeftVec.y);
+						//System.out.println(rightVec.len()+"    lengthright   x: "+rightVec.x+"  y: "+rightVec.y);
+						//System.out.println(leftVec.len()+"    lengthleft   x: "+leftVec.x+"  y: "+leftVec.y);
+						//System.out.println(fullRightVec.len()+"    lengthfullRigh   x: "+fullRightVec.x+"  y: "+fullRightVec.y);
+						//System.out.println(fullLeftVec.len()+"    lengthfullLeft  x: "+fullLeftVec.x+"  y: "+fullLeftVec.y);
 
 						/*
 						if(Math.abs(vec.angle(agents.get(a).viewAngle)) < agents.get(a).viewRadius/2 
