@@ -142,6 +142,8 @@ public class Board {
 		
 		for(int a=0; a<agents.size(); a++) {
 						
+			
+			/*
 	        //find agent's array cell in positionTracker
 	        int x = (int) agents.get(a).getX()/5;
 	        int y = (int) agents.get(a).getY()/5;
@@ -149,14 +151,20 @@ public class Board {
 	        int endY = (int) (agents.get(a).getY()+agents.get(a).area.height)/5;
 	        //System.out.println(x+"   "+y+"   "+endX+"   "+endY);
 	        
-	        x=x-6;
-	        y=y-6;
-	        endX=endX+6;
-	        endY=endY+6;
+	        x=Math.max(x-6,0);
+	        y=Math.max(y-6,0);
+	        endX=Math.min(endX+6,BOARD_WIDTH-1);
+	        endY=Math.min(endY+6,BOARD_HEIGHT-1);
+	        */
 	        
 	        
+	        ArrayList<Integer> sub = new ArrayList<Integer>();
 	        
-	        ArrayList<Integer> sub = positionTracker[x][y];
+	        for(int m=0; m<territories.size(); m++) {
+	        	sub.add(m);
+	        }
+	        
+	        /*
 	        ArrayList<Integer> sub2 = positionTracker[endX][y];
 	        ArrayList<Integer> sub3 = positionTracker[x][endY];
 	        ArrayList<Integer> sub4 = positionTracker[endX][endY];
@@ -183,6 +191,8 @@ public class Board {
 	        	}
 	        	if(!cont) {sub.add(sub4.get(u));}
 	        }
+	        
+	        */
 	        
 	        
 	        //look for agents seeing agents
@@ -219,18 +229,39 @@ public class Board {
 								|| agents.get(i).contains(agents.get(a).xCenter+rightVec.x*vec.len(), agents.get(a).xCenter+rightVec.y*vec.len())
 								|| agents.get(i).contains(agents.get(a).yCenter+leftVec.x*vec.len(), agents.get(a).yCenter+leftVec.y*vec.len())) {
 							*/
+						
+						/*
 						Polygon poly = rectToPoly(agents.get(i).area);
-						//Rectangle roi = poly.getBoundingRectangle();
-						//System.out.println(" polygon of :"+i+"  x: "+roi.x+"  y: "+roi.y+"   wid: "+roi.width+"  hei: "+roi.height);
-						//System.out.println("go from: "+pos.x+"  to: "+fullVec.x+"    from: "+pos.y+"  to: "+fullVec.y);
 						if(intersector.intersectLinePolygon(pos,fullVec,poly)
 								|| intersector.intersectLinePolygon(pos,fullRightVec,poly)
 								|| intersector.intersectLinePolygon(pos,fullLeftVec,poly)
 								|| intersector.intersectLinePolygon(fullVec,fullRightVec,poly)
 								|| intersector.intersectLinePolygon(fullVec,fullLeftVec,poly)) {
+						*/
+						if(intersectVectAndRect(vec,agents.get(i).area,pos.x,pos.y)
+								|| intersectVectAndRect(leftVec,agents.get(i).area,pos.x,pos.y)
+								|| intersectVectAndRect(rightVec,agents.get(i).area,pos.x,pos.y)
+								|| intersectVectAndRect(new Vector2(vec.x-leftVec.x,vec.y-leftVec.y),agents.get(i).area,pos.x,pos.y)
+								|| intersectVectAndRect(new Vector2(vec.x-rightVec.x,vec.y-rightVec.y),agents.get(i).area,pos.x,pos.y)) {
 							agents.get(a).see(agents.get(i));
-							//System.out.println("its: center "+intersector.intersectLinePolygon(pos,fullVec,poly)+" right "+intersector.intersectLinePolygon(pos,fullRightVec,poly)
-							//+" left "+intersector.intersectLinePolygon(pos,fullLeftVec,poly)+" rightForw "+intersector.intersectLinePolygon(fullVec,fullRightVec,poly)+" leftForw "+intersector.intersectLinePolygon(fullVec,fullLeftVec,poly));
+							/*
+							System.out.println();
+							System.out.println("  position = "+agents.get(i).xCenter+"    y: "+agents.get(i).yCenter);
+							System.out.println("  position = "+agents.get(a).xCenter+"    y: "+agents.get(a).yCenter);
+							System.out.println(fullVec.len()+"    full x: "+fullVec.x+"  y: "+fullVec.y);
+							System.out.println(vec.len()+"    length   x: "+vec.x+"  y: "+vec.y);
+							System.out.println(dis.len()+"    Dist x: "+dis.x+"  y: "+dis.y);
+							System.out.println(rightVec.len()+"    right   x: "+rightVec.x+"  y: "+rightVec.y);
+							System.out.println(leftVec.len()+"    left   x: "+leftVec.x+"  y: "+leftVec.y);
+							System.out.println(fullRightVec.len()+"    fullRight   x: "+fullRightVec.x+"  y: "+fullRightVec.y);
+							System.out.println(fullLeftVec.len()+"    fullLeft  x: "+fullLeftVec.x+"  y: "+fullLeftVec.y);
+							System.out.println("go from: "+pos.x+"  to: "+fullVec.x+"    from: "+pos.y+"  to: "+fullVec.y);
+							Rectangle roi = poly.getBoundingRectangle();
+							System.out.println(" polygon of :"+i+"  x: "+roi.x+"  y: "+roi.y+"   wid: "+roi.width+"  hei: "+roi.height);
+							System.out.println("go from: "+pos.x+"  to: "+fullVec.x+"    from: "+pos.y+"  to: "+fullVec.y);
+							System.out.println("its: center "+intersector.intersectLinePolygon(pos,fullVec,poly)+" right "+intersector.intersectLinePolygon(pos,fullRightVec,poly)
+							+" left "+intersector.intersectLinePolygon(pos,fullLeftVec,poly)+" rightForw "+intersector.intersectLinePolygon(fullVec,fullRightVec,poly)+" leftForw "+intersector.intersectLinePolygon(fullVec,fullLeftVec,poly));
+							*/
 						}
 					}
 		        }
@@ -244,11 +275,8 @@ public class Board {
 					Vector2 dis = distPointToRect(agents.get(a).xCenter,agents.get(a).yCenter,territories.get(sub.get(i)).area);
 					Vector2 vec = new Vector2(agents.get(a).viewAngle);
 					vec.scl(4*range);
-					//System.out.println(vec.len()+"    length   x: "+vec.x+"  y: "+vec.y);
-					//System.out.println(dis.len()+"    lengthDist x: "+dis.x+"  y: "+dis.y);
-					Vector2 pos = new Vector2(agents.get(a).xCenter,agents.get(a).yCenter);
+										Vector2 pos = new Vector2(agents.get(a).xCenter,agents.get(a).yCenter);
 					Vector2 fullVec = (new Vector2(pos)).add(vec);
-					//System.out.println(fullVec.len()+"    lengthfull x: "+fullVec.x+"  y: "+fullVec.y);
 
 					if(dis.len() < range*4) {
 						//intersector.intersectLinePolygon();
@@ -260,26 +288,21 @@ public class Board {
 						leftVec.rotate(-agents.get(a).viewRadius/2);
 						Vector2 fullRightVec = (new Vector2(pos)).add(rightVec);
 						Vector2 fullLeftVec = (new Vector2(pos)).add(leftVec);
-						//System.out.println(rightVec.len()+"    lengthright   x: "+rightVec.x+"  y: "+rightVec.y);
-						//System.out.println(leftVec.len()+"    lengthleft   x: "+leftVec.x+"  y: "+leftVec.y);
-						//System.out.println(fullRightVec.len()+"    lengthfullRigh   x: "+fullRightVec.x+"  y: "+fullRightVec.y);
-						//System.out.println(fullLeftVec.len()+"    lengthfullLeft  x: "+fullLeftVec.x+"  y: "+fullLeftVec.y);
-
+						
 						/*
 						if(Math.abs(vec.angle(agents.get(a).viewAngle)) < agents.get(a).viewRadius/2 
 								|| territories.get(sub.get(i)).contains(agents.get(a).xCenter+rightVec.x*vec.len(), agents.get(a).xCenter+rightVec.y*vec.len())
 								|| territories.get(sub.get(i)).contains(agents.get(a).yCenter+leftVec.x*vec.len(), agents.get(a).yCenter+leftVec.y*vec.len())) {
 							*/
 						Polygon poly = rectToPoly(territories.get(sub.get(i)).area);
-						//System.out.println("go from: "+pos.x+"  to: "+fullVec.x+"    from: "+pos.y+"  to: "+fullVec.y);
 						if(intersector.intersectLinePolygon(pos,fullVec,poly)
 								|| intersector.intersectLinePolygon(pos,fullRightVec,poly)
 								|| intersector.intersectLinePolygon(pos,fullLeftVec,poly)
 								|| intersector.intersectLinePolygon(fullVec,fullRightVec,poly)
 								|| intersector.intersectLinePolygon(fullVec,fullLeftVec,poly)) {
 							agents.get(a).see(territories.get(sub.get(i)));
-							//System.out.println("its: center "+intersector.intersectLinePolygon(pos,fullVec,poly)+" right "+intersector.intersectLinePolygon(pos,fullRightVec,poly)
-							//+" left "+intersector.intersectLinePolygon(pos,fullLeftVec,poly)+" rightForw "+intersector.intersectLinePolygon(fullVec,fullRightVec,poly)+" leftForw "+intersector.intersectLinePolygon(fullVec,fullLeftVec,poly));
+							//Rectangle are = territories.get(sub.get(i)).area;
+							//System.out.println("  rect number: "+i+"  x: "+are.x+"  y: "+are.y+"  width: "+are.width+"  height: "+are.height);
 						}
 					}
 			}
@@ -374,6 +397,16 @@ public class Board {
 		
 		Vector2 v = new Vector2(x-xPos,y-yPos);
 		return v;
+	}
+	
+	public boolean intersectVectAndRect(Vector2 vector, Rectangle rect, float x, float y) {
+		boolean contains = false;
+		float xP = vector.x/100;
+		float yP = vector.y/100;
+		for(int i=0; i<100; i++) {
+			if(rect.contains(x+i*xP,y+i*yP)) {contains = true;}
+		}
+		return contains;
 	}
 
 }
