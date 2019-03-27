@@ -49,6 +49,15 @@ public class Guard extends Agent {
 	public void triggerStep() {
 		//System.out.println("activated trigger and changed speed from: "+speed+"  "+angle);
 		this.speed = 1.4f;//(float) (Math.random()*1.4f);
+		if(speed < 0.5) {
+			soundRange = 1;
+		} else if(speed < 1) {
+			soundRange = 3;
+		} else if(speed < 2) {
+			soundRange = 5;
+		} else {
+			soundRange = 10;
+		}
 		this.rotation = (float) -Math.toRadians(Math.random()*turningCircle/2);
 		//System.out.println("to: "+speed+"  "+angle);
 		seeing = false;

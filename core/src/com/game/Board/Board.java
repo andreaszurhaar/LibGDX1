@@ -147,7 +147,7 @@ public class Board {
 	        int y = (int) agents.get(a).getY()/5;
 	        int endX = (int) (agents.get(a).getX()+agents.get(a).area.width)/5;
 	        int endY = (int) (agents.get(a).getY()+agents.get(a).area.height)/5;
-	        System.out.println(x+"   "+y+"   "+endX+"   "+endY);
+	        //System.out.println(x+"   "+y+"   "+endX+"   "+endY);
 	        
 	        
 	        ArrayList<Integer> sub = positionTracker[x][y];
@@ -182,16 +182,16 @@ public class Board {
 	        //look for agents seeing agents
 	        for(int i=0; i<agents.size(); i++) {
 				if(i==a) break;
-				System.out.println("agent at x: "+agents.get(a).xCenter+"  y: "+agents.get(a).yCenter+"   saw this: "+i);
+				//System.out.println("agent at x: "+agents.get(a).xCenter+"  y: "+agents.get(a).yCenter+"   saw this: "+i);
 				float range = agents.get(a).viewRange;
 				Vector2 dis = distPointToRect(agents.get(a).xCenter,agents.get(a).yCenter,agents.get(i).area);
 				Vector2 vec = new Vector2(agents.get(a).viewAngle);
 				vec.scl(4*range);
-				System.out.println(vec.len()+"    length   x: "+vec.x+"  y: "+vec.y);
-				System.out.println(dis.len()+"    lengthDist x: "+dis.x+"  y: "+dis.y);
+				//System.out.println(vec.len()+"    length   x: "+vec.x+"  y: "+vec.y);
+				//System.out.println(dis.len()+"    lengthDist x: "+dis.x+"  y: "+dis.y);
 				Vector2 pos = new Vector2(agents.get(a).xCenter,agents.get(a).yCenter);
 				Vector2 fullVec = (new Vector2(pos)).add(vec);
-				System.out.println(fullVec.len()+"    lengthfull x: "+fullVec.x+"  y: "+fullVec.y);
+				//System.out.println(fullVec.len()+"    lengthfull x: "+fullVec.x+"  y: "+fullVec.y);
 
 				if(dis.len() < range*4) {
 					//intersector.intersectLinePolygon();
@@ -203,10 +203,10 @@ public class Board {
 					leftVec.rotate(-agents.get(a).viewRadius/2);
 					Vector2 fullRightVec = (new Vector2(pos)).add(rightVec);
 					Vector2 fullLeftVec = (new Vector2(pos)).add(leftVec);
-					System.out.println(rightVec.len()+"    lengthright   x: "+rightVec.x+"  y: "+rightVec.y);
-					System.out.println(leftVec.len()+"    lengthleft   x: "+leftVec.x+"  y: "+leftVec.y);
-					System.out.println(fullRightVec.len()+"    lengthfullRigh   x: "+fullRightVec.x+"  y: "+fullRightVec.y);
-					System.out.println(fullLeftVec.len()+"    lengthfullLeft  x: "+fullLeftVec.x+"  y: "+fullLeftVec.y);
+					//System.out.println(rightVec.len()+"    lengthright   x: "+rightVec.x+"  y: "+rightVec.y);
+					//System.out.println(leftVec.len()+"    lengthleft   x: "+leftVec.x+"  y: "+leftVec.y);
+					//System.out.println(fullRightVec.len()+"    lengthfullRigh   x: "+fullRightVec.x+"  y: "+fullRightVec.y);
+					//System.out.println(fullLeftVec.len()+"    lengthfullLeft  x: "+fullLeftVec.x+"  y: "+fullLeftVec.y);
 
 					/*
 					if(Math.abs(vec.angle(agents.get(a).viewAngle)) < agents.get(a).viewRadius/2 
@@ -221,8 +221,8 @@ public class Board {
 							|| intersector.intersectLinePolygon(fullVec,fullRightVec,poly)
 							|| intersector.intersectLinePolygon(fullVec,fullLeftVec,poly)) {
 						agents.get(a).see(agents.get(i));
-						System.out.println("its: center "+intersector.intersectLinePolygon(pos,fullVec,poly)+" right "+intersector.intersectLinePolygon(pos,fullRightVec,poly)
-						+" left "+intersector.intersectLinePolygon(pos,fullLeftVec,poly)+" rightForw "+intersector.intersectLinePolygon(fullVec,fullRightVec,poly)+" leftForw "+intersector.intersectLinePolygon(fullVec,fullLeftVec,poly));
+						//System.out.println("its: center "+intersector.intersectLinePolygon(pos,fullVec,poly)+" right "+intersector.intersectLinePolygon(pos,fullRightVec,poly)
+						//+" left "+intersector.intersectLinePolygon(pos,fullLeftVec,poly)+" rightForw "+intersector.intersectLinePolygon(fullVec,fullRightVec,poly)+" leftForw "+intersector.intersectLinePolygon(fullVec,fullLeftVec,poly));
 					}
 				}
 	        }
@@ -269,8 +269,8 @@ public class Board {
 								|| intersector.intersectLinePolygon(fullVec,fullRightVec,poly)
 								|| intersector.intersectLinePolygon(fullVec,fullLeftVec,poly)) {
 							agents.get(a).see(territories.get(sub.get(i)));
-							System.out.println("its: center "+intersector.intersectLinePolygon(pos,fullVec,poly)+" right "+intersector.intersectLinePolygon(pos,fullRightVec,poly)
-							+" left "+intersector.intersectLinePolygon(pos,fullLeftVec,poly)+" rightForw "+intersector.intersectLinePolygon(fullVec,fullRightVec,poly)+" leftForw "+intersector.intersectLinePolygon(fullVec,fullLeftVec,poly));
+							//System.out.println("its: center "+intersector.intersectLinePolygon(pos,fullVec,poly)+" right "+intersector.intersectLinePolygon(pos,fullRightVec,poly)
+							//+" left "+intersector.intersectLinePolygon(pos,fullLeftVec,poly)+" rightForw "+intersector.intersectLinePolygon(fullVec,fullRightVec,poly)+" leftForw "+intersector.intersectLinePolygon(fullVec,fullLeftVec,poly));
 						}
 					}
 			}
