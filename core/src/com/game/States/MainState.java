@@ -37,6 +37,8 @@ public class MainState extends State {
 
     public ArrayList<Area> structures;
     public ArrayList<Agent> agents;
+    public ArrayList<Structure> walls;
+
     public Texture background;
     public Texture wall;
     public Texture play;
@@ -46,9 +48,11 @@ public class MainState extends State {
     public SpriteReader reader;
     public Board board;
     public Ground ground;
+    public int X_REDUC = 1;
+    public int Y_REDUC = 1;
 
 
-    public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents) {
+    public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls) {
         super(gsm);
         font = new BitmapFont();
         font.setColor(Color.BLACK);
@@ -65,6 +69,10 @@ public class MainState extends State {
       //separate the agents and structures
         this.structures = structures;
         this.agents = agents;
+        this.walls = walls;
+        for(int i = 0; i < walls.size(); i++){
+            structures.add(walls.get(i));
+        }
         /*
         for(int i=0; i<gameObjects.size(); i++) {
 	        GameObject go = gameObjects.get(i);
@@ -154,8 +162,9 @@ public class MainState extends State {
         for(int i =0; i < structures.size(); i++ ){
             structures.get(i).drawTexture(sb,MapState.X_REDUC,MapState.Y_REDUC);
         }
-        
-        /*
+
+       /*
+
         for (int i = 0; i < gameObjects.size(); i++) {
             sb.draw(gameObjects.get(i).texture, gameObjects.get(i).xPos, gameObjects.get(i).yPos, gameObjects.get(i).width, gameObjects.get(i).height);
         }

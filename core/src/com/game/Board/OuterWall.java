@@ -17,8 +17,9 @@ public class OuterWall extends Area{
 
 	public OuterWall(float startX, float startY, float width, float height) {
 		super(startX, startY, width, height);
+		name = "3";
 		try {
-            this.texture = reader.getImage(32,292,26,28);
+            this.texture = reader.getImage(225,191,60,32);
         } catch (IOException e) {
             e.printStackTrace();
         }

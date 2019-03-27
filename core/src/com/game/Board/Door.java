@@ -14,6 +14,7 @@ import com.game.Readers.SpriteReader;
 public class Door extends Area{
 
 	SpriteReader reader = new SpriteReader();
+	public String name = "7";
 
 	public Door(float startX, float startY, float width, float height, boolean horizontal) {
 		super(startX, startY, width, height);

@@ -5,6 +5,7 @@ package com.game.Board;
 
 import java.io.IOException;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.game.Readers.SpriteReader;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -20,7 +21,7 @@ public class Guard extends Agent {
 	public float speed;
 	public float angle;
 	public float soundRange;
-    SpriteReader reader = new SpriteReader();
+    public SpriteReader reader = new SpriteReader();
 
 	
 	public Guard(float x, float y, float width, float height) {
@@ -29,6 +30,7 @@ public class Guard extends Agent {
 		speed = 1;
 		soundRange = 0;
 		viewRange = 6f;
+		name = "2";
 		try {
 	        this.texture = reader.getImage(65,255,30,33);
             this.noticeSound = reader.getImage(135,425,20,20);

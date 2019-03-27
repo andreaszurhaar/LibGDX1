@@ -22,12 +22,14 @@ public class Intruder extends Agent {
     SpriteReader reader = new SpriteReader();
     public int sprintCount;
 
+
 	public Intruder(float x, float y, float width, float height) {
 		super(x, y, width, height);
 		viewAngle.setToRandomDirection();
 		speed = 1;
 		soundRange = 0;
 		sprintCount = 0;
+		name = "1";
 		viewRange = 7.5f;
         try {
             this.texture = reader.getImage(225,255,30,33);

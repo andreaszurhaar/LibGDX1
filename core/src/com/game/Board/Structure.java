@@ -19,12 +19,13 @@ public class Structure extends Area {
     SpriteReader reader = new SpriteReader();
     public ArrayList<Area> doorsAndWindows;
     public float noiseRange;
-    boolean horizontal;
+    public boolean horizontal;
 
 	public Structure(float startX, float startY, float width, float height, boolean horizontal) {
 		super(startX, startY, width, height);
 	    doorsAndWindows = new ArrayList<Area>();
 		this.horizontal = horizontal;
+		name = "5";
 		viewDistance = 10;
         SpriteReader reader = new SpriteReader();
         try {

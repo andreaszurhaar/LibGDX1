@@ -35,9 +35,12 @@ import com.game.Objects.VDoor;
 import com.game.Objects.Web;
 import com.game.Objects.hWall;
 import com.game.Objects.vWall;
+import com.game.Readers.FileHandler;
 import com.game.Readers.SpriteReader;
 
 import org.w3c.dom.css.Rect;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -192,10 +195,17 @@ public class MapState extends State {
             } catch (Exception e) {
                 System.out.println("Error");
             }
-           // sb.draw(play,850,535, 120,120);
+
             if(Gdx.input.getX() > 860 && Gdx.input.getY() < 100){
                 dispose();
-                gsm.push(new MainState(gsm,structures,agents));
+                FileHandler fileHandler = new FileHandler();
+                try {
+                    fileHandler.fileWriter(agents,structures,walls);
+                    fileHandler.fileReader(1);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                gsm.push(new MainState(gsm,structures,agents,walls));
             }
 
             if (Gdx.input.getY() >= 150) {
@@ -204,7 +214,6 @@ public class MapState extends State {
             Rectangle area = new Rectangle(x,y,10,10);
             Boolean overlaps = false;
 
-           // System.out.println("pressed at x: "+x+"  y: "+y);
                 if(delete == true) {
                     for (int i = 0; i < structures.size(); i++) {
                         if (structures.get(i).area.overlaps(area)) {
@@ -240,11 +249,11 @@ public class MapState extends State {
                     if (name == "wall") {
                         if (vertical == true) {
                             walls.add(new Structure(x, y, 20 / X_REDUC, 100 / Y_REDUC, false));
-                            structures.add(walls.get(walls.size() - 1));
+                         //   structures.add(walls.get(walls.size() - 1));
 
                         } else {
                             walls.add(new Structure(x, y, 100 / X_REDUC, 20 / Y_REDUC, true));
-                            structures.add(walls.get(walls.size() - 1));
+                         //   structures.add(walls.get(walls.size() - 1));
                         }
                     }
                     if (name == "robber") {
@@ -317,6 +326,9 @@ public class MapState extends State {
         
         for(int i =0; i < structures.size(); i++ ){
             structures.get(i).drawTexture(sb,X_REDUC,Y_REDUC);
+        }
+        for(int i =0; i < walls.size(); i++ ){
+            walls.get(i).drawTexture(sb,X_REDUC,Y_REDUC);
         }
 
 

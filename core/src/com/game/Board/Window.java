@@ -15,8 +15,10 @@ public class Window extends Area {
 	
 	SpriteReader reader = new SpriteReader();
 
+
 	public Window(float startX, float startY, float width, float height, boolean horizontal) {
 		super(startX, startY, width, height);
+		name = "10";
 		try {
 			if(horizontal) {
         		this.texture = reader.getImage(32,417,30,30);
