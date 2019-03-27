@@ -149,6 +149,12 @@ public class Board {
 	        int endY = (int) (agents.get(a).getY()+agents.get(a).area.height)/5;
 	        //System.out.println(x+"   "+y+"   "+endX+"   "+endY);
 	        
+	        x=x-6;
+	        y=y-6;
+	        endX=endX+6;
+	        endY=endY+6;
+	        
+	        
 	        
 	        ArrayList<Integer> sub = positionTracker[x][y];
 	        ArrayList<Integer> sub2 = positionTracker[endX][y];
@@ -214,7 +220,7 @@ public class Board {
 								|| agents.get(i).contains(agents.get(a).yCenter+leftVec.x*vec.len(), agents.get(a).yCenter+leftVec.y*vec.len())) {
 							*/
 						Polygon poly = rectToPoly(agents.get(i).area);
-						Rectangle roi = poly.getBoundingRectangle();
+						//Rectangle roi = poly.getBoundingRectangle();
 						//System.out.println(" polygon of :"+i+"  x: "+roi.x+"  y: "+roi.y+"   wid: "+roi.width+"  hei: "+roi.height);
 						//System.out.println("go from: "+pos.x+"  to: "+fullVec.x+"    from: "+pos.y+"  to: "+fullVec.y);
 						if(intersector.intersectLinePolygon(pos,fullVec,poly)
@@ -238,8 +244,8 @@ public class Board {
 					Vector2 dis = distPointToRect(agents.get(a).xCenter,agents.get(a).yCenter,territories.get(sub.get(i)).area);
 					Vector2 vec = new Vector2(agents.get(a).viewAngle);
 					vec.scl(4*range);
-					//System.out.println(vec.len()+"    length   x: "+vec.x+"  y: "+vec.y);
-					//System.out.println(dis.len()+"    lengthDist x: "+dis.x+"  y: "+dis.y);
+					System.out.println(vec.len()+"    length   x: "+vec.x+"  y: "+vec.y);
+					System.out.println(dis.len()+"    lengthDist x: "+dis.x+"  y: "+dis.y);
 					Vector2 pos = new Vector2(agents.get(a).xCenter,agents.get(a).yCenter);
 					Vector2 fullVec = (new Vector2(pos)).add(vec);
 					//System.out.println(fullVec.len()+"    lengthfull x: "+fullVec.x+"  y: "+fullVec.y);
@@ -254,10 +260,10 @@ public class Board {
 						leftVec.rotate(-agents.get(a).viewRadius/2);
 						Vector2 fullRightVec = (new Vector2(pos)).add(rightVec);
 						Vector2 fullLeftVec = (new Vector2(pos)).add(leftVec);
-						//System.out.println(rightVec.len()+"    lengthright   x: "+rightVec.x+"  y: "+rightVec.y);
-						//System.out.println(leftVec.len()+"    lengthleft   x: "+leftVec.x+"  y: "+leftVec.y);
-						//System.out.println(fullRightVec.len()+"    lengthfullRigh   x: "+fullRightVec.x+"  y: "+fullRightVec.y);
-						//System.out.println(fullLeftVec.len()+"    lengthfullLeft  x: "+fullLeftVec.x+"  y: "+fullLeftVec.y);
+						System.out.println(rightVec.len()+"    lengthright   x: "+rightVec.x+"  y: "+rightVec.y);
+						System.out.println(leftVec.len()+"    lengthleft   x: "+leftVec.x+"  y: "+leftVec.y);
+						System.out.println(fullRightVec.len()+"    lengthfullRigh   x: "+fullRightVec.x+"  y: "+fullRightVec.y);
+						System.out.println(fullLeftVec.len()+"    lengthfullLeft  x: "+fullLeftVec.x+"  y: "+fullLeftVec.y);
 
 						/*
 						if(Math.abs(vec.angle(agents.get(a).viewAngle)) < agents.get(a).viewRadius/2 
