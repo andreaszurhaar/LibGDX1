@@ -19,6 +19,7 @@ import com.game.Board.Structure;
 import com.game.Board.TargetArea;
 import com.game.Board.LowVisionArea;
 import com.game.Board.OuterWall;
+import com.game.Board.Window;
 import com.game.CopsAndRobbers;
 import com.game.GameLogic.Collider;
 import com.game.Objects.Candle;
@@ -201,7 +202,7 @@ public class MapState extends State {
                 FileHandler fileHandler = new FileHandler();
                 try {
                     fileHandler.fileWriter(agents,structures,walls);
-                    fileHandler.fileReader(1);
+                    fileHandler.fileReader(5);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -283,7 +284,7 @@ public class MapState extends State {
                         agents.add(new Guard(x, y, 20 / X_REDUC, 20 / Y_REDUC));
                     }
                     if (name == "web") {
-                        structures.add(new OuterWall(x, y, 20 / X_REDUC, 20 / Y_REDUC));
+                        structures.add(new Window(x, y, 20 / X_REDUC, 20 / Y_REDUC,vertical));
                     }
                 }
 
