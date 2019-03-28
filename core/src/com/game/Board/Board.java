@@ -294,7 +294,15 @@ public class Board {
 								|| territories.get(sub.get(i)).contains(agents.get(a).xCenter+rightVec.x*vec.len(), agents.get(a).xCenter+rightVec.y*vec.len())
 								|| territories.get(sub.get(i)).contains(agents.get(a).yCenter+leftVec.x*vec.len(), agents.get(a).yCenter+leftVec.y*vec.len())) {
 							*/
-						Polygon poly = rectToPoly(territories.get(sub.get(i)).area);
+						Rectangle poly = territories.get(sub.get(i)).area;
+						if(intersectVectAndRect(vec,poly,pos.x,pos.y)
+								|| intersectVectAndRect(leftVec,poly,pos.x,pos.y)
+								|| intersectVectAndRect(rightVec,poly,pos.x,pos.y)
+								|| intersectVectAndRect(new Vector2(vec.x-leftVec.x,vec.y-leftVec.y),poly,pos.x,pos.y)
+								|| intersectVectAndRect(new Vector2(vec.x-rightVec.x,vec.y-rightVec.y),poly,pos.x,pos.y)) {
+							agents.get(a).see(territories.get(sub.get(i)));
+						}
+						/*
 						if(intersector.intersectLinePolygon(pos,fullVec,poly)
 								|| intersector.intersectLinePolygon(pos,fullRightVec,poly)
 								|| intersector.intersectLinePolygon(pos,fullLeftVec,poly)
@@ -304,6 +312,7 @@ public class Board {
 							//Rectangle are = territories.get(sub.get(i)).area;
 							//System.out.println("  rect number: "+i+"  x: "+are.x+"  y: "+are.y+"  width: "+are.width+"  height: "+are.height);
 						}
+						*/
 					}
 			}
 		}

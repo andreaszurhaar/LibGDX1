@@ -155,14 +155,14 @@ public class MainState extends State {
         sb.draw(wall, 0, 500, 1000, 20);
         sb.draw(wall, 820, 520, 20, 180);
 
-        for(int i =0; i < agents.size(); i++ ){
-            agents.get(i).drawTexture(sb,MapState.X_REDUC,MapState.Y_REDUC);
-        }
-        
         for(int i =0; i < structures.size(); i++ ){
             structures.get(i).drawTexture(sb,MapState.X_REDUC,MapState.Y_REDUC);
         }
-
+        
+        for(int i =0; i < agents.size(); i++ ){
+            agents.get(i).drawTexture(sb,MapState.X_REDUC,MapState.Y_REDUC);
+        }
+       
        /*
 
         for (int i = 0; i < gameObjects.size(); i++) {
