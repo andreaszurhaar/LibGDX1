@@ -25,8 +25,8 @@ public class Structure extends Area {
 		super(startX, startY, width, height);
 	    doorsAndWindows = new ArrayList<Area>();
 		this.horizontal = horizontal;
-		name = "5";
 		viewDistance = 10;
+		name = "7";
         SpriteReader reader = new SpriteReader();
         try {
         	if(horizontal) {
@@ -49,17 +49,20 @@ public class Structure extends Area {
 			float yDist = y-yPos;
 			doorsAndWindows.add(new Door(xPos,yPos+yDist-6/MapState.Y_REDUC,20/MapState.X_REDUC,30/MapState.Y_REDUC,horizontal));
 		}
+
+		name = "5";
 	}
 		
 	public void placeWindow(float x, float y) {
 		if(horizontal) {
 			float xDist = x-xPos;
-			doorsAndWindows.add(new Window(xPos+xDist-15/MapState.X_REDUC,yPos,area.getWidth(),area.getHeight(),horizontal));
+			doorsAndWindows.add(new Window(xPos+xDist-3/MapState.X_REDUC,yPos,30/MapState.X_REDUC,20/MapState.Y_REDUC,horizontal));
 		}
 		if(!horizontal) {
 			float yDist = y-yPos;
-			doorsAndWindows.add(new Window(xPos,yPos+yDist-15/MapState.Y_REDUC,area.getWidth(),area.getHeight(),horizontal));
+			doorsAndWindows.add(new Window(xPos,yPos+yDist-6/MapState.Y_REDUC,20/MapState.X_REDUC,20/MapState.Y_REDUC,horizontal));
 		}
+		name = "6";
 
 	}
 	
