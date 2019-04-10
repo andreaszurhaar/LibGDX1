@@ -64,12 +64,12 @@ public class Intruder extends Agent {
 	}
 	
 	@Override
-	public void drawTexture(SpriteBatch sb, int xReduc, int yReduc) {
+	public void drawTexture(SpriteBatch sb, float xReduc, float yReduc) {
 		sb.end();
 	   	renderer.begin(ShapeType.Line);
 	   	if(seeing) {renderer.setColor(1, 0, 0, 1);}
 	   	else {renderer.setColor(1, 1, 0, 1);}
-	   	renderer.arc(xCenter, yCenter, viewRange*4,viewAngle.angle()-(viewRadius/2),viewRadius);
+	   	renderer.arc(xCenter*xReduc, yCenter*yReduc, viewRange*4,viewAngle.angle()-(viewRadius/2),viewRadius);
 	   	renderer.end();
 		sb.begin();
 		seeing = false;

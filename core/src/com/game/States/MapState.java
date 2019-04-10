@@ -65,8 +65,8 @@ public class MapState extends State {
     public hWall hWall;
     public Ground ground;;
     public Collider collider;
-    public static final int X_REDUC = 1;
-    public static final int Y_REDUC = 1;
+    public static final float X_REDUC = 2.5f;
+    public static final float Y_REDUC = 2.5f;
     
     
     public MapState(GameStateManager gsm){
@@ -102,17 +102,10 @@ public class MapState extends State {
         menuObjects.add(new Web(725,575));
 
         
-        for(int i=0; i<50; i++) {
-        	structures.add(new OuterWall(i*20/Y_REDUC,0,20/X_REDUC,20/Y_REDUC));
-        	structures.add(new OuterWall(i*20/Y_REDUC,500-20/X_REDUC,20/X_REDUC,20/Y_REDUC));
-
-        }
-        
-        for(int i=1; i<25; i++) {
-        	structures.add(new OuterWall(0,i*20/X_REDUC,20/X_REDUC,20/Y_REDUC));
-        	structures.add(new OuterWall(1000-20/Y_REDUC,i*20/X_REDUC,20/X_REDUC,20/Y_REDUC));
-        }
-        
+       	structures.add(new OuterWall(20/X_REDUC,0,(CopsAndRobbers.WIDTH-40)/X_REDUC,20/Y_REDUC));
+       	structures.add(new OuterWall(20/X_REDUC,(CopsAndRobbers.HEIGHT-150)/Y_REDUC,(CopsAndRobbers.WIDTH-40)/X_REDUC,20/Y_REDUC));
+       	structures.add(new OuterWall(0,0,20/X_REDUC,(CopsAndRobbers.HEIGHT-130)/Y_REDUC));
+       	structures.add(new OuterWall((CopsAndRobbers.WIDTH-20)/X_REDUC,0,20/X_REDUC,(CopsAndRobbers.HEIGHT-130)/Y_REDUC));
 
     }
     @Override
