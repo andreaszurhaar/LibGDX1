@@ -34,6 +34,15 @@ public class Astar {
         start();
     }
 
+    public Astar(ArrayList areas, int startx, int starty, int targetx, int targety)
+    {
+        createInitialGraph(areas);
+        setStart(startx, starty);
+        //Take random target coordinates
+        setTarget(targetx, targety);
+        start();
+    }
+
     public void createInitialGraph(ArrayList areas)
     {
         map = new Graph(areas, target);
