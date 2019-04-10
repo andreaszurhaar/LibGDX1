@@ -6,6 +6,9 @@ package com.game.Board;
 import java.io.IOException;
 
 import com.game.Readers.SpriteReader;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 
 /**
  * @author Lukas Padolevicius
@@ -18,11 +21,7 @@ public class OuterWall extends Area{
 	public OuterWall(float startX, float startY, float width, float height) {
 		super(startX, startY, width, height);
 		name = "3";
-		try {
-            this.texture = reader.getImage(225,191,60,32);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.texture = new TextureRegion(new Texture("Water.png"),20,20,width,height);
 
 	}
 }

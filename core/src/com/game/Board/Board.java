@@ -21,8 +21,8 @@ public class Board {
 	private ArrayList<Agent> agents;
 	private final static int fps = 10;
 	private final int VISUAL_RANGE = 20;
-	private final static int BOARD_WIDTH = 200;
-	private final static int BOARD_HEIGHT = 100;
+	private final static int BOARD_WIDTH = 80;
+	private final static int BOARD_HEIGHT = 40;
 	private Intersector intersector;
 	
 	public Board() {

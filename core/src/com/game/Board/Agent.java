@@ -142,7 +142,7 @@ public class Agent extends AssetManager {
 		this.lastHeardSound = lastHeardSound;
 	}
 	
-	public void drawTexture(SpriteBatch sb, int xReduc, int yReduc) {
+	public void drawTexture(SpriteBatch sb, float xReduc, float yReduc) {
     	sb.draw(texture, xPos*xReduc, yPos*yReduc, 
     			(float) area.getWidth()*xReduc, (float) area.getHeight()*yReduc);
     	if(hearing == true) {

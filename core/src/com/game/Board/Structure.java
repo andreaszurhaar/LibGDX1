@@ -64,7 +64,7 @@ public class Structure extends Area {
 	}
 	
 	@Override
-    public void drawTexture(SpriteBatch sb, int xReduc, int yReduc) {
+    public void drawTexture(SpriteBatch sb, float xReduc, float yReduc) {
 		sb.draw(texture, xPos*xReduc, yPos*yReduc,(float) area.getWidth()*xReduc,(float) area.getHeight()*yReduc);
 		for(int i=0; i<doorsAndWindows.size(); i++) {
 			doorsAndWindows.get(i).drawTexture(sb,xReduc,yReduc);
