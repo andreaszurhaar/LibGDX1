@@ -8,6 +8,7 @@ public class SoundOccurence {
     private long time;
     float xpos;
     float ypos;
+    public String name = "soundoccurence";
 
     public SoundOccurence(long time, float xPos, float yPos, int range) {
         this.time = time;

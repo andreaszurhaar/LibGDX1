@@ -3,6 +3,7 @@ package com.game.States;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.game.Board.Structure;
 import com.game.Objects.GameObject;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public abstract class State {
         mouse = new Vector3();
     }
 
-    public State(GameStateManager gsm, ArrayList<GameObject> gameObjects){
+    public State(GameStateManager gsm, ArrayList<GameObject> gameObjects, ArrayList<Structure> walls){
         this.gsm = gsm;
         cam = new OrthographicCamera();
         mouse = new Vector3();

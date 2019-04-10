@@ -33,6 +33,7 @@ public class Agent extends AssetManager {
 	public float rotation;
 	public float turningCircle;
 	public float viewRadius;
+	public float viewRange;
 	private float maxSpeed;
 	public float soundRange;
 	public SoundOccurence lastHeardSound;
@@ -116,7 +117,13 @@ public class Agent extends AssetManager {
 	public void see(Area object) {
 		seeing = true;
 		//saw object
-		System.out.println("saw something");
+		//System.out.println("saw something");
+	}
+	
+	public void see(Agent object) {
+		seeing = true;
+		//saw object
+		//System.out.println("saw something");
 	}
 	
 	public void triggerStep() {	}
@@ -136,13 +143,6 @@ public class Agent extends AssetManager {
 	}
 	
 	public void drawTexture(SpriteBatch sb, int xReduc, int yReduc) {
-		sb.end();
-       	renderer.begin(ShapeType.Line);
-       	if(seeing) {renderer.setColor(1, 1, 0, 1);}
-       	else {renderer.setColor(1, 1, 0, 1);}
-       	renderer.arc(xCenter, yCenter, 40,viewAngle.angle()-(viewRadius/2),viewRadius);
-       	renderer.end();
-    	sb.begin();
     	sb.draw(texture, xPos*xReduc, yPos*yReduc, 
     			(float) area.getWidth()*xReduc, (float) area.getHeight()*yReduc);
     	if(hearing == true) {

@@ -11,24 +11,11 @@ import com.game.CopsAndRobbers;
 import com.game.Board.Agent;
 import com.game.Board.Area;
 import com.game.Board.Board;
-import com.game.Board.Guard;
-import com.game.Board.Intruder;
-import com.game.Board.OuterWall;
-import com.game.Board.SentryTower;
 import com.game.Board.Structure;
-import com.game.Board.TargetArea;
-import com.game.Objects.Cop;
-import com.game.Objects.Door;
-import com.game.Objects.GameObject;
 import com.game.Objects.Ground;
-import com.game.Objects.LookOut;
-import com.game.Objects.Robber;
-import com.game.Objects.Target;
-import com.game.Objects.Web;
-import com.game.Objects.hWall;
-import com.game.Objects.vWall;
+import com.game.Objects.Play;
+import com.game.Readers.FileHandler;
 import com.game.Readers.SpriteReader;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -37,24 +24,27 @@ public class MainState extends State {
 
     public ArrayList<Area> structures;
     public ArrayList<Agent> agents;
+    public ArrayList<Structure> walls;
+
     public Texture background;
     public Texture wall;
-    public Texture play;
+    public Play play;
     public String name;
     public BitmapFont font;
     public TextureRegion tR;
     public SpriteReader reader;
     public Board board;
     public Ground ground;
+    public int X_REDUC = 1;
+    public int Y_REDUC = 1;
 
 
-    public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents) {
+    public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls) {
         super(gsm);
         font = new BitmapFont();
         font.setColor(Color.BLACK);
-      //  background = new Texture("desert.png");
         wall = new Texture("wall.png");
-        play = new Texture("play.png");
+        play = new Play(865,545);
         ground = new Ground(0,0);
         reader = new SpriteReader();
         try {
@@ -65,48 +55,15 @@ public class MainState extends State {
       //separate the agents and structures
         this.structures = structures;
         this.agents = agents;
-        /*
-        for(int i=0; i<gameObjects.size(); i++) {
-	        GameObject go = gameObjects.get(i);
-	        float x = go.xPos/5;
-	        float y = go.yPos/5;
-	        float wid = go.width/5;
-	        float hei = go.height/5;
-	        if(x >= 0 && x+wid <200 && y >= 0 && y+hei <200) {
-	        	if(go instanceof LookOut) {
-	        		structures.add(new SentryTower( x, y,wid,hei));
-	        	}
-	        	
-	        	if(go instanceof Target) {
-	        		structures.add(new TargetArea( x, y, wid, hei));
-	        	}
-	        	
-	        	if(go instanceof hWall || go instanceof vWall) {
-	        		structures.add(new Structure( x, y, wid, hei));
-	        	}
-	        	
-	        	if(go instanceof Web) {
-	        		structures.add(new OuterWall( x, y, wid, hei));
-	        	}
-	        	
-	        	if(go instanceof Cop) {
-	        		agents.add(new Guard( x, y));
-	        	}
-	        	
-	        	if(go instanceof Robber) {
-	        		System.out.println("placed in: "+ x+"   "+ y);
-	        		agents.add(new Intruder( x, y));
-	        	}
-        	}
-        }
-        */
-        
-        
-        board = new Board();
-		System.out.println("got here and sizes are: "+structures.size()+"  "+agents.size());
+        this.walls = walls;
 
-        if(!structures.isEmpty()) {board.setUp(structures);}
-        if(!agents.isEmpty()) {board.putInAgents(agents);}
+        for(int i = 0; i < this.walls.size(); i++){
+            this.structures.add(this.walls.get(i));
+        }
+
+        board = new Board();
+        if(!this.structures.isEmpty()) {board.setUp(this.structures);}
+        if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}
         
     }
     
@@ -122,7 +79,6 @@ public class MainState extends State {
             } catch (Exception e) {
                 System.out.println("Error");
             }
-            // sb.draw(play,850,535, 120,120);
             if (Gdx.input.getX() > 850 && Gdx.input.getY() < 835) {
                 gsm.pop();
             }
@@ -143,23 +99,18 @@ public class MainState extends State {
     	
         sb.begin();
         sb.draw(ground.texture,ground.xPos,ground.yPos, CopsAndRobbers.WIDTH,CopsAndRobbers.HEIGHT);
-        sb.draw(play, 850, 835, 120, 120);
+        sb.draw(play.texture, play.xPos, play.yPos, 100, 100);
         sb.draw(wall, 0, 500, 1000, 20);
         sb.draw(wall, 820, 520, 20, 180);
 
-        for(int i =0; i < agents.size(); i++ ){
-            agents.get(i).drawTexture(sb,MapState.X_REDUC,MapState.Y_REDUC);
-        }
-        
         for(int i =0; i < structures.size(); i++ ){
             structures.get(i).drawTexture(sb,MapState.X_REDUC,MapState.Y_REDUC);
         }
         
-        /*
-        for (int i = 0; i < gameObjects.size(); i++) {
-            sb.draw(gameObjects.get(i).texture, gameObjects.get(i).xPos, gameObjects.get(i).yPos, gameObjects.get(i).width, gameObjects.get(i).height);
+        for(int i =0; i < agents.size(); i++ ){
+            agents.get(i).drawTexture(sb,MapState.X_REDUC,MapState.Y_REDUC);
         }
-		*/
+
         sb.end();
 
     }

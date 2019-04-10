@@ -17,6 +17,7 @@ public class LowVisionArea extends Area {
 
 	public LowVisionArea(float startX, float startY, float width, float height) {
 		super(startX, startY, width, height);
+		name = "4";
 		try {
             this.texture = reader.getImage(104,225,15,33);
         } catch (IOException e) {

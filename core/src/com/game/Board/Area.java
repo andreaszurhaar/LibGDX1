@@ -20,6 +20,7 @@ public class Area extends AssetManager {
 	public Rectangle area;
 	public float xPos;
 	public float yPos;
+	public float viewDistance;
 	public String name;
     public TextureRegion texture;
 
@@ -28,6 +29,7 @@ public class Area extends AssetManager {
         area = new Rectangle(startX,startY, width, height);
         xPos = startX;
         yPos = startY;
+        viewDistance = 0;
     }
 
     public float getMinX() {

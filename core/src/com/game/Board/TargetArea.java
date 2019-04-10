@@ -17,6 +17,7 @@ public class TargetArea extends Area {
 
 	public TargetArea(float startX, float startY, float width, float height) {
 		super(startX, startY, width, height);
+        name = "8";
 		try {
             this.texture = reader.getImage(36,228,20,20);
         } catch (IOException e) {

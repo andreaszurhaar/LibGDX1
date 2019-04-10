@@ -19,6 +19,7 @@ import com.game.Board.Structure;
 import com.game.Board.TargetArea;
 import com.game.Board.LowVisionArea;
 import com.game.Board.OuterWall;
+import com.game.Board.Window;
 import com.game.CopsAndRobbers;
 import com.game.GameLogic.Collider;
 import com.game.Objects.Candle;
@@ -35,9 +36,12 @@ import com.game.Objects.VDoor;
 import com.game.Objects.Web;
 import com.game.Objects.hWall;
 import com.game.Objects.vWall;
+import com.game.Readers.FileHandler;
 import com.game.Readers.SpriteReader;
 
 import org.w3c.dom.css.Rect;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -145,23 +149,18 @@ public class MapState extends State {
 
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
             this.name = "robber";
-         ////   System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
             this.name = "cop";
-           // System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
             this.name = "steps";
-           // System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_4)) {
             this.name = "candle";
-           // System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_5)) {
             this.name = "wall";
-         //   System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_6)) {
             this.name = "Vdoor";
@@ -169,19 +168,15 @@ public class MapState extends State {
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_7)) {
             this.name = "door";
-          //  System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_8)) {
             this.name = "target";
-            System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_9)) {
             this.name = "lookout";
-          //  System.out.println("Made it");
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_0)) {
             this.name = "web";
-            //  System.out.println("Made it");
         }
 
 
@@ -192,10 +187,10 @@ public class MapState extends State {
             } catch (Exception e) {
                 System.out.println("Error");
             }
-           // sb.draw(play,850,535, 120,120);
+
             if(Gdx.input.getX() > 860 && Gdx.input.getY() < 100){
                 dispose();
-                gsm.push(new MainState(gsm,structures,agents));
+                gsm.push(new MainState(gsm,structures,agents,walls));
             }
 
             if (Gdx.input.getY() >= 150) {
@@ -204,7 +199,6 @@ public class MapState extends State {
             Rectangle area = new Rectangle(x,y,10,10);
             Boolean overlaps = false;
 
-           // System.out.println("pressed at x: "+x+"  y: "+y);
                 if(delete == true) {
                     for (int i = 0; i < structures.size(); i++) {
                         if (structures.get(i).area.overlaps(area)) {
@@ -240,15 +234,14 @@ public class MapState extends State {
                     if (name == "wall") {
                         if (vertical == true) {
                             walls.add(new Structure(x, y, 20 / X_REDUC, 100 / Y_REDUC, false));
-                            structures.add(walls.get(walls.size() - 1));
 
                         } else {
                             walls.add(new Structure(x, y, 100 / X_REDUC, 20 / Y_REDUC, true));
-                            structures.add(walls.get(walls.size() - 1));
+
                         }
                     }
                     if (name == "robber") {
-                        agents.add(new Intruder(x, y, 30 / X_REDUC, 30 / Y_REDUC));
+                        agents.add(new Intruder(x, y, 20 / X_REDUC, 20 / Y_REDUC));
                     }
                     if (name == "candle") {
                         structures.add(new LowVisionArea(x, y, 20 / X_REDUC, 40 / Y_REDUC));
@@ -271,10 +264,15 @@ public class MapState extends State {
                         }
                     }
                     if (name == "cop") {
-                        agents.add(new Guard(x, y, 30 / X_REDUC, 30 / Y_REDUC));
+                        agents.add(new Guard(x, y, 20 / X_REDUC, 20 / Y_REDUC));
                     }
                     if (name == "web") {
-                        structures.add(new OuterWall(x, y, 20 / X_REDUC, 20 / Y_REDUC));
+                        for (int i = 0; i < walls.size(); i++) {
+                            if (walls.get(i).contains(x, y)) {
+                                walls.get(i).placeWindow(x, y);
+                            }
+                        }
+
                     }
                 }
 
@@ -312,16 +310,17 @@ public class MapState extends State {
         }
         
         for(int i =0; i < agents.size(); i++ ){
-            sb.draw(agents.get(i).texture, agents.get(i).xPos*X_REDUC,agents.get(i).yPos*Y_REDUC,30,30);
+            agents.get(i).drawTexture(sb,X_REDUC,Y_REDUC);
         }
         
         for(int i =0; i < structures.size(); i++ ){
             structures.get(i).drawTexture(sb,X_REDUC,Y_REDUC);
         }
-
+        for(int i =0; i < walls.size(); i++ ){
+            walls.get(i).drawTexture(sb,X_REDUC,Y_REDUC);
+        }
 
         sb.end();
-
 
     }
 
