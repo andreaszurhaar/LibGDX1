@@ -19,10 +19,10 @@ public class Board {
 	private ArrayList<Integer>[][] positionTracker;
 	private ArrayList<Area> territories;
 	private ArrayList<Agent> agents;
-	private final static int fps = 10;
+	private final static int fps = 60;
 	private final int VISUAL_RANGE = 20;
-	public final static int BOARD_WIDTH = 200;
-	public final static int BOARD_HEIGHT = 100;
+	public final static int BOARD_WIDTH = 80;
+	public final static int BOARD_HEIGHT = 40;
 	private Intersector intersector;
 	
 	public Board() {
@@ -202,14 +202,14 @@ public class Board {
 					float range = agents.get(a).viewRange;
 					Vector2 dis = distPointToRect(agents.get(a).xCenter,agents.get(a).yCenter,agents.get(i).area);
 					Vector2 vec = new Vector2(agents.get(a).viewAngle);
-					vec.scl(4*range);
+					vec.scl(range);
 					//System.out.println(vec.len()+"    length   x: "+vec.x+"  y: "+vec.y);
 					//System.out.println(dis.len()+"    lengthDist x: "+dis.x+"  y: "+dis.y);
 					Vector2 pos = new Vector2(agents.get(a).xCenter,agents.get(a).yCenter);
 					Vector2 fullVec = (new Vector2(pos)).add(vec);
 					//System.out.println(fullVec.len()+"    lengthfull x: "+fullVec.x+"  y: "+fullVec.y);
 	
-					if(dis.len() < range*4) {
+					if(dis.len() < range) {
 						//intersector.intersectLinePolygon();
 						
 						//System.out.println("agent "+a+"  sawwwwwwwwwwwwwwwwwwwwww this: "+i);
@@ -274,7 +274,7 @@ public class Board {
 					float range = Math.max(agents.get(a).viewRange, territories.get(sub.get(i)).viewDistance);
 					Vector2 dis = distPointToRect(agents.get(a).xCenter,agents.get(a).yCenter,territories.get(sub.get(i)).area);
 					Vector2 vec = new Vector2(agents.get(a).viewAngle);
-					vec.scl(4*range);
+					vec.scl(range);
 										Vector2 pos = new Vector2(agents.get(a).xCenter,agents.get(a).yCenter);
 					Vector2 fullVec = (new Vector2(pos)).add(vec);
 
@@ -345,7 +345,7 @@ public class Board {
 				if(i!=j) {
 					Agent a = agents.get(j);
 					//check if distance between sound and agent is within the sound range
-					if (distPointToRect(s.xpos,s.ypos,a.area).len() < s.soundRange+20) {
+					if (distPointToRect(s.xpos,s.ypos,a.area).len() < s.soundRange) {
 						a.hearSound(estimateDirection(s,a.xCenter,a.yCenter));
 						//System.out.println("heard sound between: "+i+"  and "+j+"   "+Math.random());
 					}

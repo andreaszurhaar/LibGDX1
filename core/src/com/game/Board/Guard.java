@@ -71,7 +71,7 @@ public class Guard extends Agent {
 	   	renderer.begin(ShapeType.Line);
 	   	if(seeing) {renderer.setColor(1, 0, 0, 1);}
 	   	else {renderer.setColor(1, 1, 0, 1);}
-	   	renderer.arc(xCenter*xReduc, yCenter*yReduc, viewRange*4,viewAngle.angle()-(viewRadius/2),viewRadius);
+	   	renderer.arc(xCenter*xReduc, yCenter*yReduc, viewRange*xReduc,viewAngle.angle()-(viewRadius/2),viewRadius,20);
 	   	renderer.end();
 		sb.begin();
 		seeing = false;
