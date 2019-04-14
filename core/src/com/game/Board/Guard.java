@@ -3,6 +3,7 @@
  */
 package com.game.Board;
 
+import java.awt.geom.Point2D;
 import java.io.IOException;
 
 import com.badlogic.gdx.math.Rectangle;
@@ -22,11 +23,12 @@ public class Guard extends Agent {
 	public float angle;
 	public float soundRange;
     public SpriteReader reader = new SpriteReader();
+	private final int ALLOWED_DISTANCE_ERROR = 30;
 
 	
 	public Guard(float x, float y, float width, float height) {
 		super(x, y, width, height);
-		viewAngle.setToRandomDirection();
+		//viewAngle.setToRandomDirection();
 		speed = 1;
 		soundRange = 0;
 		viewRange = 6f;
@@ -49,6 +51,7 @@ public class Guard extends Agent {
 	}
 	
 	public void triggerStep() {
+
 		//System.out.println("activated trigger and changed speed from: "+speed+"  "+angle);
 		this.speed = 1.4f;//(float) (Math.random()*1.4f);
 		if(speed < 0.5) {
@@ -62,6 +65,31 @@ public class Guard extends Agent {
 		}
 		this.rotation = (float) -Math.toRadians(Math.random()*turningCircle/2);
 		//System.out.println("to: "+speed+"  "+angle);
+		seeing = false;
+	}
+
+	public void triggerStepTowardPoint(Point2D point){
+			//System.out.println("activated trigger and changed speed from: "+speed+"  "+angle);
+			this.speed = 1.4f;//(float) (Math.random()*1.4f);
+			if(speed < 0.5) {
+				soundRange = 1;
+			} else if(speed < 1) {
+				soundRange = 3;
+			} else if(speed < 2) {
+				soundRange = 5;
+			} else {
+				soundRange = 10;
+			}
+
+		float centreX = (float) point.getX();
+		float centreY = (float) point.getY();
+
+		if(Math.sqrt(((this.xPos - centreX) * (this.xPos  - centreX)) + ((this.yPos  - centreY) * (this.yPos - centreY))) < ALLOWED_DISTANCE_ERROR){
+			this.rotation = (float) -Math.toRadians(Math.random()*this.turningCircle/2);
+			this.angle = 0;
+		}
+
+
 		seeing = false;
 	}
 	

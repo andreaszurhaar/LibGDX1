@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class MapDivider {
     private int boardWidth, boardHeight;
     private int nrCops;
+    private ArrayList<Point2D> centres;
 
 
     public MapDivider(int nrCops)
@@ -35,11 +36,11 @@ public class MapDivider {
             nrVertical = nrCops;
             nrHorizontal = 1;
         }
-        findCenters(nrVertical,nrHorizontal);
+        centres = findCenters(nrVertical,nrHorizontal);
     }
 
-    public void findCenters(int nrVertical, int nrHorizontal){
-        ArrayList<Point2D> centre = new ArrayList<Point2D>();
+    public ArrayList<Point2D> findCenters(int nrVertical, int nrHorizontal){
+        ArrayList<Point2D> centres = new ArrayList<Point2D>();
 
         double width = boardWidth/nrVertical;
         double height = boardHeight/nrHorizontal;
@@ -68,11 +69,17 @@ public class MapDivider {
                 else{
                     tempY = tempY + height;
                 }
-                centre.add(new Point2D.Double(tempX,tempY));
+                centres.add(new Point2D.Double(tempX*5,tempY*5));
                 start = false;
             }
             tempY = height/2;
         }
+        return centres;
+    }
 
+    public ArrayList<Point2D> getCentres() {
+        return centres;
     }
 }
+
+
