@@ -20,7 +20,7 @@ public class Board {
 	private ArrayList<Integer>[][] positionTracker;
 	private ArrayList<Area> territories;
 	private ArrayList<Agent> agents;
-	private final static int fps = 60;
+	public final static int fps = 60;
 	private final int VISUAL_RANGE = 20;
 	public final static int BOARD_WIDTH = 80;
 	public final static int BOARD_HEIGHT = 40;
@@ -87,7 +87,6 @@ public class Board {
 	}
 	
 	public void updateAgents() {
-		
 		/*
 		Vector2 test = new Vector2(20,30);
 		Vector2 testi = new Vector2(test);
@@ -96,9 +95,7 @@ public class Board {
 		
 		Rectangle re = new Rectangle(10,35,20,20);
 		System.out.println(intersector.intersectLinePolygon(test,testf,rectToPoly(re)));
-		
-		
-		
+
 		System.out.println(test.x);
 		System.out.println(test.y);
 		System.out.println(testi.x);
@@ -435,4 +432,3 @@ public class Board {
 		this.currentPoint = currentPoint;
 	}
 }
-

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class MapDivider {
     private int boardWidth, boardHeight;
     private int nrCops;
+    private double width, height;
     private ArrayList<Point2D> centres;
 
 
@@ -42,8 +43,8 @@ public class MapDivider {
     public ArrayList<Point2D> findCenters(int nrVertical, int nrHorizontal){
         ArrayList<Point2D> centres = new ArrayList<Point2D>();
 
-        double width = boardWidth/nrVertical;
-        double height = boardHeight/nrHorizontal;
+        width = boardWidth/nrVertical;
+        height = boardHeight/nrHorizontal;
 
         double tempX = 0.0;
         double tempY = 0.0;
@@ -80,6 +81,10 @@ public class MapDivider {
     public ArrayList<Point2D> getCentres() {
         return centres;
     }
+
+    public double getBorderWidth()    {    return width;     }
+
+    public double getBorderHeight()   {    return height;    }
 }
 
 
