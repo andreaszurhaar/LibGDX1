@@ -5,8 +5,10 @@ package com.game.Board;
 
 import java.awt.geom.Point2D;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.game.Readers.SpriteReader;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -22,6 +24,9 @@ public class Guard extends Agent {
 	public float speed;
 	public float angle;
 	public float soundRange;
+	public float areaWidth, areaHeight;
+	private Point2D.Float areaCenter;
+	public ArrayList<Point2D.Float> areaPoints;
     public SpriteReader reader = new SpriteReader();
 	private final int ALLOWED_DISTANCE_ERROR = 30;
 
@@ -104,4 +109,69 @@ public class Guard extends Agent {
 		seeing = false;
 		super.drawTexture(sb, xReduc, yReduc);
 	}
+
+	public void patrolInArea()
+	{
+		areaPoints = new ArrayList<Point2D.Float>();
+		//Assuming we know the areaborders of where we are patrolling
+		for (int i = 0; i<areaWidth; i++)
+		{
+			for (int j=0; j<areaHeight;j++)
+			{
+				areaPoints.add(new Point2D.Float(i,j));
+			}
+		}
+		Point2D.Float currentPoint = areaCenter;
+		ArrayList<Point2D.Float> seenPoints = new ArrayList<Point2D.Float>();
+		seenPoints.add(currentPoint);
+		while (seenPoints.size() != (areaWidth*areaHeight)) {
+
+		    addSeenPoints(seenPoints);
+		    //go to point that is close and not seen yet
+            currentPoint = findClosestPoint(currentPoint);
+            //change vision cone to the direction of the closest point
+            Vector2 point = new Vector2(currentPoint.x, currentPoint.y);
+            super.setAngle(point.angle());
+            //walk to that point & do everything again
+        }
+	}
+
+	public void addSeenPoints(ArrayList<Point2D.Float> seenPoints)
+    {
+        for (Point2D.Float p : areaPoints) {
+            if (Math.sqrt(p.x * p.x + p.y * p.y) < viewRange) {
+                Vector2 point = new Vector2(p.x - viewAngle.x, p.y - viewAngle.y);
+                if (point.angle() < (0.5*viewRadius)) {
+                    seenPoints.add(p);
+                    areaPoints.remove(p);
+                }
+            }
+        }
+    }
+
+    public Point2D.Float findClosestPoint(Point2D.Float currentPoint)
+    {
+        Point2D.Float temp = new Point2D.Float(currentPoint.x, currentPoint.y);
+        int i = 1;
+        boolean foundPoint = false;
+        while (!foundPoint) {
+            for (Point2D.Float p : areaPoints) {
+                if (p.x == temp.x + i && p.y == temp.y
+                        || p.x == temp.x && p.y == temp.y + i
+                        || p.x == temp.x + i && p.y == temp.y + i
+                        || p.x == temp.x - i && p.y == temp.y
+                        || p.x == temp.x && p.y == temp.y - i
+                        || p.x == temp.x - i && p.y == temp.y - i
+                        || p.x == temp.x - i && p.y == temp.y + i
+                        || p.x == temp.x + i && p.y == temp.y - i) {
+                    foundPoint = true;
+                    return p;
+                }
+            }
+            i++;
+        }
+        System.out.println("There are no unseen closest points, so we return back to the centre of the area");
+        return areaCenter;
+
+    }
 }
