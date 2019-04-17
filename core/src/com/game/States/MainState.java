@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.game.AI.GuardPatrolling;
 import com.game.CopsAndRobbers;
 import com.game.Board.Agent;
 import com.game.Board.Area;
@@ -35,6 +36,7 @@ public class MainState extends State {
     public SpriteReader reader;
     public Board board;
     public Ground ground;
+    public GuardPatrolling guardPatrol;
     public int X_REDUC = 1;
     public int Y_REDUC = 1;
 
@@ -64,7 +66,7 @@ public class MainState extends State {
         board = new Board();
         if(!this.structures.isEmpty()) {board.setUp(this.structures);}
         if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}
-        
+        guardPatrol = new GuardPatrolling(board);
     }
     
     

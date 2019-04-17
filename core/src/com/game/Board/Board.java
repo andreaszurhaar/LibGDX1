@@ -3,6 +3,7 @@
  */
 package com.game.Board;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Random;
 import com.badlogic.gdx.math.Rectangle;
@@ -24,6 +25,8 @@ public class Board {
 	public final static int BOARD_WIDTH = 80;
 	public final static int BOARD_HEIGHT = 40;
 	private Intersector intersector;
+	private boolean updateAgentMoveToPoint;
+	private Point2D currentPoint;
 	
 	public Board() {
 		intersector = new Intersector();
@@ -84,7 +87,6 @@ public class Board {
 	}
 	
 	public void updateAgents() {
-		
 		/*
 		Vector2 test = new Vector2(20,30);
 		Vector2 testi = new Vector2(test);
@@ -93,9 +95,7 @@ public class Board {
 		
 		Rectangle re = new Rectangle(10,35,20,20);
 		System.out.println(intersector.intersectLinePolygon(test,testf,rectToPoly(re)));
-		
-		
-		
+
 		System.out.println(test.x);
 		System.out.println(test.y);
 		System.out.println(testi.x);
@@ -137,7 +137,9 @@ public class Board {
 			if(!collided) {
 				agents.get(a).setPos(newX,newY);
 			}
-			agents.get(a).triggerStep();
+			if(!updateAgentMoveToPoint) agents.get(a).triggerStep();
+			else agents.get(a).triggerStepTowardPoint(currentPoint);
+
 		}
 		
 		for(int a=0; a<agents.size(); a++) {
@@ -418,5 +420,15 @@ public class Board {
 		return contains;
 	}
 
-}
+	public ArrayList<Agent> getAgents() {
+		return agents;
+	}
 
+	public void setUpdateAgentMoveToPoint(boolean updateAgentMoveToPoint) {
+		this.updateAgentMoveToPoint = updateAgentMoveToPoint;
+	}
+
+	public void setCurrentPoint(Point2D currentPoint) {
+		this.currentPoint = currentPoint;
+	}
+}

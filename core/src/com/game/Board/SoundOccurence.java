@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 public class SoundOccurence {
 
+    /**
+     * @author Yvar Hulshof
+     *
+     */
+
     int soundRange;
     private long time;
     float xpos;

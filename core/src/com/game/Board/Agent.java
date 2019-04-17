@@ -15,6 +15,8 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
+import java.awt.geom.Point2D;
+
 
 /**
  * @author Lukas Padolevicius
@@ -127,6 +129,8 @@ public class Agent extends AssetManager {
 	}
 	
 	public void triggerStep() {	}
+
+	public void triggerStepTowardPoint(Point2D point){}
 
     public void setX(int xPos){
         this.xPos += xPos;
