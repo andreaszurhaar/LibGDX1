@@ -20,7 +20,9 @@ public class Intruder extends Agent {
 	public float angle;
 	public float soundRange;
     SpriteReader reader = new SpriteReader();
-    public int sprintCount;
+    public int sprintCount = 0;
+	public int restCount = 0;
+
 
 
 	public Intruder(float x, float y, float width, float height) {
@@ -28,7 +30,6 @@ public class Intruder extends Agent {
 		viewAngle.setToRandomDirection();
 		speed = 1;
 		soundRange = 0;
-		sprintCount = 0;
 		name = "1";
 		viewRange = 7.5f;
         try {
@@ -47,9 +48,26 @@ public class Intruder extends Agent {
 		return angle;
 	}
 
+	public void triggerSprint() {
+		if(restCount == 0 ) {
+			sprintCount = 5*Board.fps;
+			restCount = 10*Board.fps;
+		}
+	}
+	
 	public void triggerStep() {
-		sprintCount++;
 		this.speed = 1.4f;//(float) Math.random()*1.4f;
+		rotation = (float) Math.toRadians(Math.random()*turningCircle/2);
+		if(Math.random() < 0.05) {triggerSprint();}
+		if(sprintCount != 0) {
+			speed = 3f;
+			sprintCount--;
+			
+			if(rotation > 10) {rotation = 10;} 
+			else if(rotation < -10) {rotation = -10;}
+			
+		} else if(restCount != 0) {restCount--;}
+		
 		if(speed < 0.5) {
 			soundRange = 1;
 		} else if(speed < 1) {
@@ -59,8 +77,6 @@ public class Intruder extends Agent {
 		} else {
 			soundRange = 10;
 		}
-		rotation = (float) Math.toRadians(Math.random()*turningCircle/2);
-		seeing = false;
 	}
 	
 	@Override
