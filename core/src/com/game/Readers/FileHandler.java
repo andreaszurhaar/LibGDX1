@@ -239,8 +239,6 @@ public class FileHandler {
 
             }
 
-
-
         }
 
          /*reads from the THIRD line aka the
@@ -309,9 +307,6 @@ public class FileHandler {
             }
 
         }
-
-
-
 
          ArrayList<ArrayList> master = new ArrayList<ArrayList>();
          master.add(agents);

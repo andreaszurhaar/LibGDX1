@@ -70,7 +70,6 @@ public class Guard extends Agent {
 		}
 		this.rotation = (float) -Math.toRadians(Math.random()*turningCircle/2);
 		//System.out.println("to: "+speed+"  "+angle);
-		seeing = false;
 	}
 
 	public void triggerStepTowardPoint(Point2D point){

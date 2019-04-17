@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.game.States.GameStateManager;
 import com.game.States.MapState;
+import com.game.States.MenuState;
 
 public class CopsAndRobbers extends ApplicationAdapter {
 
@@ -22,7 +23,7 @@ public class CopsAndRobbers extends ApplicationAdapter {
 	public void create () {
 		sb = new SpriteBatch();
 		gsm = new GameStateManager();
-		gsm.push(new MapState(gsm));
+		gsm.push(new MenuState(gsm));
 		Gdx.gl.glClearColor(1,0,0,1);
 
 	}
