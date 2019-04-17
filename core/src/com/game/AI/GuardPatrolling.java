@@ -51,7 +51,6 @@ public class GuardPatrolling {
            // if(Math.sqrt(((guardX - centreX) * (guardX - centreX)) + ((guardY - centreY) * (guardY - centreY))) > ALLOWED_DISTANCE_ERROR)
            //      currentGuard.rotation = (float) -Math.toRadians(Math.random()*currentGuard.turningCircle/2);
         }
-
     }
 
     public ArrayList<Agent> findGuards() {

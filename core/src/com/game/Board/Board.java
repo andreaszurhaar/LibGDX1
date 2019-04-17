@@ -87,7 +87,6 @@ public class Board {
 	}
 	
 	public void updateAgents() {
-		
 		/*
 		Vector2 test = new Vector2(20,30);
 		Vector2 testi = new Vector2(test);
@@ -96,9 +95,7 @@ public class Board {
 		
 		Rectangle re = new Rectangle(10,35,20,20);
 		System.out.println(intersector.intersectLinePolygon(test,testf,rectToPoly(re)));
-		
-		
-		
+
 		System.out.println(test.x);
 		System.out.println(test.y);
 		System.out.println(testi.x);
@@ -435,4 +432,3 @@ public class Board {
 		this.currentPoint = currentPoint;
 	}
 }
-
