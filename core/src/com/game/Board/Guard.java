@@ -127,7 +127,12 @@ public class Guard extends Agent {
 		while (seenPoints.size() != (areaWidth*areaHeight)) {
 
 		    addSeenPoints(seenPoints);
-
+		    //go to point that is close and not seen yet
+            currentPoint = findClosestPoint(currentPoint);
+            //change vision cone to the direction of the closest point
+            Vector2 point = new Vector2(currentPoint.x, currentPoint.y);
+            super.setAngle(point.angle());
+            //walk to that point & do everything again
         }
 	}
 
@@ -142,5 +147,31 @@ public class Guard extends Agent {
                 }
             }
         }
+    }
+
+    public Point2D.Float findClosestPoint(Point2D.Float currentPoint)
+    {
+        Point2D.Float temp = new Point2D.Float(currentPoint.x, currentPoint.y);
+        int i = 1;
+        boolean foundPoint = false;
+        while (!foundPoint) {
+            for (Point2D.Float p : areaPoints) {
+                if (p.x == temp.x + i && p.y == temp.y
+                        || p.x == temp.x && p.y == temp.y + i
+                        || p.x == temp.x + i && p.y == temp.y + i
+                        || p.x == temp.x - i && p.y == temp.y
+                        || p.x == temp.x && p.y == temp.y - i
+                        || p.x == temp.x - i && p.y == temp.y - i
+                        || p.x == temp.x - i && p.y == temp.y + i
+                        || p.x == temp.x + i && p.y == temp.y - i) {
+                    foundPoint = true;
+                    return p;
+                }
+            }
+            i++;
+        }
+        System.out.println("There are no unseen closest points, so we return back to the centre of the area");
+        return areaCenter;
+
     }
 }
