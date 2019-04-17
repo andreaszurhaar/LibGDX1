@@ -37,8 +37,8 @@ public class MainState extends State {
     public Board board;
     public Ground ground;
     public GuardPatrolling guardPatrol;
-    public int X_REDUC = 1;
-    public int Y_REDUC = 1;
+    public static final float X_REDUC = MapState.X_REDUC;
+    public static final float Y_REDUC = MapState.Y_REDUC;
 
 
     public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls) {
