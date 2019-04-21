@@ -269,13 +269,13 @@ public class FileHandler {
                     if (Integer.parseInt(data3.get(i)[1]) == 5) {
                         System.out.println("made it to 5");
                         Structure structure = new Structure((Integer.parseInt(data3.get(i)[2])), Integer.parseInt(data3.get(i)[3]), Integer.parseInt(data3.get(i)[4]), Integer.parseInt(data3.get(i)[5]), true);
-                        structure.placeDoor((Integer.parseInt(data3.get(i)[6])+40), Integer.parseInt(data3.get(i)[7]));
+                        structure.placeDoor((Integer.parseInt(data3.get(i)[6])+20), Integer.parseInt(data3.get(i)[7]));
                         walls.add(structure);
                     }
                     if (Integer.parseInt(data3.get(i)[1]) == 6) {
                         System.out.println("made it to 6");
                         Structure structure = new Structure((Integer.parseInt(data3.get(i)[2])), Integer.parseInt(data3.get(i)[3]), Integer.parseInt(data3.get(i)[4]), Integer.parseInt(data3.get(i)[5]), true);
-                        structure.placeWindow((Integer.parseInt(data3.get(i)[6])+40), Integer.parseInt(data3.get(i)[7]));
+                        structure.placeWindow((Integer.parseInt(data3.get(i)[6])+20), Integer.parseInt(data3.get(i)[7]));
                         walls.add(structure);
                     }
                 }
@@ -290,12 +290,12 @@ public class FileHandler {
 
                     if (Integer.parseInt(data3.get(i)[1]) == 5) {
                         Structure structure = new Structure((Integer.parseInt(data3.get(i)[2])), Integer.parseInt(data3.get(i)[3]), Integer.parseInt(data3.get(i)[4]), Integer.parseInt(data3.get(i)[5]), false);
-                        structure.placeDoor((Integer.parseInt(data3.get(i)[6])), Integer.parseInt(data3.get(i)[7])+40);
+                        structure.placeDoor((Integer.parseInt(data3.get(i)[6])), Integer.parseInt(data3.get(i)[7])+20);
                         walls.add(structure);
                     }
                     if (Integer.parseInt(data3.get(i)[1]) == 6) {
                         Structure structure = new Structure((Integer.parseInt(data3.get(i)[2])), Integer.parseInt(data3.get(i)[3]), Integer.parseInt(data3.get(i)[4]), Integer.parseInt(data3.get(i)[5]), false);
-                        structure.placeWindow((Integer.parseInt(data3.get(i)[6])), Integer.parseInt(data3.get(i)[7])+40);
+                        structure.placeWindow((Integer.parseInt(data3.get(i)[6])), Integer.parseInt(data3.get(i)[7])+20);
                         walls.add(structure);
                     }
                 }

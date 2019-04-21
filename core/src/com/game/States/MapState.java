@@ -183,6 +183,12 @@ public class MapState extends State {
 
             if(Gdx.input.getX() > 860 && Gdx.input.getY() < 100){
                 dispose();
+                FileHandler fileHandler = new FileHandler();
+                try {
+                    fileHandler.fileWriter(agents,structures,walls);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
                 gsm.push(new MainState(gsm,structures,agents,walls));
             }
 

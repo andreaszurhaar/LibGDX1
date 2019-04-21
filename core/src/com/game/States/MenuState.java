@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
@@ -16,25 +17,38 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.game.GameLogic.Button;
+import com.game.Readers.FileHandler;
+import com.game.Readers.SpriteReader;
+
+import java.io.IOException;
 
 public class MenuState extends State {
 
     Button button;
     Stage stage;
     public BitmapFont font;
-    private Texture background;
+    private TextureRegion background;
     private Skin skin;
     private TextButton start;
-    private SelectBox bots;
+    private SelectBox agentBots;
+    private SelectBox guardBots;
+    private SelectBox levelBox;
     Dialog dialog;
     GameStateManager gamestatemanager;
+    private FileHandler levelReader;
 
-    public MenuState(GameStateManager gsm) {
+    public MenuState(final GameStateManager gsm) {
         super(gsm);
         gamestatemanager = gsm;
         stage=new Stage();
-        
-        background = new Texture(Gdx.files.internal("desert.png"));
+        SpriteReader reader = new SpriteReader();
+        levelReader = new FileHandler();
+
+        try {
+            background  = reader.getImage(58,292,26,28);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //Create a font
         font = new BitmapFont();
@@ -66,8 +80,8 @@ public class MenuState extends State {
         boxStyle.font = skin.getFont("default");
         boxStyle.background = skin.newDrawable("background", Color.WHITE);
         boxStyle.fontColor = Color.BLACK;
-        ScrollPane pane = new ScrollPane(bots, skin);
-        boxStyle.scrollStyle = pane.getStyle();
+        ScrollPane agentPane = new ScrollPane(agentBots, skin);
+        boxStyle.scrollStyle = agentPane.getStyle();
         boxStyle.listStyle = new List.ListStyle();
         boxStyle.listStyle.font = skin.getFont("default");
         boxStyle.listStyle.fontColorSelected = Color.BLACK;
@@ -75,31 +89,60 @@ public class MenuState extends State {
         boxStyle.listStyle.selection = skin.newDrawable("background", Color.LIGHT_GRAY);
         skin.add("default", boxStyle);
 
+       final String[] levels = new String[100] ;
+
+        for(int i = 0; i < 100; i++){
+            levels[i] = ""+i;
+        }
         
-        String[] arrayBots = new String[4];
-        arrayBots[0] = "None";
-        arrayBots[1] = "Bot1";
-        arrayBots[2] = "Bot2";
-        arrayBots[3] = "Bot3";
+        String[] arrayAgent = new String[4];
+        arrayAgent[0] = "None";
+        arrayAgent[1] = "Bot1";
+        arrayAgent[2] = "Bot2";
+        arrayAgent[3] = "Bot3";
+
+        String[] arrayGuard = new String[4];
+        arrayGuard[0] = "None";
+        arrayGuard[1] = "Bot1";
+        arrayGuard[2] = "Bot2";
+        arrayGuard[3] = "Bot3";
         
         float selectBoxHeight = Gdx.graphics.getHeight()/25;
         float selectBoxOffset = Gdx.graphics.getHeight()/200;
 
         
-        bots = new SelectBox(skin);
-        bots.setItems(arrayBots);
-        bots.setPosition(Gdx.graphics.getWidth()/4 + 9*Gdx.graphics.getWidth()/22, 5* Gdx.graphics.getHeight()/7-selectBoxOffset);
-        bots.setSize(2*Gdx.graphics.getWidth()/22,selectBoxHeight);
+        agentBots = new SelectBox(skin);
+        agentBots.setItems(arrayAgent);
+        agentBots.setPosition(Gdx.graphics.getWidth()/4 + 9*Gdx.graphics.getWidth()/22, 5* Gdx.graphics.getHeight()/7-selectBoxOffset);
+        agentBots.setSize(2*Gdx.graphics.getWidth()/22,selectBoxHeight);
+
+        guardBots = new SelectBox(skin);
+        guardBots.setItems(arrayGuard);
+        guardBots.setPosition(Gdx.graphics.getWidth()/8 + 9*Gdx.graphics.getWidth()/22, 5* Gdx.graphics.getHeight()/7-selectBoxOffset);
+        guardBots.setSize(2*Gdx.graphics.getWidth()/22,selectBoxHeight);
+
+        levelBox = new SelectBox(skin);
+        levelBox.setItems(levels);
+        levelBox.setPosition(Gdx.graphics.getWidth()/2 + 7*Gdx.graphics.getWidth()/22, 6* Gdx.graphics.getHeight()/7+selectBoxOffset);
+        levelBox.setSize(2*Gdx.graphics.getWidth()/22,selectBoxHeight);
         
         start = new TextButton("Start", skin); // Use the initialized skin
         start.setPosition(Gdx.graphics.getWidth()/4 , 6* Gdx.graphics.getHeight()/7);
         start.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                gamestatemanager.push(new MapState(gamestatemanager));
+                int levelInt = Integer.parseInt((String) levelBox.getSelected());
+                if(levelInt == 0 ) {
+                    gamestatemanager.push(new MapState(gamestatemanager));
+                }
+                else{
+                    gamestatemanager.push(new MainState(gsm,levelReader.fileReader(levelInt).get(1),levelReader.fileReader(levelInt).get(0),levelReader.fileReader(levelInt).get(2)));
+                }
             }
         });
         
-        stage.addActor(bots);
+        stage.addActor(guardBots);
+        stage.addActor(agentBots);
+        stage.addActor(levelBox);
         stage.addActor(start);
 
         Gdx.input.setInputProcessor(stage);
