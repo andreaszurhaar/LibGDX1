@@ -53,6 +53,34 @@ public class GuardPatrolling {
            //      currentGuard.rotation = (float) -Math.toRadians(Math.random()*currentGuard.turningCircle/2);
         }
     }
+    public void patrolInArea()
+    {
+        areaPoints = new ArrayList<Point2D.Float>();
+        //Assuming we know the areaborders of where we are patrolling
+        for (int i = 0; i<areaWidth; i++)
+        {
+            for (int j=0; j<areaHeight;j++)
+            {
+                areaPoints.add(new Point2D.Float(i,j));
+            }
+        }
+        //Point2D.Float currentPoint = areaCenter;
+
+        Point2D.Float currentPoint = (Point2D.Float) super.getDestPoint();
+        System.out.println("Area center is " + currentPoint.x + ", " +currentPoint.y);
+        ArrayList<Point2D.Float> seenPoints = new ArrayList<Point2D.Float>();
+        seenPoints.add(currentPoint);
+        while (seenPoints.size() != (areaWidth*areaHeight)) {
+            System.out.println("Current point is " + currentPoint.x + ", " +currentPoint.y);
+            addSeenPoints(seenPoints);
+            //go to point that is close and not seen yet
+            currentPoint = findClosestPoint(currentPoint);
+            //change vision cone to the direction of the closest point
+            Vector2 point = new Vector2(currentPoint.x, currentPoint.y);
+            super.setAngle(point.angle());
+            //walk to that point & do everything again
+        }
+    }
 
     public ArrayList<Agent> findGuards() {
         ArrayList<Agent> agents = board.getAgents();
@@ -61,6 +89,46 @@ public class GuardPatrolling {
                 guards.add(a);
         }
         return guards;
+    }
+
+    public void addSeenPoints(ArrayList<Point2D.Float> seenPoints)
+    {
+        for (Point2D.Float p : areaPoints) {
+            if (Math.sqrt(p.x * p.x + p.y * p.y) < viewRange) {
+                Vector2 point = new Vector2(p.x - viewAngle.x, p.y - viewAngle.y);
+                if (point.angle() < (0.5*viewRadius)) {
+                    seenPoints.add(p);
+                    areaPoints.remove(p);
+                }
+            }
+        }
+    }
+
+    public Point2D.Float findClosestPoint(Point2D.Float currentPoint)
+    {
+        System.out.println("Current point is " + currentPoint.x + ", " +currentPoint.y);
+        Point2D.Float temp = new Point2D.Float(currentPoint.x, currentPoint.y);
+        int i = 1;
+        boolean foundPoint = false;
+        while (!foundPoint) {
+            for (Point2D.Float p : areaPoints) {
+                if (p.x == temp.x + i && p.y == temp.y
+                        || p.x == temp.x && p.y == temp.y + i
+                        || p.x == temp.x + i && p.y == temp.y + i
+                        || p.x == temp.x - i && p.y == temp.y
+                        || p.x == temp.x && p.y == temp.y - i
+                        || p.x == temp.x - i && p.y == temp.y - i
+                        || p.x == temp.x - i && p.y == temp.y + i
+                        || p.x == temp.x + i && p.y == temp.y - i) {
+                    foundPoint = true;
+                    return p;
+                }
+            }
+            i++;
+        }
+        System.out.println("There are no unseen closest points, so we return back to the centre of the area");
+        return areaCenter;
+
     }
 
 
