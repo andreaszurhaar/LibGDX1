@@ -28,7 +28,8 @@ public class Guard extends Agent {
 	private Point2D.Float areaCenter;
 	public ArrayList<Point2D.Float> areaPoints;
     public SpriteReader reader = new SpriteReader();
-	private final int ALLOWED_DISTANCE_ERROR = 30;
+	private final int ALLOWED_DISTANCE_ERROR = 10;
+	private boolean reachedCentre;
 
 	
 	public Guard(float x, float y, float width, float height) {
@@ -73,8 +74,9 @@ public class Guard extends Agent {
 	}
 
 	public void triggerStepTowardPoint(Point2D point){
+
 			//System.out.println("activated trigger and changed speed from: "+speed+"  "+angle);
-			this.speed = 1.4f;//(float) (Math.random()*1.4f);
+			this.speed = 100;//(float) (Math.random()*1.4f);
 			if(speed < 0.5) {
 				soundRange = 1;
 			} else if(speed < 1) {
@@ -88,10 +90,20 @@ public class Guard extends Agent {
 		float centreX = (float) point.getX();
 		float centreY = (float) point.getY();
 
-		if(Math.sqrt(((this.xPos - centreX) * (this.xPos  - centreX)) + ((this.yPos  - centreY) * (this.yPos - centreY))) < ALLOWED_DISTANCE_ERROR){
-			this.rotation = (float) -Math.toRadians(Math.random()*this.turningCircle/2);
-			this.angle = 0;
+		if(reachedCentre){
+			this.speed = 1.4f;
+			patrolInArea();
+
+			//this.rotation = (float) -Math.toRadians(Math.random()*this.turningCircle/2);
+			//this.angle = 0;
 		}
+
+		if(!reachedCentre && (Math.sqrt(((this.xPos - centreX) * (this.xPos  - centreX)) + ((this.yPos  - centreY) * (this.yPos - centreY))) < ALLOWED_DISTANCE_ERROR)){
+			reachedCentre = true;
+			//this.rotation = (float) -Math.toRadians(Math.random()*this.turningCircle/2);
+			//this.angle = 0;
+		}
+
 
 
 		seeing = false;
@@ -122,6 +134,7 @@ public class Guard extends Agent {
 			}
 		}
 		Point2D.Float currentPoint = areaCenter;
+		//Point2D.Float currentPoint = super.getDestPoint();
 		ArrayList<Point2D.Float> seenPoints = new ArrayList<Point2D.Float>();
 		seenPoints.add(currentPoint);
 		while (seenPoints.size() != (areaWidth*areaHeight)) {
@@ -174,4 +187,6 @@ public class Guard extends Agent {
         return areaCenter;
 
     }
+
+
 }

@@ -47,6 +47,7 @@ public class Agent extends AssetManager {
     public TextureRegion texture;
     public ShapeRenderer renderer;
     public TextureRegion noticeSound;
+	private Point2D destPoint;
 	
 	
 	public Agent(float x, float y, float width, float height) {
@@ -159,6 +160,12 @@ public class Agent extends AssetManager {
         			(float) area.getWidth()*xReduc/2, (float) area.getHeight()*yReduc/2);
     	}
     }
-	
 
+	public void setDestPoint(Point2D destPoint) {
+		this.destPoint = destPoint;
+	}
+
+	public Point2D getDestPoint() {
+		return destPoint;
+	}
 }

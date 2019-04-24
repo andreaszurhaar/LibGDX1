@@ -138,7 +138,7 @@ public class Board {
 				agents.get(a).setPos(newX,newY);
 			}
 			if(!updateAgentMoveToPoint) agents.get(a).triggerStep();
-			else agents.get(a).triggerStepTowardPoint(currentPoint);
+			else agents.get(a).triggerStepTowardPoint(agents.get(a).getDestPoint());
 
 		}
 		
