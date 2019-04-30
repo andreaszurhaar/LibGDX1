@@ -3,6 +3,9 @@ package com.game.Board;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+/**
+ * @author Famke Nouwens
+ */
 public class MapDivider {
     private int boardWidth, boardHeight;
     private int nrCops;

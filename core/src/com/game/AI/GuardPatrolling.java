@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class GuardPatrolling {
     /**
      * @author Yvar Hulshof, Famke Nouwens
-     *
      */
 
     private MapDivider mp;
@@ -67,7 +66,9 @@ public class GuardPatrolling {
             System.out.println("Current point is " + currentPoint.x + ", " +currentPoint.y);
             addSeenPoints(seenPoints);
             //go to point that is close and not seen yet
-            currentPoint = findClosestPoint(currentPoint);
+            Point2D.Float temp = findClosestPoint(currentPoint);
+            currentPoint.x = temp.x;
+            currentPoint.y  =temp.y;
             System.out.println("Closest point is " + currentPoint.x + ", " +currentPoint.y);
             //change vision cone to the direction of the closest point
             Vector2 point = new Vector2(currentPoint.x, currentPoint.y);
@@ -103,14 +104,45 @@ public class GuardPatrolling {
             for (Point2D.Float p : areaPoints) {
                 //TODO: find out why it gets stuck on the same points
                 //System.out.println("Possible area points: " + p.x + ", " + p.y);
-                if (p.x == temp.x + i && p.y == temp.y
-                        || p.x == temp.x && p.y == temp.y + i
-                        || p.x == temp.x + i && p.y == temp.y + i
-                        || p.x == temp.x - i && p.y == temp.y
-                        || p.x == temp.x && p.y == temp.y - i
-                        || p.x == temp.x - i && p.y == temp.y - i
-                        || p.x == temp.x - i && p.y == temp.y + i
-                        || p.x == temp.x + i && p.y == temp.y - i) {
+                if (p.x == temp.x + i && p.y == temp.y) {
+                    System.out.println("We take point: " + (temp.x+i) + ", " + temp.y);
+                    foundPoint = true;
+                    return p;
+                }
+                else if (p.x == temp.x && p.y == temp.y + i){
+                    System.out.println("We take point: " + (temp.x) + ", " + (temp.y+i));
+                    foundPoint = true;
+                    return p;
+                }
+                else if (p.x == temp.x + i && p.y == temp.y + i ){
+                    System.out.println("We take point: " + (temp.x+i) + ", " + (temp.y+i));
+                    foundPoint = true;
+                    return p;
+                }
+                else if (p.x == temp.x - i && p.y == temp.y){
+                    System.out.println("We take point: " + (temp.x-i) + ", " + (temp.y));
+                    foundPoint = true;
+                    return p;
+                }
+                else if (p.x == temp.x && p.y == temp.y - i){
+                    System.out.println("We take point: " + (temp.x) + ", " + (temp.y-i));
+                    foundPoint = true;
+                    return p;
+                }
+                else if (p.x == temp.x - i && p.y == temp.y - i)
+                {
+                    System.out.println("We take point: " + (temp.x-i) + ", " + (temp.y-i));
+                    foundPoint = true;
+                    return p;
+                }
+                else if (p.x == temp.x - i && p.y == temp.y + i)
+                {
+                    System.out.println("We take point: " + (temp.x-i) + ", " + (temp.y+i));
+                    foundPoint = true;
+                    return p;
+                }
+                else if(p.x == temp.x + i && p.y == temp.y - i) {
+                    System.out.println("We take point: " + (temp.x+i) + ", " + (temp.y-i));
                     foundPoint = true;
                     return p;
                 }
@@ -121,8 +153,6 @@ public class GuardPatrolling {
         return areaCenter;
 
     }
-
-
 
 //TODO: make object of guard patrolling affect only 1 guard at a time
 
