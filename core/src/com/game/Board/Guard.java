@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.game.AI.GuardPatrolling;
 import com.game.Readers.SpriteReader;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -24,9 +25,7 @@ public class Guard extends Agent {
 	public float speed;
 	public float angle;
 	public float soundRange;
-	public float areaWidth, areaHeight;
-	private Point2D.Float areaCenter;
-	public ArrayList<Point2D.Float> areaPoints;
+
     public SpriteReader reader = new SpriteReader();
 	private final int ALLOWED_DISTANCE_ERROR = 10;
 	private boolean reachedCentre;
@@ -92,7 +91,7 @@ public class Guard extends Agent {
 
 		if(reachedCentre){
 			this.speed = 1.4f;
-			patrolInArea();
+			//patrolInArea();
 
 			//this.rotation = (float) -Math.toRadians(Math.random()*this.turningCircle/2);
 			//this.angle = 0;
@@ -122,7 +121,13 @@ public class Guard extends Agent {
 		super.drawTexture(sb, xReduc, yReduc);
 	}
 
+	public void patrolling()
+	{
+		float testWidth = 200;
+		float testHeight = 100;
+		GuardPatrolling patrol = new GuardPatrolling(testWidth,testHeight,this);
 
+	}
 
 
 

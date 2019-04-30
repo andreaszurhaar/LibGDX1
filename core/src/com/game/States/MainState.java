@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.game.AI.Controller;
 import com.game.AI.GuardPatrolling;
 import com.game.CopsAndRobbers;
 import com.game.Board.Agent;
@@ -66,7 +67,9 @@ public class MainState extends State {
         board = new Board();
         if(!this.structures.isEmpty()) {board.setUp(this.structures);}
         if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}
-        guardPatrol = new GuardPatrolling(board);
+        //guardPatrol = new GuardPatrolling(board)
+        Controller controller = new Controller(board);
+
     }
 
 

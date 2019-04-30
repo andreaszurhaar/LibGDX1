@@ -12,47 +12,40 @@ import java.util.ArrayList;
 
 public class GuardPatrolling {
     /**
-     * @author Yvar Hulshof
+     * @author Yvar Hulshof, Famke Nouwens
      *
      */
 
     private MapDivider mp;
-    private ArrayList<Point2D> centres;
+
     private Board board;
     private ArrayList<Agent> guards;
     private final int ALLOWED_DISTANCE_ERROR = 10;
+    public float areaWidth, areaHeight;
+    private Point2D.Float areaCenter;
+    public ArrayList<Point2D.Float> areaPoints;
+    private Guard guard;
 
-    public GuardPatrolling(Board board){
-        this.board = board;
+//should get an area of patrolling with (either center + height + width, or a rectangle)
+    public GuardPatrolling(float areaWidth, float areaHeight,Guard guard){
+        this.guard = guard;
+        this.areaWidth = areaWidth;
+        this.areaHeight = areaHeight;
+        areaCenter = new Point2D.Float(0.5f*areaWidth, 0.5f*areaHeight);
+        patrolInArea();
         //board.setUpdateAgentMoveToPoint(true);
+        /*
         guards = new ArrayList<Agent>();
         guards = findGuards();
         int nrCops = guards.size();
         mp = new MapDivider(nrCops);
-        centres = mp.getCentres();
-        if(nrCops > 0) initializeGuardLocations();
+
+        */
     }
 
-    public void initializeGuardLocations(){
-        for(int i = 0; i < guards.size(); i++){
-            board.setUpdateAgentMoveToPoint(true);
-            Point2D currentCentre = centres.get(i);
-            Agent currentGuard = guards.get(i);
-            currentGuard.setDestPoint(currentCentre);
-            //Vector2 guardRequiredVector = new Vector2((float)100 - currentGuard.getX(), (float) 100 - currentGuard.getY());
-            Vector2 guardRequiredVector = new Vector2((float)currentCentre.getX() - currentGuard.getX(), (float) currentCentre.getY() - currentGuard.getY());
-            currentGuard.setAngle(guardRequiredVector.angle());
-            System.out.println("centreX: " + currentCentre.getX() + " guardX: " + currentGuard.getX() + " centreY: " + currentCentre.getY() + " guardY: " + currentGuard.getY());
-            System.out.println("guard: " + i + " angle: " + guardRequiredVector.angle());
-            float guardX = currentGuard.getX();
-            float guardY = currentGuard.getY();
-            float centreX = (float) currentCentre.getX();
-            float centreY = (float) currentCentre.getY();
+    /*
 
-           // if(Math.sqrt(((guardX - centreX) * (guardX - centreX)) + ((guardY - centreY) * (guardY - centreY))) > ALLOWED_DISTANCE_ERROR)
-           //      currentGuard.rotation = (float) -Math.toRadians(Math.random()*currentGuard.turningCircle/2);
-        }
-    }
+    */
     public void patrolInArea()
     {
         areaPoints = new ArrayList<Point2D.Float>();
@@ -64,9 +57,9 @@ public class GuardPatrolling {
                 areaPoints.add(new Point2D.Float(i,j));
             }
         }
-        //Point2D.Float currentPoint = areaCenter;
+        Point2D.Float currentPoint = areaCenter;
 
-        Point2D.Float currentPoint = (Point2D.Float) super.getDestPoint();
+        //Point2D.Float currentPoint = (Point2D.Float) guard.getDestPoint();
         System.out.println("Area center is " + currentPoint.x + ", " +currentPoint.y);
         ArrayList<Point2D.Float> seenPoints = new ArrayList<Point2D.Float>();
         seenPoints.add(currentPoint);
@@ -75,43 +68,41 @@ public class GuardPatrolling {
             addSeenPoints(seenPoints);
             //go to point that is close and not seen yet
             currentPoint = findClosestPoint(currentPoint);
+            System.out.println("Closest point is " + currentPoint.x + ", " +currentPoint.y);
             //change vision cone to the direction of the closest point
             Vector2 point = new Vector2(currentPoint.x, currentPoint.y);
-            super.setAngle(point.angle());
+            guard.setAngle(point.angle());
             //walk to that point & do everything again
         }
     }
 
-    public ArrayList<Agent> findGuards() {
-        ArrayList<Agent> agents = board.getAgents();
-        for (Agent a : agents) {
-            if (a instanceof Guard)
-                guards.add(a);
-        }
-        return guards;
-    }
+
 
     public void addSeenPoints(ArrayList<Point2D.Float> seenPoints)
     {
         for (Point2D.Float p : areaPoints) {
-            if (Math.sqrt(p.x * p.x + p.y * p.y) < viewRange) {
-                Vector2 point = new Vector2(p.x - viewAngle.x, p.y - viewAngle.y);
-                if (point.angle() < (0.5*viewRadius)) {
+            if (Math.sqrt(p.x * p.x + p.y * p.y) < guard.viewRange) {
+                Vector2 point = new Vector2(p.x - guard.viewAngle.x, p.y - guard.viewAngle.y);
+                if (point.angle() < (0.5*guard.viewRadius)) {
                     seenPoints.add(p);
-                    areaPoints.remove(p);
                 }
             }
+        }
+        for (Point2D.Float p: seenPoints)
+        {
+            areaPoints.remove(p);
         }
     }
 
     public Point2D.Float findClosestPoint(Point2D.Float currentPoint)
     {
-        System.out.println("Current point is " + currentPoint.x + ", " +currentPoint.y);
         Point2D.Float temp = new Point2D.Float(currentPoint.x, currentPoint.y);
         int i = 1;
         boolean foundPoint = false;
         while (!foundPoint) {
             for (Point2D.Float p : areaPoints) {
+                //TODO: find out why it gets stuck on the same points
+                //System.out.println("Possible area points: " + p.x + ", " + p.y);
                 if (p.x == temp.x + i && p.y == temp.y
                         || p.x == temp.x && p.y == temp.y + i
                         || p.x == temp.x + i && p.y == temp.y + i
@@ -133,6 +124,6 @@ public class GuardPatrolling {
 
 
 
-
+//TODO: make object of guard patrolling affect only 1 guard at a time
 
 }

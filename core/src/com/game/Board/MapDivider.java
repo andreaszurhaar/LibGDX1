@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class MapDivider {
     private int boardWidth, boardHeight;
     private int nrCops;
-    private double width, height;
-    private ArrayList<Point2D> centres;
+    private float width, height;
+    private ArrayList<Point2D.Float> centres;
 
 
     public MapDivider(int nrCops)
@@ -40,14 +40,14 @@ public class MapDivider {
         centres = findCenters(nrVertical,nrHorizontal);
     }
 
-    public ArrayList<Point2D> findCenters(int nrVertical, int nrHorizontal){
-        ArrayList<Point2D> centres = new ArrayList<Point2D>();
+    public ArrayList<Point2D.Float> findCenters(int nrVertical, int nrHorizontal){
+        ArrayList<Point2D.Float> centres = new ArrayList<Point2D.Float>();
 
         width = boardWidth/nrVertical;
         height = boardHeight/nrHorizontal;
 
-        double tempX = 0.0;
-        double tempY = 0.0;
+        float tempX = 0.0f;
+        float tempY = 0.0f;
         boolean start = true;
 
 
@@ -70,7 +70,7 @@ public class MapDivider {
                 else{
                     tempY = tempY + height;
                 }
-                centres.add(new Point2D.Double(tempX*5,tempY*5));
+                centres.add(new Point2D.Float(tempX*5.0f,tempY*5.0f));
                 start = false;
             }
             tempY = height/2;
@@ -78,13 +78,13 @@ public class MapDivider {
         return centres;
     }
 
-    public ArrayList<Point2D> getCentres() {
+    public ArrayList<Point2D.Float> getCentres() {
         return centres;
     }
 
-    public double getBorderWidth()    {    return width;     }
+    public Float getBorderWidth()    {    return width;     }
 
-    public double getBorderHeight()   {    return height;    }
+    public Float getBorderHeight()   {    return height;    }
 }
 
 
