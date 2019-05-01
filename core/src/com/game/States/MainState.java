@@ -69,7 +69,6 @@ public class MainState extends State {
         if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}
         //guardPatrol = new GuardPatrolling(board)
         Controller controller = new Controller(board);
-
     }
 
 

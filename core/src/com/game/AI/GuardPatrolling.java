@@ -16,7 +16,6 @@ public class GuardPatrolling {
      */
 
     private MapDivider mp;
-
     private Board board;
     private ArrayList<Agent> guards;
     private final int ALLOWED_DISTANCE_ERROR = 10;
@@ -41,10 +40,6 @@ public class GuardPatrolling {
 
         */
     }
-
-    /*
-
-    */
     public void patrolInArea()
     {
         areaPoints = new ArrayList<Point2D.Float>();

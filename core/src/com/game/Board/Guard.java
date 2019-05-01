@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AI.GuardPatrolling;
+import com.game.AI.Tracking;
 import com.game.Readers.SpriteReader;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -25,6 +26,8 @@ public class Guard extends Agent {
 	public float speed;
 	public float angle;
 	public float soundRange;
+    private GuardPatrolling patrolling;
+    private Tracking tracking;
 
     public SpriteReader reader = new SpriteReader();
 	private final int ALLOWED_DISTANCE_ERROR = 10;
@@ -122,11 +125,16 @@ public class Guard extends Agent {
 	{
 		float testWidth = 200;
 		float testHeight = 100;
-		GuardPatrolling patrolling = new GuardPatrolling(testWidth,testHeight,this);
+		patrolling = new GuardPatrolling(testWidth,testHeight,this);
 		//While loop to keep calling the method patrol so it keeps moving
 
 	}
 
+	public void tracking()
+    {
+        //TODO: decide if we take in the point of the intruder or an angle & speed (i.e. general direction of the intruder)
+        //tracking = new Tracking();
+    }
 
 
 
