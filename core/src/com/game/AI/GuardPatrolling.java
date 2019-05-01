@@ -22,7 +22,7 @@ public class GuardPatrolling {
     private final int ALLOWED_DISTANCE_ERROR = 10;
     public float areaWidth, areaHeight;
     private Point2D.Float areaCenter;
-    public ArrayList<Point2D.Float> areaPoints;
+    public ArrayList<Point2D.Float> areaPoints, seenPoints;
     private Guard guard;
 
 //should get an area of patrolling with (either center + height + width, or a rectangle)
@@ -57,27 +57,27 @@ public class GuardPatrolling {
             }
         }
         Point2D.Float currentPoint = areaCenter;
-
-        //Point2D.Float currentPoint = (Point2D.Float) guard.getDestPoint();
         System.out.println("Area center is " + currentPoint.x + ", " +currentPoint.y);
-        ArrayList<Point2D.Float> seenPoints = new ArrayList<Point2D.Float>();
-        seenPoints.add(currentPoint);
-        while (seenPoints.size() != (areaWidth*areaHeight)) {
-            System.out.println("Current point is " + currentPoint.x + ", " +currentPoint.y);
-            addSeenPoints(seenPoints);
-            //go to point that is close and not seen yet
-            Point2D.Float temp = findClosestPoint(currentPoint);
-            currentPoint.x = temp.x;
-            currentPoint.y  =temp.y;
-            System.out.println("Closest point is " + currentPoint.x + ", " +currentPoint.y);
-            //change vision cone to the direction of the closest point
-            Vector2 point = new Vector2(currentPoint.x, currentPoint.y);
-            guard.setAngle(point.angle());
-            //walk to that point & do everything again
-        }
+        seenPoints = new ArrayList<Point2D.Float>();
+        patrol(currentPoint);
     }
 
-
+    //TODO call this method every time to update the patrolling
+    public void patrol(Point2D.Float currentPoint)
+    {
+        seenPoints.add(currentPoint);
+        //System.out.println("Current point is " + currentPoint.x + ", " +currentPoint.y);
+        addSeenPoints(seenPoints);
+        //go to point that is close and not seen yet
+        Point2D.Float temp = findClosestPoint(currentPoint);
+        currentPoint.x = temp.x;
+        currentPoint.y = temp.y;
+        //System.out.println("Closest point is " + currentPoint.x + ", " +currentPoint.y);
+        //change vision cone to the direction of the closest point
+        Vector2 point = new Vector2(currentPoint.x, currentPoint.y);
+        guard.setAngle(point.angle());
+        //walk to that point & do everything again
+    }
 
     public void addSeenPoints(ArrayList<Point2D.Float> seenPoints)
     {
@@ -102,7 +102,6 @@ public class GuardPatrolling {
         boolean foundPoint = false;
         while (!foundPoint) {
             for (Point2D.Float p : areaPoints) {
-                //TODO: find out why it gets stuck on the same points
                 //System.out.println("Possible area points: " + p.x + ", " + p.y);
                 if (p.x == temp.x + i && p.y == temp.y) {
                     System.out.println("We take point: " + (temp.x+i) + ", " + temp.y);

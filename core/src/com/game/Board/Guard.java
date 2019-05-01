@@ -102,9 +102,6 @@ public class Guard extends Agent {
 			//this.rotation = (float) -Math.toRadians(Math.random()*this.turningCircle/2);
 			//this.angle = 0;
 		}
-
-
-
 		seeing = false;
 	}
 	
@@ -125,7 +122,8 @@ public class Guard extends Agent {
 	{
 		float testWidth = 200;
 		float testHeight = 100;
-		GuardPatrolling patrol = new GuardPatrolling(testWidth,testHeight,this);
+		GuardPatrolling patrolling = new GuardPatrolling(testWidth,testHeight,this);
+		//While loop to keep calling the method patrol so it keeps moving
 
 	}
 
