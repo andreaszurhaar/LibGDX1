@@ -2,6 +2,7 @@ package com.game.AI;
 
 import com.badlogic.gdx.math.Vector2;
 import com.game.Board.Agent;
+import com.game.Board.Area;
 import com.game.Board.Board;
 import com.game.Board.Guard;
 import com.game.Board.MapDivider;
@@ -18,11 +19,13 @@ public class GuardPatrolling {
     private MapDivider mp;
     private Board board;
     private ArrayList<Agent> guards;
+    private ArrayList<Area> areas;
     private final int ALLOWED_DISTANCE_ERROR = 10;
     public float areaWidth, areaHeight;
     private Point2D.Float areaCenter;
     public ArrayList<Point2D.Float> areaPoints, seenPoints;
     private Guard guard;
+    private ArrayList<Area> structures;
 
 //should get an area of patrolling with (either center + height + width, or a rectangle)
     public GuardPatrolling(float areaWidth, float areaHeight,Guard guard){
@@ -43,6 +46,11 @@ public class GuardPatrolling {
     public void patrolInArea()
     {
         areaPoints = new ArrayList<Point2D.Float>();
+
+        //TODO remove structure points from area points
+
+
+
         //Assuming we know the areaborders of where we are patrolling
         for (int i = 0; i<areaWidth; i++)
         {
@@ -51,6 +59,29 @@ public class GuardPatrolling {
                 areaPoints.add(new Point2D.Float(i,j));
             }
         }
+            for(int k = 0; k<structures.size(); k++) {
+                int startX = (int) structures.get(k).getMinX();
+                int startY = (int)structures.get(k).getMinY();
+                int endX = (int) structures.get(k).getMaxX();
+                int endY = (int) structures.get(k).getMaxY();
+
+                for(int i = startX; i<endX; i++)
+                {
+                    for(int j=startY; j<endY; j++)
+                    {
+                        for (int z = 0; z<areaPoints.size(); z++)
+                        {
+                            if (i == areaPoints.get(z).x & j == areaPoints.get(z).y)
+                            {
+                              areaPoints.remove(z);
+                            }
+                        }
+                    }
+                }
+
+        }
+
+
         Point2D.Float currentPoint = areaCenter;
         System.out.println("Area center is " + currentPoint.x + ", " +currentPoint.y);
         seenPoints = new ArrayList<Point2D.Float>();
@@ -148,6 +179,9 @@ public class GuardPatrolling {
 
     }
 
-//TODO: make object of guard patrolling affect only 1 guard at a time
+    public void setStructures(ArrayList<Area> structures){
+        this.structures = structures;
+    }
+
 
 }

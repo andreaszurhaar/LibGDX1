@@ -120,8 +120,9 @@ public class Guard extends Agent {
 
 		if(!reachedCentre && (Math.sqrt(((this.xPos - centreX) * (this.xPos  - centreX)) + ((this.yPos  - centreY) * (this.yPos - centreY))) < ALLOWED_DISTANCE_ERROR)){
 			reachedCentre = true;
-			//this.rotation = (float) -Math.toRadians(Math.random()*this.turningCircle/2);
-			//this.angle = 0;
+
+			//TODO set rotation and speed
+
 		}
 		seeing = false;
 	}
