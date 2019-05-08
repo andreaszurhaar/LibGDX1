@@ -92,7 +92,9 @@ public class GuardPatrolling extends AI {
         //change vision cone to the direction of the closest point
         Vector2 point = new Vector2(currentPoint.x, currentPoint.y);
         //TODO call extra class to update angle into stack
-        rotation = instructions(point, guard.angle());
+        instruction.translate(point, guard);
+        rotation = instruction.getRotations();
+        speed = instruction.getSpeeds();
         //walk to that point & do everything again
     }
 
@@ -184,12 +186,18 @@ public class GuardPatrolling extends AI {
 
     @Override
     public float getSpeed() {
-       return speed.pop();
-    }
+        if (speed.empty()){
+            patrol();
+        }
+        else
+        {
+           return speed.pop();
+        }
+        return speed.pop();    }
 
     @Override
     public void setAgent(Agent agent) {
-        this.guard = agent;
+        this.guard = (Guard) agent;
     }
 
     public void setStructures(ArrayList<Area> structures){

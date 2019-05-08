@@ -38,6 +38,7 @@ public class Guard extends Agent {
 		super(x, y, width, height);
 		//viewAngle.setToRandomDirection();
 		speed = 1;
+		maxSpeed = 1.4f;
 		soundRange = 0;
 		viewRange = 6f + width/2;
 		name = "2";
@@ -77,7 +78,7 @@ public class Guard extends Agent {
 	public void triggerStep() {
 
 		//System.out.println("activated trigger and changed speed from: "+speed+"  "+angle);
-		this.speed = 1.4f;//(float) (Math.random()*1.4f);
+		this.speed = patrolling.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
 		if(speed < 0.5) {
 			soundRange = 1;
 		} else if(speed < 1) {
@@ -88,8 +89,7 @@ public class Guard extends Agent {
 			soundRange = 10;
 		}
 		//TODO calculate the currentPoint
-		angle = patrolling.patrol();
-		this.rotation = (float) -Math.toRadians(angle*turningCircle/2);
+		this.rotation = patrolling.getRotation()*Board.fps;
 		//System.out.println("to: "+speed+"  "+angle);
 	}
 

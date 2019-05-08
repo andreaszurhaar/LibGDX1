@@ -37,7 +37,7 @@ public class Agent extends AssetManager {
 	public float turningCircle;
 	public float viewRadius;
 	public float viewRange;
-	private float maxSpeed;
+	public float maxSpeed;
 	public float soundRange;
 	public SoundOccurence lastHeardSound;
 	public boolean hearing;
