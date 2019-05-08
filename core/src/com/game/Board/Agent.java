@@ -5,6 +5,7 @@ package com.game.Board;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
+import com.game.AI.AI;
 import com.game.States.MapState;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -48,6 +49,7 @@ public class Agent extends AssetManager {
     public ShapeRenderer renderer;
     public TextureRegion noticeSound;
 	private Point2D destPoint;
+	public AI ai;
 	
 	
 	public Agent(float x, float y, float width, float height) {
@@ -117,10 +119,11 @@ public class Agent extends AssetManager {
 		//System.out.println("heard sound");
 	}
 	
-	public void see(Area object) {
+	public Area see(Area object) {
 		seeing = true;
 		//saw object
-		//System.out.println("saw something");
+		System.out.println("saw something");
+		return object;
 	}
 	
 	public void see(Agent object) {
@@ -168,4 +171,7 @@ public class Agent extends AssetManager {
 	public Point2D getDestPoint() {
 		return destPoint;
 	}
+
+	public void setAI(AI ai){ this.ai = ai;}
+
 }

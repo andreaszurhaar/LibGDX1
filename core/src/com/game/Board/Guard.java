@@ -39,7 +39,7 @@ public class Guard extends Agent {
 		//viewAngle.setToRandomDirection();
 		speed = 1;
 		soundRange = 0;
-		viewRange = 6f;
+		viewRange = 6f + width/2;
 		name = "2";
 		try {
 	        this.texture = reader.getImage(65,255,30,33);

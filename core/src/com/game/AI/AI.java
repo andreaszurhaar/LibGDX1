@@ -1,20 +1,27 @@
 package com.game.AI;
 
 import com.game.Board.Agent;
+import com.game.Board.Area;
 import com.game.Objects.GameObject;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public abstract class AI {
 
+    public Stack rotation;
+    public Stack speed;
+    public Agent agent;
+
     public AI(){};
 
-    public abstract void move(ArrayList<Agent> agent);
+    public abstract float getRotation();
 
+    public abstract float getSpeed();
 
+    public abstract void setAgent(Agent agent);
 
-    //when creating AI, only store corners of path for route
-    //then also store of which object the corner is
+    public abstract void setStructures(ArrayList<Object> Object);
 
 
     

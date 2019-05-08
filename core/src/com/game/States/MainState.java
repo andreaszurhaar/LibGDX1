@@ -7,8 +7,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.game.AI.AI;
 import com.game.AI.Controller;
 import com.game.AI.GuardPatrolling;
+
+import com.game.Board.Intruder;
 import com.game.CopsAndRobbers;
 import com.game.Board.Agent;
 import com.game.Board.Area;
@@ -27,8 +30,6 @@ public class MainState extends State {
     public ArrayList<Area> structures;
     public ArrayList<Agent> agents;
     public ArrayList<Structure> walls;
-
-    public Texture background;
     public Texture wall;
     public Play play;
     public String name;
@@ -67,17 +68,13 @@ public class MainState extends State {
         board = new Board();
         if(!this.structures.isEmpty()) {board.setUp(this.structures);}
         if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}
-        //guardPatrol = new GuardPatrolling(board)
         Controller controller = new Controller(board);
+
     }
 
 
-    
-    
-
     @Override
     public void handleInput() {
-
 
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             try {

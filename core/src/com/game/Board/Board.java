@@ -278,7 +278,7 @@ public class Board {
 					Vector2 dis = distPointToRect(agents.get(a).xCenter,agents.get(a).yCenter,territories.get(sub.get(i)).area);
 					Vector2 vec = new Vector2(agents.get(a).viewAngle);
 					vec.scl(range);
-										Vector2 pos = new Vector2(agents.get(a).xCenter,agents.get(a).yCenter);
+					Vector2 pos = new Vector2(agents.get(a).xCenter,agents.get(a).yCenter);
 					Vector2 fullVec = (new Vector2(pos)).add(vec);
 
 					if(dis.len() < range*4) {
@@ -304,6 +304,7 @@ public class Board {
 								|| intersectVectAndRect(new Vector2(vec.x-leftVec.x,vec.y-leftVec.y),poly,pos.x,pos.y)
 								|| intersectVectAndRect(new Vector2(vec.x-rightVec.x,vec.y-rightVec.y),poly,pos.x,pos.y)) {
 							agents.get(a).see(territories.get(sub.get(i)));
+
 						}
 						/*
 						if(intersector.intersectLinePolygon(pos,fullVec,poly)
@@ -385,6 +386,7 @@ public class Board {
 						(Math.sqrt((t.getMinX() - a.getX()) * (t.getMinX() - a.getX()) + (t.getMaxY() - a.getY()) * (t.getMaxY() - a.getY()))   < VISUAL_RANGE) ||
 						(Math.sqrt((t.getMaxX() - a.getX()) * (t.getMaxX() - a.getX()) + (t.getMaxY() - a.getY()) * (t.getMaxY() - a.getY()))   < VISUAL_RANGE)){
 					a.see(t);
+
 				}
 
 			}

@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.game.AI.TestAI;
-import com.game.AI.TestAI2;
 import com.game.Board.Agent;
 import com.game.Board.Area;
 import com.game.Board.Guard;

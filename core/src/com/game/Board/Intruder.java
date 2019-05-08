@@ -31,7 +31,7 @@ public class Intruder extends Agent {
 		speed = 1;
 		soundRange = 0;
 		name = "1";
-		viewRange = 7.5f;
+		viewRange = 7.5f + width/2;
         try {
             this.texture = reader.getImage(225,255,30,33);
             this.noticeSound = reader.getImage(135,425,20,20);
