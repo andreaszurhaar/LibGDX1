@@ -16,9 +16,9 @@ public abstract class AI {
 
     public AI(){};
 
-    public abstract Stack getRotation();
+    public abstract float getRotation();
 
-    public abstract Stack getSpeed();
+    public abstract float getSpeed();
 
     public abstract void setAgent(Agent agent);
 

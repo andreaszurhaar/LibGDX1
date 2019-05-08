@@ -28,7 +28,7 @@ public class Instruction {
 		
 		//find the length to traverse and how much to turn
 		float pathLength = positions.len();
-		float turnAngle = agent.viewAngle(positions);
+		float turnAngle = agent.viewAngle.angle(positions);
 		
 		//prepare to invert turning if the shortest angle is negative
 		boolean positive = true;
