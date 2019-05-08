@@ -11,6 +11,7 @@ import com.game.AI.AI;
 import com.game.AI.Controller;
 import com.game.AI.GuardPatrolling;
 
+import com.game.Board.Guard;
 import com.game.Board.Intruder;
 import com.game.CopsAndRobbers;
 import com.game.Board.Agent;
@@ -65,6 +66,11 @@ public class MainState extends State {
             this.structures.add(this.walls.get(i));
         }
 
+        for(int i = 0; i < this.agents.size(); i++){
+            if(agents.get(i) instanceof Guard){
+                agents.get(i).ai.setStructures(structures);
+            }
+        }
         board = new Board();
         if(!this.structures.isEmpty()) {board.setUp(this.structures);}
         if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}
