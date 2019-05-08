@@ -9,15 +9,15 @@ import java.util.Stack;
 
 public abstract class AI {
 
-    public Stack rotation;
-    public Stack speed;
+    public Stack<Float> rotation;
+    public Stack<Float> speed;
     public Agent agent;
 
     public AI(){};
 
-    public abstract float getRotation();
+    public abstract Stack getRotation();
 
-    public abstract float getSpeed();
+    public abstract Stack getSpeed();
 
     public abstract void setAgent(Agent agent);
 
