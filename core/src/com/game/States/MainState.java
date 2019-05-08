@@ -68,13 +68,13 @@ public class MainState extends State {
 
         for(int i = 0; i < this.agents.size(); i++){
             if(agents.get(i) instanceof Guard){
+                System.out.println("Agent's ai is:" + agents.get(i).ai);
                 agents.get(i).ai.setStructures(structures);
             }
         }
         board = new Board();
         if(!this.structures.isEmpty()) {board.setUp(this.structures);}
         if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}
-        Controller controller = new Controller(board);
 
     }
 

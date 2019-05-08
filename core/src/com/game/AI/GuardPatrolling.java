@@ -35,7 +35,18 @@ public class GuardPatrolling extends AI {
         this.areaWidth = areaWidth;
         this.areaHeight = areaHeight;
         areaCenter = new Point2D.Float(0.5f*areaWidth, 0.5f*areaHeight);
-        patrolInArea();
+    }
+
+    public GuardPatrolling(Guard guard)
+    {
+        setAgent(guard);
+    }
+
+    public void setArea(float areaWidth, float areaHeight)
+    {
+        this.areaWidth = areaWidth;
+        this.areaHeight = areaHeight;
+        areaCenter = new Point2D.Float(0.5f*areaWidth, 0.5f*areaHeight);
     }
 
     public void patrolInArea()
@@ -52,7 +63,7 @@ public class GuardPatrolling extends AI {
                 areaPoints.add(new Point2D.Float(i,j));
             }
         }
-            for(int k = 0; k<structures.size(); k++) {
+        for(int k = 0; k<structures.size(); k++) {
                 int startX = (int) structures.get(k).getMinX();
                 int startY = (int)structures.get(k).getMinY();
                 int endX = (int) structures.get(k).getMaxX();
@@ -202,6 +213,7 @@ public class GuardPatrolling extends AI {
 
     public void setStructures(ArrayList<Area> structures){
         this.structures = structures;
+        patrolInArea();
     }
 
 

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.game.AI.AI;
 import com.game.AI.GuardPatrolling;
 import com.game.AI.Tracking;
 import com.game.Readers.SpriteReader;
@@ -26,7 +27,7 @@ public class Guard extends Agent {
 	public float speed;
 	public float angle;
 	public float soundRange;
-    private GuardPatrolling patrolling;
+    public AI ai;
     private Tracking tracking;
     private ArrayList<Area> structures;
     public SpriteReader reader = new SpriteReader();
@@ -78,7 +79,7 @@ public class Guard extends Agent {
 	public void triggerStep() {
 
 		//System.out.println("activated trigger and changed speed from: "+speed+"  "+angle);
-		this.speed = patrolling.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
+		this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
 		if(speed < 0.5) {
 			soundRange = 1;
 		} else if(speed < 1) {
@@ -89,7 +90,7 @@ public class Guard extends Agent {
 			soundRange = 10;
 		}
 		//TODO calculate the currentPoint
-		this.rotation = patrolling.getRotation()*Board.fps;
+		this.rotation = ai.getRotation()*Board.fps;
 		//System.out.println("to: "+speed+"  "+angle);
 	}
 
@@ -144,7 +145,7 @@ public class Guard extends Agent {
 	{
 		float testWidth = 200;
 		float testHeight = 100;
-		patrolling = new GuardPatrolling(testWidth,testHeight,this);
+		ai = new GuardPatrolling(testWidth,testHeight,this);
 		//While loop to keep calling the method patrol so it keeps moving
 
 	}
