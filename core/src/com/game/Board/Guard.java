@@ -27,9 +27,8 @@ public class Guard extends Agent {
 	public float angle;
 	public float soundRange;
     private GuardPatrolling patrolling;
-    private Point2D.Float currentPoint;
     private Tracking tracking;
-
+    private ArrayList<Area> structures;
     public SpriteReader reader = new SpriteReader();
 	private final int ALLOWED_DISTANCE_ERROR = 10;
 	private boolean reachedCentre;
@@ -50,6 +49,22 @@ public class Guard extends Agent {
 	    }
 
 	}
+
+    public Guard(float x, float y, float width, float height, ArrayList<Area> structures) {
+        super(x, y, width, height);
+        this.structures = structures;
+        //viewAngle.setToRandomDirection();
+        speed = 1;
+        soundRange = 0;
+        viewRange = 6f;
+        name = "2";
+        try {
+            this.texture = reader.getImage(65,255,30,33);
+            this.noticeSound = reader.getImage(135,425,20,20);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 	
 	public float getSpeed() {
 		return speed;
@@ -73,7 +88,7 @@ public class Guard extends Agent {
 			soundRange = 10;
 		}
 		//TODO calculate the currentPoint
-		angle = patrolling.patrol(currentPoint);
+		angle = patrolling.patrol();
 		this.rotation = (float) -Math.toRadians(angle*turningCircle/2);
 		//System.out.println("to: "+speed+"  "+angle);
 	}

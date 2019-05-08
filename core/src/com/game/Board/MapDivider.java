@@ -12,7 +12,6 @@ public class MapDivider {
     private float width, height;
     private ArrayList<Point2D.Float> centres;
 
-
     public MapDivider(int nrCops)
     {
         this.nrCops = nrCops;

@@ -26,6 +26,7 @@ public class GuardPatrolling {
 
 //should get an area of patrolling with (either center + height + width, or a rectangle)
     public GuardPatrolling(float areaWidth, float areaHeight,Guard guard){
+        board = Board()
         this.guard = guard;
         this.areaWidth = areaWidth;
         this.areaHeight = areaHeight;
@@ -57,8 +58,9 @@ public class GuardPatrolling {
     }
 
     //TODO call this method every time to update the patrolling
-    public float patrol(Point2D.Float currentPoint)
+    public float patrol()
     {
+        Point2D.Float currentPoint = new Point2D.Float(guard.xPos, guard.yPos);
         seenPoints.add(currentPoint);
         //System.out.println("Current point is " + currentPoint.x + ", " +currentPoint.y);
         addSeenPoints(seenPoints);
