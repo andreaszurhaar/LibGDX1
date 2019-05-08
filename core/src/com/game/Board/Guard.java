@@ -27,6 +27,7 @@ public class Guard extends Agent {
 	public float angle;
 	public float soundRange;
     private GuardPatrolling patrolling;
+    private Point2D.Float currentPoint;
     private Tracking tracking;
 
     public SpriteReader reader = new SpriteReader();
@@ -71,7 +72,9 @@ public class Guard extends Agent {
 		} else {
 			soundRange = 10;
 		}
-		this.rotation = (float) -Math.toRadians(Math.random()*turningCircle/2);
+		//TODO calculate the currentPoint
+		angle = patrolling.patrol(currentPoint);
+		this.rotation = (float) -Math.toRadians(angle*turningCircle/2);
 		//System.out.println("to: "+speed+"  "+angle);
 	}
 

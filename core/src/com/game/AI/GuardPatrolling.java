@@ -54,11 +54,10 @@ public class GuardPatrolling {
         Point2D.Float currentPoint = areaCenter;
         System.out.println("Area center is " + currentPoint.x + ", " +currentPoint.y);
         seenPoints = new ArrayList<Point2D.Float>();
-        patrol(currentPoint);
     }
 
     //TODO call this method every time to update the patrolling
-    public void patrol(Point2D.Float currentPoint)
+    public float patrol(Point2D.Float currentPoint)
     {
         seenPoints.add(currentPoint);
         //System.out.println("Current point is " + currentPoint.x + ", " +currentPoint.y);
@@ -70,7 +69,7 @@ public class GuardPatrolling {
         //System.out.println("Closest point is " + currentPoint.x + ", " +currentPoint.y);
         //change vision cone to the direction of the closest point
         Vector2 point = new Vector2(currentPoint.x, currentPoint.y);
-        guard.setAngle(point.angle());
+        return point.angle();
         //walk to that point & do everything again
     }
 
