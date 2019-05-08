@@ -21,7 +21,7 @@ public abstract class AI {
 
     public abstract void setAgent(Agent agent);
 
-    public abstract void setStructures(ArrayList<Object> Object);
+    public abstract void setStructures(ArrayList<Area> structures);
 
 
     

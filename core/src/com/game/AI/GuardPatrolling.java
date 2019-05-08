@@ -10,11 +10,13 @@ import com.game.Board.MapDivider;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Stack;
 
-public class GuardPatrolling {
-    /**
-     * @author Yvar Hulshof, Famke Nouwens
-     */
+/**
+ * @author Yvar Hulshof, Famke Nouwens
+ */
+
+public class GuardPatrolling extends AI {
 
     private MapDivider mp;
     private Board board;
@@ -28,28 +30,19 @@ public class GuardPatrolling {
     private ArrayList<Area> structures;
 
 //should get an area of patrolling with (either center + height + width, or a rectangle)
-    public GuardPatrolling(float areaWidth, float areaHeight,Guard guard){
-        this.guard = guard;
+    public GuardPatrolling(float areaWidth, float areaHeight, Guard guard){
+        setAgent(guard);
         this.areaWidth = areaWidth;
         this.areaHeight = areaHeight;
         areaCenter = new Point2D.Float(0.5f*areaWidth, 0.5f*areaHeight);
         patrolInArea();
-        //board.setUpdateAgentMoveToPoint(true);
-        /*
-        guards = new ArrayList<Agent>();
-        guards = findGuards();
-        int nrCops = guards.size();
-        mp = new MapDivider(nrCops);
-
-        */
     }
+
     public void patrolInArea()
     {
         areaPoints = new ArrayList<Point2D.Float>();
 
         //TODO remove structure points from area points
-
-
 
         //Assuming we know the areaborders of where we are patrolling
         for (int i = 0; i<areaWidth; i++)
@@ -80,15 +73,12 @@ public class GuardPatrolling {
                 }
 
         }
-
-
         Point2D.Float currentPoint = areaCenter;
         System.out.println("Area center is " + currentPoint.x + ", " +currentPoint.y);
         seenPoints = new ArrayList<Point2D.Float>();
     }
 
-    //TODO call this method every time to update the patrolling
-    public float patrol()
+    public void patrol()
     {
         Point2D.Float currentPoint = new Point2D.Float(guard.xPos, guard.yPos);
         seenPoints.add(currentPoint);
@@ -101,7 +91,8 @@ public class GuardPatrolling {
         //System.out.println("Closest point is " + currentPoint.x + ", " +currentPoint.y);
         //change vision cone to the direction of the closest point
         Vector2 point = new Vector2(currentPoint.x, currentPoint.y);
-        return point.angle();
+        //TODO call extra class to update angle into stack
+        rotation = instructions(point, guard.angle());
         //walk to that point & do everything again
     }
 
@@ -177,6 +168,28 @@ public class GuardPatrolling {
         System.out.println("There are no unseen closest points, so we return back to the centre of the area");
         return areaCenter;
 
+    }
+
+    @Override
+    public float getRotation() {
+        if (rotation.empty()){
+            patrol();
+        }
+        else
+        {
+           return rotation.pop();
+        }
+        return rotation.pop();
+    }
+
+    @Override
+    public float getSpeed() {
+       return speed.pop();
+    }
+
+    @Override
+    public void setAgent(Agent agent) {
+        this.guard = agent;
     }
 
     public void setStructures(ArrayList<Area> structures){
