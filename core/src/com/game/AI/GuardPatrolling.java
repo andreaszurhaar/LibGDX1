@@ -26,7 +26,6 @@ public class GuardPatrolling {
 
 //should get an area of patrolling with (either center + height + width, or a rectangle)
     public GuardPatrolling(float areaWidth, float areaHeight,Guard guard){
-        board = Board()
         this.guard = guard;
         this.areaWidth = areaWidth;
         this.areaHeight = areaHeight;
