@@ -62,6 +62,11 @@ public class Astar extends AI {
         start();
     }
 
+    public void setIntruder(Agent intruder)
+    {
+        this.intruder = intruder;
+    }
+
     public void createInitialGraph(ArrayList areas)
     {
         map = new Graph(areas, target);
