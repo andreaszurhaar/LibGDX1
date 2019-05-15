@@ -7,17 +7,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.game.AI.AI;
 import com.game.AI.Controller;
 import com.game.AI.GuardPatrolling;
-
-import com.game.Board.Guard;
-import com.game.Board.Intruder;
+import com.game.Board.*;
 import com.game.CopsAndRobbers;
-import com.game.Board.Agent;
-import com.game.Board.Area;
-import com.game.Board.Board;
-import com.game.Board.Structure;
 import com.game.Objects.Ground;
 import com.game.Objects.Play;
 import com.game.Readers.FileHandler;
@@ -30,7 +23,10 @@ public class MainState extends State {
 
     public ArrayList<Area> structures;
     public ArrayList<Agent> agents;
+    public ArrayList<Agent> guards;
     public ArrayList<Structure> walls;
+
+    public Texture background;
     public Texture wall;
     public Play play;
     public String name;
@@ -68,19 +64,27 @@ public class MainState extends State {
 
         for(int i = 0; i < this.agents.size(); i++){
             if(agents.get(i) instanceof Guard){
-                System.out.println("Agent's ai is:" + agents.get(i).ai);
-                agents.get(i).ai.setStructures(structures);
+                guards.add(agents.get(i));
             }
         }
+
         board = new Board();
         if(!this.structures.isEmpty()) {board.setUp(this.structures);}
         if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}
-
+        //guardPatrol = new GuardPatrolling(board)
+        Controller controller = new Controller(board);
     }
 
+    public ArrayList<Agent> getGuards () {
+        return guards;
+    }
+
+    
+    
 
     @Override
     public void handleInput() {
+
 
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             try {
