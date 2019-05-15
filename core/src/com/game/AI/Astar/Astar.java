@@ -1,11 +1,18 @@
 
 package com.game.AI.Astar;
 
+import com.badlogic.gdx.math.Vector2;
+import com.game.AI.AI;
+import com.game.AI.Instruction;
+import com.game.Board.Agent;
+import com.game.Board.Area;
+
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
 //made for the robber
-public class Astar {
+public class Astar extends AI {
 
     private Node start;
     private Node target = new Node(0,1);
@@ -13,6 +20,10 @@ public class Astar {
     private List<Node> closed = new ArrayList<Node>();
     private Graph map;
     private double lowestCost = 1000.0;
+    private ArrayList<Area> areas;
+    private ArrayList<Node> path;
+    private int counter;
+    private Agent intruder;
 
 
    /* public Astar(Agent agent, int startx, int starty, ArrayList areas)
@@ -25,17 +36,25 @@ public class Astar {
         start();
     }*/
 
-    public Astar(ArrayList areas)
+    public Astar() {
+        this.instruction = new Instruction();
+    }
+
+    public Astar(ArrayList areas, Agent intruder)
     {
+        this.instruction = new Instruction();
+        this.areas = areas;
         createInitialGraph(areas);
-        setStart(199, 199);
+        setStart(195, 195);
         //Take random target coordinates
-        setTarget(0,1);
+        setTarget(0,0);
         start();
     }
 
-    public Astar(ArrayList areas, int startx, int starty, int targetx, int targety)
+    public Astar(ArrayList areas, int startx, int starty, int targetx, int targety, Agent intruder)
     {
+        this.instruction = new Instruction();
+        this.areas = areas;
         createInitialGraph(areas);
         setStart(startx, starty);
         //Take random target coordinates
@@ -55,6 +74,7 @@ public class Astar {
 
     public void setStart(int x, int y)
     {
+        System.out.println(map.setStartNode(x,y));
         start = map.setStartNode(x,y);
     }
 
@@ -164,19 +184,68 @@ public class Astar {
     {
         Node temp = node;
         System.out.println("The path to be taken from target node " + target.id +" is: " );
+        path = new ArrayList<Node>();
+        path.add(target);
         while (temp.hasParent())
         {
-
             System.out.print("Node " + temp.id );
-
-
-            //System.out.println("Node " + temp.id + " has as parent: node " + temp.getParent().id);
+            //Path starting from last node to start node
+            path.add(temp);
             System.out.println(" to ");
             temp = temp.getParent();
         }
+        path.add(start);
         System.out.println("Node " + start.id);
-        //System.out.println("Total cost of path is: " + target.fCost );
+        counter = path.size();
     }
 
 
+
+//    public float getRotation(Node temp) {
+//        Vector2 tempVector = new Vector2(temp.xcoord, temp.ycoord);
+//        Vector2 startVector = new Vector2();
+//        return ;
+//    }
+
+    public void getNextPoint(){
+        Vector2 nextPoint = new Vector2(path.get(counter).xcoord, path.get(counter).ycoord);
+        instruction.translate(nextPoint, intruder);
+        counter--;
+        rotation = instruction.getRotations();
+        speed = instruction.getSpeeds();
+    }
+
+    @Override
+    public float getRotation() {
+        if (rotation.empty()){
+            getNextPoint();
+        }
+        else
+        {
+            return rotation.pop();
+        }
+        return rotation.pop();
+    }
+
+    @Override
+    public float getSpeed() {
+        if (speed.empty()){
+            getNextPoint();
+        }
+        else
+        {
+            return speed.pop();
+        }
+        return speed.pop();    }
+
+
+    @Override
+    public void setAgent(Agent agent) {
+        intruder = agent;
+    }
+
+    @Override
+    public void setStructures(ArrayList<Area> structures) {
+        areas = structures;
+    }
 }
