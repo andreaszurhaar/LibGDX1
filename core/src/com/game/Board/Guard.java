@@ -7,8 +7,6 @@ import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.game.AI.AI;
 import com.game.AI.GuardPatrolling;
 import com.game.AI.Tracking;
@@ -27,6 +25,8 @@ public class Guard extends Agent {
 	public float speed;
 	public float angle;
 	public float soundRange;
+	private Point2D.Float locationIntruder;
+	private float angleIntruder;
     public AI ai;
     private Tracking tracking;
     private ArrayList<Area> structures;
@@ -49,7 +49,6 @@ public class Guard extends Agent {
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
-
 	}
 
     public Guard(float x, float y, float width, float height, ArrayList<Area> structures) {
@@ -146,14 +145,20 @@ public class Guard extends Agent {
 		float testWidth = 200;
 		float testHeight = 100;
 		ai = new GuardPatrolling(testWidth,testHeight,this);
-		//While loop to keep calling the method patrol so it keeps moving
-
 	}
 
 	public void tracking()
     {
         //TODO: decide if we take in the point of the intruder or an angle & speed (i.e. general direction of the intruder)
         //tracking = new Tracking();
+    }
+
+    public void communicate(Point2D.Float locIntruder){
+	    locationIntruder = locIntruder;
+    }
+
+    public void communicate(float angle){
+        angleIntruder = angle;
     }
 
 
