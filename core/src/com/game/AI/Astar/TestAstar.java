@@ -8,10 +8,8 @@ public class TestAstar {
     public static void main(String[] args)
     {
 
-        //IMPORTANT!! IT ENTERS A INFINITE LOOP AFTER A CERTAIN MAP SIZE
-
         ArrayList<Area> areas = new ArrayList<Area>();
-        //areas.add(new Structure(1,1,1,1));
+//        areas.add(new Structure(1,1,1,1,true));
         System.out.println("Running a-star");
         double start = System.currentTimeMillis();
 

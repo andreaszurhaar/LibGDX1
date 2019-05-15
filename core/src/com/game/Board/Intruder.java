@@ -5,6 +5,7 @@ package com.game.Board;
 
 import java.io.IOException;
 
+import com.game.AI.AI;
 import com.game.Readers.SpriteReader;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -22,8 +23,7 @@ public class Intruder extends Agent {
     SpriteReader reader = new SpriteReader();
     public int sprintCount = 0;
 	public int restCount = 0;
-
-
+	private AI ai;
 
 	public Intruder(float x, float y, float width, float height) {
 		super(x, y, width, height);
@@ -91,4 +91,6 @@ public class Intruder extends Agent {
 		seeing = false;
 		super.drawTexture(sb, xReduc, yReduc);
 	}
+
+	public void setAI(AI ai){this.ai = ai;}
 }

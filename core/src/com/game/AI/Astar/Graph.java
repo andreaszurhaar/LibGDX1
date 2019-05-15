@@ -21,19 +21,19 @@ public class Graph {
         this.structures = structures;
         neighbours.clear();
         this.target = target;
-        createVertices(structures);
+        createVertices();
     }
 
-    public void createVertices(ArrayList<Area> structures)
+    public void createVertices()
     {
         nodes = new ArrayList<Node>();
         edges = new ArrayList<Edge>();
         //System.out.println("We're creating the vertices");
         int counter = 0;
         int row = 0;
-        for (int i = 0; i<mapSize; i++)
+        for (int i = 0; i<mapSize; i+=5)
         {
-            for (int j = 0; j<mapSize; j++) {
+            for (int j = 0; j<mapSize; j+=5) {
 
                     nodes.add(new Node(i, j, target));
                     //System.out.println("create node " + nodes.get(counter+row*mapSize).id);
@@ -107,6 +107,7 @@ public class Graph {
                 return nodes.get(i);
             }
         }
+        System.out.println("We return null for start node");
         return null;
     }
 
@@ -121,6 +122,7 @@ public class Graph {
                 return nodes.get(i);
             }
         }
+        System.out.println("We return null for target node");
         return null;
     }
 
