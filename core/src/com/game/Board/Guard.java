@@ -144,7 +144,7 @@ public class Guard extends Agent {
 	{
 		float testWidth = 200;
 		float testHeight = 100;
-		ai = new GuardPatrolling(testWidth,testHeight,this);
+		ai = new GuardPatrolling();
 	}
 
 	public void tracking()

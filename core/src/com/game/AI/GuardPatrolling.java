@@ -30,11 +30,7 @@ public class GuardPatrolling extends AI {
     private ArrayList<Area> structures;
 
 //should get an area of patrolling with (either center + height + width, or a rectangle)
-    public GuardPatrolling(float areaWidth, float areaHeight, Guard guard){
-        setAgent(guard);
-        this.areaWidth = areaWidth;
-        this.areaHeight = areaHeight;
-        areaCenter = new Point2D.Float(0.5f*areaWidth, 0.5f*areaHeight);
+    public GuardPatrolling(){
     }
 
     public GuardPatrolling(Guard guard)

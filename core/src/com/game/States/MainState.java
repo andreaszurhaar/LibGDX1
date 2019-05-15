@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.AI.AI;
 import com.game.AI.Controller;
 import com.game.AI.GuardPatrolling;
-
 import com.game.Board.Guard;
 import com.game.Board.Intruder;
 import com.game.CopsAndRobbers;
@@ -42,15 +41,19 @@ public class MainState extends State {
     public GuardPatrolling guardPatrol;
     public static final float X_REDUC = MapState.X_REDUC;
     public static final float Y_REDUC = MapState.Y_REDUC;
+    public AI guardAI;
+    public AI intruderAI;
 
 
-    public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls) {
+    public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls, AI guardAI, AI intruderAI) {
         super(gsm);
         font = new BitmapFont();
         font.setColor(Color.BLACK);
         wall = new Texture("wall.png");
         play = new Play(865,545);
         ground = new Ground(0,0);
+        this.guardAI = guardAI;
+        this.intruderAI = intruderAI;
         reader = new SpriteReader();
         try {
             tR = reader.getImage(100,100,25,25);
@@ -68,8 +71,10 @@ public class MainState extends State {
 
         for(int i = 0; i < this.agents.size(); i++){
             if(agents.get(i) instanceof Guard){
+               agents.get(i).setAI(guardAI);
                 System.out.println("Agent's ai is:" + agents.get(i).ai);
-                agents.get(i).ai.setStructures(structures);
+                agents.get(i).ai.setArea(20,20);
+               agents.get(i).ai.setStructures(structures);
             }
         }
         board = new Board();

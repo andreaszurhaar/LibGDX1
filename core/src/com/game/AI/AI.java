@@ -24,6 +24,8 @@ public abstract class AI {
 
     public abstract void setStructures(ArrayList<Area> structures);
 
+    public abstract void setArea(float areaWidth, float areaHeight);
+
 
     
 }
