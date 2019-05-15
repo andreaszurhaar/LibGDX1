@@ -76,6 +76,7 @@ public class Guard extends Agent {
 	}
 	
 	public void triggerStep() {
+		System.out.println("AI is " + ai);
 
 		//System.out.println("activated trigger and changed speed from: "+speed+"  "+angle);
 		this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);

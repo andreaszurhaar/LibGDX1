@@ -193,6 +193,7 @@ public class GuardPatrolling extends AI {
 
     @Override
     public float getSpeed() {
+        System.out.println("guard");
         if (speed.empty()){
             patrol();
         }
