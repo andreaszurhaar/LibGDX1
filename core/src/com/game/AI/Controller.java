@@ -52,7 +52,7 @@ public class Controller {
         }
         for (Guard g : guards)
         {
-            g.patrolling();
+            //g.patrolling();
         }
     }
 

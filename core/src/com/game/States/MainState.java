@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.AI.AI;
+import com.game.AI.Astar.Astar;
 import com.game.AI.Controller;
 import com.game.AI.GuardPatrolling;
 import com.game.Board.Guard;
@@ -71,16 +72,26 @@ public class MainState extends State {
 
         for(int i = 0; i < this.agents.size(); i++){
             if(agents.get(i) instanceof Guard){
-               agents.get(i).setAI(guardAI);
-                System.out.println("Agent's ai is:" + agents.get(i).ai);
+                AI agentAI = new GuardPatrolling();
+               agents.get(i).setAI(agentAI);
+               agentAI.setAgent(agents.get(i));
+                System.out.println("Cops's ai is:" + agents.get(i).ai);
                 agents.get(i).ai.setArea(20,20);
                agents.get(i).ai.setStructures(structures);
+            }
+            else{
+                AI agentAi = new Astar();
+                agents.get(i).setAI(agentAi);
+                System.out.println("Intruders's ai is:" + agentAi);
+                //agentAi.setAgent(agents.get(i));
+                System.out.println("Intruders's ai is:" + agents.get(i).ai);
+                agents.get(i).ai.setArea(20,20);
+                agents.get(i).ai.setStructures(structures);
             }
         }
         board = new Board();
         if(!this.structures.isEmpty()) {board.setUp(this.structures);}
         if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}
-
     }
 
 

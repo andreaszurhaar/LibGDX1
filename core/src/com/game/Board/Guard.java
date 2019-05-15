@@ -141,12 +141,12 @@ public class Guard extends Agent {
 		super.drawTexture(sb, xReduc, yReduc);
 	}
 
-	public void patrolling()
-	{
-		float testWidth = 200;
-		float testHeight = 100;
-		ai = new GuardPatrolling();
-	}
+//	public void patrolling()
+//	{
+//		float testWidth = 200;
+//		float testHeight = 100;
+//		ai = new GuardPatrolling();
+//	}
 
 	public void tracking()
     {
@@ -162,6 +162,8 @@ public class Guard extends Agent {
         angleIntruder = angle;
     }
 
+
+    //public void setAI(AI ai){ this.ai = ai;}
 
 
 }
