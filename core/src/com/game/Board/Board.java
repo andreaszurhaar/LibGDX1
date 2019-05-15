@@ -18,7 +18,7 @@ import com.badlogic.gdx.math.Polygon;
 public class Board {
 	
 	private ArrayList<Integer>[][] positionTracker;
-	private ArrayList<Area> territories;
+	public ArrayList<Area> territories;
 	private ArrayList<Agent> agents;
 	public final static int fps = 60;
 	private final int VISUAL_RANGE = 20;
@@ -138,8 +138,9 @@ public class Board {
 				agents.get(a).setPos(newX,newY);
 
 			}
-			if(!updateAgentMoveToPoint) agents.get(a).triggerStep();
-			else agents.get(a).triggerStepTowardPoint(agents.get(a).getDestPoint());
+			//if(!agents.get(a).AgentReachedCentre()) agents.get(a).triggerStep();
+			//else agents.get(a).triggerStepTowardPoint(agents.get(a).getDestPoint());
+			agents.get(a).triggerStep();
 
 		}
 		
@@ -427,9 +428,6 @@ public class Board {
 		return agents;
 	}
 
-	public void setUpdateAgentMoveToPoint(boolean updateAgentMoveToPoint) {
-		this.updateAgentMoveToPoint = updateAgentMoveToPoint;
-	}
 
 	public void setCurrentPoint(Point2D currentPoint) {
 		this.currentPoint = currentPoint;

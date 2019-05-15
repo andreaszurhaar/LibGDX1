@@ -35,6 +35,7 @@ public class GuardPatrolling extends AI {
         this.areaWidth = areaWidth;
         this.areaHeight = areaHeight;
         areaCenter = new Point2D.Float(0.5f*areaWidth, 0.5f*areaHeight);
+        this.instruction = new Instruction();
     }
 
     public GuardPatrolling(Guard guard)
@@ -180,6 +181,7 @@ public class GuardPatrolling extends AI {
         }
         System.out.println("There are no unseen closest points, so we return back to the centre of the area");
         return areaCenter;
+
 
     }
 

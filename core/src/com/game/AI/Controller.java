@@ -49,6 +49,7 @@ public class Controller {
         centres = mapDivider.getCentres();
         if(guards.size() > 0) {
             initializeGuardLocations();
+            //TODO after running initalizeGuardLocations, dont call patrolling yet but wait until guards have reached centres
         }
         for (Guard g : guards)
         {
@@ -58,7 +59,6 @@ public class Controller {
 
     public void initializeGuardLocations(){
      for(int i = 0; i < guards.size(); i++){
-        board.setUpdateAgentMoveToPoint(true);
         Point2D currentCentre = centres.get(i);
         Agent currentGuard = guards.get(i);
         currentGuard.setDestPoint(currentCentre);
