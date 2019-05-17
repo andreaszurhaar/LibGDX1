@@ -80,9 +80,12 @@ public class Board {
 	}
 	
 	public void putInAgents(ArrayList<Agent> ags) {
-		
+		int counter = 0;
 		for(int a=0; a<ags.size(); a++) {
+			System.out.println("agents ai in board " + ags.get(a).ai);
 			agents.add(ags.get(a));
+			System.out.println("agents ai after adding to board " + agents.get(counter).ai);
+			counter++;
 		}
 	}
 	

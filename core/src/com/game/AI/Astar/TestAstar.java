@@ -13,7 +13,7 @@ public class TestAstar {
         System.out.println("Running a-star");
         double start = System.currentTimeMillis();
 
-        Astar test = new Astar(areas);
+       // Astar test = new Astar(areas);
         double end = System.currentTimeMillis();
         System.out.println("Time taken: " + (end-start)/1000 + " s" );
 

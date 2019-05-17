@@ -16,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.game.AI.Astar.Astar;
+import com.game.AI.GuardPatrolling;
 import com.game.GameLogic.Button;
 import com.game.Readers.FileHandler;
 import com.game.Readers.SpriteReader;
@@ -97,13 +99,13 @@ public class MenuState extends State {
         
         String[] arrayAgent = new String[4];
         arrayAgent[0] = "None";
-        arrayAgent[1] = "Bot1";
+        arrayAgent[1] = "A*";
         arrayAgent[2] = "Bot2";
         arrayAgent[3] = "Bot3";
 
         String[] arrayGuard = new String[4];
         arrayGuard[0] = "None";
-        arrayGuard[1] = "Bot1";
+        arrayGuard[1] = "Patrolling";
         arrayGuard[2] = "Bot2";
         arrayGuard[3] = "Bot3";
         
@@ -131,11 +133,15 @@ public class MenuState extends State {
         start.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
                 int levelInt = Integer.parseInt((String) levelBox.getSelected());
+                String guardAI = (String) guardBots.getSelected();
+                String intruderAI = (String) agentBots.getSelected();
                 if(levelInt == 0 ) {
-                    gamestatemanager.push(new MapState(gamestatemanager));
+                    if(intruderAI == "A*" && guardAI == "Patrolling") {
+                        gamestatemanager.push(new MapState(gamestatemanager, new GuardPatrolling(), new Astar()));
+                    }
                 }
                 else{
-                    gamestatemanager.push(new MainState(gsm,levelReader.fileReader(levelInt).get(1),levelReader.fileReader(levelInt).get(0),levelReader.fileReader(levelInt).get(2)));
+                    gamestatemanager.push(new MainState(gsm,levelReader.fileReader(levelInt).get(1),levelReader.fileReader(levelInt).get(0),levelReader.fileReader(levelInt).get(2),new GuardPatrolling(),new Astar()));
                 }
             }
         });

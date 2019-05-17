@@ -92,5 +92,4 @@ public class Intruder extends Agent {
 		super.drawTexture(sb, xReduc, yReduc);
 	}
 
-	public void setAI(AI ai){this.ai = ai;}
 }

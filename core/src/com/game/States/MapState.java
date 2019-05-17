@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.game.AI.AI;
 import com.game.Board.Agent;
 import com.game.Board.Area;
 import com.game.Board.Guard;
@@ -65,10 +66,14 @@ public class MapState extends State {
     public Collider collider;
     public static final float X_REDUC = 2.5f;
     public static final float Y_REDUC = 2.5f;
+    public AI guardAI;
+    public AI intruderAI;
     
     
-    public MapState(GameStateManager gsm){
+    public MapState(GameStateManager gsm, AI guardAI, AI intruderAI){
         super(gsm);
+        this.guardAI = guardAI;
+        this.intruderAI = intruderAI;
         menuObjects = new ArrayList<GameObject>();
         activeObjects = new ArrayList<GameObject>();
         copObjects = new ArrayList<GameObject>();
@@ -187,7 +192,7 @@ public class MapState extends State {
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
-                gsm.push(new MainState(gsm,structures,agents,walls));
+                gsm.push(new MainState(gsm,structures,agents,walls,guardAI,intruderAI));
             }
 
             if (Gdx.input.getY() >= 150) {

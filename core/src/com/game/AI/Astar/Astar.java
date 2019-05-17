@@ -253,4 +253,10 @@ public class Astar extends AI {
     public void setStructures(ArrayList<Area> structures) {
         areas = structures;
     }
+
+    @Override
+    public void setArea(float areaWidth, float areaHeight) {
+
+    }
+
 }

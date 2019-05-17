@@ -30,12 +30,7 @@ public class GuardPatrolling extends AI {
     private ArrayList<Area> structures;
 
 //should get an area of patrolling with (either center + height + width, or a rectangle)
-    public GuardPatrolling(float areaWidth, float areaHeight, Guard guard){
-        setAgent(guard);
-        this.areaWidth = areaWidth;
-        this.areaHeight = areaHeight;
-        areaCenter = new Point2D.Float(0.5f*areaWidth, 0.5f*areaHeight);
-        this.instruction = new Instruction();
+    public GuardPatrolling(){
     }
 
     public GuardPatrolling(Guard guard)
@@ -182,7 +177,6 @@ public class GuardPatrolling extends AI {
         System.out.println("There are no unseen closest points, so we return back to the centre of the area");
         return areaCenter;
 
-
     }
 
     @Override
@@ -199,6 +193,7 @@ public class GuardPatrolling extends AI {
 
     @Override
     public float getSpeed() {
+        System.out.println("guard");
         if (speed.empty()){
             patrol();
         }
