@@ -12,6 +12,11 @@ import com.game.States.MainState;
 
 import java.awt.Point;
 
+/**
+ * When calling the constructor of the class all the x-y location of the centers of the areas and the staring location of the guards are put in arraylist.
+ * The algorithm returns an arraylist of Point2D.Float where for each element of the array (that represents a cop, in the order with which it got them) contains the location of the nearest untaken area-center
+ *
+ */
 
 public class CopsCenters {
 
@@ -19,6 +24,7 @@ public class CopsCenters {
     private MainState ms;
     private ArrayList<Point2D.Float> centres;
     private ArrayList<Point2D.Float> guardsLoc;
+    private ArrayList<Point2D.Float> guardCenter;
     private ArrayList<Agent> guards;
     private ArrayList<ArrayList<Double>> distances;
     private ArrayList<Double> dist;
@@ -39,6 +45,7 @@ public class CopsCenters {
         }
     }
 
+    // This method computes the distance between each guard and all the possible area-centers. It also computes the standard deviation for the distances of each cop
     public void setDistances () {
         for (i=0;i<centres.size();i++) {
             distances.set(i,computeEuclideanDist(i));
@@ -48,6 +55,7 @@ public class CopsCenters {
         }
     }
 
+    // Compute euclidean distance between a guard and all the area-centers
     public ArrayList<Double> computeEuclideanDist(int i) {
         for (j=0;j<centres.size();j++) {
         dist.set(j,Math.sqrt((Math.pow(centres.get(j).getX()-guardsLoc.get(i).getX(),2))+(Math.pow(centres.get(j).getY()-guardsLoc.get(i).getY(),2))));
@@ -55,7 +63,7 @@ public class CopsCenters {
         return dist;
     }
 
-
+    // computes Standard Deviation for each guard
     public double calculateSD(ArrayList<Double> span)
     {
         double sum = 0.0;
@@ -74,6 +82,7 @@ public class CopsCenters {
         return Math.sqrt(standardDeviation/length);
     }
 
+    // The method orders the guards by highest standard deviation w.r.t. distances. The guard with highest standard deviation will be the first to receive the nearest center
     public void order () {
         for (j=0;j<centres.size();j++) {
             maxSD=0;
@@ -89,13 +98,18 @@ public class CopsCenters {
         }
     }
 
-    public ArrayList<Integer> getCenters () {
+    // this is the method to call to get the total output of the algorithm
+    public ArrayList<Point2D.Float> getCenters () {
         setDistances();
         order();
         for (i=0;i<centres.size();i++) {
             coupled.add(ordered.get(i),findMin(distances.get(i)));
         }
-        return coupled;
+
+        for (i=0;i<centres.size();i++) {
+            guardCenter.set(coupled.get(i),centres.get(i));
+        }
+        return guardCenter;
     }
 
     //return position in arraylist of nearest untaken center
