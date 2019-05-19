@@ -6,6 +6,7 @@ package com.game.Board;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AI.AI;
+import com.game.AI.CopsCenters;
 import com.game.States.MapState;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -50,6 +51,7 @@ public class Agent extends AssetManager {
     public TextureRegion noticeSound;
 	private Point2D destPoint;
 	public AI ai;
+	protected CopsCenters copsCenter;
 	
 	
 	public Agent(float x, float y, float width, float height) {
@@ -173,5 +175,9 @@ public class Agent extends AssetManager {
 	}
 
 	public void setAI(AI ai){ this.ai = ai;}
+
+	public void setCopsCenter(CopsCenters copsCenter) {
+		this.copsCenter = copsCenter;
+	}
 
 }

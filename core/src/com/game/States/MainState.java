@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.AI.Controller;
+import com.game.AI.CopsCenters;
 import com.game.AI.GuardPatrolling;
 import com.game.Board.*;
 import com.game.CopsAndRobbers;
@@ -58,9 +59,12 @@ public class MainState extends State {
         this.agents = agents;
         this.walls = walls;
 
+
         for(int i = 0; i < this.walls.size(); i++){
             this.structures.add(this.walls.get(i));
         }
+
+        guards = new ArrayList<Agent>();
 
         for(int i = 0; i < this.agents.size(); i++){
             if(agents.get(i) instanceof Guard){
@@ -73,6 +77,13 @@ public class MainState extends State {
         if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}
         //guardPatrol = new GuardPatrolling(board)
         Controller controller = new Controller(board);
+        CopsCenters copsCenters = new CopsCenters(guards);
+
+        for(int i = 0; i < this.agents.size(); i++){
+            if(agents.get(i) instanceof Guard){
+                guards.get(i).setCopsCenter(copsCenters);
+            }
+        }
     }
 
     public ArrayList<Agent> getGuards () {

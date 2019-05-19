@@ -11,6 +11,7 @@ import com.game.Board.MapDivider;
 import com.game.States.MainState;
 
 import java.awt.Point;
+import java.util.Map;
 
 /**
  * When calling the constructor of the class all the x-y location of the centers of the areas and the staring location of the guards are put in arraylist.
@@ -36,9 +37,11 @@ public class CopsCenters {
     private int i,j,pos;
     private double maxSD,minDist;
 
-    public CopsCenters () {
+    public CopsCenters (ArrayList<Agent> guards) {
+
+        this.guards = guards;
+        MapDivider mp = new MapDivider(guards.size());
         centres = mp.getCentres();
-        guards = ms.getGuards();
 
         for (i=0;i<centres.size();i++) {
             guardsLoc.get(i).setLocation(guards.get(i).getX(),guards.get(i).getY());
@@ -124,5 +127,13 @@ public class CopsCenters {
             }
         }
         return pos;
+    }
+
+    public MainState getMs() {
+        return ms;
+    }
+
+    public ArrayList<Agent> getGuards() {
+        return guards;
     }
 }

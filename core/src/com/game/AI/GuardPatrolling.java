@@ -6,9 +6,11 @@ import com.game.Board.Area;
 import com.game.Board.Board;
 import com.game.Board.Guard;
 import com.game.Board.MapDivider;
+import com.game.States.MainState;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.awt.image.ConvolveOp;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -28,13 +30,29 @@ public class GuardPatrolling extends AI {
     public ArrayList<Point2D.Float> areaPoints, seenPoints;
     private Guard guard;
     private ArrayList<Area> structures;
+    private CopsCenters copsCenters;
+    private Vector2 bestCenterVector;
+    private boolean reachedCenter;
 
 //should get an area of patrolling with (either center + height + width, or a rectangle)
-    public GuardPatrolling(float areaWidth, float areaHeight, Guard guard){
+    public GuardPatrolling(float areaWidth, float areaHeight, Guard guard, CopsCenters copsCenters){
         setAgent(guard);
         this.areaWidth = areaWidth;
         this.areaHeight = areaHeight;
         areaCenter = new Point2D.Float(0.5f*areaWidth, 0.5f*areaHeight);
+        this.copsCenters = copsCenters;
+
+        //TODO set this later
+        ArrayList<Agent> guards = copsCenters.getGuards();
+        int guardIndex = -1;
+        for(int i = 0; i < guards.size(); i++){
+            if(guard == guards.get(i)){
+                guardIndex = i;
+            }
+        }
+        Point2D.Float bestCenter = copsCenters.getCenters().get(guardIndex);
+        bestCenterVector = new Vector2(bestCenter.x, bestCenter.y);
+
     }
 
     public GuardPatrolling(Guard guard)
@@ -91,6 +109,20 @@ public class GuardPatrolling extends AI {
 
     public void patrol()
     {
+        //TODO initialize guards positions
+        //check which index current guard has, get center with same index
+        //only do this if guard has not yet reached center for the first time
+
+        if(!reachedCenter && (Math.sqrt(((guard.getX() - bestCenterVector.x) * (guard.getX() - bestCenterVector.x)) + ((guard.getY() - bestCenterVector.y) * (guard.getY() - bestCenterVector.y))) > ALLOWED_DISTANCE_ERROR)) {
+            instruction.translate(bestCenterVector, guard);
+            rotation = instruction.getRotations();
+            speed = instruction.getSpeeds();
+        }
+        else{
+            reachedCenter = true;
+        }
+
+
         Point2D.Float currentPoint = new Point2D.Float(guard.xPos, guard.yPos);
         seenPoints.add(currentPoint);
         //System.out.println("Current point is " + currentPoint.x + ", " +currentPoint.y);
@@ -214,6 +246,10 @@ public class GuardPatrolling extends AI {
     public void setStructures(ArrayList<Area> structures){
         this.structures = structures;
         patrolInArea();
+    }
+
+    public void initalize(){
+
     }
 
 

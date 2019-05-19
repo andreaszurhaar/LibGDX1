@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.game.AI.AI;
+import com.game.AI.CopsCenters;
 import com.game.AI.GuardPatrolling;
 import com.game.AI.Tracking;
 import com.game.Readers.SpriteReader;
@@ -33,6 +34,7 @@ public class Guard extends Agent {
     public SpriteReader reader = new SpriteReader();
 	private final int ALLOWED_DISTANCE_ERROR = 10;
 	private boolean reachedCentre;
+
 
 	
 	public Guard(float x, float y, float width, float height) {
@@ -144,11 +146,12 @@ public class Guard extends Agent {
 	{
 		float testWidth = 200;
 		float testHeight = 100;
-		ai = new GuardPatrolling(testWidth,testHeight,this);
+		ai = new GuardPatrolling(testWidth,testHeight,this, copsCenter);
 	}
 
 	public void tracking()
     {
+
         //TODO: decide if we take in the point of the intruder or an angle & speed (i.e. general direction of the intruder)
         //tracking = new Tracking();
     }
@@ -160,7 +163,6 @@ public class Guard extends Agent {
     public void communicate(float angle){
         angleIntruder = angle;
     }
-
 
 
 }
