@@ -82,9 +82,9 @@ public class Board {
 	public void putInAgents(ArrayList<Agent> ags) {
 		int counter = 0;
 		for(int a=0; a<ags.size(); a++) {
-			System.out.println("agents ai in board " + ags.get(a).ai);
+			//System.out.println("agents ai in board " + ags.get(a).ai);
 			agents.add(ags.get(a));
-			System.out.println("agents ai after adding to board " + agents.get(counter).ai);
+			//System.out.println("agents ai after adding to board " + agents.get(counter).ai);
 			counter++;
 		}
 	}
@@ -108,7 +108,6 @@ public class Board {
 			float newY = agents.get(a).getY()+(float) Math.sin(angle)*speed;
 				
 			for(int i=0; i<territories.size(); i++) {
-				
 				Rectangle projected = new Rectangle(newX,newY,agents.get(a).area.width,agents.get(a).area.height);
 				if(territories.get(i).intersects(projected)) {collided = true;}
 				//System.out.println("collided");}
@@ -120,12 +119,14 @@ public class Board {
 				}
 				
 			}
+           // System.out.println("Agent " + agents.get(a) + " after FOR-loop has AI: " + agents.get(a).ai);
 			
 			//move the agent if it's not colliding
 			if(!collided) {
 				agents.get(a).setPos(newX,newY);
 
 			}
+            //System.out.println("Agent " + agents.get(a) + " after if-statement has AI: " + agents.get(a).ai);
 			if(!updateAgentMoveToPoint) {
 				agents.get(a).triggerStep();
 			}
