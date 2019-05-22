@@ -33,12 +33,14 @@ public class GuardPatrolling extends AI {
     public GuardPatrolling(){
     	speed = new Stack<Float>();
     	rotation = new Stack<Float>();
+    	instruction = new Instruction();
     }
 
     public GuardPatrolling(Guard guard)
     {
     	speed = new Stack<Float>();
     	rotation = new Stack<Float>();
+    	instruction = new Instruction();
         setAgent(guard);
     }
 
@@ -105,6 +107,7 @@ public class GuardPatrolling extends AI {
         //change vision cone to the direction of the closest point
         Vector2 point = new Vector2(currentPoint.x, currentPoint.y);
         //TODO call extra class to update angle into stack
+        System.out.println("going to point: "+point.x+" "+point.y+"   from point: "+guard.xCenter+" "+guard.yCenter);
         instruction.translate(point, guard);
         rotation = instruction.getRotations();
         speed = instruction.getSpeeds();
@@ -129,12 +132,13 @@ public class GuardPatrolling extends AI {
 
     public Point2D.Float findClosestPoint(Point2D.Float currentPoint)
     {
-        Point2D.Float temp = new Point2D.Float(currentPoint.x, currentPoint.y);
+        Point2D.Float temp = new Point2D.Float((float) (int) currentPoint.x, (float) (int) currentPoint.y);
         int i = 1;
         boolean foundPoint = false;
         while (!foundPoint) {
             for (Point2D.Float p : areaPoints) {
                 //System.out.println("Possible area points: " + p.x + ", " + p.y);
+                //System.out.println("Possible temp points: " + temp.x + ", " + temp.y);
                 if (p.x == temp.x + i && p.y == temp.y) {
                     System.out.println("We take point: " + (temp.x+i) + ", " + temp.y);
                     foundPoint = true;

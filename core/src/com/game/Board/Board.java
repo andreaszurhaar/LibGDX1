@@ -99,7 +99,7 @@ public class Board {
 			//update angle
 			float rot = agents.get(a).getRotation();
 			agents.get(a).rotate(rot/fps);
-			System.out.println("Agent " + agents.get(a) + " has AI: " + agents.get(a).ai);
+			//System.out.println("Agent " + agents.get(a) + " has AI: " + agents.get(a).ai);
 			
 			
 			float speed = agents.get(a).getSpeed()/fps;
