@@ -24,11 +24,13 @@ public class Instruction {
 		speeds = new Stack();
 	}
 	
-	public void translate(Vector2 positions, Agent agent) {
+	public void translate(Vector2 point, Agent agent) {
 		
 		//find the length to traverse and how much to turn
+		Vector2 positions = new Vector2((point.x-agent.xCenter),(point.y-agent.yCenter));
 		float pathLength = positions.len();
 		float turnAngle = agent.viewAngle.angle(positions);
+		System.out.println("TURNING FOR: "+turnAngle+"  AND MOVING FOR: "+pathLength);
 		
 		//prepare to invert turning if the shortest angle is negative
 		boolean positive = true;
@@ -68,15 +70,27 @@ public class Instruction {
 		rotations.push(0f);
 		speeds.push(leftoverSpeed);
 		
+		Stack<Float> reverseRotations = new Stack<Float>();
+		Stack<Float> reverseSpeeds = new Stack<Float>();
+
+		while(!speeds.isEmpty()) {
+			reverseRotations.push(rotations.pop());
+			reverseSpeeds.push(speeds.pop());
+		}
+		speeds = reverseSpeeds;
+		rotations = reverseRotations;
+		
 	}
 	
 	public Stack<Float> getRotations() {
+		System.out.println("This stack is of size: "+rotations.size());
 		Stack<Float> rots = rotations;
 		rotations = new Stack<Float>();
 		return rots;
 	}
 	
 	public Stack<Float> getSpeeds() {
+		System.out.println("This other stack is of size: "+speeds.size());
 		Stack<Float> sps = speeds;
 		speeds = new Stack<Float>();
 		return sps;
