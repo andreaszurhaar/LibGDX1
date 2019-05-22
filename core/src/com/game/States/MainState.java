@@ -75,17 +75,17 @@ public class MainState extends State {
                 AI agentAI = new GuardPatrolling();
                this.agents.get(i).setAI(agentAI);
                agentAI.setAgent(this.agents.get(i));
-                System.out.println("Cops's ai is:" + this.agents.get(i).ai);
-                this.agents.get(i).ai.setArea(20,20);
+                //System.out.println("Cops's ai is:" + this.agents.get(i).ai);
+                this.agents.get(i).ai.setArea(400,200);
                this.agents.get(i).ai.setStructures(structures);
             }
             else{
                 AI agentAi = new Astar();
                 this.agents.get(i).setAI(agentAi);
-                System.out.println("Intruders's ai is:" + agentAi);
+                //System.out.println("Intruders's ai is:" + agentAi);
                 //agentAi.setAgent(agents.get(i));
-                System.out.println("Intruders's ai is:" + this.agents.get(i).ai);
-                this.agents.get(i).ai.setArea(20,20);
+                //System.out.println("Intruders's ai is:" + this.agents.get(i).ai);
+                this.agents.get(i).ai.setArea(400,200);
                 this.agents.get(i).ai.setStructures(structures);
             }
         }

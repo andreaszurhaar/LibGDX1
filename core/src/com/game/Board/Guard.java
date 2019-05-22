@@ -75,7 +75,7 @@ public class Guard extends Agent {
 	}
 	
 	public void triggerStep() {
-		System.out.println("AI in guard is " + ai);
+		//System.out.println("AI in guard is " + this.ai);
 
 		//System.out.println("activated trigger and changed speed from: "+speed+"  "+angle);
 		if(speed < 0.5) {
