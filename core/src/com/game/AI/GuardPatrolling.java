@@ -42,6 +42,7 @@ public class GuardPatrolling extends AI {
         areaCenter = new Point2D.Float(0.5f*areaWidth, 0.5f*areaHeight);
         this.copsCenters = copsCenters;
 
+        /*
         //TODO set this later
         ArrayList<Agent> guards = copsCenters.getGuards();
         int guardIndex = -1;
@@ -52,7 +53,7 @@ public class GuardPatrolling extends AI {
         }
         Point2D.Float bestCenter = copsCenters.getCenters().get(guardIndex);
         bestCenterVector = new Vector2(bestCenter.x, bestCenter.y);
-
+        */
     }
 
     public GuardPatrolling(Guard guard)

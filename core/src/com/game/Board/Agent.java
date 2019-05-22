@@ -52,6 +52,7 @@ public class Agent extends AssetManager {
 	private Point2D destPoint;
 	public AI ai;
 	protected CopsCenters copsCenter;
+	private Point2D.Float centerLocation;
 	
 	
 	public Agent(float x, float y, float width, float height) {
@@ -180,4 +181,7 @@ public class Agent extends AssetManager {
 		this.copsCenter = copsCenter;
 	}
 
+	public void setCenterLocation(Point2D.Float centerLocation) {
+		this.centerLocation = centerLocation;
+	}
 }

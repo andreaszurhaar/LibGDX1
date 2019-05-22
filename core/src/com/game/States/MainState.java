@@ -16,6 +16,8 @@ import com.game.Objects.Ground;
 import com.game.Objects.Play;
 import com.game.Readers.FileHandler;
 import com.game.Readers.SpriteReader;
+
+import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -79,9 +81,11 @@ public class MainState extends State {
         Controller controller = new Controller(board);
         CopsCenters copsCenters = new CopsCenters(guards);
 
+        Point2D.Float[] guardCenters = copsCenters.getCenters();
+
         for(int i = 0; i < this.agents.size(); i++){
             if(agents.get(i) instanceof Guard){
-                guards.get(i).setCopsCenter(copsCenters);
+                guards.get(i).setCenterLocation(guardCenters[i]);
             }
         }
     }

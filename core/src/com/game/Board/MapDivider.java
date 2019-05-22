@@ -22,23 +22,28 @@ public class MapDivider {
 
     public void findEqualAreas()
     {
-        int nrVertical; //number of boxes/rectangles
-        int nrHorizontal;
+        int nrVertical=1; //number of boxes/rectangles
+        int nrHorizontal=1;
         if (nrCops%2 == 0)
         {
             nrVertical = nrCops/2;
             if (nrCops %4 == 0){
-                nrHorizontal = nrCops/4 ;
+
+                nrHorizontal = nrCops/4 + 1 ;
+                System.out.println("nrHorizontal=" + nrHorizontal);
             }
             else{
                 nrHorizontal = nrCops/nrVertical;
+                System.out.println("nrHorizontal=" + nrHorizontal);
             }
 
         }
         else {
             nrVertical = nrCops;
             nrHorizontal = 1;
+            System.out.println("nrHorizontal=" + nrHorizontal);
         }
+        System.out.println("nrVertical=" + nrVertical);
         centres = findCenters(nrVertical,nrHorizontal);
     }
 

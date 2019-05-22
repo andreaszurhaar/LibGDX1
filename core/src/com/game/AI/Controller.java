@@ -59,6 +59,7 @@ public class Controller {
     public void initializeGuardLocations(){
      for(int i = 0; i < guards.size(); i++){
         board.setUpdateAgentMoveToPoint(true);
+        //TODO centres.size() is too small?
         Point2D currentCentre = centres.get(i);
         Agent currentGuard = guards.get(i);
         currentGuard.setDestPoint(currentCentre);
