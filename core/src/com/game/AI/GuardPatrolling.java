@@ -31,14 +31,10 @@ public class GuardPatrolling extends AI {
 
 //should get an area of patrolling with (either center + height + width, or a rectangle)
     public GuardPatrolling(){
-    	speed = new Stack<Float>();
-    	rotation = new Stack<Float>();
     }
 
     public GuardPatrolling(Guard guard)
     {
-    	speed = new Stack<Float>();
-    	rotation = new Stack<Float>();
         setAgent(guard);
     }
 
@@ -91,14 +87,12 @@ public class GuardPatrolling extends AI {
 
     public void patrol()
     {
-    	System.out.println("Started Patrolling");
         Point2D.Float currentPoint = new Point2D.Float(guard.xPos, guard.yPos);
         seenPoints.add(currentPoint);
         //System.out.println("Current point is " + currentPoint.x + ", " +currentPoint.y);
         addSeenPoints(seenPoints);
         //go to point that is close and not seen yet
         Point2D.Float temp = findClosestPoint(currentPoint);
-        System.out.println("Not finding closest point");
         currentPoint.x = temp.x;
         currentPoint.y = temp.y;
         //System.out.println("Closest point is " + currentPoint.x + ", " +currentPoint.y);
