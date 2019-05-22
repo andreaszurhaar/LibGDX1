@@ -82,7 +82,7 @@ public class MainState extends State {
             else{
                 AI agentAi = new Astar();
                 agents.get(i).setAI(agentAi);
-                System.out.println("Intruders's ai is:" + agentAi);
+                //System.out.println("Intruders's ai is:" + agentAi);
                 //agentAi.setAgent(agents.get(i));
                 System.out.println("Intruders's ai is:" + agents.get(i).ai);
                 agents.get(i).ai.setArea(20,20);

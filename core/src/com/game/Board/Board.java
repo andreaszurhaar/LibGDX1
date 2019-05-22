@@ -115,6 +115,7 @@ public class Board {
 			//update angle
 			float rot = agents.get(a).getRotation();
 			agents.get(a).rotate(rot/fps);
+			System.out.println("Agent " + agents.get(a) + " has AI: " + agents.get(a).ai);
 			
 			
 			float speed = agents.get(a).getSpeed()/fps;
@@ -141,8 +142,12 @@ public class Board {
 				agents.get(a).setPos(newX,newY);
 
 			}
-			if(!updateAgentMoveToPoint) agents.get(a).triggerStep();
-			else agents.get(a).triggerStepTowardPoint(agents.get(a).getDestPoint());
+			if(!updateAgentMoveToPoint) {
+				agents.get(a).triggerStep();
+			}
+			else {
+				agents.get(a).triggerStepTowardPoint(agents.get(a).getDestPoint());
+			}
 
 		}
 		
