@@ -31,10 +31,16 @@ public class GuardPatrolling extends AI {
 
 //should get an area of patrolling with (either center + height + width, or a rectangle)
     public GuardPatrolling(){
+    	speed = new Stack<Float>();
+    	rotation = new Stack<Float>();
+    	instruction = new Instruction();
     }
 
     public GuardPatrolling(Guard guard)
     {
+    	speed = new Stack<Float>();
+    	rotation = new Stack<Float>();
+    	instruction = new Instruction();
         setAgent(guard);
     }
 
@@ -87,18 +93,26 @@ public class GuardPatrolling extends AI {
 
     public void patrol()
     {
-        Point2D.Float currentPoint = new Point2D.Float(guard.xPos, guard.yPos);
+    	System.out.println("Started Patrolling");
+        Point2D.Float currentPoint = new Point2D.Float((int)guard.xCenter,(int)guard.yCenter);
         seenPoints.add(currentPoint);
         //System.out.println("Current point is " + currentPoint.x + ", " +currentPoint.y);
         addSeenPoints(seenPoints);
+        System.out.println("Printing seenPoints");
+        for(Point2D.Float p : seenPoints){
+            System.out.println("Point " + p);
+        }
         //go to point that is close and not seen yet
         Point2D.Float temp = findClosestPoint(currentPoint);
+        System.out.println("Closest point: " + temp.x + "," + temp.y);
         currentPoint.x = temp.x;
         currentPoint.y = temp.y;
         //System.out.println("Closest point is " + currentPoint.x + ", " +currentPoint.y);
         //change vision cone to the direction of the closest point
         Vector2 point = new Vector2(currentPoint.x, currentPoint.y);
+        //Vector2 point = new Vector2(100, 100);
         //TODO call extra class to update angle into stack
+        System.out.println("going to point: "+point.x+" "+point.y+"   from point: "+guard.xCenter+" "+guard.yCenter);
         instruction.translate(point, guard);
         rotation = instruction.getRotations();
         speed = instruction.getSpeeds();
@@ -123,12 +137,15 @@ public class GuardPatrolling extends AI {
 
     public Point2D.Float findClosestPoint(Point2D.Float currentPoint)
     {
-        Point2D.Float temp = new Point2D.Float(currentPoint.x, currentPoint.y);
+        System.out.println("Running find closest point!");
+        Point2D.Float temp = new Point2D.Float((int)currentPoint.x, (int)currentPoint.y);
+        System.out.println("Temp:" + temp.x + "," + temp.y);
         int i = 1;
         boolean foundPoint = false;
-        while (!foundPoint) {
+        //while (!foundPoint) {
+            System.out.println("While-loop");
             for (Point2D.Float p : areaPoints) {
-                //System.out.println("Possible area points: " + p.x + ", " + p.y);
+                //System.out.println("Possible area point: " + p.x + ", " + p.y);
                 if (p.x == temp.x + i && p.y == temp.y) {
                     System.out.println("We take point: " + (temp.x+i) + ", " + temp.y);
                     foundPoint = true;
@@ -173,7 +190,7 @@ public class GuardPatrolling extends AI {
                 }
             }
             i++;
-        }
+        //}
         System.out.println("There are no unseen closest points, so we return back to the centre of the area");
         return areaCenter;
 
@@ -185,7 +202,8 @@ public class GuardPatrolling extends AI {
             patrol();
         }
         else
-        {
+        {	
+        	System.out.print("  and rotation: "+rotation.peek());
            return rotation.pop();
         }
         return rotation.pop();
@@ -193,12 +211,13 @@ public class GuardPatrolling extends AI {
 
     @Override
     public float getSpeed() {
-        System.out.println("guard");
+        //System.out.println("guard");
         if (speed.empty()){
             patrol();
         }
         else
         {
+        	System.out.println("  getting instruction to move with speed: "+speed.peek());
            return speed.pop();
         }
         return speed.pop();    }

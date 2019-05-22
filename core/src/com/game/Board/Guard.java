@@ -27,7 +27,6 @@ public class Guard extends Agent {
 	public float soundRange;
 	private Point2D.Float locationIntruder;
 	private float angleIntruder;
-    public AI ai;
     private Tracking tracking;
     private ArrayList<Area> structures;
     public SpriteReader reader = new SpriteReader();
@@ -76,10 +75,10 @@ public class Guard extends Agent {
 	}
 	
 	public void triggerStep() {
-		System.out.println("AI is " + ai);
+		//System.out.println("AI in guard is " + ai);
+
 
 		//System.out.println("activated trigger and changed speed from: "+speed+"  "+angle);
-		this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
 		if(speed < 0.5) {
 			soundRange = 1;
 		} else if(speed < 1) {
@@ -90,6 +89,8 @@ public class Guard extends Agent {
 			soundRange = 10;
 		}
 		//TODO calculate the currentPoint
+		
+		this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
 		this.rotation = ai.getRotation()*Board.fps;
 		//System.out.println("to: "+speed+"  "+angle);
 	}
@@ -162,8 +163,7 @@ public class Guard extends Agent {
         angleIntruder = angle;
     }
 
-
-    //public void setAI(AI ai){ this.ai = ai;}
+    public void setAI(AI ai){ this.ai = ai;}
 
 
 }
