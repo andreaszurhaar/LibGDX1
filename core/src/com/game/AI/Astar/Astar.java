@@ -10,6 +10,7 @@ import com.game.Board.Area;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 //made for the robber
 public class Astar extends AI {
@@ -257,6 +258,22 @@ public class Astar extends AI {
     @Override
     public void setArea(float areaWidth, float areaHeight) {
 
+    }
+    
+    @Override
+    public void reset() {
+        speed = new Stack<Float>();
+        rotation = new Stack<Float>();    
+    }
+    
+    @Override
+    public void seeArea(Area area) {
+    	
+    }
+
+    @Override
+    public void seeAgent(Agent agent) {
+   
     }
 
 }
