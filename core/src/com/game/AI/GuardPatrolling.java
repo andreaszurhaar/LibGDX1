@@ -18,16 +18,13 @@ import java.util.Stack;
 
 public class GuardPatrolling extends AI {
 
-    private MapDivider mp;
-    private Board board;
-    private ArrayList<Agent> guards;
-    private ArrayList<Area> areas;
-    private final int ALLOWED_DISTANCE_ERROR = 10;
+
     public float areaWidth, areaHeight;
     private Point2D.Float areaCenter;
     public ArrayList<Point2D.Float> areaPoints, seenPoints;
     private Guard guard;
     private ArrayList<Area> structures;
+    public boolean running = false;
 
 //should get an area of patrolling with (either center + height + width, or a rectangle)
     public GuardPatrolling(){
@@ -49,6 +46,7 @@ public class GuardPatrolling extends AI {
         this.areaWidth = areaWidth;
         this.areaHeight = areaHeight;
         areaCenter = new Point2D.Float(0.5f*areaWidth, 0.5f*areaHeight);
+        System.out.println("areacenter of patrolling is: " + areaCenter.x +","+areaCenter.y);
     }
 
     public void patrolInArea()
@@ -96,26 +94,38 @@ public class GuardPatrolling extends AI {
     	System.out.println("Started Patrolling");
         Point2D.Float currentPoint = new Point2D.Float((int)guard.xCenter,(int)guard.yCenter);
         seenPoints.add(currentPoint);
-        //System.out.println("Current point is " + currentPoint.x + ", " +currentPoint.y);
+        System.out.println("Current point is " + currentPoint.x + ", " +currentPoint.y);
         addSeenPoints(seenPoints);
-        System.out.println("Printing seenPoints");
-        for(Point2D.Float p : seenPoints){
+        //System.out.println("Printing seenPoints");
+        /*for(Point2D.Float p : seenPoints){
             System.out.println("Point " + p);
-        }
+        }*/
         //go to point that is close and not seen yet
         Point2D.Float temp = findClosestPoint(currentPoint);
-        System.out.println("Closest point: " + temp.x + "," + temp.y);
-        currentPoint.x = temp.x;
-        currentPoint.y = temp.y;
+        //System.out.println("Closest point: " + temp.x + "," + temp.y);
+
+        //System.out.println("Going from point:" +currentPoint.x + "," + currentPoint.y + " to point " + temp.x + "," + temp.y);
+        //currentPoint.x = temp.x;
+        //currentPoint.y = temp.y;
         //System.out.println("Closest point is " + currentPoint.x + ", " +currentPoint.y);
         //change vision cone to the direction of the closest point
-        Vector2 point = new Vector2(currentPoint.x, currentPoint.y);
+        //Vector2 point = new Vector2(temp.x-guard.xCenter, temp.y-guard.yCenter);
+        Vector2 point = new Vector2(temp.x, temp.y);
         //Vector2 point = new Vector2(100, 100);
         //TODO call extra class to update angle into stack
-        System.out.println("going to point: "+point.x+" "+point.y+"   from point: "+guard.xCenter+" "+guard.yCenter);
+        System.out.println("going to point: "+temp.x+" "+temp.y+"   from point: "+guard.xCenter+" "+guard.yCenter);
         instruction.translate(point, guard);
         rotation = instruction.getRotations();
         speed = instruction.getSpeeds();
+
+        //System.out.println("Stack speed size " + speed.size());
+//        for (float speed : speed){
+//            System.out.println("Speed: " + speed);
+//        }
+        //System.out.println("Stack rotation size " + rotation.size());
+//        for (float rotation : rotation){
+//            System.out.println("Rotation: " + rotation);
+//        }
         //walk to that point & do everything again
     }
 
@@ -131,66 +141,74 @@ public class GuardPatrolling extends AI {
         }
         for (Point2D.Float p: seenPoints)
         {
+            System.out.println("we remove point " + p + " from the areapoints");
             areaPoints.remove(p);
         }
     }
 
     public Point2D.Float findClosestPoint(Point2D.Float currentPoint)
     {
-        System.out.println("Running find closest point!");
         Point2D.Float temp = new Point2D.Float((int)currentPoint.x, (int)currentPoint.y);
-        System.out.println("Temp:" + temp.x + "," + temp.y);
+        System.out.println("Temp: " + temp.x + "," + temp.y);
         int i = 1;
         boolean foundPoint = false;
-        //while (!foundPoint) {
-            System.out.println("While-loop");
+        while (!foundPoint) {
+            //System.out.println("While-loop");
             for (Point2D.Float p : areaPoints) {
                 //System.out.println("Possible area point: " + p.x + ", " + p.y);
                 if (p.x == temp.x + i && p.y == temp.y) {
                     System.out.println("We take point: " + (temp.x+i) + ", " + temp.y);
                     foundPoint = true;
+                    areaPoints.remove(p);
                     return p;
                 }
                 else if (p.x == temp.x && p.y == temp.y + i){
                     System.out.println("We take point: " + (temp.x) + ", " + (temp.y+i));
                     foundPoint = true;
+                    areaPoints.remove(p);
                     return p;
                 }
                 else if (p.x == temp.x + i && p.y == temp.y + i ){
                     System.out.println("We take point: " + (temp.x+i) + ", " + (temp.y+i));
                     foundPoint = true;
+                    areaPoints.remove(p);
                     return p;
                 }
                 else if (p.x == temp.x - i && p.y == temp.y){
                     System.out.println("We take point: " + (temp.x-i) + ", " + (temp.y));
                     foundPoint = true;
+                    areaPoints.remove(p);
                     return p;
                 }
                 else if (p.x == temp.x && p.y == temp.y - i){
                     System.out.println("We take point: " + (temp.x) + ", " + (temp.y-i));
                     foundPoint = true;
+                    areaPoints.remove(p);
                     return p;
                 }
                 else if (p.x == temp.x - i && p.y == temp.y - i)
                 {
                     System.out.println("We take point: " + (temp.x-i) + ", " + (temp.y-i));
                     foundPoint = true;
+                    areaPoints.remove(p);
                     return p;
                 }
                 else if (p.x == temp.x - i && p.y == temp.y + i)
                 {
                     System.out.println("We take point: " + (temp.x-i) + ", " + (temp.y+i));
                     foundPoint = true;
+                    areaPoints.remove(p);
                     return p;
                 }
                 else if(p.x == temp.x + i && p.y == temp.y - i) {
                     System.out.println("We take point: " + (temp.x+i) + ", " + (temp.y-i));
                     foundPoint = true;
+                    areaPoints.remove(p);
                     return p;
                 }
             }
-            i++;
-        //}
+            i+=5;
+        }
         System.out.println("There are no unseen closest points, so we return back to the centre of the area");
         return areaCenter;
 
@@ -199,11 +217,15 @@ public class GuardPatrolling extends AI {
     @Override
     public float getRotation() {
         if (rotation.empty()){
-            patrol();
+        	if(!running) {
+        		patrol();
+        	} else {
+        		return 0f;
+        	}
         }
         else
         {	
-        	System.out.print("  and rotation: "+rotation.peek());
+        	//System.out.print("  and rotation: "+rotation.peek());
            return rotation.pop();
         }
         return rotation.pop();
@@ -213,11 +235,15 @@ public class GuardPatrolling extends AI {
     public float getSpeed() {
         //System.out.println("guard");
         if (speed.empty()){
-            patrol();
+        	if(!running) {
+        		patrol();
+        	} else {
+        		return 0f;
+        	}
         }
         else
         {
-        	System.out.println("  getting instruction to move with speed: "+speed.peek());
+        	//System.out.println("  getting instruction to move with speed: "+speed.peek());
            return speed.pop();
         }
         return speed.pop();    }
@@ -229,6 +255,7 @@ public class GuardPatrolling extends AI {
 
     public void setStructures(ArrayList<Area> structures){
         this.structures = structures;
+        System.out.println("we run patrolInArea and set the currentPoint to the area of the center");
         patrolInArea();
     }
 

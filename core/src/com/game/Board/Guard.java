@@ -165,5 +165,16 @@ public class Guard extends Agent {
 
     public void setAI(AI ai){ this.ai = ai;}
 
+    /*
+    public float getX()
+	{
+		return xCenter;
+	}
+
+	public float getY()
+	{
+		return yCenter;
+	}
+	*/
 
 }

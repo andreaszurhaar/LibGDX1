@@ -61,7 +61,7 @@ public class Instruction {
 		float maxWalk = agent.maxSpeed/Board.fps;
 		float ufWalk = pathLength/maxWalk;
 		int walkcount = (int) ufWalk;
-		float leftoverSpeed = maxWalk - ((float) walkcount * maxWalk);
+		float leftoverSpeed = pathLength - ((float) walkcount * maxWalk);
 		
 		for(int i=0; i < walkcount; i++) {
 			rotations.push(0f);
@@ -83,7 +83,7 @@ public class Instruction {
 	}
 	
 	public Stack<Float> getRotations() {
-		System.out.println("This stack is of size: "+rotations.size());
+		System.out.println("This stack rotation is of size: "+rotations.size());
 		Stack<Float> rots = rotations;
 		rotations = new Stack<Float>();
 		return rots;

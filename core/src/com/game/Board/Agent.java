@@ -74,10 +74,16 @@ public class Agent extends AssetManager {
 	}
 	
 	public void setPos(float x, float y) {
+
+		//System.out.println("Updating xPos to " + x);
+		//System.out.println("Updating yPos to " + y);
 		xPos = x;
 		yPos = y;
-		xCenter = xPos+this.area.width/2;
-		yCenter = yPos+this.area.height/2;
+		this.xCenter = xPos+this.area.width/2;
+		this.yCenter = yPos+this.area.height/2;
+
+		System.out.println("Updating xCenter to " + xCenter);
+		System.out.println("Updating yCenter to " + yCenter);
 		area.setPosition(x,y);
    	}
 	
@@ -137,10 +143,13 @@ public class Agent extends AssetManager {
 	public void triggerStepTowardPoint(Point2D point){}
 
     public void setX(int xPos){
+		System.out.println("Updating xPos to " + xPos);
         this.xPos += xPos;
         //bounds.setX((int) this.xPos);
     }
     public void setY(int yPos){
+
+		System.out.println("Updating yPos to " + yPos);
         this.yPos += yPos;
         //bounds.setY((int) this.yPos);
     }
