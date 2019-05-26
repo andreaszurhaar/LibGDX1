@@ -26,6 +26,10 @@ public abstract class AI {
 
     public abstract void setArea(float areaWidth, float areaHeight);
 
-
+    public abstract void reset();
     
+    public abstract void seeArea(Area area);
+
+    public abstract void seeAgent(Agent agent);
+
 }

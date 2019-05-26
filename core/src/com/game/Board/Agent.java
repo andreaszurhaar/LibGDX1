@@ -126,17 +126,23 @@ public class Agent extends AssetManager {
 		//System.out.println("heard sound");
 	}
 	
-	public Area see(Area object) {
-		seeing = true;
-		//saw object
-		//System.out.println("saw something");
-		return object;
+	public void see(Area object) {
+		if(!(Math.abs(rotation) > 45)) {
+			seeing = true;
+			//saw object
+			//System.out.println("saw something");
+			ai.seeArea(object);
+		}
 	}
 	
-	public void see(Agent object) {
-		seeing = true;
-		//saw object
-		//System.out.println("saw something");
+	public void see(Agent agent) {
+		if(!(Math.abs(rotation) > 45)) {
+			seeing = true;
+			//saw object
+			//System.out.println("saw something");
+			ai.seeAgent(agent);
+		}
+
 	}
 	
 	public void triggerStep() {	}

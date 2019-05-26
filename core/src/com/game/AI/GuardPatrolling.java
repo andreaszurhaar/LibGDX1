@@ -265,5 +265,22 @@ public class GuardPatrolling extends AI {
         System.out.println("we run patrolInArea and set the currentPoint to the area of the center");
         patrolInArea();
     }
+    
+    @Override
+    public void reset() {
+        speed = new Stack<Float>();
+        rotation = new Stack<Float>();    
+    }
+    
+    @Override
+    public void seeArea(Area area) {
+    	
+    }
+
+    @Override
+    public void seeAgent(Agent agent) {
+   
+    }
+
 
 }

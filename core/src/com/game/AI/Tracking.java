@@ -6,6 +6,7 @@ import com.game.Board.Area;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Tracking extends AI {
 
@@ -67,5 +68,21 @@ public class Tracking extends AI {
     public void setArea(float width, float height){
 
     }
+    
+    @Override
+    public void reset() {
+        speed = new Stack<Float>();
+        rotation = new Stack<Float>();    
+    }
 
+    
+    @Override
+    public void seeArea(Area area) {
+    	
+    }
+
+    @Override
+    public void seeAgent(Agent agent) {
+   
+    }
 }
