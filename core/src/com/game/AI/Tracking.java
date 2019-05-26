@@ -31,20 +31,20 @@ public class Tracking extends AI {
         return angle;
     }
 
-    public float trackStraightline()
-    {
-        //simple AI method for testing
-
-        instruction.translate();
-        rotation = instruction.getRotations();
-        speed = instruction.getSpeeds();
-
-
-
-
-            // if(Math.sqrt(((guardX - centreX) * (guardX - centreX)) + ((guardY - centreY) * (guardY - centreY))) > ALLOWED_DISTANCE_ERROR)
-            //      currentGuard.rotation = (float) -Math.toRadians(Math.random()*currentGuard.turningCircle/2);
-    }
+//    public float trackStraightline()
+//    {
+//        //simple AI method for testing
+//
+//        //instruction.translate();
+//        rotation = instruction.getRotations();
+//        speed = instruction.getSpeeds();
+//
+//
+//
+//
+//            // if(Math.sqrt(((guardX - centreX) * (guardX - centreX)) + ((guardY - centreY) * (guardY - centreY))) > ALLOWED_DISTANCE_ERROR)
+//            //      currentGuard.rotation = (float) -Math.toRadians(Math.random()*currentGuard.turningCircle/2);
+//    }
 
 
 
@@ -63,5 +63,9 @@ public class Tracking extends AI {
     public void setStructures(ArrayList<Area> structures){
 
     };
+
+    public void setArea(float width, float height){
+
+    }
 
 }

@@ -10,9 +10,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.AI.AI;
 import com.game.AI.Astar.Astar;
 import com.game.AI.Controller;
+import com.game.AI.CopsCenters;
 import com.game.AI.GuardPatrolling;
 import com.game.Board.Guard;
-import com.game.Board.Intruder;
 import com.game.CopsAndRobbers;
 import com.game.Board.Agent;
 import com.game.Board.Area;
@@ -20,8 +20,9 @@ import com.game.Board.Board;
 import com.game.Board.Structure;
 import com.game.Objects.Ground;
 import com.game.Objects.Play;
-import com.game.Readers.FileHandler;
 import com.game.Readers.SpriteReader;
+
+import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +31,10 @@ public class MainState extends State {
 
     public ArrayList<Area> structures;
     public ArrayList<Agent> agents;
+    public ArrayList<Agent> guards;
     public ArrayList<Structure> walls;
+
+    public Texture background;
     public Texture wall;
     public Play play;
     public String name;
@@ -70,14 +74,18 @@ public class MainState extends State {
             this.structures.add(this.walls.get(i));
         }
 
+        guards = new ArrayList<Agent>();
+
         for(int i = 0; i < this.agents.size(); i++){
             if(this.agents.get(i) instanceof Guard){
                 AI agentAI = new GuardPatrolling();
-               this.agents.get(i).setAI(agentAI);
-               agentAI.setAgent(this.agents.get(i));
+                this.agents.get(i).setAI(agentAI);
+                agentAI.setAgent(this.agents.get(i));
                 System.out.println("Cops's ai is:" + this.agents.get(i).ai);
                 this.agents.get(i).ai.setArea(400,200);
-               this.agents.get(i).ai.setStructures(structures);
+                this.agents.get(i).ai.setStructures(structures);
+                guards.add(this.agents.get(i));
+
             }
             else{
                 AI agentAi = new Astar();
@@ -88,10 +96,28 @@ public class MainState extends State {
                 this.agents.get(i).ai.setArea(400,200);
                 this.agents.get(i).ai.setStructures(structures);
             }
+
         }
         board = new Board();
         if(!this.structures.isEmpty()) {board.setUp(this.structures);}
         if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}
+        //guardPatrol = new GuardPatrolling(board)
+        Controller controller = new Controller(board);
+        CopsCenters copsCenters = new CopsCenters(guards);
+
+        Point2D.Float[] guardCenters = copsCenters.getCenters();
+
+        for(int i = 0; i < guards.size(); i++){
+            guards.get(i).setCenterLocation(guardCenters[i]);
+        }
+
+//        int guardCounter = 0;
+//        for(int i = 0; i < this.agents.size(); i++){
+//            if(agents.get(i) instanceof Guard){
+//                guards.get(guardCounter).setCenterLocation(guardCenters[guardCounter]);
+//                guardCounter++;
+//            }
+//        }
     }
 
 

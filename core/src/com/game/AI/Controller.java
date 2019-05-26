@@ -57,11 +57,12 @@ public class Controller {
         }
     }
 
+    //TODO remove?
     public void initializeGuardLocations(){
      for(int i = 0; i < guards.size(); i++){
         Point2D currentCentre = centres.get(i);
         Agent currentGuard = guards.get(i);
-        currentGuard.setDestPoint(currentCentre);
+        //currentGuard.setDestPoint(currentCentre);
         //Vector2 guardRequiredVector = new Vector2((float)100 - currentGuard.getX(), (float) 100 - currentGuard.getY());
         Vector2 guardRequiredVector = new Vector2((float)currentCentre.getX() - currentGuard.getX(), (float) currentCentre.getY() - currentGuard.getY());
         currentGuard.setAngle(guardRequiredVector.angle());

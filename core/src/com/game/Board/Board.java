@@ -91,6 +91,7 @@ public class Board {
 	
 	public void updateAgents() {
 
+
 		//update every agent's x,y coordinates and rotate his view angle
 		for(int a=0; a<agents.size(); a++) {
 			//check collision with all nearby structures
@@ -133,11 +134,13 @@ public class Board {
 		
 		for(int a=0; a<agents.size(); a++) {
 
+
 	        ArrayList<Integer> sub = new ArrayList<Integer>();
 	        
 	        for(int m=0; m<territories.size(); m++) {
 	        	sub.add(m);
 	        }
+
 
 	        //look for agents seeing agents
 	        for(int i=0; i<agents.size(); i++) {

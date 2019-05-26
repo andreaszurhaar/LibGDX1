@@ -22,8 +22,8 @@ public class MapDivider {
 
     public void findEqualAreas()
     {
-        int nrVertical; //number of boxes/rectangles
-        int nrHorizontal;
+        int nrVertical=1; //number of boxes/rectangles
+        int nrHorizontal=1;
         if (nrCops%2 == 0)
         {
             nrVertical = nrCops/2;
@@ -32,15 +32,19 @@ public class MapDivider {
             }
             else{
                 nrHorizontal = nrCops/nrVertical;
+                System.out.println("nrHorizontal=" + nrHorizontal);
             }
 
         }
         else {
             nrVertical = nrCops;
             nrHorizontal = 1;
+            System.out.println("nrHorizontal=" + nrHorizontal);
         }
+        System.out.println("nrVertical=" + nrVertical);
         centres = findCenters(nrVertical,nrHorizontal);
     }
+
 
     public ArrayList<Point2D.Float> findCenters(int nrVertical, int nrHorizontal){
         ArrayList<Point2D.Float> centres = new ArrayList<Point2D.Float>();

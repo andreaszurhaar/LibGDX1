@@ -48,7 +48,7 @@ public class Agent extends AssetManager {
     public TextureRegion texture;
     public ShapeRenderer renderer;
     public TextureRegion noticeSound;
-	private Point2D destPoint;
+	private Point2D.Float centerLocation;
 	public AI ai;
 	
 	
@@ -173,14 +173,17 @@ public class Agent extends AssetManager {
     	}
     }
 
-	public void setDestPoint(Point2D destPoint) {
-		this.destPoint = destPoint;
-	}
-
-	public Point2D getDestPoint() {
-		return destPoint;
-	}
+//	public void setDestPoint(Point2D destPoint) {
+//		this.destPoint = destPoint;
+//	}
+//
+//	public Point2D getDestPoint() {
+//		return destPoint;
+//	}
 
 	public void setAI(AI ai){ this.ai = ai;}
 
+	public void setCenterLocation(Point2D.Float centerLocation) {
+		this.centerLocation = centerLocation;
+	}
 }
