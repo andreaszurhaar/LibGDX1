@@ -83,7 +83,7 @@ public class Instruction {
 	}
 	
 	public Stack<Float> getRotations() {
-		System.out.println("This stack is of size: "+rotations.size());
+		System.out.println("This stack rotation is of size: "+rotations.size());
 		Stack<Float> rots = rotations;
 		rotations = new Stack<Float>();
 		return rots;

@@ -28,7 +28,7 @@ public class MapDivider {
         {
             nrVertical = nrCops/2;
             if (nrCops %4 == 0){
-                nrHorizontal = nrCops/4 ;
+                nrHorizontal = nrCops/4 +1;
             }
             else{
                 nrHorizontal = nrCops/nrVertical;
