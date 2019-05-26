@@ -61,7 +61,7 @@ public class Instruction {
 		float maxWalk = agent.maxSpeed/Board.fps;
 		float ufWalk = pathLength/maxWalk;
 		int walkcount = (int) ufWalk;
-		float leftoverSpeed = maxWalk - ((float) walkcount * maxWalk);
+		float leftoverSpeed = pathLength - ((float) walkcount * maxWalk);
 		
 		for(int i=0; i < walkcount; i++) {
 			rotations.push(0f);
