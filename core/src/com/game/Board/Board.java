@@ -110,13 +110,19 @@ public class Board {
 				
 			for(int i=0; i<territories.size(); i++) {
 				Rectangle projected = new Rectangle(newX,newY,agents.get(a).area.width,agents.get(a).area.height);
-				if(territories.get(i).intersects(projected)) {collided = true;}
+				if(territories.get(i).intersects(projected)) {
+					collided = true;
+					agents.get(a).setCollided(true);
+				}
 				//System.out.println("collided");}
 			}
 			for(int i=0; i<agents.size(); i++) {
 				if(a!=i) {
 					Rectangle projected = new Rectangle(newX,newY,agents.get(a).area.width,agents.get(a).area.height);
-					if(agents.get(i).intersects(projected)) {collided = true;}
+					if(agents.get(i).intersects(projected)) {
+						collided = true;
+						agents.get(a).setCollided(true);
+					}
 				}
 				
 			}

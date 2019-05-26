@@ -12,6 +12,7 @@ public class MapDivider {
     private float width, height;
     private ArrayList<Point2D.Float> centres;
 
+
     public MapDivider(int nrCops)
     {
         this.nrCops = nrCops;
@@ -28,6 +29,7 @@ public class MapDivider {
         {
             nrVertical = nrCops/2;
             if (nrCops %4 == 0){
+                //TODO doesn't work with 8 guards yet
                 nrHorizontal = nrCops/4 +1;
             }
             else{
@@ -55,6 +57,7 @@ public class MapDivider {
         float tempX = 0.0f;
         float tempY = 0.0f;
         boolean start = true;
+        boolean startY = true;
 
 
         for (int i = 0; i<nrVertical; i++)
@@ -69,7 +72,7 @@ public class MapDivider {
 
             for (int j = 0; j<nrHorizontal; j++)
             {
-                if (start)
+                if (startY)
                 {
                     tempY = height/2;
                 }
@@ -78,8 +81,10 @@ public class MapDivider {
                 }
                 centres.add(new Point2D.Float(tempX*5.0f,tempY*5.0f));
                 start = false;
+                startY = false;
             }
             tempY = height/2;
+            startY = true;
         }
         return centres;
     }

@@ -43,6 +43,7 @@ public class Agent extends AssetManager {
 	public boolean hearing;
 	public boolean seeing;
 	public int hearingCount;
+	public boolean collided;
 
 	public String name;
     public TextureRegion texture;
@@ -82,8 +83,8 @@ public class Agent extends AssetManager {
 		this.xCenter = xPos+this.area.width/2;
 		this.yCenter = yPos+this.area.height/2;
 
-		System.out.println("Updating xCenter to " + xCenter);
-		System.out.println("Updating yCenter to " + yCenter);
+		//System.out.println("Updating xCenter to " + xCenter);
+		//System.out.println("Updating yCenter to " + yCenter);
 		area.setPosition(x,y);
    	}
 	
@@ -128,7 +129,7 @@ public class Agent extends AssetManager {
 	public Area see(Area object) {
 		seeing = true;
 		//saw object
-		System.out.println("saw something");
+		//System.out.println("saw something");
 		return object;
 	}
 	
@@ -185,5 +186,18 @@ public class Agent extends AssetManager {
 
 	public void setCenterLocation(Point2D.Float centerLocation) {
 		this.centerLocation = centerLocation;
+		//System.out.println("GUARD CENTER LOCATION: " + centerLocation.x + " " + centerLocation.y);
+	}
+
+    public Point2D.Float getCenterLocation() {
+        return centerLocation;
+    }
+
+	public boolean isCollided() {
+		return collided;
+	}
+
+	public void setCollided(boolean collided) {
+		this.collided = collided;
 	}
 }

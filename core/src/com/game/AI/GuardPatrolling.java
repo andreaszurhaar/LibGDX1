@@ -31,28 +31,7 @@ public class GuardPatrolling extends AI {
     private Guard guard;
     private ArrayList<Area> structures;
     public boolean running = false;
-
-//should get an area of patrolling with (either center + height + width, or a rectangle)
-//    public GuardPatrolling(float areaWidth, float areaHeight, Guard guard){
-//        setAgent(guard);
-//        this.areaWidth = areaWidth;
-//        this.areaHeight = areaHeight;
-//        areaCenter = new Point2D.Float(0.5f*areaWidth, 0.5f*areaHeight);
-//        //this.copsCenters = copsCenters;
-//
-//        /*
-//        //TODO set this later
-//        ArrayList<Agent> guards = copsCenters.getGuards();
-//        int guardIndex = -1;
-//        for(int i = 0; i < guards.size(); i++){
-//            if(guard == guards.get(i)){
-//                guardIndex = i;
-//            }
-//        }
-//        Point2D.Float bestCenter = copsCenters.getCenters().get(guardIndex);
-//        bestCenterVector = new Vector2(bestCenter.x, bestCenter.y);
-//        */
-//    }
+    private boolean reachedCenter;
 
     public GuardPatrolling(){
         speed = new Stack<Float>();
@@ -119,47 +98,33 @@ public class GuardPatrolling extends AI {
     public void patrol()
     {
     	System.out.println("Started Patrolling");
-        //Point2D.Float currentPoint = new Point2D.Float((int)guard.xCenter,(int)guard.yCenter);
-        //TODO initialize guards positions
-        //check which index current guard has, get center with same index
-        //only do this if guard has not yet reached center for the first time
 
-        /*
-        if(!reachedCenter && (Math.sqrt(((guard.getX() - bestCenterVector.x) * (guard.getX() - bestCenterVector.x)) + ((guard.getY() - bestCenterVector.y) * (guard.getY() - bestCenterVector.y))) > ALLOWED_DISTANCE_ERROR)) {
-            instruction.translate(bestCenterVector, guard);
+        if((!reachedCenter && (Math.sqrt(((guard.getX() - guard.getCenterLocation().x) * (guard.getX() - guard.getCenterLocation().x)) + ((guard.getY() - guard.getCenterLocation().y) * (guard.getY() - guard.getCenterLocation().y))) > ALLOWED_DISTANCE_ERROR))
+            && !guard.isCollided())   {
+
+            Vector2 centerVector = new Vector2(guard.getCenterLocation().x, guard.getCenterLocation().y);
+            instruction.translate(centerVector, guard);
             rotation = instruction.getRotations();
             speed = instruction.getSpeeds();
         }
-        else{
+        else {
             reachedCenter = true;
+
+            Point2D.Float currentPoint = new Point2D.Float(guard.xPos, guard.yPos);
+            seenPoints.add(currentPoint);
+            System.out.println("Current point is " + currentPoint.x + ", " + currentPoint.y);
+            addSeenPoints(seenPoints);
+
+            //go to point that is close and not seen yet
+            Point2D.Float temp = findClosestPoint(currentPoint);
+            Vector2 point = new Vector2(temp.x, temp.y);
+
+            //TODO call extra class to update angle into stack
+            System.out.println("going to point: " + temp.x + " " + temp.y + "   from point: " + guard.xCenter + " " + guard.yCenter);
+            instruction.translate(point, guard);
+            rotation = instruction.getRotations();
+            speed = instruction.getSpeeds();
         }
-        */
-
-        Point2D.Float currentPoint = new Point2D.Float(guard.xPos, guard.yPos);
-        seenPoints.add(currentPoint);
-        System.out.println("Current point is " + currentPoint.x + ", " +currentPoint.y);
-        addSeenPoints(seenPoints);
-        //System.out.println("Printing seenPoints");
-        /*for(Point2D.Float p : seenPoints){
-            System.out.println("Point " + p);
-        }*/
-        //go to point that is close and not seen yet
-        Point2D.Float temp = findClosestPoint(currentPoint);
-        //System.out.println("Closest point: " + temp.x + "," + temp.y);
-
-        //System.out.println("Going from point:" +currentPoint.x + "," + currentPoint.y + " to point " + temp.x + "," + temp.y);
-        //currentPoint.x = temp.x;
-        //currentPoint.y = temp.y;
-        //System.out.println("Closest point is " + currentPoint.x + ", " +currentPoint.y);
-        //change vision cone to the direction of the closest point
-        //Vector2 point = new Vector2(temp.x-guard.xCenter, temp.y-guard.yCenter);
-        Vector2 point = new Vector2(temp.x, temp.y);
-        //Vector2 point = new Vector2(100, 100);
-        //TODO call extra class to update angle into stack
-        System.out.println("going to point: "+temp.x+" "+temp.y+"   from point: "+guard.xCenter+" "+guard.yCenter);
-        instruction.translate(point, guard);
-        rotation = instruction.getRotations();
-        speed = instruction.getSpeeds();
 
         //System.out.println("Stack speed size " + speed.size());
 //        for (float speed : speed){
@@ -301,10 +266,5 @@ public class GuardPatrolling extends AI {
         System.out.println("we run patrolInArea and set the currentPoint to the area of the center");
         patrolInArea();
     }
-
-    public void initalize(){
-
-    }
-
 
 }

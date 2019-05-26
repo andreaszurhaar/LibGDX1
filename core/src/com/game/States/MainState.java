@@ -85,7 +85,6 @@ public class MainState extends State {
                 this.agents.get(i).ai.setArea(400,200);
                 this.agents.get(i).ai.setStructures(structures);
                 guards.add(this.agents.get(i));
-
             }
             else{
                 AI agentAi = new Astar();
@@ -102,7 +101,7 @@ public class MainState extends State {
         if(!this.structures.isEmpty()) {board.setUp(this.structures);}
         if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}
         //guardPatrol = new GuardPatrolling(board)
-        Controller controller = new Controller(board);
+        //Controller controller = new Controller(board);
         CopsCenters copsCenters = new CopsCenters(guards);
 
         Point2D.Float[] guardCenters = copsCenters.getCenters();
