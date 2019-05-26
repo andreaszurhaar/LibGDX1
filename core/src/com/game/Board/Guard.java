@@ -34,14 +34,11 @@ public class Guard extends Agent {
 	private final int ALLOWED_DISTANCE_ERROR = 10;
 	private boolean reachedCentre;
 
-
-
-
 	public Guard(float x, float y, float width, float height) {
 		super(x, y, width, height);
 		//viewAngle.setToRandomDirection();
 		speed = 1;
-		maxSpeed = 1.4f;
+		maxSpeed = 14f;
 		soundRange = 0;
 		viewRange = 6f + width/2;
 		name = "2";
