@@ -138,13 +138,15 @@ public class MenuState extends State {
                 String intruderAI = (String) agentBots.getSelected();
                 if(levelInt == 0 ) {
                     if(intruderAI == "A*" && guardAI == "Patrolling") {
-                        //TODO change back
+                        gamestatemanager.push(new MapState(gamestatemanager, new GuardPatrolling(), new Astar()));
+                    }
+                    else if(intruderAI == "A*" && guardAI == "Circle Patrolling") {
                         gamestatemanager.push(new MapState(gamestatemanager, new GuardCirclePatrolling(), new Astar()));
                     }
                 }
                 else{
-                    //TODO change back
-                    gamestatemanager.push(new MainState(gsm,levelReader.fileReader(levelInt).get(1),levelReader.fileReader(levelInt).get(0),levelReader.fileReader(levelInt).get(2),new GuardCirclePatrolling(),new Astar()));
+                    //gamestatemanager.push(new MainState(gsm,levelReader.fileReader(levelInt).get(1),levelReader.fileReader(levelInt).get(0),levelReader.fileReader(levelInt).get(2),new GuardCirclePatrolling(),new Astar()));
+                    gamestatemanager.push(new MainState(gsm,levelReader.fileReader(levelInt).get(1),levelReader.fileReader(levelInt).get(0),levelReader.fileReader(levelInt).get(2),new GuardPatrolling(),new Astar()));
                 }
             }
         });
