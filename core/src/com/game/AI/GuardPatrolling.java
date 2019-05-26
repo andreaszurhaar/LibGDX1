@@ -28,6 +28,7 @@ public class GuardPatrolling extends AI {
     public ArrayList<Point2D.Float> areaPoints, seenPoints;
     private Guard guard;
     private ArrayList<Area> structures;
+    public boolean running = false;
 
 //should get an area of patrolling with (either center + height + width, or a rectangle)
     public GuardPatrolling(){
@@ -199,7 +200,11 @@ public class GuardPatrolling extends AI {
     @Override
     public float getRotation() {
         if (rotation.empty()){
-            patrol();
+        	if(!running) {
+        		patrol();
+        	} else {
+        		return 0f;
+        	}
         }
         else
         {	
@@ -213,7 +218,11 @@ public class GuardPatrolling extends AI {
     public float getSpeed() {
         //System.out.println("guard");
         if (speed.empty()){
-            patrol();
+        	if(!running) {
+        		patrol();
+        	} else {
+        		return 0f;
+        	}
         }
         else
         {
