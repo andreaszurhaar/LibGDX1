@@ -34,9 +34,6 @@ public class Guard extends Agent {
 	private final int ALLOWED_DISTANCE_ERROR = 10;
 	private boolean reachedCentre;
 
-
-
-
 	public Guard(float x, float y, float width, float height) {
 		super(x, y, width, height);
 		//viewAngle.setToRandomDirection();
@@ -91,47 +88,12 @@ public class Guard extends Agent {
 		} else {
 			soundRange = 10;
 		}
-		//TODO calculate the currentPoint
-		
+
 		this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
 		this.rotation = ai.getRotation()*Board.fps;
 		//System.out.println("to: "+speed+"  "+angle);
 	}
 
-	public void triggerStepTowardPoint(Point2D point){
-
-			//System.out.println("activated trigger and changed speed from: "+speed+"  "+angle);
-			this.speed = 100;//(float) (Math.random()*1.4f);
-			if(speed < 0.5) {
-				soundRange = 1;
-			} else if(speed < 1) {
-				soundRange = 3;
-			} else if(speed < 2) {
-				soundRange = 5;
-			} else {
-				soundRange = 10;
-			}
-
-		float centreX = (float) point.getX();
-		float centreY = (float) point.getY();
-
-		if(reachedCentre){
-			this.speed = 1.4f;
-			//patrolInArea();
-
-			//this.rotation = (float) -Math.toRadians(Math.random()*this.turningCircle/2);
-			//this.angle = 0;
-		}
-
-		if(!reachedCentre && (Math.sqrt(((this.xPos - centreX) * (this.xPos  - centreX)) + ((this.yPos  - centreY) * (this.yPos - centreY))) < ALLOWED_DISTANCE_ERROR)){
-			reachedCentre = true;
-
-			//TODO set rotation and speed
-
-		}
-		seeing = false;
-	}
-	
 	@Override
 	public void drawTexture(SpriteBatch sb, float xReduc, float yReduc) {
 		sb.end();
@@ -144,21 +106,6 @@ public class Guard extends Agent {
 		seeing = false;
 		super.drawTexture(sb, xReduc, yReduc);
 	}
-
-	public void patrolling()
-	{
-		float testWidth = 200;
-		float testHeight = 100;
-		//TODO uncomment
-		//ai = new GuardPatrolling(testWidth,testHeight,this);
-	}
-
-	public void tracking()
-    {
-
-        //TODO: decide if we take in the point of the intruder or an angle & speed (i.e. general direction of the intruder)
-        //tracking = new Tracking();
-    }
 
     public void communicate(Point2D.Float locIntruder){
 	    locationIntruder = locIntruder;

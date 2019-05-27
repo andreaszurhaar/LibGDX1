@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.game.AI.Astar.Astar;
+import com.game.AI.GuardCirclePatrolling;
 import com.game.AI.GuardPatrolling;
 import com.game.GameLogic.Button;
 import com.game.Readers.FileHandler;
@@ -106,7 +107,7 @@ public class MenuState extends State {
         String[] arrayGuard = new String[4];
         arrayGuard[0] = "None";
         arrayGuard[1] = "Patrolling";
-        arrayGuard[2] = "Bot2";
+        arrayGuard[2] = "Circle patrolling";
         arrayGuard[3] = "Bot3";
         
         float selectBoxHeight = Gdx.graphics.getHeight()/25;
@@ -139,8 +140,12 @@ public class MenuState extends State {
                     if(intruderAI == "A*" && guardAI == "Patrolling") {
                         gamestatemanager.push(new MapState(gamestatemanager, new GuardPatrolling(), new Astar()));
                     }
+                    else if(intruderAI == "A*" && guardAI == "Circle Patrolling") {
+                        gamestatemanager.push(new MapState(gamestatemanager, new GuardCirclePatrolling(), new Astar()));
+                    }
                 }
                 else{
+                    //gamestatemanager.push(new MainState(gsm,levelReader.fileReader(levelInt).get(1),levelReader.fileReader(levelInt).get(0),levelReader.fileReader(levelInt).get(2),new GuardCirclePatrolling(),new Astar()));
                     gamestatemanager.push(new MainState(gsm,levelReader.fileReader(levelInt).get(1),levelReader.fileReader(levelInt).get(0),levelReader.fileReader(levelInt).get(2),new GuardPatrolling(),new Astar()));
                 }
             }

@@ -119,7 +119,6 @@ public class GuardPatrolling extends AI {
             Point2D.Float temp = findClosestPoint(currentPoint);
             Vector2 point = new Vector2(temp.x, temp.y);
 
-            //TODO call extra class to update angle into stack
             System.out.println("going to point: " + temp.x + " " + temp.y + "   from point: " + guard.xCenter + " " + guard.yCenter);
             instruction.translate(point, guard);
             rotation = instruction.getRotations();
