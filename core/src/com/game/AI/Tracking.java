@@ -13,7 +13,7 @@ public class Tracking extends AI {
     private Point2D.Float opponentPosition;
     private float angle;
 
-    public Tracking(Point2D.Float opponentPosition)
+    public Tracking(Agent opponent)
     {
         this.opponentPosition = opponentPosition;
         Vector2 point = new Vector2(opponentPosition.x, opponentPosition.y);
@@ -31,21 +31,8 @@ public class Tracking extends AI {
 
         return angle;
     }
-
-//    public float trackStraightline()
-//    {
-//        //simple AI method for testing
-//
-//        //instruction.translate();
-//        rotation = instruction.getRotations();
-//        speed = instruction.getSpeeds();
-//
-//
-//
-//
-//            // if(Math.sqrt(((guardX - centreX) * (guardX - centreX)) + ((guardY - centreY) * (guardY - centreY))) > ALLOWED_DISTANCE_ERROR)
-//            //      currentGuard.rotation = (float) -Math.toRadians(Math.random()*currentGuard.turningCircle/2);
-//    }
+    
+    
 
 
 
