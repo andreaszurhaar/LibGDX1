@@ -119,7 +119,7 @@ public class Guard extends Agent {
 
 	public void seeAgent(Agent agent) {
 		if (agent instanceof Intruder) {
-			ai = new Tracking(agent);
+			ai = new Tracking(this,agent);
 		}
 		ai.seeAgent(agent);
 

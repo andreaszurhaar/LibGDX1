@@ -2,34 +2,34 @@ package com.game.AI;
 
 import com.badlogic.gdx.math.Vector2;
 import com.game.Board.Agent;
+import com.game.Board.Guard;
 import com.game.Board.Area;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Stack;
 
+
 public class Tracking extends AI {
 
-    private Point2D.Float opponentPosition;
+    private Guard guard;
+    private float rotation;
+    private float speed;
     private float angle;
 
-    public Tracking(Agent opponent)
+    public Tracking(Guard guard, Agent opponent)
     {
-        this.opponentPosition = opponentPosition;
-        Vector2 point = new Vector2(opponentPosition.x, opponentPosition.y);
-        //setAngle(point.angle());
-        angle = trackIntruder();
-        this.instruction = new Instruction();
+    	this.guard = guard;
+        Vector2 toEnemy = new Vector2(opponent.xCenter-guard.xCenter,opponent.yCenter-guard.yCenter);
+        angle = toEnemy.angle(guard.viewAngle);
+        
+        
+        
     }
 
-    public float trackIntruder()
+    public void trackIntruder()
     {
-
-        //call a-star for fastest route to intruder?
-        //OR
-        //just keep updating the angle and speed to the general direction of the intruder
-
-        return angle;
+        
     }
     
     
@@ -58,8 +58,8 @@ public class Tracking extends AI {
     
     @Override
     public void reset() {
-        speed = new Stack<Float>();
-        rotation = new Stack<Float>();    
+        speed = 0;
+        rotation = 0;    
     }
 
     
@@ -70,6 +70,6 @@ public class Tracking extends AI {
 
     @Override
     public void seeAgent(Agent agent) {
-   
+    	
     }
 }
