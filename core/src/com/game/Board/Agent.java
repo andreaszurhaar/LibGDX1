@@ -207,12 +207,4 @@ public class Agent extends AssetManager {
 		this.collided = collided;
 	}
 	
-	public void seeArea(Area area) {
-		ai.seeArea(area);
-		
-	}
-	
-	public void seeAgent(Agent agent) {
-		ai.seeAgent(agent);
-	}
 }
