@@ -4,6 +4,7 @@
 package com.game.Board;
 
 import java.awt.geom.Point2D;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 import com.badlogic.gdx.math.Rectangle;
@@ -171,6 +172,12 @@ public class Board {
 								|| intersectVectAndRect(new Vector2(vec.x-leftVec.x,vec.y-leftVec.y),agents.get(i).area,pos.x,pos.y)
 								|| intersectVectAndRect(new Vector2(vec.x-rightVec.x,vec.y-rightVec.y),agents.get(i).area,pos.x,pos.y)) {
 							agents.get(a).see(agents.get(i));
+							//check if seeing agent is guard and if seen agent is intruder, if so, and distance < 0.5m
+							//then remove intruder from map
+							if((agents.get(a) instanceof Guard) && (agents.get(i) instanceof Intruder)){
+								//getArea(): rectangle objects of the agents
+								//computeDistRect()
+							}
 						}
 					}
 		        }
@@ -205,9 +212,33 @@ public class Board {
 				}
 			}
 		}
+
+		//if intruder is < 0.5 meters away and guard sees intruder, it is removed from the map
+		//if all intruders are removed, show game over screen
+
+
 		
 		generateSounds();
 		
+	}
+
+	public void checkIfCaught(){
+		//for each guard, check if it "catches" an intruder
+		ArrayList<Agent> guards = new ArrayList<Agent>();
+		ArrayList<Agent> intruders = new ArrayList<Agent>();
+
+		for(Agent a : agents){
+			if(a instanceof Guard){
+				guards.add(a);
+			}
+			if(a instanceof Intruder){
+				intruders.add(a);
+			}
+		}
+
+		for(Agent guard: guards){
+
+		}
 	}
 
 	public void generateSounds() {
@@ -313,5 +344,38 @@ public class Board {
 
 	public void setCurrentPoint(Point2D currentPoint) {
 		this.currentPoint = currentPoint;
+	}
+	
+	public float computeDist(Rectangle rect1, Rectangle rect2) {
+		
+		float bottom1 = rect1.x;
+		float left1 = rect1.y;
+		float top1 = rect1.x+rect1.width;
+		float right1 = rect1.y+rect1.height;
+		
+		float bottom2 = rect2.x;
+		float left2 = rect2.y;
+		float top2 = rect2.x+rect2.width;
+		float right2 = rect2.y+rect2.height;
+		
+		boolean toLeft = false;
+		boolean toRight = false;
+		boolean above = false;
+		boolean below = false;
+		
+		if(right2 < left1) {toLeft = true;}
+		if(right1 < left2) {toRight = true;}
+		if(top1 < bottom2) {above = true;}
+		if(top2 < bottom1) {below = true;}
+
+		if(toLeft == false && toRight == false) {return Math.min(Math.abs(bottom1-top2), Math.abs(bottom2-top1));}
+		if(above == false && below == false) {return Math.min(Math.abs(left1-right2), Math.abs(right2-left1));}
+		
+		if(toLeft == true && above == true) {return new Vector2(left1-right2,top1-bottom2).len();}
+		if(toLeft == true && below == true) {return new Vector2(left1-right2,top2-bottom1).len();}
+		if(toRight == true && above == true) {return new Vector2(left2-right1,top1-bottom2).len();}
+		if(toRight == true && below == true) {return new Vector2(left2-right1,top2-bottom1).len();}
+				
+		return 0;
 	}
 }

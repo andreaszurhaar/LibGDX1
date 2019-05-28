@@ -101,9 +101,18 @@ public class Guard extends Agent {
 	   	if(seeing) {renderer.setColor(1, 0, 0, 1);}
 	   	else {renderer.setColor(1, 1, 0, 1);}
 	   	renderer.arc(xCenter*xReduc, yCenter*yReduc, viewRange*xReduc,viewAngle.angle()-(viewRadius/2),viewRadius,20);
+		
+		if (ai instanceof Tracking) {
+			Tracking guardcopy = (Tracking) this.ai;
+			renderer.setColor(0, 1, 0, 0);
+			renderer.rectLine(xCenter*xReduc,yCenter*yReduc,(xCenter+guardcopy.showvect.x)*xReduc,(yCenter+guardcopy.showvect.y)*yReduc,2);
+			System.out.println("VECTOR: "+guardcopy.showvect.x);
+		}
+		
 	   	renderer.end();
 		sb.begin();
 		seeing = false;
+
 		super.drawTexture(sb, xReduc, yReduc);
 	}
 
@@ -115,8 +124,19 @@ public class Guard extends Agent {
         angleIntruder = angle;
     }
 
+    @Override
     public void setAI(AI ai){ this.ai = ai;}
 
+    @Override
+	public void see(Agent agent) {
+		if (!(ai instanceof Tracking) && agent instanceof Intruder) {
+			System.out.println("saw intruder");
+			ai = new Tracking(this,agent,ai);
+		}
+		ai.seeAgent(agent);
+
+	}
+    
     /*
     public float getX()
 	{

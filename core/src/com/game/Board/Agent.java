@@ -206,4 +206,5 @@ public class Agent extends AssetManager {
 	public void setCollided(boolean collided) {
 		this.collided = collided;
 	}
+	
 }
