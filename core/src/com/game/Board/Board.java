@@ -175,7 +175,11 @@ public class Board {
 							//check if seeing agent is guard and if seen agent is intruder, if so, and distance < 0.5m
 							//then remove intruder from map
 							if((agents.get(a) instanceof Guard) && (agents.get(i) instanceof Intruder)){
-								//getArea(): rectangle objects of the agents
+								Rectangle guardRect = agents.get(a).area;
+								Rectangle intruderRect = agents.get(i).area;
+								if(computeDist(guardRect, intruderRect) < 5){
+									agents.remove(agents.get(i));
+								}
 								//computeDistRect()
 							}
 						}

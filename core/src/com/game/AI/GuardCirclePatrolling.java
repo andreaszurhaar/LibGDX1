@@ -64,7 +64,7 @@ public class GuardCirclePatrolling extends AI {
 
      //single agent version
 //    public void createDestPoints(){
-//        //find area's corner points TODO change so works for multiple guards
+//        //find area's corner points TODO change so works for multiple guards (4, 6, 8 etc) and fix so it doesnt depend on placement order of guards
 //        delta_x = (int) (0.5 * areaWidth) / NR_OF_CIRCLES;
 //        delta_y = (int) (0.5 * areaHeight) / NR_OF_CIRCLES;
 //
