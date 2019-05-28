@@ -139,7 +139,9 @@ public class MainState extends State {
             int y = (int) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY()));
 
         }
+        if (board.gameOver) {gsm.push(new GameOverState(gsm));}
         board.updateAgents();
+        
     }
 
     @Override
