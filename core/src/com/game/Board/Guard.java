@@ -129,12 +129,14 @@ public class Guard extends Agent {
 
     @Override
 	public void see(Agent agent) {
-		if (!(ai instanceof Tracking) && agent instanceof Intruder) {
-			System.out.println("saw intruder");
-			ai = new Tracking(this,agent,ai);
+		if(!(Math.abs(rotation) > 45)) {
+			seeing = true;
+			if (!(ai instanceof Tracking) && agent instanceof Intruder) {
+				System.out.println("saw intruder");
+				ai = new Tracking(this,agent,ai);
+			}
+			ai.seeAgent(agent);
 		}
-		ai.seeAgent(agent);
-
 	}
     
     /*
