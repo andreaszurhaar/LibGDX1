@@ -117,6 +117,14 @@ public class Guard extends Agent {
 
     public void setAI(AI ai){ this.ai = ai;}
 
+	public void seeAgent(Agent agent) {
+		if (agent instanceof Intruder) {
+			ai = new Tracking(this,agent);
+		}
+		ai.seeAgent(agent);
+
+	}
+    
     /*
     public float getX()
 	{
