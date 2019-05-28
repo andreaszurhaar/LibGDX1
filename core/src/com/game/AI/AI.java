@@ -4,6 +4,7 @@ import com.game.Board.Agent;
 import com.game.Board.Area;
 import com.game.Objects.GameObject;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -31,5 +32,9 @@ public abstract class AI {
     public abstract void seeArea(Area area);
 
     public abstract void seeAgent(Agent agent);
+
+    public void setCornerPoints(ArrayList<Point2D.Float> cornerPoints){
+
+    }
 
 }

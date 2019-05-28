@@ -37,6 +37,7 @@ public class GuardCirclePatrolling extends AI {
     private final int NR_OF_CIRCLES = 5;
     private ArrayList<Vector2> destPoints;
     private int destIndex = 0;
+    private ArrayList<Point2D.Float> cornerPoints;
 
     public GuardCirclePatrolling(){
         speed = new Stack<Float>();
@@ -59,24 +60,38 @@ public class GuardCirclePatrolling extends AI {
         this.areaHeight = areaHeight;
         areaCenter = new Point2D.Float(0.5f*areaWidth, 0.5f*areaHeight);
         System.out.println("areacenter of patrolling is: " + areaCenter.x +","+areaCenter.y);
-        createDestPoints();
-
     }
 
+     //single agent version
+//    public void createDestPoints(){
+//        //find area's corner points TODO change so works for multiple guards
+//        delta_x = (int) (0.5 * areaWidth) / NR_OF_CIRCLES;
+//        delta_y = (int) (0.5 * areaHeight) / NR_OF_CIRCLES;
+//
+//        destPoints = new ArrayList<Vector2>();
+//
+//        for(int i = 1; i < NR_OF_CIRCLES; i++){
+//            destPoints.add(new Vector2(i * delta_x, i * delta_y));
+//            destPoints.add(new Vector2(i * delta_x, areaHeight - i * delta_y));
+//            destPoints.add(new Vector2(areaWidth - i * delta_x, areaHeight - i * delta_y));
+//            destPoints.add(new Vector2(areaWidth - i * delta_x, i * delta_y));
+//        }
+//    }
+
     public void createDestPoints(){
-        //find area's corner points TODO change so works for multiple guards
-        delta_x = (int) (0.5 * areaWidth) / NR_OF_CIRCLES;
-        delta_y = (int) (0.5 * areaHeight) / NR_OF_CIRCLES;
+        delta_x = (int) (0.5 * (cornerPoints.get(3).x - cornerPoints.get(0).x)) / NR_OF_CIRCLES;
+        delta_y = (int) (0.5 * (cornerPoints.get(1).y - cornerPoints.get(0).y)) / NR_OF_CIRCLES;
 
         destPoints = new ArrayList<Vector2>();
 
-        for(int i = 1; i < NR_OF_CIRCLES; i++){
-            destPoints.add(new Vector2(i * delta_x, i * delta_y));
-            destPoints.add(new Vector2(i * delta_x, areaHeight - i * delta_y));
-            destPoints.add(new Vector2(areaWidth - i * delta_x, areaHeight - i * delta_y));
-            destPoints.add(new Vector2(areaWidth - i * delta_x, i * delta_y));
+        for(int i = 1; i < NR_OF_CIRCLES; i++) {
+            destPoints.add(new Vector2(cornerPoints.get(0).x + i * delta_x, cornerPoints.get(0).y + i * delta_y));
+            destPoints.add(new Vector2(cornerPoints.get(1).x + i * delta_x, cornerPoints.get(1).y - i * delta_y));
+            destPoints.add(new Vector2(cornerPoints.get(2).x - i * delta_x, cornerPoints.get(2).y - i * delta_y));
+            destPoints.add(new Vector2(cornerPoints.get(3).x - i * delta_x, cornerPoints.get(3).y + i * delta_y));
         }
     }
+
 
     public void patrol()
     {
@@ -144,6 +159,12 @@ public class GuardCirclePatrolling extends AI {
     public void seeAgent(Agent agent){
 
     }
+
+    public void setCornerPoints(ArrayList<Point2D.Float> cornerPoints){
+        this.cornerPoints = cornerPoints;
+        createDestPoints();
+    }
+
 
 
 }
