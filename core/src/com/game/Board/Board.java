@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.game.States.MainState;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 
@@ -352,16 +353,17 @@ public class Board {
 	
 	public float computeDist(Rectangle rect1, Rectangle rect2) {
 		
-		float bottom1 = rect1.x;
-		float left1 = rect1.y;
-		float top1 = rect1.x+rect1.width;
-		float right1 = rect1.y+rect1.height;
+		float bottom1 = rect1.y;
+		float left1 = rect1.x;
+		float top1 = rect1.y+rect1.height;
+		float right1 = rect1.x+rect1.width;
 		
-		float bottom2 = rect2.x;
-		float left2 = rect2.y;
-		float top2 = rect2.x+rect2.width;
-		float right2 = rect2.y+rect2.height;
+		float bottom2 = rect2.y;
+		float left2 = rect2.x;
+		float top2 = rect2.y+rect2.height;
+		float right2 = rect2.x+rect2.width;
 		
+
 		boolean toLeft = false;
 		boolean toRight = false;
 		boolean above = false;
