@@ -28,7 +28,8 @@ public class Board {
 	private Intersector intersector;
 	private boolean updateAgentMoveToPoint;
 	private Point2D currentPoint;
-	
+	public boolean gameOver = false;
+
 	public Board() {
 		intersector = new Intersector();
 		territories = new ArrayList<Area>();
@@ -175,12 +176,11 @@ public class Board {
 							//check if seeing agent is guard and if seen agent is intruder, if so, and distance < 0.5m
 							//then remove intruder from map
 							if((agents.get(a) instanceof Guard) && (agents.get(i) instanceof Intruder)){
-								Rectangle guardRect = agents.get(a).area;
-								Rectangle intruderRect = agents.get(i).area;
-								if(computeDist(guardRect, intruderRect) < 5){
-									agents.remove(agents.get(i));
+								//getArea(): rectangle objects of the agents
+								System.out.println("DISTANCE OF: "+computeDist(agents.get(a).area,agents.get(i).area));
+								if(computeDist(agents.get(a).area,agents.get(i).area) < 0.5) {
+									gameOver = true;
 								}
-								//computeDistRect()
 							}
 						}
 					}
