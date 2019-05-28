@@ -4,6 +4,7 @@
 package com.game.Board;
 
 import java.awt.geom.Point2D;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 import com.badlogic.gdx.math.Rectangle;
@@ -171,6 +172,12 @@ public class Board {
 								|| intersectVectAndRect(new Vector2(vec.x-leftVec.x,vec.y-leftVec.y),agents.get(i).area,pos.x,pos.y)
 								|| intersectVectAndRect(new Vector2(vec.x-rightVec.x,vec.y-rightVec.y),agents.get(i).area,pos.x,pos.y)) {
 							agents.get(a).see(agents.get(i));
+							//check if seeing agent is guard and if seen agent is intruder, if so, and distance < 0.5m
+							//then remove intruder from map
+							if((agents.get(a) instanceof Guard) && (agents.get(i) instanceof Intruder)){
+								//getArea(): rectangle objects of the agents
+								//computeDistRect()
+							}
 						}
 					}
 		        }
@@ -205,9 +212,33 @@ public class Board {
 				}
 			}
 		}
+
+		//if intruder is < 0.5 meters away and guard sees intruder, it is removed from the map
+		//if all intruders are removed, show game over screen
+
+
 		
 		generateSounds();
 		
+	}
+
+	public void checkIfCaught(){
+		//for each guard, check if it "catches" an intruder
+		ArrayList<Agent> guards = new ArrayList<Agent>();
+		ArrayList<Agent> intruders = new ArrayList<Agent>();
+
+		for(Agent a : agents){
+			if(a instanceof Guard){
+				guards.add(a);
+			}
+			if(a instanceof Intruder){
+				intruders.add(a);
+			}
+		}
+
+		for(Agent guard: guards){
+
+		}
 	}
 
 	public void generateSounds() {
