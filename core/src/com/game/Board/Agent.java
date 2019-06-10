@@ -27,13 +27,14 @@ import java.util.ArrayList;
 public class Agent extends AssetManager {
 
 	public Rectangle area;
-	public float xPos;
-	public float yPos;
-	public float xCenter;
-	public float yCenter;
+	public volatile float xPos;
+	public volatile float yPos;
+	public volatile float xCenter;
+	public volatile float yCenter;
 	public Vector2 viewAngle;
 	public float speed;
 	public float rotation;
+	public float angle;
 	public float turningCircle;
 	public float viewRadius;
 	public float viewRange;

@@ -35,11 +35,14 @@ public class MainState extends State {
     public ArrayList<Agent> guards;
     public ArrayList<Structure> walls;
 
+    private BitmapFont font;
+    private float deltaTime = -10;
+    CharSequence str;
+
     public Texture background;
     public Texture wall;
     public Play play;
     public String name;
-    public BitmapFont font;
     public TextureRegion tR;
     public SpriteReader reader;
     public Board board;
@@ -54,7 +57,7 @@ public class MainState extends State {
     public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls, AI guardAI, AI intruderAI) {
         super(gsm);
         font = new BitmapFont();
-        font.setColor(Color.BLACK);
+        font.setColor(Color.WHITE);
         wall = new Texture("wall.png");
         play = new Play(865,545);
         ground = new Ground(0,0);
@@ -157,6 +160,10 @@ public class MainState extends State {
         sb.draw(play.texture, play.xPos, play.yPos, 100, 100);
         sb.draw(wall, 0, 500, 1000, 20);
         sb.draw(wall, 820, 520, 20, 180);
+        deltaTime += Gdx.graphics.getDeltaTime();
+        str = Float.toString(deltaTime);
+        font.draw(sb, str, 100, 600);
+        font.draw(sb, "TIME", 50, 600);
 
         for(int i =0; i < structures.size(); i++ ){
             structures.get(i).drawTexture(sb,MapState.X_REDUC,MapState.Y_REDUC);
@@ -168,6 +175,12 @@ public class MainState extends State {
 
         sb.end();
 
+    }
+
+    public void drawTime(SpriteBatch batch) {
+        deltaTime += Gdx.graphics.getDeltaTime();
+        str = Float.toString(deltaTime);
+        font.draw(batch, str, 50, 50);
     }
 
     public void dispose() {

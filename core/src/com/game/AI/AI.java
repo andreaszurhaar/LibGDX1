@@ -14,6 +14,7 @@ public abstract class AI {
     public Agent agent;
     public Instruction instruction;
 
+
     public AI(){};
 
     public abstract float getRotation();
