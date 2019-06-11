@@ -31,6 +31,8 @@ public class Board {
 	private Point2D currentPoint;
 	public boolean gameOver = false;
 
+	private Random rand = new Random();
+
 	public Board() {
 		intersector = new Intersector();
 		territories = new ArrayList<Area>();
@@ -282,7 +284,6 @@ public class Board {
 			//check if distance between sound and agent is within the sound range
 			if (distPointToRect(s.xpos,s.ypos,a.area).len() < s.soundRange) {
 				a.hearSound(estimateDirection(s,a.getX(),a.getY()));
-				//System.out.println("heard sound");
 			}
 		}
 	}
@@ -292,7 +293,10 @@ public class Board {
 		//a normal distributed uncertainty with a standard deviation of 10
 		//currently the direction is found perfectly
 		Vector2 vector = new Vector2(s.xpos-xPos,s.ypos-yPos);
-		return vector.angle();
+		//System.out.println("sound really at: "+vector.angle());
+		float res = vector.angle()+(float) rand.nextGaussian()*10;
+		//System.out.println("but actually heard at: "+res);
+		return res;
 		
 	}
 

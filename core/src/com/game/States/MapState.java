@@ -64,13 +64,15 @@ public class MapState extends State {
     public hWall hWall;
     public Ground ground;;
     public Collider collider;
+    public TextureRegion saveTexture;
+    public boolean save;
     public static final float X_REDUC = 2.5f;
     public static final float Y_REDUC = 2.5f;
     public AI guardAI;
     public AI intruderAI;
     
     
-    public MapState(GameStateManager gsm, AI guardAI, AI intruderAI){
+    public MapState(GameStateManager gsm, AI guardAI, AI intruderAI) {
         super(gsm);
         this.guardAI = guardAI;
         this.intruderAI = intruderAI;
@@ -85,8 +87,14 @@ public class MapState extends State {
         font = new BitmapFont();
         font.setColor(Color.WHITE);
         collider = new Collider();
+        save = false;
+        try {
+            saveTexture = reader.getImage(390,292,20,20);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-         play = new Play(865,545);
+        play = new Play(865,545);
          vWall = new vWall(820,520);
          hWall = new hWall(0,500);
          ground = new Ground(0,0);
@@ -95,14 +103,13 @@ public class MapState extends State {
 
         menuObjects.add(new Robber(5,575));
         menuObjects.add(new Cop(85,575));
-        menuObjects.add(new Steps(165,575));
+        menuObjects.add(new Web(165,575));
         menuObjects.add(new Candle(245,575));
         menuObjects.add(new hWall(325,575));
         menuObjects.add(new VDoor(405,575));
         menuObjects.add(new Door(485,575));
         menuObjects.add(new Target(565,575));
         menuObjects.add(new LookOut(645,575));
-        menuObjects.add(new Web(725,575));
 
         
        	structures.add(new OuterWall(20/X_REDUC,0,(CopsAndRobbers.WIDTH-40)/X_REDUC,20/Y_REDUC));
@@ -150,7 +157,7 @@ public class MapState extends State {
             this.name = "cop";
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
-            this.name = "steps";
+            this.name = "web";
         }
         if(Gdx.input.isKeyPressed(Input.Keys.NUM_4)) {
             this.name = "candle";
@@ -184,13 +191,25 @@ public class MapState extends State {
                 System.out.println("Error");
             }
 
+            if(Gdx.input.getX() > 725 && Gdx.input.getX() < 800 && Gdx.input.getY() < 75){
+               if(save == false) {
+                   save = true;
+               }
+               else{
+                   save = false;
+               }
+                System.out.println("save =" + save);
+            }
+
             if(Gdx.input.getX() > 860 && Gdx.input.getY() < 100){
                 dispose();
                 FileHandler fileHandler = new FileHandler();
-                try {
-                    fileHandler.fileWriter(agents,structures,walls);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                if(save == true) {
+                    try {
+                        fileHandler.fileWriter(agents, structures, walls);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
                 gsm.push(new MainState(gsm,structures,agents,walls,guardAI,intruderAI));
             }
@@ -299,6 +318,7 @@ public class MapState extends State {
         sb.draw(play.texture,play.xPos,play.yPos, 100,100);
         sb.draw(hWall.texture,hWall.xPos,hWall.yPos, 1000,20);
         sb.draw(vWall.texture,vWall.xPos,vWall.yPos, 20,180);
+        sb.draw(saveTexture,725,575, 75,75);
 
         for(int i =0; i < menuObjects.size(); i++ ){
             sb.draw(menuObjects.get(i).texture, menuObjects.get(i).xPos,menuObjects.get(i).yPos,75,75);
