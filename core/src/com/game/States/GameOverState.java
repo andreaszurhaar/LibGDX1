@@ -36,12 +36,15 @@ public class GameOverState extends State {
     private TextButton restart;
     private TextButton gameov;
     GameStateManager gamestatemanager;
+    public float deltaTime;
+    public String str;
 
-    public GameOverState(final GameStateManager gsm) {
+    public GameOverState(final GameStateManager gsm, float deltaTime) {
         super(gsm);
         gamestatemanager = gsm;
         stage=new Stage();
         SpriteReader reader = new SpriteReader();
+        this.deltaTime = deltaTime;
 
         try {
             background  = reader.getImage(58,292,26,28);
@@ -114,6 +117,11 @@ public class GameOverState extends State {
     public void render(SpriteBatch sb) {
     	stage.getBatch().begin();
         stage.getBatch().draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        sb.begin();
+        str = Float.toString(deltaTime);
+        font.draw(sb, str, 400, 300);
+        font.draw(sb, "TIME", 350, 300);
+        sb.end();
         stage.getBatch().end();
         stage.act();
         stage.draw();

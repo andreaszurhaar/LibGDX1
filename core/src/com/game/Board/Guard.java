@@ -23,9 +23,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
  */
 public class Guard extends Agent {
 
-	public float speed;
-	public float angle;
-	public float soundRange;
 	private Point2D.Float locationIntruder;
 	private float angleIntruder;
     private Tracking tracking;
