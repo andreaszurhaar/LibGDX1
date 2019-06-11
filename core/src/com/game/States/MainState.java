@@ -84,8 +84,8 @@ public class MainState extends State {
         for(int i = 0; i < this.agents.size(); i++){
             if(this.agents.get(i) instanceof Guard){
                 //TODO can we make it so agentAI uses variable guardAI instead?
-                AI agentAI = new GuardPatrolling();
-                //AI agentAI = new GuardCirclePatrolling();
+                //AI agentAI = new GuardPatrolling();
+                AI agentAI = new GuardCirclePatrolling();
                 this.agents.get(i).setAI(agentAI);
                 agentAI.setAgent(this.agents.get(i));
                 System.out.println("Cops's ai is:" + this.agents.get(i).ai);
@@ -103,6 +103,14 @@ public class MainState extends State {
                 this.agents.get(i).ai.setStructures(structures);
             }
 
+            /**
+             * Giving each guard the arraylist of guards so that
+             * they are accesible for communication
+             */
+            for(int j = 0; j < guards.size(); j++){
+                guards.get(j).setAgentList(guards);
+            }
+
         }
         board = new Board();
         if(!this.structures.isEmpty()) {board.setUp(this.structures);}
@@ -112,9 +120,15 @@ public class MainState extends State {
         CopsCenters copsCenters = new CopsCenters(guards);
 
         Point2D.Float[] guardCenters = copsCenters.getCenters();
+        ArrayList<ArrayList<Point2D.Float>> areas = copsCenters.getAreas(guardCenters);
 
         for(int i = 0; i < guards.size(); i++){
             guards.get(i).setCenterLocation(guardCenters[i]);
+            if(guards.get(i).ai instanceof GuardCirclePatrolling){
+                //TODO fix so works with any guard placement
+                guards.get(i).ai.setCornerPoints(areas.get(i));
+            }
+            //TODO clean up AI-specific things like this from main state
         }
 
 //        int guardCounter = 0;

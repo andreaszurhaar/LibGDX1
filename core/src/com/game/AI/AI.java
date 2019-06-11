@@ -1,5 +1,6 @@
 package com.game.AI;
 
+import com.badlogic.gdx.math.Vector2;
 import com.game.Board.Agent;
 import com.game.Board.Area;
 import com.game.Objects.GameObject;
@@ -37,5 +38,7 @@ public abstract class AI {
     public void setCornerPoints(ArrayList<Point2D.Float> cornerPoints){
 
     }
+
+    public abstract void moveToPoint(Vector2 point);
 
 }

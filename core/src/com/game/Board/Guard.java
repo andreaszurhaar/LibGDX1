@@ -7,6 +7,7 @@ import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.Vector2;
 import com.game.AI.AI;
 //import com.game.AI.CopsCenters;
 import com.game.AI.GuardPatrolling;
@@ -31,11 +32,12 @@ public class Guard extends Agent {
 	private final int ALLOWED_DISTANCE_ERROR = 10;
 	private boolean reachedCentre;
 
+
 	public Guard(float x, float y, float width, float height) {
 		super(x, y, width, height);
 		//viewAngle.setToRandomDirection();
 		speed = 1;
-		maxSpeed = 1.4f;
+		maxSpeed = 100f;
 		soundRange = 0;
 		viewRange = 6f + width/2;
 		name = "2";
@@ -126,17 +128,34 @@ public class Guard extends Agent {
 
     @Override
 	public void see(Agent agent) {
+
 		if(!(Math.abs(rotation) > 45)) {
 			seeing = true;
+			/** Switching to tracking
+			 */
 			if (!(ai instanceof Tracking) && agent instanceof Intruder) {
 				System.out.println("saw intruder");
 				ai = new Tracking(this,agent,ai);
 			}
+			/**
+			 * Communicating the intruder's location to all other guards
+			 */
+			if(agent instanceof Intruder){
+				for(int i = 0; i < agentList.size(); i++){
+
+					agentList.get(i).ai.moveToPoint(new Vector2(agent.xPos, agent.yPos));
+				}
+			}
+
+
 			ai.seeAgent(agent);
 		}
+
+
+
 	}
-    
-    /*
+
+	/*
     public float getX()
 	{
 		return xCenter;

@@ -144,4 +144,8 @@ public class Tracking extends AI {
 	    	enemyy = agent.yCenter;
     	}
     }
+
+	public void moveToPoint(Vector2 agentLocation){
+
+	}
 }

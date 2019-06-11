@@ -282,5 +282,9 @@ public class GuardPatrolling extends AI {
    
     }
 
+    public void moveToPoint(Vector2 agentLocation){
+
+    }
+
 
 }
