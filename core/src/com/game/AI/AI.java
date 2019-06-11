@@ -39,6 +39,4 @@ public abstract class AI {
 
     }
 
-    public abstract void moveToPoint(Vector2 point);
-
 }

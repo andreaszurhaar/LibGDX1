@@ -166,20 +166,6 @@ public class GuardCirclePatrolling extends AI {
         createDestPoints();
     }
 
-    public void moveToPoint(Vector2 agentLocation){
-        /**
-         * Clear all current instructions and instead add an instruction to move to the intruder's location
-         */
-        if(!movingToIntruder) {
-            speed.clear();
-            rotation.clear();
-        }
-        movingToIntruder = true;
-
-        //TODO only do this once? / prevent original AI from interfering in instructions
-        instruction.translate(agentLocation, guard);
-    }
-
 
 
 }

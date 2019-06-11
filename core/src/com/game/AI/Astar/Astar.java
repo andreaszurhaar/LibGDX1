@@ -276,8 +276,4 @@ public class Astar extends AI {
    
     }
 
-    @Override
-    public void moveToPoint(Vector2 point) {
-
-    }
 }

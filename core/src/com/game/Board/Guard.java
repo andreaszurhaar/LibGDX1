@@ -12,6 +12,7 @@ import com.game.AI.AI;
 //import com.game.AI.CopsCenters;
 import com.game.AI.GuardPatrolling;
 import com.game.AI.Tracking;
+import com.game.AI.TrackingLongDistance;
 import com.game.Readers.SpriteReader;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -31,6 +32,9 @@ public class Guard extends Agent {
     public SpriteReader reader = new SpriteReader();
 	private final int ALLOWED_DISTANCE_ERROR = 10;
 	private boolean reachedCentre;
+	private double timeOfCurrentMessage;
+    private double timeOfLastMessage;
+    private final int INTER_MESSAGE_TIME = 5; //in seconds
 
 
 	public Guard(float x, float y, float width, float height) {
@@ -138,15 +142,20 @@ public class Guard extends Agent {
 				ai = new Tracking(this,agent,ai);
 			}
 			/**
-			 * Communicating the intruder's location to all other guards
+			 * Communicating the intruder's location to all other guards every X seconds
 			 */
-			if(agent instanceof Intruder){
-				for(int i = 0; i < agentList.size(); i++){
-
-					agentList.get(i).ai.moveToPoint(new Vector2(agent.xPos, agent.yPos));
-				}
-			}
-
+			if(agent instanceof Intruder) {
+			    timeOfLastMessage = timeOfCurrentMessage;
+                timeOfCurrentMessage = System.currentTimeMillis();
+                //TODO make sure the communicated location changes after each message
+                if (timeOfCurrentMessage > timeOfLastMessage + INTER_MESSAGE_TIME * 1000) {
+                    for (int i = 0; i < agentList.size(); i++) {
+                        //agentList.get(i).ai.moveToPoint(new Vector2(agent.xPos, agent.yPos));
+						Agent currentGuard = agentList.get(i);
+						currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai));
+                    }
+                }
+            }
 
 			ai.seeAgent(agent);
 		}
@@ -154,17 +163,5 @@ public class Guard extends Agent {
 
 
 	}
-
-	/*
-    public float getX()
-	{
-		return xCenter;
-	}
-
-	public float getY()
-	{
-		return yCenter;
-	}
-	*/
 
 }

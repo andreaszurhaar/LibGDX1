@@ -145,7 +145,4 @@ public class Tracking extends AI {
     	}
     }
 
-	public void moveToPoint(Vector2 agentLocation){
-
-	}
 }
