@@ -255,10 +255,26 @@ public class GuardPatrolling extends AI {
         this.guard = (Guard) agent;
     }
 
+
     public void setStructures(ArrayList<Area> structures){
         this.structures = structures;
         System.out.println("we run patrolInArea and set the currentPoint to the area of the center");
         patrolInArea();
+    }
+
+    @Override
+    public void reset() {
+
+    }
+
+    @Override
+    public void seeArea(Area area) {
+
+    }
+
+    @Override
+    public void seeAgent(Agent agent) {
+
     }
 
 
