@@ -125,7 +125,7 @@ public class MainState extends State {
         for(int i = 0; i < guards.size(); i++){
             guards.get(i).setCenterLocation(guardCenters[i]);
             if(guards.get(i).ai instanceof GuardCirclePatrolling){
-                //TODO fix so works with any guard placement
+                //TODO (add increment away from wall so that guards dont get stuck)
                 guards.get(i).ai.setCornerPoints(areas.get(i));
             }
             //TODO clean up AI-specific things like this from main state
@@ -158,7 +158,7 @@ public class MainState extends State {
 
         }
         if (board.gameOver) {gsm.push(new GameOverState(gsm, deltaTime));}
-        if(deltaTime > timeLimit){gsm.push(new GameOverState(gsm,deltaTime));}
+        //if(deltaTime > timeLimit){gsm.push(new GameOverState(gsm,deltaTime));}
         board.updateAgents();
         
     }

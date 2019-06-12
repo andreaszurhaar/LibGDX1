@@ -24,6 +24,7 @@ public class TrackingLongDistance extends AI{
     private Instruction instruction;
     private Vector2 opponentLocation;
 
+    //TODO once the alerted guards have reached the intruder, make them approach from different directions
 
     public TrackingLongDistance(Guard guard, Vector2 opponentLocation, AI storeAI)
     {
