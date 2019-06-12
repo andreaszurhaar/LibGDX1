@@ -32,19 +32,19 @@ public class Guard extends Agent {
     public SpriteReader reader = new SpriteReader();
 	private final int ALLOWED_DISTANCE_ERROR = 10;
 	private boolean reachedCentre;
-	private double timeOfCurrentMessage;
     private double timeOfLastMessage;
-    private final int INTER_MESSAGE_TIME = 5; //in seconds
+    private final double INTER_MESSAGE_TIME = 5; //in seconds
 
 
 	public Guard(float x, float y, float width, float height) {
 		super(x, y, width, height);
 		//viewAngle.setToRandomDirection();
 		speed = 1;
-		maxSpeed = 100f;
+		maxSpeed = 1.4f;
 		soundRange = 0;
 		viewRange = 6f + width/2;
 		name = "2";
+		timeOfLastMessage = Integer.MIN_VALUE;
 		try {
 	        this.texture = reader.getImage(65,255,30,33);
             this.noticeSound = reader.getImage(135,425,20,20);
@@ -61,6 +61,7 @@ public class Guard extends Agent {
         soundRange = 0;
         viewRange = 6f;
         name = "2";
+        timeOfLastMessage = Float.MIN_VALUE;
         try {
             this.texture = reader.getImage(65,255,30,33);
             this.noticeSound = reader.getImage(135,425,20,20);
@@ -145,10 +146,9 @@ public class Guard extends Agent {
 			 * Communicating the intruder's location to all other guards every X seconds
 			 */
 			if(agent instanceof Intruder) {
-			    timeOfLastMessage = timeOfCurrentMessage;
-                timeOfCurrentMessage = System.currentTimeMillis();
                 //TODO make sure the communicated location changes after each message
-                if (timeOfCurrentMessage > timeOfLastMessage + INTER_MESSAGE_TIME * 1000) {
+                if (System.currentTimeMillis() > timeOfLastMessage + INTER_MESSAGE_TIME * 1000) {
+					timeOfLastMessage = System.currentTimeMillis();
                     for (int i = 0; i < agentList.size(); i++) {
                         //agentList.get(i).ai.moveToPoint(new Vector2(agent.xPos, agent.yPos));
 						Agent currentGuard = agentList.get(i);
