@@ -83,8 +83,8 @@ public class MainState extends State {
         for(int i = 0; i < this.agents.size(); i++){
             if(this.agents.get(i) instanceof Guard){
                 //TODO can we make it so agentAI uses variable guardAI instead?
-                AI agentAI = new GuardPatrolling();
-                //AI agentAI = new GuardCirclePatrolling();
+                //AI agentAI = new GuardPatrolling();
+                AI agentAI = new GuardCirclePatrolling();
                 this.agents.get(i).setAI(agentAI);
                 agentAI.setAgent(this.agents.get(i));
                 System.out.println("Cops's ai is:" + this.agents.get(i).ai);
