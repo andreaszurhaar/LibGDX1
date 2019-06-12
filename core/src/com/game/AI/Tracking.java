@@ -44,12 +44,12 @@ public class Tracking extends AI {
     {
     	boolean following = false;
     	if(!speeds.isEmpty() && !rotations.isEmpty()) {
-    		System.out.println("popping instrcutions");
+    		//System.out.println("popping instrcutions");
     		speed = speeds.pop()*Board.fps;
     		rotation = rotations.pop()*Board.fps;
     		following = true;
     	}
-    	System.out.print("retracking with enemy at: "+enemyx+"   "+enemyy);
+    	//System.out.print("retracking with enemy at: "+enemyx+"   "+enemyy);
     	Vector2 toEnemy = new Vector2(enemyx,enemyy);
     	if(!previousPos.isEmpty() && previousPos.get(previousPos.size()-1).dst(toEnemy) < 0.001) {
     		return;
@@ -59,7 +59,7 @@ public class Tracking extends AI {
 	    	Vector2 toTarget = computeInterception(previousPos);
 	        angle = toTarget.angle(guard.viewAngle);
 	        showvect = toTarget;
-	        System.out.println("angle of "+angle);
+	        //System.out.println("angle of "+angle);
 	        if(angle >= 0 && angle < 45) {
 	        	speed = 1.4f;
 	        	rotation = -45;
@@ -77,7 +77,7 @@ public class Tracking extends AI {
     }
     
     public Vector2 computeInterception(ArrayList<Vector2> prevPos) {
-    	System.out.println("try to trigger with positions: "+prevPos.size());
+    	//System.out.println("try to trigger with positions: "+prevPos.size());
     	if(prevPos.size() < 31 || predictive == false) {
         	return new Vector2(enemyx-guard.xCenter,enemyy-guard.yCenter);
     	}
@@ -98,11 +98,11 @@ public class Tracking extends AI {
     	float currAngle = vec3.angle();
     	float currTurn = turn2;
     	float currDist = dist2;
-    	System.out.println("going from point: "+currPoint.x+"  "+currPoint.y);
+    	//System.out.println("going from point: "+currPoint.x+"  "+currPoint.y);
     	
     	int instCount = 0;
     	while (prevPos.get(prevPos.size()-1).dst(guard.xCenter,guard.yCenter) > ((float) (instCount*20) * (guard.maxSpeed/Board.fps)) && instCount < 1000) {
-    		System.out.println("cycle for dist: "+currPoint.dst(guard.xCenter,guard.yCenter)+"   and countmutip: "+((float) (instCount*10) * (guard.maxSpeed/Board.fps)));
+    		//System.out.println("cycle for dist: "+currPoint.dst(guard.xCenter,guard.yCenter)+"   and countmutip: "+((float) (instCount*10) * (guard.maxSpeed/Board.fps)));
     		instCount++;
     		
     		//update angle and distance to travel
@@ -116,13 +116,13 @@ public class Tracking extends AI {
     		currPoint.set(newx,newy);
     	}
     	
-    	System.out.println("going to point: "+currPoint.x+"  "+currPoint.y+"   by count of: "+instCount);
+    	//System.out.println("going to point: "+currPoint.x+"  "+currPoint.y+"   by count of: "+instCount);
     	//System.exit(0);
     	instruct.translate(currPoint,guard);
     	speeds = instruct.getSpeeds();
     	rotations = instruct.getRotations();
     	for(int i=0; i<prevPos.size() ;i++) {
-    		System.out.println("the positions of i: "+i+"  and xy: "+prevPos.get(i).x+"  "+prevPos.get(i).y);
+    		//System.out.println("the positions of i: "+i+"  and xy: "+prevPos.get(i).x+"  "+prevPos.get(i).y);
     	}
     	//System.exit(0);
     	/*
@@ -156,7 +156,7 @@ public class Tracking extends AI {
 
     public float getSpeed(){
     	trackcounter++;
-    	System.out.println("got speed with counter: "+trackcounter);
+    	//System.out.println("got speed with counter: "+trackcounter);
     	if(trackcounter > 60) {
     		previousAI.reset();
     		guard.setAI(previousAI);
@@ -192,7 +192,7 @@ public class Tracking extends AI {
 
     @Override
     public void seeAgent(Agent agent) {
-    	System.out.println("saw agent with counter: "+trackcounter);
+    	//System.out.println("saw agent with counter: "+trackcounter);
     	trackcounter = 3;
     	if(agent instanceof Intruder) {
 	    	enemyx = agent.xCenter;
