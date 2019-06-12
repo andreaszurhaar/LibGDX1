@@ -101,11 +101,27 @@ public class GuardPatrolling extends AI {
 
         if((!reachedCenter && (Math.sqrt(((guard.getX() - guard.getCenterLocation().x) * (guard.getX() - guard.getCenterLocation().x)) + ((guard.getY() - guard.getCenterLocation().y) * (guard.getY() - guard.getCenterLocation().y))) > ALLOWED_DISTANCE_ERROR))
             && !guard.isCollided())   {
-
+        	
+        	/*
+        	ChainInstruction chain = new ChainInstruction();
+        	ArrayList<Vector2> chainar = new ArrayList<Vector2>();
+        	chainar.add(new Vector2(180,100));
+        	//chainar.add(new Vector2(220,100));
+        	//chainar.add(new Vector2(220,120));
+        	//chainar.add(new Vector2(180,120));
+        	chain.translate(chainar, guard);
+            rotation = chain.getRotations();
+            speed = chain.getSpeeds();
+        	*/
+        	
+        	/*
             Vector2 centerVector = new Vector2(guard.getCenterLocation().x, guard.getCenterLocation().y);
+            */
+        	Vector2 centerVector = new Vector2(180,100);
             instruction.translate(centerVector, guard);
             rotation = instruction.getRotations();
             speed = instruction.getSpeeds();
+       
         }
         else {
             reachedCenter = true;

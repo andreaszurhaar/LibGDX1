@@ -66,6 +66,27 @@ public class Agent extends AssetManager {
 		viewRadius = 45;
 		hearing = false;
 		renderer = new ShapeRenderer();
+		maxSpeed = 1.4f;
+	}
+	
+	/* 
+	 * copy constructor for instructor classes
+	 * 
+	 */
+	public Agent(Agent ag) {
+		
+        area = new Rectangle(ag.xPos,ag.yPos,ag.area.getWidth(),ag.area.getHeight());
+        xPos = ag.xPos;
+		yPos = ag.yPos;
+		xCenter = xPos+ag.area.getWidth()/2;
+		yCenter = yPos+ag.area.getHeight()/2;
+		viewAngle = ag.viewAngle;
+		turningCircle = ag.turningCircle;
+		viewRadius = ag.viewRadius;
+		hearing = ag.hearing;
+		renderer = ag.renderer;
+		maxSpeed = ag.maxSpeed;
+		
 	}
 	
 	public float getX() {

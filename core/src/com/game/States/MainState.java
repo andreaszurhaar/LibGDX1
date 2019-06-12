@@ -52,7 +52,7 @@ public class MainState extends State {
     public static final float Y_REDUC = MapState.Y_REDUC;
     public AI guardAI;
     public AI intruderAI;
-    public double timeLimit = 10.00;
+    public double timeLimit = 100000.00;
 
 
     public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls, AI guardAI, AI intruderAI) {
@@ -84,8 +84,8 @@ public class MainState extends State {
         for(int i = 0; i < this.agents.size(); i++){
             if(this.agents.get(i) instanceof Guard){
                 //TODO can we make it so agentAI uses variable guardAI instead?
-                //AI agentAI = new GuardPatrolling();
-                AI agentAI = new GuardCirclePatrolling();
+                AI agentAI = new GuardPatrolling();
+                //AI agentAI = new GuardCirclePatrolling();
                 this.agents.get(i).setAI(agentAI);
                 agentAI.setAgent(this.agents.get(i));
                 System.out.println("Cops's ai is:" + this.agents.get(i).ai);

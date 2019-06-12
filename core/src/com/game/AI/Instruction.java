@@ -24,10 +24,10 @@ public class Instruction {
 		speeds = new Stack();
 	}
 	
-	public void translate(Vector2 point, Agent agent) {
+	public void translate(Vector2 destination, Agent agent) {
 		
 		//find the length to traverse and how much to turn
-		Vector2 positions = new Vector2((point.x-agent.xCenter),(point.y-agent.yCenter));
+		Vector2 positions = new Vector2((destination.x-agent.xCenter),(destination.y-agent.yCenter));
 		float pathLength = positions.len();
 		float turnAngle = agent.viewAngle.angle(positions);
 		System.out.println("TURNING FOR: "+turnAngle+"  AND MOVING FOR: "+pathLength);
