@@ -18,19 +18,23 @@ import java.util.Stack;
 
 public class GuardPatrolling extends AI {
 
-
+    private MapDivider mp;
+    private Board board;
+    private ArrayList<Agent> guards;
+    private ArrayList<Area> areas;
+    private final int ALLOWED_DISTANCE_ERROR = 10;
     public float areaWidth, areaHeight;
     private Point2D.Float areaCenter;
     public ArrayList<Point2D.Float> areaPoints, seenPoints;
     private Guard guard;
     private ArrayList<Area> structures;
     public boolean running = false;
+    private boolean reachedCenter;
 
-//should get an area of patrolling with (either center + height + width, or a rectangle)
     public GuardPatrolling(){
-    	speed = new Stack<Float>();
-    	rotation = new Stack<Float>();
-    	instruction = new Instruction();
+        speed = new Stack<Float>();
+        rotation = new Stack<Float>();
+        instruction = new Instruction();
     }
 
     public GuardPatrolling(Guard guard)
@@ -146,7 +150,6 @@ public class GuardPatrolling extends AI {
             speed = instruction.getSpeeds();
         }
 
-=======
         //System.out.println("Going from point:" +currentPoint.x + "," + currentPoint.y + " to point " + temp.x + "," + temp.y);
         //currentPoint.x = temp.x;
         //currentPoint.y = temp.y;
@@ -161,7 +164,6 @@ public class GuardPatrolling extends AI {
         rotation = instruction.getRotations();
         speed = instruction.getSpeeds();
         System.out.println("Patrol method is finished");
->>>>>>> 3d4159bfab970f65dd890a14a34d93462aedd333
         //System.out.println("Stack speed size " + speed.size());
 //        for (float speed : speed){
 //            System.out.println("Speed: " + speed);
