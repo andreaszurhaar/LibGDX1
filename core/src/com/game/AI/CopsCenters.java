@@ -151,44 +151,75 @@ public class CopsCenters {
 
         ArrayList<ArrayList<Point2D.Float>> areas = new ArrayList<ArrayList<Point2D.Float>>();
 
-        for (int i = 0; i < guardCenter.length; i++) {
             //if even nr of guards, map is horizontally split
-            if (guards.size() % 2 == 0) {
-                //bottom half of areas
-                for (int j = 0; j < guards.size() / 2; j++) {
-                    Point2D.Float corner1 = new Point2D.Float(j * Board.BOARD_WIDTH * 5 / guards.size() / 2, 0 * Board.BOARD_HEIGHT * 5 / guards.size() / 2);
-                    Point2D.Float corner2 = new Point2D.Float(j * Board.BOARD_WIDTH * 5 / guards.size() / 2, 1 * Board.BOARD_HEIGHT * 5 / guards.size() / 2);
-                    Point2D.Float corner3 = new Point2D.Float((j + 1) * Board.BOARD_WIDTH * 5 / guards.size() / 2, 1 * Board.BOARD_HEIGHT * 5 / guards.size() / 2);
-                    Point2D.Float corner4 = new Point2D.Float((j + 1) * Board.BOARD_WIDTH * 5 / guards.size() / 2, 0 * Board.BOARD_HEIGHT * 5 / guards.size() / 2);
+            if(guards.size() % 2 == 0) {
+                if (guards.size() % 4 == 0) {
+                    //bottom half of areas
+                    for (int j = 0; j < guards.size() / 2; j++) {
+                        Point2D.Float corner1 = new Point2D.Float(j * Board.BOARD_WIDTH * 5 / (guards.size()/4) / 2, 0 * Board.BOARD_HEIGHT * 5 / (guards.size()/4) / 2);
+                        Point2D.Float corner2 = new Point2D.Float(j * Board.BOARD_WIDTH * 5 / (guards.size()/4) / 2, 1 * Board.BOARD_HEIGHT * 5 / (guards.size()/4) / 2);
+                        Point2D.Float corner3 = new Point2D.Float((j + 1) * Board.BOARD_WIDTH * 5 / (guards.size()/4) / 2, 1 * Board.BOARD_HEIGHT * 5 / (guards.size()/4) / 2);
+                        Point2D.Float corner4 = new Point2D.Float((j + 1) * Board.BOARD_WIDTH * 5 / (guards.size()/4) / 2, 0 * Board.BOARD_HEIGHT * 5 / (guards.size()/4) / 2);
 
-                    ArrayList<Point2D.Float> corners = new ArrayList<Point2D.Float>();
-                    corners.add(corner1);
-                    corners.add(corner2);
-                    corners.add(corner3);
-                    corners.add(corner4);
-                    areas.add(corners);
-                }
-                //top half of areas
-                for (int j = 0; j < guards.size() / 2; j++) {
-                    Point2D.Float corner1 = new Point2D.Float(j * Board.BOARD_WIDTH * 5 / guards.size() / 2, 1 * Board.BOARD_HEIGHT * 5 / guards.size() / 2);
-                    Point2D.Float corner2 = new Point2D.Float(j * Board.BOARD_WIDTH * 5 / guards.size() / 2, 2 * Board.BOARD_HEIGHT * 5 / guards.size() / 2);
-                    Point2D.Float corner3 = new Point2D.Float((j + 1) * Board.BOARD_WIDTH * 5 / guards.size() / 2, 2 * Board.BOARD_HEIGHT * 5 / guards.size() / 2);
-                    Point2D.Float corner4 = new Point2D.Float((j + 1) * Board.BOARD_WIDTH * 5 / guards.size() / 2, 1 * Board.BOARD_HEIGHT * 5 / guards.size() / 2);
+                        ArrayList<Point2D.Float> corners = new ArrayList<Point2D.Float>();
+                        corners.add(corner1);
+                        corners.add(corner2);
+                        corners.add(corner3);
+                        corners.add(corner4);
+                        areas.add(corners);
+                    }
+                    //top half of areas
+                    for (int j = 0; j < guards.size() / 2; j++) {
+                        Point2D.Float corner1 = new Point2D.Float(j * Board.BOARD_WIDTH * 5 / (guards.size()/4) / 2, 1 * Board.BOARD_HEIGHT * 5 / (guards.size()/4) / 2);
+                        Point2D.Float corner2 = new Point2D.Float(j * Board.BOARD_WIDTH * 5 / (guards.size()/4) / 2, 2 * Board.BOARD_HEIGHT * 5 / (guards.size()/4) / 2);
+                        Point2D.Float corner3 = new Point2D.Float((j + 1) * Board.BOARD_WIDTH * 5 / (guards.size()/4) / 2, 2 * Board.BOARD_HEIGHT * 5 / (guards.size()/4) / 2);
+                        Point2D.Float corner4 = new Point2D.Float((j + 1) * Board.BOARD_WIDTH * 5 / (guards.size()/4) / 2, 1 * Board.BOARD_HEIGHT * 5 / (guards.size()/4) / 2);
 
-                    ArrayList<Point2D.Float> corners = new ArrayList<Point2D.Float>();
-                    corners.add(corner1);
-                    corners.add(corner2);
-                    corners.add(corner3);
-                    corners.add(corner4);
-                    areas.add(corners);
+                        ArrayList<Point2D.Float> corners = new ArrayList<Point2D.Float>();
+                        corners.add(corner1);
+                        corners.add(corner2);
+                        corners.add(corner3);
+                        corners.add(corner4);
+                        areas.add(corners);
+                    }
+                    //if divisible by 2 but not 4:
+                } else {
+                    //bottom half of areas
+                    for (int j = 0; j < guards.size() / 2; j++) {
+                        Point2D.Float corner1 = new Point2D.Float(j * Board.BOARD_WIDTH * 5, 0 * Board.BOARD_HEIGHT * 5 / 2);
+                        Point2D.Float corner2 = new Point2D.Float(j * Board.BOARD_WIDTH * 5, 1 * Board.BOARD_HEIGHT * 5 / 2);
+                        Point2D.Float corner3 = new Point2D.Float((j + 1) * Board.BOARD_WIDTH * 5, 1 * Board.BOARD_HEIGHT * 5 / 2);
+                        Point2D.Float corner4 = new Point2D.Float((j + 1) * Board.BOARD_WIDTH * 5, 0 * Board.BOARD_HEIGHT * 5 / 2);
+
+                        ArrayList<Point2D.Float> corners = new ArrayList<Point2D.Float>();
+                        corners.add(corner1);
+                        corners.add(corner2);
+                        corners.add(corner3);
+                        corners.add(corner4);
+                        areas.add(corners);
+                    }
+                    //top half of areas
+                    for (int j = 0; j < guards.size() / 2; j++) {
+                        Point2D.Float corner1 = new Point2D.Float(j * Board.BOARD_WIDTH * 5, 1 * Board.BOARD_HEIGHT * 5 / 2);
+                        Point2D.Float corner2 = new Point2D.Float(j * Board.BOARD_WIDTH * 5, 2 * Board.BOARD_HEIGHT * 5 / 2);
+                        Point2D.Float corner3 = new Point2D.Float((j + 1) * Board.BOARD_WIDTH * 5, 2 * Board.BOARD_HEIGHT * 5 / 2);
+                        Point2D.Float corner4 = new Point2D.Float((j + 1) * Board.BOARD_WIDTH * 5, 1 * Board.BOARD_HEIGHT * 5 / 2);
+
+                        ArrayList<Point2D.Float> corners = new ArrayList<Point2D.Float>();
+                        corners.add(corner1);
+                        corners.add(corner2);
+                        corners.add(corner3);
+                        corners.add(corner4);
+                        areas.add(corners);
+                    }
                 }
             }
             else{
                 for (int j = 0; j < guards.size(); j++) {
-                    Point2D.Float corner1 = new Point2D.Float(j * Board.BOARD_WIDTH * 5 / guards.size() / 2, 0 * Board.BOARD_HEIGHT * 5 / guards.size());
-                    Point2D.Float corner2 = new Point2D.Float(j * Board.BOARD_WIDTH * 5 / guards.size() / 2, 1 * Board.BOARD_HEIGHT * 5 / guards.size());
-                    Point2D.Float corner3 = new Point2D.Float((j + 1) * Board.BOARD_WIDTH * 5 / guards.size() / 2, 1 * Board.BOARD_HEIGHT * 5 / guards.size());
-                    Point2D.Float corner4 = new Point2D.Float((j + 1) * Board.BOARD_WIDTH * 5 / guards.size() / 2, 0 * Board.BOARD_HEIGHT * 5 / guards.size());
+                    Point2D.Float corner1 = new Point2D.Float(j * Board.BOARD_WIDTH * 5 / guards.size(), 0 * Board.BOARD_HEIGHT * 5);
+                    Point2D.Float corner2 = new Point2D.Float(j * Board.BOARD_WIDTH * 5 / guards.size(), 1 * Board.BOARD_HEIGHT * 5);
+                    Point2D.Float corner3 = new Point2D.Float((j + 1) * Board.BOARD_WIDTH * 5 / guards.size(), 1 * Board.BOARD_HEIGHT * 5);
+                    Point2D.Float corner4 = new Point2D.Float((j + 1) * Board.BOARD_WIDTH * 5 / guards.size(), 0 * Board.BOARD_HEIGHT * 5);
 
                     ArrayList<Point2D.Float> corners = new ArrayList<Point2D.Float>();
                     corners.add(corner1);
@@ -198,8 +229,35 @@ public class CopsCenters {
                     areas.add(corners);
                 }
             }
+
+        //find correct center for each list of cornerpoints
+
+        ArrayList<ArrayList<Point2D.Float>> orderedAreas = new ArrayList<ArrayList<Point2D.Float>>();
+
+        for(int i = 0; i < areas.size(); i++){
+                if (guardCenter[i].x > areas.get(i).get(0).x && guardCenter[i].x < areas.get(i).get(3).x
+                    && guardCenter[i].y > areas.get(i).get(0).y && guardCenter[i].y > areas.get(i).get(3).y){
+                    orderedAreas.add(areas.get(i));
+                }
         }
-        return areas;
+
+
+//      ArrayList<Integer> toRemoveIndexes = new ArrayList<Integer>();
+
+//        for(int i = 0; i < areas.size(); i++){
+//            for(int j = 0; j < areas.size(); j++) {
+//                if (guardCenter[i].x > areas.get(j).get(0).x && guardCenter[i].x < areas.get(j).get(3).x
+//                        && guardCenter[i].y > areas.get(j).get(0).y && guardCenter[i].y > areas.get(j).get(3).y) {
+//                    orderedAreas.add(areas.get(j));
+//                    toRemoveIndexes.add(j);
+//                }
+//                for(int k = 0; k < toRemoveIndexes.size(); k++)
+//                areas.remove(toRemoveIndexes.get(k));
+//            }
+//        }
+
+
+        return orderedAreas;
     }
 
     //return position in arraylist of nearest untaken center

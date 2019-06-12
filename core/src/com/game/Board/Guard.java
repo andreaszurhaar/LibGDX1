@@ -7,10 +7,12 @@ import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.Vector2;
 import com.game.AI.AI;
 //import com.game.AI.CopsCenters;
 import com.game.AI.GuardPatrolling;
 import com.game.AI.Tracking;
+import com.game.AI.TrackingLongDistance;
 import com.game.Readers.SpriteReader;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -30,6 +32,9 @@ public class Guard extends Agent {
     public SpriteReader reader = new SpriteReader();
 	private final int ALLOWED_DISTANCE_ERROR = 10;
 	private boolean reachedCentre;
+    private double timeOfLastMessage;
+    private final double INTER_MESSAGE_TIME = 5; //in seconds
+
 
 	public Guard(float x, float y, float width, float height) {
 		super(x, y, width, height);
@@ -39,6 +44,7 @@ public class Guard extends Agent {
 		soundRange = 0;
 		viewRange = 6f + width/2;
 		name = "2";
+		timeOfLastMessage = Integer.MIN_VALUE;
 		try {
 	        this.texture = reader.getImage(65,255,30,33);
             this.noticeSound = reader.getImage(135,425,20,20);
@@ -55,6 +61,7 @@ public class Guard extends Agent {
         soundRange = 0;
         viewRange = 6f;
         name = "2";
+        timeOfLastMessage = Float.MIN_VALUE;
         try {
             this.texture = reader.getImage(65,255,30,33);
             this.noticeSound = reader.getImage(135,425,20,20);
@@ -126,26 +133,35 @@ public class Guard extends Agent {
 
     @Override
 	public void see(Agent agent) {
+
 		if(!(Math.abs(rotation) > 45)) {
 			seeing = true;
+			/** Switching to tracking
+			 */
 			if (!(ai instanceof Tracking) && agent instanceof Intruder) {
 				System.out.println("saw intruder");
 				ai = new Tracking(this,agent,ai);
 			}
+			/**
+			 * Communicating the intruder's location to all other guards every X seconds
+			 */
+			if(agent instanceof Intruder) {
+                //TODO make sure the communicated location changes after each message
+                if (System.currentTimeMillis() > timeOfLastMessage + INTER_MESSAGE_TIME * 1000) {
+					timeOfLastMessage = System.currentTimeMillis();
+                    for (int i = 0; i < agentList.size(); i++) {
+                        //agentList.get(i).ai.moveToPoint(new Vector2(agent.xPos, agent.yPos));
+						Agent currentGuard = agentList.get(i);
+						currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai));
+                    }
+                }
+            }
+
 			ai.seeAgent(agent);
 		}
-	}
-    
-    /*
-    public float getX()
-	{
-		return xCenter;
-	}
 
-	public float getY()
-	{
-		return yCenter;
+
+
 	}
-	*/
 
 }

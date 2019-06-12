@@ -52,6 +52,7 @@ public class Agent extends AssetManager {
     public TextureRegion noticeSound;
 	private Point2D.Float centerLocation;
 	public AI ai;
+	protected ArrayList<Agent> agentList;
 	
 	
 	public Agent(float x, float y, float width, float height) {
@@ -207,5 +208,11 @@ public class Agent extends AssetManager {
 	public void setCollided(boolean collided) {
 		this.collided = collided;
 	}
+
+	public void setAgentList(ArrayList<Agent> agentList) {
+		this.agentList = agentList;
+	}
+
+
 	
 }
