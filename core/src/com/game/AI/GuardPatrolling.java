@@ -6,11 +6,9 @@ import com.game.Board.Area;
 import com.game.Board.Board;
 import com.game.Board.Guard;
 import com.game.Board.MapDivider;
-import com.game.States.MainState;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
-import java.awt.image.ConvolveOp;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -20,23 +18,19 @@ import java.util.Stack;
 
 public class GuardPatrolling extends AI {
 
-    private MapDivider mp;
-    private Board board;
-    private ArrayList<Agent> guards;
-    private ArrayList<Area> areas;
-    private final int ALLOWED_DISTANCE_ERROR = 10;
+
     public float areaWidth, areaHeight;
     private Point2D.Float areaCenter;
     public ArrayList<Point2D.Float> areaPoints, seenPoints;
     private Guard guard;
     private ArrayList<Area> structures;
     public boolean running = false;
-    private boolean reachedCenter;
 
+//should get an area of patrolling with (either center + height + width, or a rectangle)
     public GuardPatrolling(){
-        speed = new Stack<Float>();
-        rotation = new Stack<Float>();
-        instruction = new Instruction();
+    	speed = new Stack<Float>();
+    	rotation = new Stack<Float>();
+    	instruction = new Instruction();
     }
 
     public GuardPatrolling(Guard guard)
@@ -98,6 +92,17 @@ public class GuardPatrolling extends AI {
     public void patrol()
     {
     	System.out.println("Started Patrolling");
+        Point2D.Float currentPoint = new Point2D.Float((int)guard.xCenter,(int)guard.yCenter);
+        seenPoints.add(currentPoint);
+        System.out.println("Current point is " + currentPoint.x + ", " +currentPoint.y);
+        addSeenPoints(seenPoints);
+        //System.out.println("Printing seenPoints");
+        /*for(Point2D.Float p : seenPoints){
+            System.out.println("Point " + p);
+        }*/
+        //go to point that is close and not seen yet
+        Point2D.Float temp = findClosestPoint(currentPoint);
+        //System.out.println("Closest point: " + temp.x + "," + temp.y);
 
         if((!reachedCenter && (Math.sqrt(((guard.getX() - guard.getCenterLocation().x) * (guard.getX() - guard.getCenterLocation().x)) + ((guard.getY() - guard.getCenterLocation().y) * (guard.getY() - guard.getCenterLocation().y))) > ALLOWED_DISTANCE_ERROR))
             && !guard.isCollided())   {
@@ -141,6 +146,22 @@ public class GuardPatrolling extends AI {
             speed = instruction.getSpeeds();
         }
 
+=======
+        //System.out.println("Going from point:" +currentPoint.x + "," + currentPoint.y + " to point " + temp.x + "," + temp.y);
+        //currentPoint.x = temp.x;
+        //currentPoint.y = temp.y;
+        //System.out.println("Closest point is " + currentPoint.x + ", " +currentPoint.y);
+        //change vision cone to the direction of the closest point
+        //Vector2 point = new Vector2(temp.x-guard.xCenter, temp.y-guard.yCenter);
+        Vector2 point = new Vector2(temp.x, temp.y);
+        //Vector2 point = new Vector2(100, 100);
+        //TODO call extra class to update angle into stack
+        System.out.println("going to point: "+temp.x+" "+temp.y+"   from point: "+guard.xCenter+" "+guard.yCenter);
+        instruction.translate(point, guard);
+        rotation = instruction.getRotations();
+        speed = instruction.getSpeeds();
+        System.out.println("Patrol method is finished");
+>>>>>>> 3d4159bfab970f65dd890a14a34d93462aedd333
         //System.out.println("Stack speed size " + speed.size());
 //        for (float speed : speed){
 //            System.out.println("Speed: " + speed);
@@ -154,15 +175,17 @@ public class GuardPatrolling extends AI {
 
     public void addSeenPoints(ArrayList<Point2D.Float> seenPoints)
     {
+        ArrayList<Point2D.Float> tempPoints = new ArrayList<Point2D.Float>();
         for (Point2D.Float p : areaPoints) {
             if (Math.sqrt(p.x * p.x + p.y * p.y) < guard.viewRange) {
                 Vector2 point = new Vector2(p.x - guard.viewAngle.x, p.y - guard.viewAngle.y);
                 if (point.angle() < (0.5*guard.viewRadius)) {
                     seenPoints.add(p);
+                    tempPoints.add(p);
                 }
             }
         }
-        for (Point2D.Float p: seenPoints)
+        for (Point2D.Float p: tempPoints)
         {
             System.out.println("we remove point " + p + " from the areapoints");
             areaPoints.remove(p);
@@ -276,26 +299,26 @@ public class GuardPatrolling extends AI {
         this.guard = (Guard) agent;
     }
 
+
     public void setStructures(ArrayList<Area> structures){
         this.structures = structures;
         System.out.println("we run patrolInArea and set the currentPoint to the area of the center");
         patrolInArea();
     }
-    
+
     @Override
     public void reset() {
-        speed = new Stack<Float>();
-        rotation = new Stack<Float>();    
+
     }
-    
+
     @Override
     public void seeArea(Area area) {
-    	
+
     }
 
     @Override
     public void seeAgent(Agent agent) {
-   
+
     }
 
 

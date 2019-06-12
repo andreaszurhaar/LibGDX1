@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.AI.AI;
 import com.game.AI.Astar.Astar;
-import com.game.AI.Controller;
 import com.game.AI.CopsCenters;
 import com.game.AI.GuardCirclePatrolling;
 import com.game.AI.GuardPatrolling;
@@ -52,7 +51,7 @@ public class MainState extends State {
     public static final float Y_REDUC = MapState.Y_REDUC;
     public AI guardAI;
     public AI intruderAI;
-    public double timeLimit = 100000.00;
+    public double timeLimit = 60.00;
 
 
     public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls, AI guardAI, AI intruderAI) {
