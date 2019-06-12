@@ -30,8 +30,9 @@ public class Board {
 	private boolean updateAgentMoveToPoint;
 	private Point2D currentPoint;
 	public boolean gameOver = false;
+
 	private Random rand = new Random();
-	
+
 	public Board() {
 		intersector = new Intersector();
 		territories = new ArrayList<Area>();
