@@ -46,14 +46,14 @@ public class AStarNew extends AI {
 
     public void setTarget(float x, float y)
     {
-        System.out.println("We set a target node to " + x + "," + y);
+//        System.out.println("We set a target node to " + x + "," + y);
         target = map.setTargetNode(x,y);
     }
 
     public void setStart(float x, float y)
     {
         //System.out.println(map.setStartNode(x,y));
-        System.out.println("We set a start node to " + x + "," + y);
+//        System.out.println("We set a start node to " + x + "," + y);
         start = map.setStartNode(x,y);
     }
 
@@ -155,7 +155,7 @@ public class AStarNew extends AI {
             temp = temp.getParent();
         }
         path.add(start);
-        System.out.println("Node " + start.id+" with coords: " + temp.xcoord +","+ temp.ycoord);
+        System.out.println("start node " + start.id+" with coords: " + temp.xcoord +","+ temp.ycoord);
         counter = path.size();
     }
 

@@ -22,8 +22,8 @@ public class EdgeNew {
         nextID++;
         this.end = end;
         this.weight = weight;
-        System.out.println("start node is:" + start.id);
-        System.out.println("end node is:" + end.id);
+//        System.out.println("start node is:" + start.id);
+//        System.out.println("end node is:" + end.id);
         start.addConnection(this, end);
         end.addConnection(this,start);
     }

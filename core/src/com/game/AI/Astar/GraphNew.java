@@ -33,15 +33,15 @@ public class GraphNew {
         //System.out.println("We're creating the vertices");
         for (Rectangle2D.Float r : rectangles) {
             //We add/subtract one pixel from the coordinates of the points to allow the intersection method to find allowable paths/edges to form
-            System.out.println("For rectangle: " +r);
+//            System.out.println("For rectangle: " +r);
             nodes.add(new NodeNew(r.x-1,r.y-1,target));
-            System.out.println("adding node with coords " + r.x+","+r.y);
+//            System.out.println("adding node with coords " + r.x+","+r.y);
             nodes.add(new NodeNew(r.x-1, r.y+r.height+1,target));
-            System.out.println("adding node with coords " + r.x+","+(r.y+r.height));
+//            System.out.println("adding node with coords " + r.x+","+(r.y+r.height));
             nodes.add(new NodeNew(r.x+r.width+1, r.y+r.height+1,target));
-            System.out.println("adding node with coords " + (r.x+r.width)+","+r.y);
+//            System.out.println("adding node with coords " + (r.x+r.width)+","+r.y);
             nodes.add(new NodeNew(r.x+r.width+1, r.y-1,target));
-            System.out.println("adding node with coords " + (r.x+r.width)+","+(r.y+r.height));
+//            System.out.println("adding node with coords " + (r.x+r.width)+","+(r.y+r.height));
         }
 //        System.out.println("Target coordinates:" + target.xcoord +","+target.ycoord);
         nodes.add(new NodeNew(target.xcoord, target.ycoord));
@@ -57,7 +57,7 @@ public class GraphNew {
                     if (edgePossible(node1, node2)) {
                         //edge weight is distance between coords
                         float weight = (float) Math.sqrt(((node1.xcoord - node2.xcoord) * (node1.xcoord - node2.xcoord)) + ((node1.ycoord - node2.ycoord) * (node1.ycoord - node2.ycoord)));
-                        System.out.println("Weight is:" + weight);
+//                        System.out.println("Weight is:" + weight);
                         EdgeNew edge = new EdgeNew(node1, node2, weight);
 //                        System.out.println("Adding new edge to edge list");
                         edges.add(edge);
@@ -68,14 +68,14 @@ public class GraphNew {
     }
 
     public boolean edgePossible(NodeNew node1, NodeNew node2){
-        System.out.println("Checking if edge is possible between " + node1.xcoord +","+node1.ycoord +" and " + node2.xcoord +","+node2.ycoord );
+//        System.out.println("Checking if edge is possible between " + node1.xcoord +","+node1.ycoord +" and " + node2.xcoord +","+node2.ycoord );
         Line2D.Float line2D = new Line2D.Float(new Point2D.Float(node1.xcoord, node1.ycoord), new Point2D.Float(node2.xcoord, node2.ycoord));
 //        System.out.println("Our line: "+line2D.x1 +"," + line2D.y1 + " and " +line2D.x2 +"," + line2D.y2);
         //TODO: if vector intersects with area, we cannot create the edge
         for (Rectangle2D.Float r : rectangles){
-            System.out.println("Rectangle is:" + r);
+//            System.out.println("Rectangle is:" + r);
             if(line2D.intersects(r)){
-                System.out.println("we intersect");
+//                System.out.println("we intersect");
                 return false;
             }
         }
