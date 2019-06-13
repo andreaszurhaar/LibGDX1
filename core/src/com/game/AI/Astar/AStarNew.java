@@ -4,6 +4,8 @@ package com.game.AI.Astar;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AI.AI;
+import com.game.AI.ChainInstruction;
+import com.game.AI.Instruction;
 import com.game.Board.Agent;
 import com.game.Board.Area;
 
@@ -28,8 +30,12 @@ public class AStarNew extends AI {
     private ArrayList<NodeNew> path;
     private int counter;
     private Agent intruder;
+    private ChainInstruction instruction;
 
     public AStarNew(ArrayList<Rectangle2D.Float> rectangles, float startx, float starty, float targetx, float targety) {
+    	speed = new Stack<Float>();
+        rotation = new Stack<Float>();
+        instruction = new ChainInstruction();
         this.rectangles = rectangles;
         target = new NodeNew(targetx, targety);
         start = new NodeNew(startx, starty);
@@ -141,17 +147,22 @@ public class AStarNew extends AI {
 
     @Override
     public float getRotation() {
-        return 0;
+    	if(rotation.isEmpty()) {
+    		return 0;
+    	}
+    	return rotation.pop();
     }
 
     @Override
     public float getSpeed() {
-        return 0;
-    }
+    	if(speed.isEmpty()) {
+    		return 0;
+    	}
+    	return speed.pop();    }
 
     @Override
     public void setAgent(Agent agent) {
-
+    	intruder = agent;
     }
 
     @Override
