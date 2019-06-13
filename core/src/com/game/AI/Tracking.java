@@ -26,8 +26,10 @@ public class Tracking extends AI {
     private AI previousAI;
     private int trackcounter;
     private ArrayList<Vector2> previousPos;
-    private boolean predictive = false;
+    private boolean predictive = true;
     private Instruction instruct = new Instruction();
+    private int recalcInterval;
+    private int intervalLimit = 60;
 
     public Tracking(Guard guard, Agent opponent,AI storeAI)
     {
@@ -38,24 +40,27 @@ public class Tracking extends AI {
     	previousPos = new ArrayList<Vector2>();
         trackIntruder();
         trackcounter = 0;
+        recalcInterval = 0;
     }
 
     public void trackIntruder()
     {
     	boolean following = false;
-    	if(!speeds.isEmpty() && !rotations.isEmpty()) {
+    	if(!speeds.isEmpty() && !rotations.isEmpty() && recalcInterval < intervalLimit) {
     		//System.out.println("popping instrcutions");
+    		recalcInterval++;
     		speed = speeds.pop()*Board.fps;
     		rotation = rotations.pop()*Board.fps;
     		following = true;
     	}
     	//System.out.print("retracking with enemy at: "+enemyx+"   "+enemyy);
     	Vector2 toEnemy = new Vector2(enemyx,enemyy);
-    	if(!previousPos.isEmpty() && previousPos.get(previousPos.size()-1).dst(toEnemy) < 0.001) {
+    	if(!previousPos.isEmpty() && previousPos.get(previousPos.size()-1).dst(toEnemy) < 0.00001) {
     		return;
     	}
     	previousPos.add(toEnemy);
     	if (!following) {
+    		System.out.println("not following");
 	    	Vector2 toTarget = computeInterception(previousPos);
 	        angle = toTarget.angle(guard.viewAngle);
 	        showvect = toTarget;
@@ -119,11 +124,11 @@ public class Tracking extends AI {
     	
     	//System.out.println("going to point: "+currPoint.x+"  "+currPoint.y+"   by count of: "+instCount);
     	//System.exit(0);
-    	instruct.translate(currPoint,guard);
+    	instruct.translate(currPoint,guard, true);
     	speeds = instruct.getSpeeds();
     	rotations = instruct.getRotations();
     	for(int i=0; i<prevPos.size() ;i++) {
-    		//System.out.println("the positions of i: "+i+"  and xy: "+prevPos.get(i).x+"  "+prevPos.get(i).y);
+    		System.out.println("the positions of i: "+i+"  and xy: "+prevPos.get(i).x+"  "+prevPos.get(i).y);
     	}
     	//System.exit(0);
     	/*
@@ -161,7 +166,7 @@ public class Tracking extends AI {
     	if(trackcounter > 60) {
     		previousAI.reset();
     		guard.setAI(previousAI);
-    		return guard.ai.getSpeed();
+    		return 0;
     	}
     	trackIntruder();
         return (float) speed/Board.fps;
@@ -194,8 +199,8 @@ public class Tracking extends AI {
     @Override
     public void seeAgent(Agent agent) {
     	//System.out.println("saw agent with counter: "+trackcounter);
-    	trackcounter = 3;
     	if(agent instanceof Intruder) {
+        	trackcounter = 3;
 	    	enemyx = agent.xCenter;
 	    	enemyy = agent.yCenter;
     	}

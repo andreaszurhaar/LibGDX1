@@ -24,7 +24,7 @@ public class Instruction {
 		speeds = new Stack();
 	}
 	
-	public void translate(Vector2 destination, Agent agent) {
+	public void translate(Vector2 destination, Agent agent, boolean exploring) {
 		
 		//find the length to traverse and how much to turn
 		System.out.println("Our destination: "+ destination.x +","+destination.y );
@@ -44,6 +44,9 @@ public class Instruction {
 		
 		//find the number of times to turn at maximum and the leftover small turn
 		float maxTurn = agent.turningCircle/Board.fps;
+		if(exploring) {
+			maxTurn = 45/Board.fps;
+		}
 		float ufTurn = turnAngle/maxTurn;
 		int turncount = (int) ufTurn;
 		float leftoverTurn = turnAngle - ((float) turncount * maxTurn);

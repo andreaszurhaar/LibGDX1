@@ -40,7 +40,7 @@ public class TrackingLongDistance extends AI{
     }
 
     public void trackIntruder(){
-        instruction.translate(opponentLocation, guard);
+        instruction.translate(opponentLocation, guard, false);
         rotation = instruction.getRotations();
         speed = instruction.getSpeeds();
     }

@@ -97,7 +97,7 @@ public class GuardCirclePatrolling extends AI {
     public void patrol()
     {
         if(destIndex == destPoints.size()) destIndex = 0;
-        instruction.translate(destPoints.get(destIndex), guard);
+        instruction.translate(destPoints.get(destIndex), guard, false);
         destIndex++;
         rotation = instruction.getRotations();
         speed = instruction.getSpeeds();

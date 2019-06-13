@@ -221,7 +221,7 @@ public class Astar extends AI {
 
     public void getNextPoint(){
         Vector2 nextPoint = new Vector2(path.get(counter).xcoord, path.get(counter).ycoord);
-        instruction.translate(nextPoint, intruder);
+        instruction.translate(nextPoint, intruder, false);
         counter--;
         rotation = instruction.getRotations();
         speed = instruction.getSpeeds();
