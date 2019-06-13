@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.AI.AI;
+import com.game.AI.Astar.AStarNew;
 import com.game.AI.Astar.Astar;
 import com.game.AI.CopsCenters;
 import com.game.AI.GuardCirclePatrolling;
@@ -105,20 +106,17 @@ public class MainState extends State {
             	}
             } else {
             	if(intruderAI == "A*") {
-	                AI agentAi = new Astar();
-	                this.agents.get(i).setAI(agentAi);
-	                this.agents.get(i).ai.setArea(400,200);
-	                this.agents.get(i).ai.setStructures(structures);
+	                AI agentAI = new AStarNew(structures);
+	                agentAI.setAgent(this.agents.get(i));
+	                this.agents.get(i).setAI(agentAI);
             	} else if(intruderAI == "A*") {
-	                AI agentAi = new Astar();
-	                this.agents.get(i).setAI(agentAi);
-	                this.agents.get(i).ai.setArea(400,200);
-	                this.agents.get(i).ai.setStructures(structures);
+	                AI agentAI = new AStarNew(structures);
+	                this.agents.get(i).setAI(agentAI);
+	                agentAI.setAgent(this.agents.get(i));
             	} else if(intruderAI == "A*") {
-	                AI agentAi = new Astar();
-	                this.agents.get(i).setAI(agentAi);
-	                this.agents.get(i).ai.setArea(400,200);
-	                this.agents.get(i).ai.setStructures(structures);
+	                AI agentAI = new AStarNew(structures);
+	                this.agents.get(i).setAI(agentAI);
+	                agentAI.setAgent(this.agents.get(i));
             	} else {
             		System.out.println("Unrecognised AI name: "+intruderAI);
             		System.exit(0);

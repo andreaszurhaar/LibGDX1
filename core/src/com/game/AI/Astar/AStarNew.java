@@ -29,6 +29,7 @@ public class AStarNew extends AI {
     private ArrayList<Rectangle2D.Float> rectangles;
     private ArrayList<Vector2> pathReg;
     private ArrayList<NodeNew> path;
+    private ArrayList<Area> structures;
     private int counter;
     private Agent intruder;
     private ChainInstruction instruction;
@@ -45,6 +46,14 @@ public class AStarNew extends AI {
         //Take random target coordinates
         setTarget(targetx, targety);
         start();
+    }
+
+    public AStarNew(ArrayList<Area> structures) {
+    	speed = new Stack<Float>();
+        rotation = new Stack<Float>();
+        instruction = new ChainInstruction();
+        this.structures = structures;
+        rectangles = new ArrayList<Rectangle2D.Float>();
     }
 
     public void createInitialGraph(ArrayList areas) {
@@ -167,6 +176,9 @@ public class AStarNew extends AI {
             System.out.println("i is: " + i);
             pathReg.add(new Vector2(pathInv.get(i).xcoord, pathInv.get(i).ycoord));
         }
+        instruction.translate(pathReg, intruder);
+        rotation = instruction.getRotations();
+        speed = instruction.getSpeeds();
         System.out.println("Path we take is: ");
         for (Vector2 v:pathReg) {
             System.out.println("Coords: " + v.x + "," + v.y);
@@ -191,6 +203,16 @@ public class AStarNew extends AI {
     @Override
     public void setAgent(Agent agent) {
     	intruder = agent;
+    	for(int i=0; i<structures.size(); i++) {
+        	rectangles.add(new Rectangle2D.Float(structures.get(i).xPos-agent.area.width/2,structures.get(i).yPos-agent.area.height/2
+        			,structures.get(i).area.width+agent.area.width,structures.get(i).area.height+agent.area.height));
+        }
+    	target = new NodeNew(agent.xCenter+10, agent.yCenter+10);
+        start = new NodeNew(agent.xCenter, agent.yCenter);
+        createInitialGraph(rectangles);
+        setStart(agent.xCenter, agent.yCenter);
+        setTarget(agent.xCenter+10, agent.yCenter+10);
+        start();
     }
 
     @Override
