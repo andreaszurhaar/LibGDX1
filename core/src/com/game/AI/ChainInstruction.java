@@ -77,7 +77,7 @@ public class ChainInstruction {
 		for(int i=rotationlist.size()-1; i>=0; i--) {
 			int len = rotationlist.get(i).size();
 			for(int k=0; k<len; k++) {
-				System.out.println("pushing element: "+k+"   with rot: "+rotationlist.get(i).peek()+"  speed: "+speedlist.get(i).peek());
+				//System.out.println("pushing element: "+k+"   with rot: "+rotationlist.get(i).peek()+"  speed: "+speedlist.get(i).peek());
 				rotations.push(rotationlist.get(i).pop());
 				speeds.push(speedlist.get(i).pop());
 			}

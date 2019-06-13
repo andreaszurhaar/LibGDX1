@@ -96,12 +96,11 @@ public class MainState extends State {
 	                this.agents.get(i).ai.setStructures(structures);
 	                guards.add(this.agents.get(i));
             	} else if(guardAI == "Bot3") {
-	                AI agentAI = new GuardCirclePatrolling();
+	                AI agentAI = new AStarNew(structures);
 	                this.agents.get(i).setAI(agentAI);
 	                agentAI.setAgent(this.agents.get(i));
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
-	                guards.add(this.agents.get(i));
             	} else {
             		System.out.println("Unrecognised AI name: "+guardAI);
             		System.exit(0);
@@ -145,7 +144,7 @@ public class MainState extends State {
         if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}
         //guardPatrol = new GuardPatrolling(board)
         //Controller controller = new Controller(board);
-        CopsCenters copsCenters = new CopsCenters(guards);
+        /*CopsCenters copsCenters = new CopsCenters(guards);
 
         Point2D.Float[] guardCenters = copsCenters.getCenters();
         ArrayList<ArrayList<Point2D.Float>> areas = copsCenters.getAreas(guardCenters);
@@ -158,6 +157,7 @@ public class MainState extends State {
             }
             //TODO clean up AI-specific things like this from main state
         }
+        */
 
 //        int guardCounter = 0;
 //        for(int i = 0; i < this.agents.size(); i++){
