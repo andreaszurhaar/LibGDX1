@@ -65,19 +65,7 @@ public class Intruder extends Agent {
 		if(Math.random() < 0.3) {rotation = -rotation;}
 		if(Math.random() < 0.001) {triggerSprint();}
 		*/
-		if(ai instanceof AStarNew) {
-			speed = ai.getSpeed();
-			rotation = ai.getRotation();
-			if(speed == 0 && rotation == 0) {
-				AStarNew aiConv = (AStarNew) ai;
-				if(xCenter < 200) {
-					aiConv.runAgain(this.xCenter,this.yCenter,300,100);
-				} else {
-					aiConv.runAgain(this.xCenter,this.yCenter,100,100);
-				}
-			}
-			
-		}
+
 		if(sprintCount != 0) {
 			speed = 3f;
 			sprintCount--;

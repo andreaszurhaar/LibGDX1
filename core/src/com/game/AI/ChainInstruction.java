@@ -40,7 +40,7 @@ public class ChainInstruction {
 			//System.out.println("TIME1: "+System.nanoTime());
 			//System.out.println("checkpoint 1");
 			
-//			System.out.println("going from: "+destinations.get(i)+" to: "+destinations.get(i+1)+"   starting by looking at: "+startAngle);
+			System.out.println("going from: "+destinations.get(i)+" to: "+destinations.get(i+1)+"   starting by looking at: "+startAngle);
 			instructor.translate(destinations.get(i+1), destinations.get(i), startAngle, turningCircle, maxSpeed);
 			//System.out.println("checkpoint 2");
 
@@ -77,14 +77,14 @@ public class ChainInstruction {
 		for(int i=rotationlist.size()-1; i>=0; i--) {
 			int len = rotationlist.get(i).size();
 			for(int k=0; k<len; k++) {
-//				System.out.println("pushing element: "+k+"   with rot: "+rotationlist.get(i).peek()+"  speed: "+speedlist.get(i).peek());
+				//System.out.println("pushing element: "+k+"   with rot: "+rotationlist.get(i).peek()+"  speed: "+speedlist.get(i).peek());
 				rotations.push(rotationlist.get(i).pop());
 				speeds.push(speedlist.get(i).pop());
 			}
 		}
 
 		
-//		System.out.println("reached the end of translate with stacks size of: "+rotations.size()+"   "+speeds.size());
+		System.out.println("reached the end of translate with stacks size of: "+rotations.size()+"   "+speeds.size());
 		
 	}
 	

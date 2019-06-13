@@ -45,7 +45,7 @@ public class Instruction {
 		//find the number of times to turn at maximum and the leftover small turn
 		float maxTurn = agent.turningCircle/Board.fps;
 		if(exploring) {
-			maxTurn = 45/Board.fps;
+			maxTurn = (float) 45.0/Board.fps;
 		}
 		float ufTurn = turnAngle/maxTurn;
 		int turncount = (int) ufTurn;
@@ -90,16 +90,17 @@ public class Instruction {
 	
 	public void translate(Vector2 destination, Vector2 start, float angle, float turningCircle, float maxSpeed) {
 		
-		while(angle < -180 || angle > 180) {
-			if(angle < -180) {angle = angle+360;}
-			if(angle > 180) {angle = angle-360;}
-			
-		}
-		
+
 		//find the length to traverse and how much to turn
 		Vector2 positions = new Vector2((destination.x-start.x),(destination.y-start.y));
 		float pathLength = positions.len();
 		float turnAngle = positions.angle()-angle;
+		while(turnAngle < -180 || turnAngle > 180) {
+			if(turnAngle < -180) {turnAngle = turnAngle+360;}
+			if(turnAngle > 180) {turnAngle = turnAngle-360;}
+			
+		}
+		
 		System.out.println("TURNING FOR: "+turnAngle+"  AND MOVING FOR: "+pathLength);
 		
 		//prepare to invert turning if the shortest angle is negative

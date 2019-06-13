@@ -14,6 +14,7 @@ import com.game.AI.GuardPatrolling;
 import com.game.AI.InvestigateSound;
 import com.game.AI.Tracking;
 import com.game.AI.TrackingLongDistance;
+import com.game.AI.Astar.AStarNew;
 import com.game.Readers.SpriteReader;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -95,9 +96,20 @@ public class Guard extends Agent {
 		}
 
 		//this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
-		this.speed = 1.4f;
+		this.speed = ai.getSpeed()*Board.fps;
 		this.rotation = ai.getRotation()*Board.fps;
 		//System.out.println("to: "+speed+"  "+angle);
+		if(ai instanceof AStarNew) {
+			if(speed == 0 && rotation == 0) {
+				AStarNew aiConv = (AStarNew) ai;
+				if(xCenter < 200) {
+					aiConv.runAgain(this.xCenter,this.yCenter,150,100);
+				} else {
+					aiConv.runAgain(this.xCenter,this.yCenter,100,100);
+				}
+			}
+			
+		}
 	}
 
 	@Override
