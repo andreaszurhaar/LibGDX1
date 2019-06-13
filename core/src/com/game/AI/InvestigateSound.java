@@ -18,7 +18,7 @@ public class InvestigateSound extends AI{
     private AI previousAI;
     private float directionAngle;
     private Instruction instruction;
-    private final double INVESTIGATING_SOUND_TIME = 7.14; //should be at most 10/1.4 = 7.14 because a sound can be heard at most 10 meters away, and guards move at 1.4m/s
+    private final double INVESTIGATING_SOUND_TIME = 7.14; //in seconds, should be at most 10/1.4 = 7.14 because a sound can be heard at most 10 meters away, and guards move at 1.4m/s
 
     public InvestigateSound(Guard guard, float directionAngle, AI storeAI) {
         this.guard = guard;
@@ -34,7 +34,6 @@ public class InvestigateSound extends AI{
         /**
          * We create a destination point for the instruction class based on: the max speed of the agent, the directionAngle and the amount of time we want to move towards the sound before going back to patrolling
          */
-        //TODO fix creation of destPoint, right now it seems like the agent hears the SoundOccurence it creates itself and that locations is being used to create destPoint
         Vector2 destPoint = new Vector2((float) (guard.xPos + INVESTIGATING_SOUND_TIME * guard.getSpeed() * Math.cos(Math.toRadians(directionAngle))), (float) (guard.yPos + INVESTIGATING_SOUND_TIME * guard.getSpeed() * Math.sin(Math.toRadians(directionAngle))));
 
         instruction.translate(destPoint, guard);

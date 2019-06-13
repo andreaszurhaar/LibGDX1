@@ -6,6 +6,7 @@ package com.game.Board;
 import java.io.IOException;
 
 import com.game.AI.AI;
+import com.game.AI.Escape;
 import com.game.Readers.SpriteReader;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -23,7 +24,6 @@ public class Intruder extends Agent {
     SpriteReader reader = new SpriteReader();
     public int sprintCount = 0;
 	public int restCount = 0;
-	private AI ai;
 
 	public Intruder(float x, float y, float width, float height) {
 		super(x, y, width, height);
@@ -57,18 +57,18 @@ public class Intruder extends Agent {
 	}
 	
 	public void triggerStep() {
-		this.speed = 1.4f;//(float) Math.random()*1.4f;
-		rotation = (float) Math.random()*turningCircle/4;
-		if(Math.random() < 0.3) {rotation = -rotation;}
-		if(Math.random() < 0.001) {triggerSprint();}
-		if(sprintCount != 0) {
-			speed = 3f;
-			sprintCount--;
-			
-			if(rotation > 10) {rotation = 10;} 
-			else if(rotation < -10) {rotation = -10;}
-			
-		} else if(restCount != 0) {restCount--;}
+//		this.speed = 1.4f;//(float) Math.random()*1.4f;
+//		rotation = (float) Math.random()*turningCircle/4;
+//		if(Math.random() < 0.3) {rotation = -rotation ;}
+//		if(Math.random() < 0.001) {triggerSprint();}
+//		if(sprintCount != 0) {
+//			speed = 3f;
+//			sprintCount--;
+//
+//			if(rotation > 10) {rotation = 10;}
+//			else if(rotation < -10) {rotation = -10;}
+//
+//		} else if(restCount != 0) {restCount--;}
 		
 		if(speed < 0.5) {
 			soundRange = 1;
@@ -79,6 +79,8 @@ public class Intruder extends Agent {
 		} else {
 			soundRange = 10;
 		}
+		this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
+		this.rotation = ai.getRotation()*Board.fps;
 	}
 	
 	@Override
@@ -96,4 +98,15 @@ public class Intruder extends Agent {
 		super.drawTexture(sb, xReduc, yReduc);
 	}
 
+	@Override
+	public void see(Agent agent) {
+
+		if (!(Math.abs(rotation) > 45)) {
+			//TODO "if you turn more than 45 degrees/second you don't see anything for the turning time --plus half a second--"
+			seeing = true;
+			if (!(ai instanceof Escape) && agent instanceof Guard) {
+				ai = new Escape(this, agent, ai);
+			}
+		}
+	}
 }

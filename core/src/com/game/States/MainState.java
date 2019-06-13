@@ -9,9 +9,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.AI.AI;
 import com.game.AI.Astar.Astar;
+import com.game.AI.IntruderBasicMovement;
 import com.game.AI.CopsCenters;
 import com.game.AI.GuardCirclePatrolling;
 import com.game.AI.GuardPatrolling;
+import com.game.AI.IntruderBasicMovement;
 import com.game.Board.Guard;
 import com.game.CopsAndRobbers;
 import com.game.Board.Agent;
@@ -93,8 +95,9 @@ public class MainState extends State {
                 guards.add(this.agents.get(i));
             }
             else{
-                AI agentAi = new Astar();
-                this.agents.get(i).setAI(agentAi);
+                //AI agentAi = new Astar();
+                AI agentAI = new IntruderBasicMovement();
+                this.agents.get(i).setAI(agentAI);
                 //System.out.println("Intruders's ai is:" + agentAi);
                 //agentAi.setAgent(agents.get(i));
                 //System.out.println("Intruders's ai is:" + this.agents.get(i).ai);
