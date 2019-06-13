@@ -17,8 +17,8 @@ public class SoundOccurence {
 
     public SoundOccurence(long time, float xPos, float yPos, int range) {
         this.time = time;
-        this.xpos = xpos;
-        this.ypos = ypos;
+        this.xpos = xPos;
+        this.ypos = yPos;
         this.soundRange = range;
     }
 

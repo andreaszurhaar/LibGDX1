@@ -261,7 +261,8 @@ public class Board {
 					float ypos = (float) ((j* BOARD_HEIGHT/5)+Math.random()*5);
 					SoundOccurence s = new SoundOccurence(System.currentTimeMillis(), xpos, ypos, RANDOM_NOISE_SOUND_RANGE);
 					//System.out.println("Sound generated in square " + i + " " +  j + " in cell " + k);
-					checkIfAgentHears(s);
+					//TODO uncomment for randomly generated sounds
+					//checkIfAgentHears(s);
 				}
 			}
 		}
