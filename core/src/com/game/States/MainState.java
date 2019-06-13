@@ -144,7 +144,7 @@ public class MainState extends State {
         if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}
         //guardPatrol = new GuardPatrolling(board)
         //Controller controller = new Controller(board);
-        /*CopsCenters copsCenters = new CopsCenters(guards);
+        CopsCenters copsCenters = new CopsCenters(guards);
 
         Point2D.Float[] guardCenters = copsCenters.getCenters();
         ArrayList<ArrayList<Point2D.Float>> areas = copsCenters.getAreas(guardCenters);
@@ -157,7 +157,7 @@ public class MainState extends State {
             }
             //TODO clean up AI-specific things like this from main state
         }
-        */
+        
 
 //        int guardCounter = 0;
 //        for(int i = 0; i < this.agents.size(); i++){
