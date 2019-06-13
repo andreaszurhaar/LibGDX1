@@ -180,7 +180,6 @@ public class Board {
 								|| intersectVectAndRect(new Vector2(vec.x-rightVec.x,vec.y-rightVec.y),agents.get(i).area,pos.x,pos.y)) {
 							agents.get(a).see(agents.get(i));
 							//check if seeing agent is guard and if seen agent is intruder, if so, and distance < 0.5m
-							//then remove intruder from map
 							if((agents.get(a) instanceof Guard) && (agents.get(i) instanceof Intruder)){
 								//getArea(): rectangle objects of the agents
 								System.out.println("DISTANCE OF: "+computeDist(agents.get(a).area,agents.get(i).area));
@@ -269,46 +268,69 @@ public class Board {
 		//check for agents hearing agents
 		for(int i=0; i<agents.size(); i++) {
 			//creating SoundOccurences with different ranges, depending on the current speed of the agent
-			SoundOccurence s;
-			if(agents.get(i).getSpeed() < 0.5 && agentNearby(agents.get(i))){
-				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 1);
-			}
-			else if(agents.get(i).getSpeed() > 0.5 && agents.get(i).getSpeed() <1.0){
-				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 3);
-			}
-			else if(agents.get(i).getSpeed() > 1.0 && agents.get(i).getSpeed() <2.0){
-				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 5);
-			}
-			else{
-				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 10);
-			}
+			SoundOccurence s = createHearableSound(agents.get(i));
+//			if(agents.get(i).getSpeed() < 0.5 && agentNearby(agents.get(i))){
+//				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 1);
+//			}
+//			else if(agents.get(i).getSpeed() > 0.5 && agents.get(i).getSpeed() <1.0){
+//				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 3);
+//			}
+//			else if(agents.get(i).getSpeed() > 1.0 && agents.get(i).getSpeed() <2.0){
+//				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 5);
+//			}
+//			else{
+//				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 10);
+//			}
+            if(s != null){
+                agents.get(i).hearSound(estimateDirection(s,agents.get(i).xCenter,agents.get(i).yCenter));
+            }
 
-			for(int j=0; j<agents.size(); j++) {
-				if(i!=j) {
-					Agent a = agents.get(j);
-					//check if distance between sound and agent is within the sound range
-					if (distPointToRect(s.xpos,s.ypos,a.area).len() < s.soundRange) {
-						a.hearSound(estimateDirection(s,a.xCenter,a.yCenter));
-						//System.out.println("heard sound between: "+i+"  and "+j+"   "+Math.random());
-					}
-				}
-			}
+//			for(int j=0; j<agents.size(); j++) {
+//				if(i!=j) {
+//					Agent a = agents.get(j);
+//					//check if distance between sound and agent is within the sound range
+//					if (distPointToRect(s.xpos,s.ypos,a.area).len() < s.soundRange) {
+//						a.hearSound(estimateDirection(s,a.xCenter,a.yCenter));
+//						//System.out.println("heard sound between: "+i+"  and "+j+"   "+Math.random());
+//					}
+//				}
+//			}
 		}
 	}
 
-	public boolean agentNearby(Agent agent){
+	public SoundOccurence createHearableSound(Agent observingAgent){
 		for (int i = 0; i< agents.size(); i++)
 		{
-			if (distPointToRect(agents.get(i).xPos, agents.get(i).yPos, agent.area).len() < 10 && agents.get(i).speed > 2){
-				return true;
-			}
-			else if (distPointToRect(agents.get(i).xPos, agents.get(i).yPos, agent.area).len() < 5 && agents.get(i).speed > 1 && agents.get(i).speed < 2)
-			{
-				return true;
-			}
+		    if(observingAgent != agents.get(i)) {
+		        SoundOccurence s;
+                if (computeDist(observingAgent.area, agents.get(i).area) < 1 && agents.get(i).getSpeed() < 0.5){
+                    s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 1);
+                    return s;
+                }
+                if (computeDist(observingAgent.area, agents.get(i).area) < 3 && agents.get(i).getSpeed() > 0.5 && agents.get(i).getSpeed() <1.0){
+                    s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 3);
+                    return s;
+                }
+                if (computeDist(observingAgent.area, agents.get(i).area) < 5 && agents.get(i).getSpeed() > 1.0 && agents.get(i).getSpeed() <2.0){
+                    s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 5);
+                    return s;
+                }
+                if (computeDist(observingAgent.area, agents.get(i).area) < 10 && agents.get(i).getSpeed() > 2){
+                    s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 10);
+                    return s;
+                }
 
+
+//			if (distPointToRect(agents.get(i).xPos, agents.get(i).yPos, agent.area).len() < 10 && agents.get(i).speed > 2){
+//				return true;
+//			}
+//			else if (distPointToRect(agents.get(i).xPos, agents.get(i).yPos, agent.area).len() < 5 && agents.get(i).speed > 1 && agents.get(i).speed < 2)
+//			{
+//				return true;
+//			}
+            }
 		}
-		return false;
+		return null;
 	}
 
 	public void checkIfAgentHears(SoundOccurence s) {
