@@ -108,18 +108,21 @@ public class MainState extends State {
             	}
             } else {
             	if(intruderAI == "Basic") {
-	                AI agentAi = new IntruderBasicMovement();
-	                this.agents.get(i).setAI(agentAi);
+	                AI agentAI = new IntruderBasicMovement();
+	                this.agents.get(i).setAI(agentAI);
+	                agentAI.setAgent(this.agents.get(i));
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
             	} else if(intruderAI == "A*") {
-	                AI agentAi = new AStarNew(structures);
-	                this.agents.get(i).setAI(agentAi);
+	                AI agentAI = new AStarNew(structures);
+	                this.agents.get(i).setAI(agentAI);
+	                agentAI.setAgent(this.agents.get(i));
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
             	} else if(intruderAI == "A*") {
-	                AI agentAi = new AStarNew(structures);
-	                this.agents.get(i).setAI(agentAi);
+	                AI agentAI = new AStarNew(structures);
+	                this.agents.get(i).setAI(agentAI);
+	                agentAI.setAgent(this.agents.get(i));
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
             	} else {

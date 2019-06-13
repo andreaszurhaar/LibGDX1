@@ -71,7 +71,7 @@ public class Intruder extends Agent {
 			if(speed == 0 && rotation == 0) {
 				AStarNew aiConv = (AStarNew) ai;
 				if(xCenter < 200) {
-					aiConv.runAgain(this.xCenter,this.yCenter,100,300);
+					aiConv.runAgain(this.xCenter,this.yCenter,300,100);
 				} else {
 					aiConv.runAgain(this.xCenter,this.yCenter,100,100);
 				}
