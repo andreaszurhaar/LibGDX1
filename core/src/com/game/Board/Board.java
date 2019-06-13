@@ -7,6 +7,8 @@ import java.awt.geom.Point2D;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
+
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.game.States.MainState;
@@ -30,6 +32,7 @@ public class Board {
 	private boolean updateAgentMoveToPoint;
 	private Point2D currentPoint;
 	public boolean gameOver = false;
+	private final int RANDOM_NOISE_SOUND_RANGE = 5;
 
 	private Random rand = new Random();
 
@@ -253,19 +256,33 @@ public class Board {
 			for (int j = 0; j < positionTracker[0].length; j++) {
 				Random rand = new Random();
 				if (rand.nextDouble() < 0.1/(fps*60)) {
-					//are we using xpos and ypos or positiontracker to store coordinates?
 					//SoundOccurence s = new SoundOccurence(System.currentTimeMillis(), positionTracker[i][j], k);
 					float xpos = (float) ((i* BOARD_WIDTH/5)+Math.random()*5);
 					float ypos = (float) ((j* BOARD_HEIGHT/5)+Math.random()*5);
-					SoundOccurence s = new SoundOccurence(System.currentTimeMillis(), xpos, ypos);
+					SoundOccurence s = new SoundOccurence(System.currentTimeMillis(), xpos, ypos, RANDOM_NOISE_SOUND_RANGE);
 					//System.out.println("Sound generated in square " + i + " " +  j + " in cell " + k);
-					checkIfAgentHears(s);
+					//TODO uncomment for randomly generated sounds
+					//checkIfAgentHears(s);
 				}
 			}
 		}
 		//check for agents hearing agents
 		for(int i=0; i<agents.size(); i++) {
-			SoundOccurence s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter);
+			//creating SoundOccurences with different ranges, depending on the current speed of the agent
+			SoundOccurence s;
+			if(agents.get(i).getSpeed() < 0.5){
+				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 1);
+			}
+			else if(agents.get(i).getSpeed() > 0.5 && agents.get(i).getSpeed() <1.0){
+				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 3);
+			}
+			else if(agents.get(i).getSpeed() > 1.0 && agents.get(i).getSpeed() <2.0){
+				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 5);
+			}
+			else{
+				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 10);
+			}
+
 			for(int j=0; j<agents.size(); j++) {
 				if(i!=j) {
 					Agent a = agents.get(j);
@@ -289,15 +306,9 @@ public class Board {
 	}
 
 	public float estimateDirection(SoundOccurence s, float xPos, float yPos) {
-		//TODO this is where we would approximate the direction using
-		//a normal distributed uncertainty with a standard deviation of 10
-		//currently the direction is found perfectly
 		Vector2 vector = new Vector2(s.xpos-xPos,s.ypos-yPos);
-		//System.out.println("sound really at: "+vector.angle());
 		float res = vector.angle()+(float) rand.nextGaussian()*10;
-		//System.out.println("but actually heard at: "+res);
 		return res;
-		
 	}
 
 	public void checkIfAgentSees(){

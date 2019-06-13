@@ -109,7 +109,8 @@ public class Tracking extends AI {
     		currTurn = currTurn+deltaTurn;
     		currDist = currDist+deltaDist;
     		currAngle = currAngle+currTurn;
-    		
+
+    		//TODO shouldn't this angle be in radians instead of degrees?
     		float newx = currPoint.x+(float) Math.cos((double) currAngle)*currDist;
     		float newy = currPoint.y+(float) Math.sin((double) currAngle)*currDist;
     		

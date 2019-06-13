@@ -234,28 +234,14 @@ public class CopsCenters {
 
         ArrayList<ArrayList<Point2D.Float>> orderedAreas = new ArrayList<ArrayList<Point2D.Float>>();
 
-        for(int i = 0; i < areas.size(); i++){
-                if (guardCenter[i].x > areas.get(i).get(0).x && guardCenter[i].x < areas.get(i).get(3).x
-                    && guardCenter[i].y > areas.get(i).get(0).y && guardCenter[i].y > areas.get(i).get(3).y){
-                    orderedAreas.add(areas.get(i));
+        for(int i = 0; i < guardCenter.length; i++){
+            for(int j = 0; j < areas.size(); j++){
+                    if (guardCenter[i].x > areas.get(j).get(0).x && guardCenter[i].x < areas.get(j).get(2).x
+                        && guardCenter[i].y > areas.get(j).get(0).y && guardCenter[i].y < areas.get(j).get(2).y) {
+                        orderedAreas.add(areas.get(j));
+                    }
                 }
         }
-
-
-//      ArrayList<Integer> toRemoveIndexes = new ArrayList<Integer>();
-
-//        for(int i = 0; i < areas.size(); i++){
-//            for(int j = 0; j < areas.size(); j++) {
-//                if (guardCenter[i].x > areas.get(j).get(0).x && guardCenter[i].x < areas.get(j).get(3).x
-//                        && guardCenter[i].y > areas.get(j).get(0).y && guardCenter[i].y > areas.get(j).get(3).y) {
-//                    orderedAreas.add(areas.get(j));
-//                    toRemoveIndexes.add(j);
-//                }
-//                for(int k = 0; k < toRemoveIndexes.size(); k++)
-//                areas.remove(toRemoveIndexes.get(k));
-//            }
-//        }
-
 
         return orderedAreas;
     }

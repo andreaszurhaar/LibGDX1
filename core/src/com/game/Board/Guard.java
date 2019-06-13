@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.AI.AI;
 //import com.game.AI.CopsCenters;
 import com.game.AI.GuardPatrolling;
+import com.game.AI.InvestigateSound;
 import com.game.AI.Tracking;
 import com.game.AI.TrackingLongDistance;
 import com.game.Readers.SpriteReader;
@@ -157,12 +158,22 @@ public class Guard extends Agent {
                     }
                 }
             }
-
 			ai.seeAgent(agent);
 		}
+	}
 
-
-
+	@Override
+	/**
+	 * When a guard hears a sound, it moves towards its direction for X seconds before returning back to patrolling
+	 */
+	public void hearSound(float directionAngle){
+		hearing = true;
+		/**
+		 * We don't want to switch our AI when the guard is tracking
+		 */
+		if (!(ai instanceof Tracking) && !(ai instanceof  TrackingLongDistance) && !(ai instanceof  InvestigateSound)){
+			ai = new InvestigateSound(this, directionAngle, ai);
+		}
 	}
 
 }
