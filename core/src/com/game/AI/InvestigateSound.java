@@ -18,7 +18,7 @@ public class InvestigateSound extends AI{
     private AI previousAI;
     private float directionAngle;
     private Instruction instruction;
-    private final double INVESTIGATING_SOUND_TIME = 0.01; //should be at most 10/1.4 = 7.14 because a sound can be heard at most 10 meters away, and guards move at 1.4m/s
+    private final double INVESTIGATING_SOUND_TIME = 7.14; //should be at most 10/1.4 = 7.14 because a sound can be heard at most 10 meters away, and guards move at 1.4m/s
 
     public InvestigateSound(Guard guard, float directionAngle, AI storeAI) {
         this.guard = guard;

@@ -56,30 +56,39 @@ public class GraphNew {
 
     public void addEdges(){
         edges = new ArrayList<EdgeNew>();
+        ArrayList<NodeNew> alreadyAdded = new ArrayList<NodeNew>();
         for (NodeNew node1 : nodes){
             for (NodeNew node2 : nodes){
-                if (node1.xcoord != node2.xcoord && node1.ycoord != node2.ycoord){
+                if (!(node1.xcoord == node2.xcoord && node1.ycoord == node2.ycoord) && !alreadyAdded.contains(node2)){
                     if (edgePossible(node1, node2)) {
                         //edge weight is distance between coords
                         float weight = (float) Math.sqrt(((node1.xcoord - node2.xcoord) * (node1.xcoord - node2.xcoord)) + ((node1.ycoord - node2.ycoord) * (node1.ycoord - node2.ycoord)));
-//                        System.out.println("Weight is:" + weight);
+//                        System.out.println("Weight is:" + weight + " between node " + node1.id + " and node " + node2.id);
                         EdgeNew edge = new EdgeNew(node1, node2, weight);
 //                        System.out.println("Adding new edge to edge list");
                         edges.add(edge);
                     }
                 }
             }
+//            System.out.println("we add node " + node1.id +"(" +node1.xcoord + "," + node1.ycoord + ") to the already added list");
+            alreadyAdded.add(node1);
         }
     }
 
     public boolean edgePossible(NodeNew node1, NodeNew node2){
-//        System.out.println("Checking if edge is possible between " + node1.xcoord +","+node1.ycoord +" and " + node2.xcoord +","+node2.ycoord );
+//        if (node1.xcoord == 2.1f && node1.ycoord == 3.1f) {
+//            System.out.println("Checking if edge is possible between " + node1.xcoord + "," + node1.ycoord + " and " + node2.xcoord + "," + node2.ycoord);
+//        }
         Line2D.Float line2D = new Line2D.Float(new Point2D.Float(node1.xcoord, node1.ycoord), new Point2D.Float(node2.xcoord, node2.ycoord));
 //        System.out.println("Our line: "+line2D.x1 +"," + line2D.y1 + " and " +line2D.x2 +"," + line2D.y2);
-        //TODO: if vector intersects with area, we cannot create the edge
+        //TODO: find out why it doesn't create an edge between (0,2) and (0,3)
         for (Rectangle2D.Float r : rectangles){
 //            System.out.println("Rectangle is:" + r);
+//            if (node1.xcoord-OFFSET )
             if(line2D.intersects(r)){
+//                if (node1.xcoord == 2.1f && node1.ycoord == 3.1f) {
+//                    System.out.println("Edge is NOT possible between " + node1.xcoord + "," + node1.ycoord + " and " + node2.xcoord + "," + node2.ycoord);
+//                }
 //                System.out.println("we intersect");
                 return false;
             }
@@ -129,14 +138,15 @@ public class GraphNew {
     {
         neighbours.clear();
         //System.out.println("Finding the neighbours of node " + node.xcoord + " , " + node.ycoord);
-
         for (int i = 0; i<edges.size(); i++)
         {
-            if (edges.get(i).start == node)
+            if (edges.get(i).start == node && !neighbours.contains(edges.get(i).end))
             {
+//                System.out.println("node "+edges.get(i).start.id + " is start and end is: " + edges.get(i).end.id);
                 neighbours.add(edges.get(i).end);
             }
-            else if  (edges.get(i).end == node) {
+            else if  (edges.get(i).end == node && !neighbours.contains(edges.get(i).start)) {
+//                System.out.println("node "+edges.get(i).end.id + " is end and start is: " + edges.get(i).start.id);
                 neighbours.add(edges.get(i).start);
             }
         }
