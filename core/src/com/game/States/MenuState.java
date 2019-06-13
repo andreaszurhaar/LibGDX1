@@ -98,17 +98,15 @@ public class MenuState extends State {
             levels[i] = ""+i;
         }
         
-        String[] arrayAgent = new String[4];
-        arrayAgent[0] = "None";
-        arrayAgent[1] = "A*";
-        arrayAgent[2] = "Bot2";
-        arrayAgent[3] = "Bot3";
+        String[] arrayAgent = new String[3];
+        arrayAgent[0] = "A*";
+        arrayAgent[1] = "Bot2";
+        arrayAgent[2] = "Bot3";
 
-        String[] arrayGuard = new String[4];
-        arrayGuard[0] = "None";
-        arrayGuard[1] = "Patrolling";
-        arrayGuard[2] = "Circle patrolling";
-        arrayGuard[3] = "Bot3";
+        String[] arrayGuard = new String[3];
+        arrayGuard[0] = "Patrolling";
+        arrayGuard[1] = "Circle patrolling";
+        arrayGuard[2] = "Bot3";
         
         float selectBoxHeight = Gdx.graphics.getHeight()/25;
         float selectBoxOffset = Gdx.graphics.getHeight()/200;

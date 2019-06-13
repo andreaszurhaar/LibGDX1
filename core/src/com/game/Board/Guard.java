@@ -112,7 +112,8 @@ public class Guard extends Agent {
 			renderer.rectLine(xCenter*xReduc,yCenter*yReduc,(xCenter+guardcopy.showvect.x)*xReduc,(yCenter+guardcopy.showvect.y)*yReduc,2);
 			System.out.println("VECTOR: "+guardcopy.showvect.x);
 		}
-		
+		renderer.setColor(0, 1, 1, 1);
+		renderer.rect(xPos*xReduc-1,yPos*yReduc-1,area.width*xReduc+2,area.height*yReduc+2);
 	   	renderer.end();
 		sb.begin();
 		seeing = false;

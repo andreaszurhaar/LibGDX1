@@ -88,6 +88,8 @@ public class Intruder extends Agent {
 	   	if(seeing) {renderer.setColor(1, 0, 0, 1);}
 	   	else {renderer.setColor(1, 1, 0, 1);}
 	   	renderer.arc(xCenter*xReduc, yCenter*yReduc, viewRange*xReduc,viewAngle.angle()-(viewRadius/2),viewRadius,20);
+	   	renderer.setColor(1, 0, 1, 1);
+		renderer.rect(xPos*xReduc-1,yPos*yReduc-1,area.width*xReduc+2,area.height*yReduc+2);
 	   	renderer.end();
 		sb.begin();
 		seeing = false;

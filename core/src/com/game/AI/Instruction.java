@@ -82,6 +82,70 @@ public class Instruction {
 		
 	}
 	
+	public void translate(Vector2 destination, Vector2 start, float angle, float turningCircle, float maxSpeed) {
+		
+		while(angle < -180 || angle > 180) {
+			if(angle < -180) {angle = angle+360;}
+			if(angle > 180) {angle = angle-360;}
+			
+		}
+		
+		//find the length to traverse and how much to turn
+		Vector2 positions = new Vector2((destination.x-start.x),(destination.y-start.y));
+		float pathLength = positions.len();
+		float turnAngle = positions.angle()-angle;
+		System.out.println("TURNING FOR: "+turnAngle+"  AND MOVING FOR: "+pathLength);
+		
+		//prepare to invert turning if the shortest angle is negative
+		boolean positive = true;
+		if (turnAngle < 0) {
+			positive = false;
+			turnAngle = -turnAngle;
+		}
+		
+		//find the number of times to turn at maximum and the leftover small turn
+		float maxTurn = turningCircle/Board.fps;
+		float ufTurn = turnAngle/maxTurn;
+		int turncount = (int) ufTurn;
+		float leftoverTurn = turnAngle - ((float) turncount * maxTurn);
+		
+		//invert back the values as needed
+		if(!positive) {
+			maxTurn = -maxTurn;
+			leftoverTurn = -leftoverTurn;
+		}
+		for(int i=0; i < turncount; i++) {
+			rotations.push(maxTurn);
+			speeds.push(0f);
+		}
+		rotations.push(leftoverTurn);
+		speeds.push(0f);
+		
+		//now repeat for only speed
+		float maxWalk = maxSpeed/Board.fps;
+		float ufWalk = pathLength/maxWalk;
+		int walkcount = (int) ufWalk;
+		float leftoverSpeed = pathLength - ((float) walkcount * maxWalk);
+		
+		for(int i=0; i < walkcount; i++) {
+			rotations.push(0f);
+			speeds.push(maxWalk);
+		}
+		rotations.push(0f);
+		speeds.push(leftoverSpeed);
+		
+		Stack<Float> reverseRotations = new Stack<Float>();
+		Stack<Float> reverseSpeeds = new Stack<Float>();
+
+		while(!speeds.isEmpty()) {
+			reverseRotations.push(rotations.pop());
+			reverseSpeeds.push(speeds.pop());
+		}
+		speeds = reverseSpeeds;
+		rotations = reverseRotations;
+		
+	}
+	
 	public Stack<Float> getRotations() {
 		System.out.println("This stack rotation is of size: "+rotations.size());
 		Stack<Float> rots = rotations;
