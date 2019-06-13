@@ -86,8 +86,8 @@ public class Tracking extends AI {
     	Vector2 vec2 = new Vector2(prevPos.get(prevPos.size()-11).x-prevPos.get(prevPos.size()-21).x,prevPos.get(prevPos.size()-11).y-prevPos.get(prevPos.size()-21).y);
     	Vector2 vec3 = new Vector2(prevPos.get(prevPos.size()-1).x-prevPos.get(prevPos.size()-11).x,prevPos.get(prevPos.size()-1).y-prevPos.get(prevPos.size()-11).y);
     	
-    	float turn1 = vec2.angle(vec1);
-    	float turn2 = vec3.angle(vec2);
+    	float turn1 = vec2.angleRad(vec1);
+    	float turn2 = vec3.angleRad(vec2);
     	float deltaTurn = turn2-turn1;
     	
     	float dist1 = vec2.len();
@@ -95,7 +95,7 @@ public class Tracking extends AI {
     	float deltaDist = dist2-dist1;
     	
     	Vector2 currPoint = new Vector2(prevPos.get(prevPos.size()-1).x,prevPos.get(prevPos.size()-1).y);
-    	float currAngle = vec3.angle();
+    	float currAngle = vec3.angleRad();
     	float currTurn = turn2;
     	float currDist = dist2;
     	//System.out.println("going from point: "+currPoint.x+"  "+currPoint.y);
