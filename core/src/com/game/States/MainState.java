@@ -8,11 +8,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.AI.AI;
-import com.game.AI.Astar.AStarNew;
 import com.game.AI.Astar.Astar;
+import com.game.AI.IntruderBasicMovement;
 import com.game.AI.CopsCenters;
 import com.game.AI.GuardCirclePatrolling;
 import com.game.AI.GuardPatrolling;
+import com.game.AI.IntruderBasicMovement;
 import com.game.Board.Guard;
 import com.game.CopsAndRobbers;
 import com.game.Board.Agent;
@@ -105,18 +106,21 @@ public class MainState extends State {
             		System.exit(0);
             	}
             } else {
-            	if(intruderAI == "A*") {
-	                AI agentAI = new AStarNew(structures);
-	                agentAI.setAgent(this.agents.get(i));
-	                this.agents.get(i).setAI(agentAI);
+            	if(intruderAI == "Basic") {
+	                AI agentAi = new IntruderBasicMovement();
+	                this.agents.get(i).setAI(agentAi);
+	                this.agents.get(i).ai.setArea(400,200);
+	                this.agents.get(i).ai.setStructures(structures);
             	} else if(intruderAI == "A*") {
-	                AI agentAI = new AStarNew(structures);
-	                this.agents.get(i).setAI(agentAI);
-	                agentAI.setAgent(this.agents.get(i));
+	                AI agentAi = new Astar();
+	                this.agents.get(i).setAI(agentAi);
+	                this.agents.get(i).ai.setArea(400,200);
+	                this.agents.get(i).ai.setStructures(structures);
             	} else if(intruderAI == "A*") {
-	                AI agentAI = new AStarNew(structures);
-	                this.agents.get(i).setAI(agentAI);
-	                agentAI.setAgent(this.agents.get(i));
+	                AI agentAi = new Astar();
+	                this.agents.get(i).setAI(agentAi);
+	                this.agents.get(i).ai.setArea(400,200);
+	                this.agents.get(i).ai.setStructures(structures);
             	} else {
             		System.out.println("Unrecognised AI name: "+intruderAI);
             		System.exit(0);

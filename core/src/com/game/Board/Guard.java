@@ -94,7 +94,8 @@ public class Guard extends Agent {
 			soundRange = 10;
 		}
 
-		this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
+		//this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
+		this.speed = 1.4f;
 		this.rotation = ai.getRotation()*Board.fps;
 		//System.out.println("to: "+speed+"  "+angle);
 	}
@@ -137,6 +138,7 @@ public class Guard extends Agent {
 	public void see(Agent agent) {
 
 		if(!(Math.abs(rotation) > 45)) {
+			//TODO "if you turn more than 45 degrees/second you don't see anything for the turning time --plus half a second--"
 			seeing = true;
 			/** Switching to tracking
 			 */

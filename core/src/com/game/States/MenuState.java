@@ -99,8 +99,8 @@ public class MenuState extends State {
         }
         
         String[] arrayAgent = new String[3];
-        arrayAgent[0] = "A*";
-        arrayAgent[1] = "Bot2";
+        arrayAgent[0] = "Basic";
+        arrayAgent[1] = "A*";
         arrayAgent[2] = "Bot3";
 
         String[] arrayGuard = new String[3];
