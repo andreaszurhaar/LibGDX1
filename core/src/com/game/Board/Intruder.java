@@ -24,7 +24,6 @@ public class Intruder extends Agent {
     SpriteReader reader = new SpriteReader();
     public int sprintCount = 0;
 	public int restCount = 0;
-	private AI ai;
 
 	public Intruder(float x, float y, float width, float height) {
 		super(x, y, width, height);

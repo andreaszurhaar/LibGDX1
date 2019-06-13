@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.AI.AI;
+import com.game.AI.Astar.AStarNew;
 import com.game.AI.Astar.Astar;
 import com.game.AI.IntruderBasicMovement;
 import com.game.AI.CopsCenters;
@@ -112,12 +113,12 @@ public class MainState extends State {
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
             	} else if(intruderAI == "A*") {
-	                AI agentAi = new Astar();
+	                AI agentAi = new AStarNew(structures);
 	                this.agents.get(i).setAI(agentAi);
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
             	} else if(intruderAI == "A*") {
-	                AI agentAi = new Astar();
+	                AI agentAi = new AStarNew(structures);
 	                this.agents.get(i).setAI(agentAi);
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
