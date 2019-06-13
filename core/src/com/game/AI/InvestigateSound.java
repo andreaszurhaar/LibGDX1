@@ -36,7 +36,7 @@ public class InvestigateSound extends AI{
          */
         Vector2 destPoint = new Vector2((float) (guard.xPos + INVESTIGATING_SOUND_TIME * guard.getSpeed() * Math.cos(Math.toRadians(directionAngle))), (float) (guard.yPos + INVESTIGATING_SOUND_TIME * guard.getSpeed() * Math.sin(Math.toRadians(directionAngle))));
 
-        instruction.translate(destPoint, guard);
+        instruction.translate(destPoint, guard, false);
         rotation = instruction.getRotations();
         speed = instruction.getSpeeds();
     }

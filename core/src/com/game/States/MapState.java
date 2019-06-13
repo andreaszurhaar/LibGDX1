@@ -68,11 +68,11 @@ public class MapState extends State {
     public boolean save;
     public static final float X_REDUC = 2.5f;
     public static final float Y_REDUC = 2.5f;
-    public AI guardAI;
-    public AI intruderAI;
+    public String guardAI;
+    public String intruderAI;
     
     
-    public MapState(GameStateManager gsm, AI guardAI, AI intruderAI) {
+    public MapState(GameStateManager gsm, String guardAI, String intruderAI) {
         super(gsm);
         this.guardAI = guardAI;
         this.intruderAI = intruderAI;

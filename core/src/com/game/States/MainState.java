@@ -51,20 +51,16 @@ public class MainState extends State {
     public GuardPatrolling guardPatrol;
     public static final float X_REDUC = MapState.X_REDUC;
     public static final float Y_REDUC = MapState.Y_REDUC;
-    public AI guardAI;
-    public AI intruderAI;
     public double timeLimit = 60.00;
 
 
-    public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls, AI guardAI, AI intruderAI) {
+    public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls, String guardAI, String intruderAI) {
         super(gsm);
         font = new BitmapFont();
         font.setColor(Color.WHITE);
         wall = new Texture("wall.png");
         play = new Play(865,545);
         ground = new Ground(0,0);
-        this.guardAI = guardAI;
-        this.intruderAI = intruderAI;
         reader = new SpriteReader();
         try {
             tR = reader.getImage(100,100,25,25);
@@ -84,25 +80,51 @@ public class MainState extends State {
 
         for(int i = 0; i < this.agents.size(); i++){
             if(this.agents.get(i) instanceof Guard){
-                //TODO can we make it so agentAI uses variable guardAI instead?
-                //AI agentAI = new GuardPatrolling();
-                AI agentAI = new GuardCirclePatrolling();
-                this.agents.get(i).setAI(agentAI);
-                agentAI.setAgent(this.agents.get(i));
-                System.out.println("Cops's ai is:" + this.agents.get(i).ai);
-                this.agents.get(i).ai.setArea(400,200);
-                this.agents.get(i).ai.setStructures(structures);
-                guards.add(this.agents.get(i));
-            }
-            else{
-                //AI agentAi = new Astar();
-                AI agentAI = new IntruderBasicMovement();
-                this.agents.get(i).setAI(agentAI);
-                //System.out.println("Intruders's ai is:" + agentAi);
-                //agentAi.setAgent(agents.get(i));
-                //System.out.println("Intruders's ai is:" + this.agents.get(i).ai);
-                this.agents.get(i).ai.setArea(400,200);
-                this.agents.get(i).ai.setStructures(structures);
+            	if(guardAI == "Patrolling") {
+	                AI agentAI = new GuardPatrolling();
+	                this.agents.get(i).setAI(agentAI);
+	                agentAI.setAgent(this.agents.get(i));
+	                this.agents.get(i).ai.setArea(400,200);
+	                this.agents.get(i).ai.setStructures(structures);
+	                guards.add(this.agents.get(i));
+            	} else if(guardAI == "Circle patrolling") {
+	                AI agentAI = new GuardCirclePatrolling();
+	                this.agents.get(i).setAI(agentAI);
+	                agentAI.setAgent(this.agents.get(i));
+	                this.agents.get(i).ai.setArea(400,200);
+	                this.agents.get(i).ai.setStructures(structures);
+	                guards.add(this.agents.get(i));
+            	} else if(guardAI == "Bot3") {
+	                AI agentAI = new GuardCirclePatrolling();
+	                this.agents.get(i).setAI(agentAI);
+	                agentAI.setAgent(this.agents.get(i));
+	                this.agents.get(i).ai.setArea(400,200);
+	                this.agents.get(i).ai.setStructures(structures);
+	                guards.add(this.agents.get(i));
+            	} else {
+            		System.out.println("Unrecognised AI name: "+guardAI);
+            		System.exit(0);
+            	}
+            } else {
+            	if(intruderAI == "A*") {
+	                AI agentAi = new Astar();
+	                this.agents.get(i).setAI(agentAi);
+	                this.agents.get(i).ai.setArea(400,200);
+	                this.agents.get(i).ai.setStructures(structures);
+            	} else if(intruderAI == "A*") {
+	                AI agentAi = new Astar();
+	                this.agents.get(i).setAI(agentAi);
+	                this.agents.get(i).ai.setArea(400,200);
+	                this.agents.get(i).ai.setStructures(structures);
+            	} else if(intruderAI == "A*") {
+	                AI agentAi = new Astar();
+	                this.agents.get(i).setAI(agentAi);
+	                this.agents.get(i).ai.setArea(400,200);
+	                this.agents.get(i).ai.setStructures(structures);
+            	} else {
+            		System.out.println("Unrecognised AI name: "+intruderAI);
+            		System.exit(0);
+            	}
             }
 
             /**

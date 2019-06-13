@@ -27,7 +27,8 @@ public class Intruder extends Agent {
 
 	public Intruder(float x, float y, float width, float height) {
 		super(x, y, width, height);
-		viewAngle.setToRandomDirection();
+		viewAngle.setAngle(-45);
+		//viewAngle.setToRandomDirection();
 		speed = 1;
 		rotation = 0;
 		soundRange = 0;
@@ -57,19 +58,22 @@ public class Intruder extends Agent {
 	}
 	
 	public void triggerStep() {
-//		this.speed = 1.4f;//(float) Math.random()*1.4f;
-//		rotation = (float) Math.random()*turningCircle/4;
-//		if(Math.random() < 0.3) {rotation = -rotation ;}
-//		if(Math.random() < 0.001) {triggerSprint();}
-//		if(sprintCount != 0) {
-//			speed = 3f;
-//			sprintCount--;
-//
-//			if(rotation > 10) {rotation = 10;}
-//			else if(rotation < -10) {rotation = -10;}
-//
-//		} else if(restCount != 0) {restCount--;}
-		
+		this.speed = 1.4f;//(float) Math.random()*1.4f;
+		rotation = -10;
+		/*
+		rotation = (float) Math.random()*turningCircle/4;
+		if(Math.random() < 0.3) {rotation = -rotation;}
+		if(Math.random() < 0.001) {triggerSprint();}
+		*/
+		if(sprintCount != 0) {
+			speed = 3f;
+			sprintCount--;
+
+			if(rotation > 10) {rotation = 10;}
+			else if(rotation < -10) {rotation = -10;}
+
+		} else if(restCount != 0) {restCount--;}
+
 		if(speed < 0.5) {
 			soundRange = 1;
 		} else if(speed < 1) {

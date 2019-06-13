@@ -136,7 +136,7 @@ public class GuardPatrolling extends AI {
             Vector2 point = new Vector2(temp.x, temp.y);
 
             System.out.println("going to point: " + temp.x + " " + temp.y + "   from point: " + guard.xCenter + " " + guard.yCenter);
-            instruction.translate(point, guard);
+            instruction.translate(point, guard, false);
             rotation = instruction.getRotations();
             speed = instruction.getSpeeds();
         }

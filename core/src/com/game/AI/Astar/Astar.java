@@ -200,7 +200,7 @@ public class Astar extends AI {
         path.add(target);
         while (temp.hasParent())
         {
-            System.out.print("Node " + temp.id );
+            System.out.print("Node " + temp.id + " with distance (hcost): "+temp.hCost);
             //Path starting from last node to start node
             path.add(temp);
             System.out.println(" to ");
@@ -221,7 +221,7 @@ public class Astar extends AI {
 
     public void getNextPoint(){
         Vector2 nextPoint = new Vector2(path.get(counter).xcoord, path.get(counter).ycoord);
-        instruction.translate(nextPoint, intruder);
+        instruction.translate(nextPoint, intruder, false);
         counter--;
         rotation = instruction.getRotations();
         speed = instruction.getSpeeds();
