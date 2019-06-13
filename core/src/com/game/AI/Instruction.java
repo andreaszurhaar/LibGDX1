@@ -45,7 +45,7 @@ public class Instruction {
 		//find the number of times to turn at maximum and the leftover small turn
 		float maxTurn = agent.turningCircle/Board.fps;
 		if(exploring) {
-			maxTurn = 45/Board.fps;
+			maxTurn = (float) 45.0/Board.fps;
 		}
 		float ufTurn = turnAngle/maxTurn;
 		int turncount = (int) ufTurn;
