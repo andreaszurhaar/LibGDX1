@@ -153,5 +153,28 @@ public class GraphNew {
         return neighbours;
     }
 
+    public void addNode(int type, float x, float y)
+    {
+        NodeNew addedNode = new NodeNew(x,y,target);
+        if (type == 0){
+            addedNode.setStart();
+        }
+        else if (type == 1){
+            addedNode.setTarget();
+        }
+        nodes.add(addedNode);
+        for (NodeNew n: nodes)
+        {
+            if (!(n.xcoord == addedNode.xcoord && n.ycoord == addedNode.ycoord)){
+                if (edgePossible(n, addedNode)) {
+                    //edge weight is euclidean distance between coords
+                    float weight = (float) Math.sqrt(((n.xcoord - addedNode.xcoord) * (n.xcoord - addedNode.xcoord)) + ((n.ycoord - addedNode.ycoord) * (n.ycoord - addedNode.ycoord)));
+                    EdgeNew edge = new EdgeNew(n, addedNode, weight);
+                     edges.add(edge);
+                }
+            }
+        }
+    }
+
 }
 

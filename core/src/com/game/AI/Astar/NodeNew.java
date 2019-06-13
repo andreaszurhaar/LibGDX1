@@ -103,7 +103,7 @@ public class NodeNew {
         else
         {
             gCost = findEdge(destNode); //gCost is the edge weight
-            System.out.println("gCost of node " +this.id + " is " + gCost);
+//            System.out.println("gCost of node " +this.id + " is " + gCost);
             fCost = hCost + gCost;
         }
         return fCost;

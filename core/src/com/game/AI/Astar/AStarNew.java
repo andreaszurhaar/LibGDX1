@@ -20,8 +20,8 @@ import java.util.Stack;
 
 public class AStarNew extends AI {
 
-    private NodeNew start;
-    private NodeNew target;
+    private float startx, starty, targetx, targety;
+    private NodeNew start, target;
     private List<NodeNew> open = new ArrayList<NodeNew>();
     private List<NodeNew> closed = new ArrayList<NodeNew>();
     private GraphNew map;
@@ -39,9 +39,11 @@ public class AStarNew extends AI {
         rotation = new Stack<Float>();
         instruction = new ChainInstruction();
         this.rectangles = rectangles;
-        target = new NodeNew(targetx, targety);
-        start = new NodeNew(startx, starty);
-        createInitialGraph(rectangles);
+        this.targetx = targetx;
+        this.targety = targety;
+        this.startx = startx;
+        this.starty = starty;
+        createInitialGraph();
         setStart(startx, starty);
         //Take random target coordinates
         setTarget(targetx, targety);
@@ -56,13 +58,15 @@ public class AStarNew extends AI {
         rectangles = new ArrayList<Rectangle2D.Float>();
     }
 
-    public void createInitialGraph(ArrayList areas) {
+    public void createInitialGraph() {
+
+        System.out.println("we create the map (createInitialGraph)");
         map = new GraphNew(rectangles, target, start);
-//        System.out.println("the nodes are: ");
-//        for (NodeNew n : map.nodes)
-//        {
-//            System.out.println("node " + n.id + " with "+ n.xcoord +","+n.ycoord);
-//        }
+        System.out.println("the nodes are: ");
+        for (NodeNew n : map.nodes)
+        {
+            System.out.println("node " + n.id + " with "+ n.xcoord +","+n.ycoord);
+        }
 //        System.out.println("and the edges are: ");
 //        for (EdgeNew e : map.edges)
 //        {
@@ -72,19 +76,27 @@ public class AStarNew extends AI {
 
     //use same structures and map, but just running it with a different start and end position
     public void runAgain(float startx, float starty, float targetx, float targety){
-        target = map.setTargetNode(targetx, targety);
-        start = map.setStartNode(startx, starty);
+        path.clear();
+        pathReg.clear();
+        open.clear();
+        closed.clear();
+        System.out.println("target is set to: " + targetx + "," + targety);
+        System.out.println("start is set to: " + startx + "," + starty);
+        map.addNode(0,startx, starty); //type = 0 means its the start node
+        map.addNode(1, targetx, targety); //type = 1 means its the target node
+        setTarget(targetx, targety);
+        setStart(startx,starty);
         start();
     }
 
     public void setTarget(float x, float y) {
-//        System.out.println("We set a target node to " + x + "," + y);
+        System.out.println("We set a target node to " + x + "," + y);
         target = map.setTargetNode(x, y);
     }
 
     public void setStart(float x, float y) {
         //System.out.println(map.setStartNode(x,y));
-//        System.out.println("We set a start node to " + x + "," + y);
+        System.out.println("We set a start node to " + x + "," + y);
         start = map.setStartNode(x, y);
     }
 
@@ -132,7 +144,7 @@ public class AStarNew extends AI {
                 }
 
             }
-            System.out.println("Adding node " + currentNode.id + " to closed-list");
+//            System.out.println("Adding node " + currentNode.id + " to closed-list");
             closed.add(currentNode);
             steps++;
 
@@ -209,9 +221,11 @@ public class AStarNew extends AI {
         }
     	target = new NodeNew(agent.xCenter+10, agent.yCenter+10);
         start = new NodeNew(agent.xCenter, agent.yCenter);
-        createInitialGraph(rectangles);
-        setStart(agent.xCenter, agent.yCenter);
-        setTarget(agent.xCenter+10, agent.yCenter+10);
+        System.out.println("creating new target and start nodes");
+        createInitialGraph();
+        System.out.println("we create the map (setAgent)");
+        setStart(start.xcoord,start.ycoord);
+        setTarget(target.xcoord, target.ycoord);
         start();
     }
 
