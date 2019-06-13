@@ -27,6 +27,7 @@ public class AStarNew extends AI {
     private GraphNew map;
     private double lowestCost = 1000.0;
     private ArrayList<Rectangle2D.Float> rectangles;
+    private ArrayList<Vector2> pathReg;
     private ArrayList<NodeNew> path;
     private int counter;
     private Agent intruder;
@@ -58,6 +59,13 @@ public class AStarNew extends AI {
 //        {
 //            System.out.println("edge between " +e.start.id + " ("+ e.start.xcoord +","+e.start.ycoord + ")" +" and " +e.end.id + " ("+ e.end.xcoord +","+e.end.ycoord +")");
 //        }
+    }
+
+    //use same structures and map, but just running it with a different start and end position
+    public void runAgain(float startx, float starty, float targetx, float targety){
+        target = map.setTargetNode(targetx, targety);
+        start = map.setStartNode(startx, starty);
+        start();
     }
 
     public void setTarget(float x, float y) {
@@ -125,6 +133,7 @@ public class AStarNew extends AI {
         }
 
         printPath(target);
+        returnPath(target);
     }
 
     public void printPath(NodeNew node) {
@@ -133,7 +142,7 @@ public class AStarNew extends AI {
         path = new ArrayList<NodeNew>();
         path.add(target);
         while (temp.hasParent()) {
-            System.out.print("Node " + temp.id + " with coords: " + temp.xcoord + "," + temp.ycoord + " with distance (hcost): " + temp.hCost);
+            System.out.print("Node " + temp.id + " with coords: " + temp.xcoord + "," + temp.ycoord );
             //Path starting from last node to start node
             path.add(temp);
             System.out.println(" to ");
@@ -143,6 +152,25 @@ public class AStarNew extends AI {
         System.out.println("start node " + start.id + " with coords: " + temp.xcoord + "," + temp.ycoord);
         counter = path.size();
 
+    }
+
+    public void returnPath(NodeNew temp){
+        ArrayList<NodeNew> pathInv = new ArrayList<NodeNew>();
+        pathInv.add(target);
+        pathReg = new ArrayList<Vector2>();
+        while (temp.hasParent()) {
+            pathInv.add(temp);
+            temp = temp.getParent();
+        }
+
+        for (int i = pathInv.size()-1; i>0; i--){
+            System.out.println("i is: " + i);
+            pathReg.add(new Vector2(pathInv.get(i).xcoord, pathInv.get(i).ycoord));
+        }
+        System.out.println("Path we take is: ");
+        for (Vector2 v:pathReg) {
+            System.out.println("Coords: " + v.x + "," + v.y);
+        }
     }
 
     @Override
