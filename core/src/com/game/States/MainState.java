@@ -106,8 +106,8 @@ public class MainState extends State {
             		System.exit(0);
             	}
             } else {
-            	if(intruderAI == "A*") {
-	                AI agentAi = new Astar();
+            	if(intruderAI == "Basic") {
+	                AI agentAi = new IntruderBasicMovement();
 	                this.agents.get(i).setAI(agentAi);
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);

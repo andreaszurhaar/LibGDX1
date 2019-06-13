@@ -108,6 +108,7 @@ public class Intruder extends Agent {
 		if (!(Math.abs(rotation) > 45)) {
 			//TODO "if you turn more than 45 degrees/second you don't see anything for the turning time --plus half a second--"
 			seeing = true;
+			//TODO maybe should replace Escape with new Escape AI if another guard is seen
 			if (!(ai instanceof Escape) && agent instanceof Guard) {
 				ai = new Escape(this, agent, ai);
 			}

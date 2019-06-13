@@ -95,7 +95,7 @@ public class Guard extends Agent {
 		}
 
 		//this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
-		this.speed = 0;
+		this.speed = 1.4f;
 		this.rotation = ai.getRotation()*Board.fps;
 		//System.out.println("to: "+speed+"  "+angle);
 	}

@@ -32,24 +32,21 @@ public class Escape extends AI {
         speed = new Stack<Float>();
         rotation = new Stack<Float>();
         instruction = new Instruction();
-        escapeGuard();
+        escapeFromGuard();
     }
 
-    public void escapeGuard(){
+    public void escapeFromGuard(){
         /**
          * After the intruder sees a guard, we first find the location of the guard with respect to the intruder,
          * from this we compute the angle of the guard with respect to the intruder
          * In order to escape the guard, the intruder wants to move with an angle opposite of this viewing angle
          */
         Vector2 differenceVector = new Vector2(intruder.xCenter - enemyx, intruder.yCenter - enemyy);
-        double differenceAngle = differenceVector.angle();
-        System.out.println("diff angle: " + differenceAngle);
-        double differenceAngleRadian = Math.toRadians(differenceAngle);
-        double escapeAngleRadian = differenceAngleRadian;
+        double differenceAngleRadian = differenceVector.angleRad();
 
-        Vector2 destPoint = new Vector2((float) (intruder.xPos + MOVE_AWAY_FROM_GUARD_TIME * intruder.getSpeed() * Math.cos(escapeAngleRadian)), (float) (intruder.yPos + MOVE_AWAY_FROM_GUARD_TIME * intruder.getSpeed() * Math.sin(escapeAngleRadian)));
+        Vector2 destPoint = new Vector2((float) (intruder.xCenter + MOVE_AWAY_FROM_GUARD_TIME * intruder.getSpeed() * Math.cos(differenceAngleRadian)), (float) (intruder.yCenter + MOVE_AWAY_FROM_GUARD_TIME * intruder.getSpeed() * Math.sin(differenceAngleRadian)));
 
-        instruction.translate(destPoint, intruder);
+        instruction.translate(destPoint, intruder, false);
         rotation = instruction.getRotations();
         speed = instruction.getSpeeds();
     }
