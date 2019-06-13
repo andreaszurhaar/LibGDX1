@@ -200,7 +200,7 @@ public class Astar extends AI {
         path.add(target);
         while (temp.hasParent())
         {
-            System.out.print("Node " + temp.id );
+            System.out.print("Node " + temp.id + " with distance (hcost): "+temp.hCost);
             //Path starting from last node to start node
             path.add(temp);
             System.out.println(" to ");

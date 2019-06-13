@@ -33,7 +33,7 @@ public class TestAstar {
         boolean test = line2D.intersects(rect);
         System.out.println("Line intersects rectangle?: " + test);*/
 
-        Rectangle2D.Float rect1 = new Rectangle2D.Float(0,2,2,1);
+        Rectangle2D.Float rect1 = new Rectangle2D.Float(0f,2f,2f,1f);
         Rectangle2D.Float rect2 = new Rectangle2D.Float(3,8,3,1);
         Rectangle2D.Float rect3 = new Rectangle2D.Float(6,4,1,2);
         Rectangle2D.Float rect4 = new Rectangle2D.Float(1,5,2,2);
@@ -47,5 +47,13 @@ public class TestAstar {
         rectangles.add(rect5);
 
         AStarNew astar = new AStarNew(rectangles, 1f,1f,2f,10f);
+
+//        Point2D point1 = new Point2D.Float(-0.1f,1.9f);
+//        Point2D point2 = new Point2D.Float(-0.1f,2.9f);
+//
+////        System.out.println("outcode is: " + rect1.outcode(point2));
+//
+//        Line2D line2D = new Line2D.Float(point1, point2);
+//        System.out.println("line intersects rectangle: " + line2D.intersects(rect1) );
     }
 }

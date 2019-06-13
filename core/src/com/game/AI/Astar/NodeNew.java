@@ -82,38 +82,45 @@ public class NodeNew {
 //        System.out.println("Our coordinates: " + xcoord +","+ycoord);
 //        System.out.println("Target coordinates: " +targetNode.xcoord + ","+ targetNode.ycoord);
         hCost = Math.sqrt((xcoord - targetNode.xcoord)*(xcoord - targetNode.xcoord) + (ycoord - targetNode.ycoord)*(ycoord - targetNode.ycoord));
-        //System.out.println("Calculating estimatedCostTarget to be: " + hCost );
+//        System.out.println("Calculating distances to be: " + hCost );
         return hCost;
     }
 
-    public double calcTotalCost(NodeNew node)
+    public double calcTotalCost(NodeNew destNode)
     {
-        hCost = estimatedCostTarget();
+        hCost = estimatedCostTarget(); //cost to get to target
         if (hasParent())
         {
-            double cost = findEdge(node);
+            double cost = findEdge(destNode); //gCost is the edgeweight
+//            System.out.println("parent of node " + this.id + " is " + parent.id);
             gCost = parent.gCost + cost;
+
+//            System.out.println("gCost of node " +this.id + " is " + cost);
+//            System.out.println("gCost of parent of node " +this.id + " is " + parent.gCost);
+//            System.out.println("total gCost of node " +this.id + " is " + gCost);
             fCost = hCost + gCost;
         }
         else
         {
-            gCost = findEdge(node);
+            gCost = findEdge(destNode); //gCost is the edge weight
+            System.out.println("gCost of node " +this.id + " is " + gCost);
             fCost = hCost + gCost;
         }
         return fCost;
     }
 
-    public double findEdge(NodeNew node)
+    public double findEdge(NodeNew destNode)
     {
         for (int i = 0; i<neighbours.size();i++)
         {
-            if (neighbours.get(i).isEqual(node))
+            if (neighbours.get(i).isEqual(destNode))
             {
-                //System.out.println("Weight of edge is: " + connections.get(i).weight);
+//                System.out.println("Weight of edge is: " + connections.get(i).weight + " when calculating total cost for node " + this.id);
                 return connections.get(i).weight;
             }
         }
-        return 1;
+        System.out.println("we return edge weight = 10000 if edge doesn't exist");
+        return 10000;
     }
 
     public void setTotalCost(int cost)
