@@ -31,7 +31,10 @@ public class ChainInstruction {
 		ArrayList<Stack<Float>> speedlist = new ArrayList<Stack<Float>>();
 		
 		Agent ag = agent;
+
 		for (int i=0; i<destinations.size(); i++) {
+			System.out.println("Destination "+i+" is: "+destinations.get(i));
+
 			System.out.println("TIME1: "+System.nanoTime());
 			System.out.println("checkpoint 1");
 
@@ -44,9 +47,14 @@ public class ChainInstruction {
 			Stack<Float> rot = new Stack();
 			Stack<Float> spe = new Stack();
 			int len = revrot.size();
+            System.out.println("Size of rotations:" + len);
 			for(int j=0; j<len; j++) {
+//                System.out.print("We push " + revrot.peek());
 				rot.push(revrot.pop());
-				spe.push(revspe.pop());
+//                System.out.println(" on rotation stack:" + rot.peek());
+//                System.out.print("We push " + revspe.peek());
+                spe.push(revspe.pop());
+//                System.out.println(" on speed stack:" + spe.peek());
 			}
 			System.out.println("checkpoint 3");
 			//append it to current stacks
@@ -57,6 +65,7 @@ public class ChainInstruction {
 			//update the agent
 			Agent ag1 = new Agent(ag);
 			ag1.setPos(destinations.get(i).x-ag.area.width/2, destinations.get(i).y-ag.area.height/2);
+            System.out.println("We set the position of agent1 to: " + (destinations.get(i).x-ag.area.width/2) + ","+ (destinations.get(i).y-ag.area.height/2));
 			ag1.setAngle(new Vector2(destinations.get(i).x-ag.xCenter,destinations.get(i).y-ag.yCenter).angle());
 			ag = ag1;
 			System.out.println("checkpoint 5");

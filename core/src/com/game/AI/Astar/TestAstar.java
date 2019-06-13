@@ -7,6 +7,9 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import com.game.Board.*;
 
+/**
+ * @author Famke Nouwens
+ */
 public class TestAstar {
 
     public static void main(String[] args)

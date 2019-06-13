@@ -3,16 +3,17 @@ package com.game.AI.Astar;
 
 import com.badlogic.gdx.math.Vector2;
 import com.game.AI.AI;
-import com.game.AI.Instruction;
 import com.game.Board.Agent;
 import com.game.Board.Area;
 
-import java.awt.Rectangle;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+
+/**
+ * @author Famke Nouwens
+ */
 
 public class AStarNew extends AI {
 

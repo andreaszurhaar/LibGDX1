@@ -5,8 +5,9 @@ package com.game.AI.Astar;
 import java.util.ArrayList;
 import java.util.List;
 import com.game.Board.*;
-
-//We're assuming for now that the agent has perfect information
+/**
+ * @author Famke Nouwens
+ */
 
 public class Graph {
 

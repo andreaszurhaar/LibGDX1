@@ -5,6 +5,10 @@ import com.game.Board.Area;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Famke Nouwens
+ */
+
 public class NodeNew {
 
     public String name;
@@ -77,7 +81,7 @@ public class NodeNew {
     {
 //        System.out.println("Our coordinates: " + xcoord +","+ycoord);
 //        System.out.println("Target coordinates: " +targetNode.xcoord + ","+ targetNode.ycoord);
-        hCost = Math.abs(xcoord - targetNode.xcoord) + Math.abs(ycoord - targetNode.ycoord);
+        hCost = Math.sqrt((xcoord - targetNode.xcoord)*(xcoord - targetNode.xcoord) + (ycoord - targetNode.ycoord)*(ycoord - targetNode.ycoord));
         //System.out.println("Calculating estimatedCostTarget to be: " + hCost );
         return hCost;
     }

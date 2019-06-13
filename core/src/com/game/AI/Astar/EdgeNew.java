@@ -1,5 +1,8 @@
 package com.game.AI.Astar;
 
+/**
+ * @author Famke Nouwens
+ */
 public class EdgeNew {
 
     public NodeNew start;

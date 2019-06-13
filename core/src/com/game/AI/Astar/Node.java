@@ -5,6 +5,9 @@ import com.game.Board.Area;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Famke Nouwens
+ */
 
 public class Node {
 

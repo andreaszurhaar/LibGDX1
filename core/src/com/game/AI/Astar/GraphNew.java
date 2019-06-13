@@ -10,11 +10,16 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Famke Nouwens
+ */
+
 public class GraphNew {
 
     public ArrayList<NodeNew> nodes;
     public ArrayList<EdgeNew> edges;
     List<NodeNew> neighbours = new ArrayList<NodeNew>();
+    private final float OFFSET = 0.1f;
     private NodeNew target, start;
     private ArrayList<Rectangle2D.Float> rectangles;
 
@@ -34,13 +39,13 @@ public class GraphNew {
         for (Rectangle2D.Float r : rectangles) {
             //We add/subtract one pixel from the coordinates of the points to allow the intersection method to find allowable paths/edges to form
 //            System.out.println("For rectangle: " +r);
-            nodes.add(new NodeNew(r.x-1,r.y-1,target));
+            nodes.add(new NodeNew(r.x-OFFSET,r.y-OFFSET,target));
 //            System.out.println("adding node with coords " + r.x+","+r.y);
-            nodes.add(new NodeNew(r.x-1, r.y+r.height+1,target));
+            nodes.add(new NodeNew(r.x-OFFSET, r.y+r.height+OFFSET,target));
 //            System.out.println("adding node with coords " + r.x+","+(r.y+r.height));
-            nodes.add(new NodeNew(r.x+r.width+1, r.y+r.height+1,target));
+            nodes.add(new NodeNew(r.x+r.width+OFFSET, r.y+r.height+OFFSET,target));
 //            System.out.println("adding node with coords " + (r.x+r.width)+","+r.y);
-            nodes.add(new NodeNew(r.x+r.width+1, r.y-1,target));
+            nodes.add(new NodeNew(r.x+r.width+OFFSET, r.y-OFFSET,target));
 //            System.out.println("adding node with coords " + (r.x+r.width)+","+(r.y+r.height));
         }
 //        System.out.println("Target coordinates:" + target.xcoord +","+target.ycoord);

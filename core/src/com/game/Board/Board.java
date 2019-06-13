@@ -270,7 +270,7 @@ public class Board {
 		for(int i=0; i<agents.size(); i++) {
 			//creating SoundOccurences with different ranges, depending on the current speed of the agent
 			SoundOccurence s;
-			if(agents.get(i).getSpeed() < 0.5){
+			if(agents.get(i).getSpeed() < 0.5 && agentNearby(agents.get(i))){
 				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 1);
 			}
 			else if(agents.get(i).getSpeed() > 0.5 && agents.get(i).getSpeed() <1.0){
@@ -294,6 +294,21 @@ public class Board {
 				}
 			}
 		}
+	}
+
+	public boolean agentNearby(Agent agent){
+		for (int i = 0; i< agents.size(); i++)
+		{
+			if (distPointToRect(agents.get(i).xPos, agents.get(i).yPos, agent.area).len() < 10 && agents.get(i).speed > 2){
+				return true;
+			}
+			else if (distPointToRect(agents.get(i).xPos, agents.get(i).yPos, agent.area).len() < 5 && agents.get(i).speed > 1 && agents.get(i).speed < 2)
+			{
+				return true;
+			}
+
+		}
+		return false;
 	}
 
 	public void checkIfAgentHears(SoundOccurence s) {
@@ -360,7 +375,6 @@ public class Board {
 	public ArrayList<Agent> getAgents() {
 		return agents;
 	}
-
 
 	public void setCurrentPoint(Point2D currentPoint) {
 		this.currentPoint = currentPoint;

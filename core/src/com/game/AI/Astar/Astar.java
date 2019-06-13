@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * @author Famke Nouwens
+ */
+
 //made for the robber
 public class Astar extends AI {
 
