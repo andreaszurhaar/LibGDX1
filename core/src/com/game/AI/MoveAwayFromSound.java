@@ -9,43 +9,37 @@ import com.game.Board.Intruder;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class Escape extends AI {
+public class MoveAwayFromSound extends AI {
 
     private Intruder intruder;
+    private float angle;
     private Stack<Float> speeds = new Stack<Float>();
     private Stack<Float> rotations = new Stack<Float>();
-    private float enemyx;
-    private float enemyy;
+    public Vector2 showvect;
     private AI previousAI;
-    private int trackcounter;
-    private ArrayList<Vector2> previousPos;
-    private Instruction instruct = new Instruction();
-    private final double MOVE_AWAY_FROM_GUARD_TIME = 5; //in seconds
+    private float directionAngle;
+    private Instruction instruction;
+    private final double MOVING_AWAY_FROM_SOUND_TIME = 7.14; //in seconds, should be at most 10/1.4 = 7.14 because a sound can be heard at most 10 meters away, and guards move at 1.4m/s
 
-    public Escape(Intruder intruder, Agent opponent, AI storeAI)
-    {
+    public MoveAwayFromSound(Intruder intruder, float directionAngle, AI storeAI) {
         this.intruder = intruder;
+        this.directionAngle = directionAngle;
         previousAI = storeAI;
-        enemyx = opponent.xCenter;
-        enemyy = opponent.yCenter;
-        previousPos = new ArrayList<Vector2>();
         speed = new Stack<Float>();
         rotation = new Stack<Float>();
         instruction = new Instruction();
-        escapeFromGuard();
+        moveAwayFromSound();
     }
 
-    public void escapeFromGuard(){
+    public void moveAwayFromSound(){
         /**
-         * After the intruder sees a guard, we first find the location of the guard with respect to the intruder,
-         * from this we compute the angle of the guard with respect to the intruder
-         * In order to escape the guard, the intruder wants to move with an angle opposite of this viewing angle
+         * We create a destination point for the instruction class based on: the max speed of the agent, the directionAngle and the amount of time we want to move away from the sound before going back to patrolling
          */
+        //TODO find out why speed = 0
+        double directionAngleRadian = Math.toRadians(directionAngle);
+        double oppositeAngleRadian = directionAngleRadian + Math.PI;
 
-        Vector2 differenceVector = new Vector2(intruder.xCenter - enemyx, intruder.yCenter - enemyy);
-        double differenceAngleRadian = differenceVector.angleRad();
-
-        Vector2 destPoint = new Vector2((float) (intruder.xCenter + MOVE_AWAY_FROM_GUARD_TIME * intruder.getSpeed() * Math.cos(differenceAngleRadian)), (float) (intruder.yCenter + MOVE_AWAY_FROM_GUARD_TIME * intruder.getSpeed() * Math.sin(differenceAngleRadian)));
+        Vector2 destPoint = new Vector2((float) (intruder.xCenter + MOVING_AWAY_FROM_SOUND_TIME * intruder.getSpeed() * Math.cos(oppositeAngleRadian)), (float) (intruder.yCenter + MOVING_AWAY_FROM_SOUND_TIME * intruder.getSpeed() * Math.sin(oppositeAngleRadian)));
 
         instruction.translate(destPoint, intruder, false);
         rotation = instruction.getRotations();
@@ -108,5 +102,3 @@ public class Escape extends AI {
 
     }
 }
-
-

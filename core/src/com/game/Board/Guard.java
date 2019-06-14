@@ -96,6 +96,7 @@ public class Guard extends Agent {
 		}
 
 		//this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
+		this.speed = 0f;
 		this.speed = ai.getSpeed()*Board.fps;
 		this.rotation = ai.getRotation()*Board.fps;
 		//System.out.println("to: "+speed+"  "+angle);
@@ -108,7 +109,7 @@ public class Guard extends Agent {
 					aiConv.runAgain(this.xCenter,this.yCenter,100,100);
 				}
 			}
-			
+
 		}
 	}
 
@@ -185,9 +186,9 @@ public class Guard extends Agent {
 		/**
 		 * We don't want to switch our AI when the guard is tracking
 		 */
-		if (!(ai instanceof Tracking) && !(ai instanceof  TrackingLongDistance) && !(ai instanceof  InvestigateSound)){
-			ai = new InvestigateSound(this, directionAngle, ai);
-		}
+	//	if (!(ai instanceof Tracking) && !(ai instanceof  TrackingLongDistance) && !(ai instanceof  InvestigateSound)){
+	//		ai = new InvestigateSound(this, directionAngle, ai);
+	//	}
 	}
 
 }
