@@ -22,12 +22,12 @@ public class HeuristicAI extends AI {
     public HeuristicAI(Agent agent)
     {
         this.agent = agent;
-        exploration();
+        explorationSetUp();
     }
 
     public HeuristicAI()
     {
-        exploration();
+        explorationSetUp();
     }
 /*
 
@@ -40,7 +40,7 @@ public class HeuristicAI extends AI {
     }
 */
 
-    public void exploration()
+    public void explorationSetUp()
     {
 
         explorationPoints = new ArrayList<Point2D.Float>();
@@ -53,12 +53,19 @@ public class HeuristicAI extends AI {
             }
         }
 
-        if (pattern.equals("snake")){
 
+    }
+
+    public void exploration(){
+        if (pattern.equals("snake")){
+            snakeMovement();
         }
         else if (pattern.equals("random")){
             randomMovement();
         }
+    }
+
+    private void snakeMovement(){
 
     }
 
