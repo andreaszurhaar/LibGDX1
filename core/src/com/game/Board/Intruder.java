@@ -4,6 +4,7 @@
 package com.game.Board;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.game.AI.AI;
 import com.game.AI.Escape;
@@ -26,6 +27,7 @@ public class Intruder extends Agent {
 	public float speed;
 	public float angle;
 	public float soundRange;
+	private ArrayList<Area> structures;
     SpriteReader reader = new SpriteReader();
     public int sprintCount = 0;
 	public int restCount = 0;
@@ -138,5 +140,9 @@ public class Intruder extends Agent {
 		if (!(ai instanceof Escape) && !(ai instanceof  MoveAwayFromSound)){
 			ai = new MoveAwayFromSound(this, directionAngle, ai);
 	  }
+	}
+
+	public void addStructures(Area structure){
+		structures.add(structure);
 	}
 }

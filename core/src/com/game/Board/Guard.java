@@ -30,7 +30,7 @@ public class Guard extends Agent {
 	private Point2D.Float locationIntruder;
 	private float angleIntruder;
     private Tracking tracking;
-    private ArrayList<Area> structures;
+	private ArrayList<Area> structures;
     public SpriteReader reader = new SpriteReader();
 	private final int ALLOWED_DISTANCE_ERROR = 10;
 	private boolean reachedCentre;

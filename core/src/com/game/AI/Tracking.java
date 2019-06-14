@@ -127,9 +127,9 @@ public class Tracking extends AI {
     	instruct.translate(currPoint,guard, true);
     	speeds = instruct.getSpeeds();
     	rotations = instruct.getRotations();
-    	for(int i=0; i<prevPos.size() ;i++) {
-    		System.out.println("the positions of i: "+i+"  and xy: "+prevPos.get(i).x+"  "+prevPos.get(i).y);
-    	}
+//    	for(int i=0; i<prevPos.size() ;i++) {
+//    		System.out.println("the positions of i: "+i+"  and xy: "+prevPos.get(i).x+"  "+prevPos.get(i).y);
+//    	}
     	//System.exit(0);
     	/*
     	if(dist2 < 0.00001) {return new Vector2(enemyx-guard.xCenter,enemyy-guard.yCenter);}

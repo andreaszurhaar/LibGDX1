@@ -12,8 +12,8 @@ public class InvestigateSound extends AI{
 
     private Guard guard;
     private float angle;
-    private Stack<Float> speeds = new Stack<Float>();
-    private Stack<Float> rotations = new Stack<Float>();
+    private Stack<Float> speed;
+    private Stack<Float> rotation;
     public Vector2 showvect;
     private AI previousAI;
     private float directionAngle;
@@ -35,10 +35,10 @@ public class InvestigateSound extends AI{
          * We create a destination point for the instruction class based on: the max speed of the agent, the directionAngle and the amount of time we want to move towards the sound before going back to patrolling
          */
         Vector2 destPoint = new Vector2((float) (guard.xCenter + INVESTIGATING_SOUND_TIME * guard.getSpeed() * Math.cos(Math.toRadians(directionAngle))), (float) (guard.yCenter + INVESTIGATING_SOUND_TIME * guard.getSpeed() * Math.sin(Math.toRadians(directionAngle))));
-
-        instruction.translate(destPoint, guard, false);
-        rotation = instruction.getRotations();
-        speed = instruction.getSpeeds();
+//
+//        instruction.translate(destPoint, guard, false);
+//        rotation = instruction.getRotations();
+//        speed = instruction.getSpeeds();
     }
 
     @Override
