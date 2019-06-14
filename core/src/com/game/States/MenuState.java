@@ -98,10 +98,11 @@ public class MenuState extends State {
             levels[i] = ""+i;
         }
         
-        String[] arrayAgent = new String[3];
+        String[] arrayAgent = new String[4];
         arrayAgent[0] = "Basic";
         arrayAgent[1] = "A*";
         arrayAgent[2] = "Bot3";
+        arrayAgent[3] = "Heuristic AI";
 
         String[] arrayGuard = new String[3];
         arrayGuard[0] = "Patrolling";

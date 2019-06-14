@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.AI.AI;
 import com.game.AI.Astar.AStarNew;
 import com.game.AI.Astar.Astar;
+import com.game.AI.HeuristicAI;
 import com.game.AI.IntruderBasicMovement;
 import com.game.AI.CopsCenters;
 import com.game.AI.GuardCirclePatrolling;
@@ -118,8 +119,8 @@ public class MainState extends State {
 	                agentAI.setAgent(this.agents.get(i));
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
-            	} else if(intruderAI == "A*") {
-	                AI agentAI = new AStarNew(structures);
+            	} else if(intruderAI == "Heuristic AI") {
+	                AI agentAI = new HeuristicAI();
 	                this.agents.get(i).setAI(agentAI);
 	                agentAI.setAgent(this.agents.get(i));
 	                this.agents.get(i).ai.setArea(400,200);
