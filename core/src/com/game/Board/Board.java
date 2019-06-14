@@ -303,16 +303,16 @@ public class Board {
 		{
 		    if(observingAgent != agents.get(i)) {
 		        SoundOccurence s;
-                if (computeDist(observingAgent.area, agents.get(i).area) < 1 && agents.get(i).getSpeed() < 0.5){
-                    s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 1);
+                if (computeDist(observingAgent.area, agents.get(i).area) < 100 && agents.get(i).getSpeed() < 0.5){
+                    s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 100);
                     return s;
                 }
                 if (computeDist(observingAgent.area, agents.get(i).area) < 3 && agents.get(i).getSpeed() > 0.5 && agents.get(i).getSpeed() <1.0){
                     s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 3);
                     return s;
                 }
-                if (computeDist(observingAgent.area, agents.get(i).area) < 5 && agents.get(i).getSpeed() > 1.0 && agents.get(i).getSpeed() <2.0){
-                    s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 5);
+                if (computeDist(observingAgent.area, agents.get(i).area) < 100 && agents.get(i).getSpeed() > 1.0 && agents.get(i).getSpeed() <2.0){
+                    s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 100);
                     return s;
                 }
                 if (computeDist(observingAgent.area, agents.get(i).area) < 10 && agents.get(i).getSpeed() > 2){

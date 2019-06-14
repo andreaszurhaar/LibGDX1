@@ -6,6 +6,11 @@ package com.game.Board;
 import java.io.IOException;
 
 import com.game.AI.AI;
+import com.game.AI.Escape;
+import com.game.AI.InvestigateSound;
+import com.game.AI.MoveAwayFromSound;
+import com.game.AI.Tracking;
+import com.game.AI.TrackingLongDistance;
 import com.game.AI.Astar.AStarNew;
 import com.game.Readers.SpriteReader;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -69,12 +74,12 @@ public class Intruder extends Agent {
 		if(sprintCount != 0) {
 			speed = 3f;
 			sprintCount--;
-			
-			if(rotation > 10) {rotation = 10;} 
+
+			if(rotation > 10) {rotation = 10;}
 			else if(rotation < -10) {rotation = -10;}
-			
+
 		} else if(restCount != 0) {restCount--;}
-		
+
 		if(speed < 0.5) {
 			soundRange = 1;
 		} else if(speed < 1) {
@@ -84,11 +89,14 @@ public class Intruder extends Agent {
 		} else {
 			soundRange = 10;
 		}
+
+		this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
+		this.rotation = ai.getRotation()*Board.fps;
 	}
-	
+
     @Override
     public void setAI(AI ai){ this.ai = ai;}
-	
+
 	@Override
 	public void drawTexture(SpriteBatch sb, float xReduc, float yReduc) {
 		sb.end();
@@ -104,4 +112,30 @@ public class Intruder extends Agent {
 		super.drawTexture(sb, xReduc, yReduc);
 	}
 
+	@Override
+	public void see(Agent agent) {
+
+		if (!(Math.abs(rotation) > 45)) {
+			//TODO "if you turn more than 45 degrees/second you don't see anything for the turning time --plus half a second--"
+			seeing = true;
+			//TODO maybe should replace Escape with new Escape AI if another guard is seen
+			if (!(ai instanceof Escape) && agent instanceof Guard) {
+				ai = new Escape(this, agent, ai);
+			}
+		}
+	}
+
+	@Override
+	/**
+	 * When an intruder hears a sound, it moves away from its direction for X seconds before returning back to its original AI
+	 */
+	public void hearSound(float directionAngle){
+		hearing = true;
+		/**
+		 * We don't want to switch our AI when the guard is escaping (i.e. moving away from a guard after it has seen it)
+		 */
+		if (!(ai instanceof Escape)){
+			ai = new MoveAwayFromSound(this, directionAngle, ai);
+	  }
+	}
 }
