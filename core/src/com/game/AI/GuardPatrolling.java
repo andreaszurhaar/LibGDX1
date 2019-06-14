@@ -105,7 +105,8 @@ public class GuardPatrolling extends AI {
 
         	ChainInstruction chain = new ChainInstruction();
         	ArrayList<Vector2> chainar = new ArrayList<Vector2>();
-        	chainar.add(new Vector2(380,180));
+            chainar.add(new Vector2(guard.getCenterLocation().x, guard.getCenterLocation().y));
+        	//chainar.add(new Vector2(380,180));
         	//chainar.add(new Vector2(220,100));
         	//chainar.add(new Vector2(220,120));
         	//chainar.add(new Vector2(180,120));
@@ -251,7 +252,7 @@ public class GuardPatrolling extends AI {
         	//System.out.print("  and rotation: "+rotation.peek());
            return rotation.pop();
         }
-        return rotation.pop();
+        return 0f;
     }
 
     @Override
@@ -269,7 +270,8 @@ public class GuardPatrolling extends AI {
         	//System.out.println("  getting instruction to move with speed: "+speed.peek());
            return speed.pop();
         }
-        return speed.pop();    }
+        return 0f;    
+    }
 
     @Override
     public void setAgent(Agent agent) {
