@@ -39,8 +39,12 @@ public class HeuristicAI extends AI {
 
         }
         else if (pattern.equals("random")){
-
+            randomMovement();
         }
+
+    }
+
+    private void randomMovement(){
 
     }
 
