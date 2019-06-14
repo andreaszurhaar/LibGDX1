@@ -10,6 +10,7 @@ import com.game.States.MapState;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.Random;
 import java.util.Stack;
 
@@ -27,8 +28,17 @@ public class HeuristicAI extends AI {
     public static final float X_REDUC = MapState.X_REDUC;
     public static final float Y_REDUC = MapState.Y_REDUC;
 
+    public HeuristicAI(Agent agent)
+    {
+        this.agent = agent;
+        speed = new Stack<Float>();
+        rotation = new Stack<Float>();
+        instruction = new Instruction();
+        explorationSetUp();
+    }
 
-    public HeuristicAI() {
+    public HeuristicAI()
+    {
         speed = new Stack<Float>();
         rotation = new Stack<Float>();
         instruction = new Instruction();
@@ -36,6 +46,7 @@ public class HeuristicAI extends AI {
 
     }
 /*
+
     public HeuristicAI(Agent agent, float areaWidth, float areaHeight)
     {
         this.agent = agent;
@@ -92,12 +103,12 @@ public class HeuristicAI extends AI {
     }
 
     private Vector2 randomMovement() {
-        //find the angle which we can turn to
-        float angle = rand.nextInt(360);
-        //create a point outside the map according to the angle
-        Vector2 vector =  new Vector2((float) (agent.xCenter + AVERYBIGNUMBER*Math.cos(Math.toRadians(angle))),(float) (agent.yCenter + AVERYBIGNUMBER*Math.sin(Math.toRadians(angle))));
-        System.out.println("vector: " + vector.x + "," + vector.y);
-        return vector;
+                //find the angle which we can turn to
+                float angle = rand.nextInt(360);
+                //create a point outside the map according to the angle
+                Vector2 vector =  new Vector2((float) (agent.xCenter + AVERYBIGNUMBER*Math.cos(Math.toRadians(angle))),(float) (agent.yCenter + AVERYBIGNUMBER*Math.sin(Math.toRadians(angle))));
+                System.out.println("vector: " + vector.x + "," + vector.y);
+                return vector;
     }
 
     @Override
@@ -134,6 +145,7 @@ public class HeuristicAI extends AI {
 
     @Override
     public void setArea(float areaWidth, float areaHeight) {
+
     }
 
     @Override
