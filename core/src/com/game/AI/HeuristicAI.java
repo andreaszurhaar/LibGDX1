@@ -10,6 +10,7 @@ import com.game.States.MapState;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.Random;
 import java.util.Stack;
 
@@ -27,6 +28,14 @@ public class HeuristicAI extends AI {
     public static final float X_REDUC = MapState.X_REDUC;
     public static final float Y_REDUC = MapState.Y_REDUC;
 
+    public HeuristicAI(Agent agent)
+    {
+        this.agent = agent;
+        speed = new Stack<Float>();
+        rotation = new Stack<Float>();
+        instruction = new Instruction();
+        explorationSetUp();
+    }
 
     public HeuristicAI() {
         speed = new Stack<Float>();
@@ -36,6 +45,7 @@ public class HeuristicAI extends AI {
 
     }
 /*
+
     public HeuristicAI(Agent agent, float areaWidth, float areaHeight)
     {
         this.agent = agent;
@@ -135,6 +145,7 @@ public class HeuristicAI extends AI {
 
     @Override
     public void setArea(float areaWidth, float areaHeight) {
+
     }
 
     @Override
