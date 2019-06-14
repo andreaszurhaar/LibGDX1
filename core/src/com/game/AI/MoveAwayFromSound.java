@@ -13,8 +13,8 @@ public class MoveAwayFromSound extends AI {
 
     private Intruder intruder;
     private float angle;
-    private Stack<Float> speeds = new Stack<Float>();
-    private Stack<Float> rotations = new Stack<Float>();
+    private Stack<Float> speeds;
+    private Stack<Float> rotations;
     public Vector2 showvect;
     private AI previousAI;
     private float directionAngle;
@@ -40,6 +40,7 @@ public class MoveAwayFromSound extends AI {
         double oppositeAngleRadian = directionAngleRadian + Math.PI;
 
         Vector2 destPoint = new Vector2((float) (intruder.xCenter + MOVING_AWAY_FROM_SOUND_TIME * intruder.getSpeed() * Math.cos(oppositeAngleRadian)), (float) (intruder.yCenter + MOVING_AWAY_FROM_SOUND_TIME * intruder.getSpeed() * Math.sin(oppositeAngleRadian)));
+//        System.out.println("destination point: x:" + destPoint.x + ", y: " + destPoint.y);
 
         instruction.translate(destPoint, intruder, false);
         rotation = instruction.getRotations();

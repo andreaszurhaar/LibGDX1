@@ -101,7 +101,6 @@ public class GuardPatrolling extends AI {
 
         if((!reachedCenter && (Math.sqrt(((guard.getX() - guard.getCenterLocation().x) * (guard.getX() - guard.getCenterLocation().x)) + ((guard.getY() - guard.getCenterLocation().y) * (guard.getY() - guard.getCenterLocation().y))) > ALLOWED_DISTANCE_ERROR))
             && !guard.isCollided())   {
-        	
 
         	ChainInstruction chain = new ChainInstruction();
         	ArrayList<Vector2> chainar = new ArrayList<Vector2>();
@@ -113,7 +112,6 @@ public class GuardPatrolling extends AI {
             rotation = chain.getRotations();
             speed = chain.getSpeeds();
 
-        	
         	/*
             Vector2 centerVector = new Vector2(guard.getCenterLocation().x, guard.getCenterLocation().y);
             *//*
