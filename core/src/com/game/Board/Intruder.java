@@ -94,7 +94,7 @@ public class Intruder extends Agent {
 
 		this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
 		this.rotation = ai.getRotation()*Board.fps;
-		System.out.println("Intruder AI: " + ai);
+//		System.out.println("Intruder AI: " + ai);
 	}
 
     @Override
