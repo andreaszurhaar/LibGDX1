@@ -11,7 +11,6 @@ import com.game.Board.Agent;
 
 /**
  * @author Lukas Padolevicius
- *
  */
 public class ChainInstruction {
 	

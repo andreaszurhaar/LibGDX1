@@ -43,10 +43,10 @@ public class AStarNew extends AI {
         this.targety = targety;
         this.startx = startx;
         this.starty = starty;
-        createInitialGraph();
         setStart(startx, starty);
         //Take random target coordinates
         setTarget(targetx, targety);
+        createInitialGraph();
         start();
     }
 
@@ -60,13 +60,13 @@ public class AStarNew extends AI {
 
     public void createInitialGraph() {
 
-        System.out.println("we create the map (createInitialGraph)");
+//        System.out.println("we create the map (createInitialGraph)");
         map = new GraphNew(rectangles, target, start);
-        System.out.println("the nodes are: ");
-        for (NodeNew n : map.nodes)
-        {
-            System.out.println("node " + n.id + " with "+ n.xcoord +","+n.ycoord);
-        }
+//        System.out.println("the nodes are: ");
+//        for (NodeNew n : map.nodes)
+//        {
+//            System.out.println("node " + n.id + " with "+ n.xcoord +","+n.ycoord);
+//        }
 //        System.out.println("and the edges are: ");
 //        for (EdgeNew e : map.edges)
 //        {
@@ -221,9 +221,9 @@ public class AStarNew extends AI {
         }
     	target = new NodeNew(agent.xCenter+10, agent.yCenter+10);
         start = new NodeNew(agent.xCenter, agent.yCenter);
-        System.out.println("creating new target and start nodes");
+//        System.out.println("creating new target and start nodes");
         createInitialGraph();
-        System.out.println("we create the map (setAgent)");
+//        System.out.println("we create the map (setAgent)");
         setStart(start.xcoord,start.ycoord);
         setTarget(target.xcoord, target.ycoord);
         start();
