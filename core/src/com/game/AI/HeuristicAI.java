@@ -11,6 +11,7 @@ import com.game.States.MapState;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Stack;
 
 public class HeuristicAI extends AI {
 
@@ -22,17 +23,15 @@ public class HeuristicAI extends AI {
     public final static int BOARD_WIDTH = 400;
     public final static int BOARD_HEIGHT = 200;
     private ArrayList<Point2D.Float> explorationPoints;
-    private String pattern;
-    public Vector2 startingPoint;
+    private String pattern = "random";
     public static final float X_REDUC = MapState.X_REDUC;
     public static final float Y_REDUC = MapState.Y_REDUC;
 
-    public HeuristicAI(Agent agent) {
-        this.agent = agent;
-        explorationSetUp();
-    }
 
     public HeuristicAI() {
+        speed = new Stack<Float>();
+        rotation = new Stack<Float>();
+        instruction = new Instruction();
         explorationSetUp();
 
     }
@@ -93,12 +92,12 @@ public class HeuristicAI extends AI {
     }
 
     private Vector2 randomMovement() {
-                //find the angle which we can turn to
-                float angle = rand.nextInt(360);
-                //create a point outside the map according to the angle
-                Vector2 vector =  new Vector2((float) (agent.xCenter + AVERYBIGNUMBER*Math.cos(Math.toRadians(angle))),(float) (agent.yCenter + AVERYBIGNUMBER*Math.sin(Math.toRadians(angle))));
-                System.out.println("vector: " + vector.x + "," + vector.y);
-                return vector;
+        //find the angle which we can turn to
+        float angle = rand.nextInt(360);
+        //create a point outside the map according to the angle
+        Vector2 vector =  new Vector2((float) (agent.xCenter + AVERYBIGNUMBER*Math.cos(Math.toRadians(angle))),(float) (agent.yCenter + AVERYBIGNUMBER*Math.sin(Math.toRadians(angle))));
+        System.out.println("vector: " + vector.x + "," + vector.y);
+        return vector;
     }
 
     @Override
@@ -135,7 +134,6 @@ public class HeuristicAI extends AI {
 
     @Override
     public void setArea(float areaWidth, float areaHeight) {
-
     }
 
     @Override
