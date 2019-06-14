@@ -17,6 +17,7 @@ import com.game.AI.GuardCirclePatrolling;
 import com.game.AI.GuardPatrolling;
 import com.game.AI.IntruderBasicMovement;
 import com.game.Board.Guard;
+import com.game.Board.Intruder;
 import com.game.CopsAndRobbers;
 import com.game.Board.Agent;
 import com.game.Board.Area;
@@ -54,12 +55,14 @@ public class MainState extends State {
     public static final float X_REDUC = MapState.X_REDUC;
     public static final float Y_REDUC = MapState.Y_REDUC;
     public double timeLimit = 60.00;
+    String intruderAI;
 
 
     public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls, String guardAI, String intruderAI) {
         super(gsm);
         font = new BitmapFont();
         font.setColor(Color.WHITE);
+        this.intruderAI = intruderAI;
         wall = new Texture("wall.png");
         play = new Play(865,545);
         ground = new Ground(0,0);
@@ -120,9 +123,11 @@ public class MainState extends State {
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
             	} else if(intruderAI == "Heuristic AI") {
-	                AI agentAI = new HeuristicAI();
-	                this.agents.get(i).setAI(agentAI);
+	                AI agentAI = new HeuristicAI(agents.get(i));
+	                ((HeuristicAI) agentAI).setPattern("snake");
+	                agentAI.setAgent(agents.get(i));
 	                agentAI.setAgent(this.agents.get(i));
+
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
             	} else {
@@ -187,6 +192,13 @@ public class MainState extends State {
 
         }
         if (board.gameOver) {gsm.push(new GameOverState(gsm, deltaTime));}
+
+        for(int i = 0; i < this.agents.size(); i++){
+            if(this.agents.get(i) instanceof Intruder) {
+               // if()
+               // agents.get(i).pa
+            }
+        }
         //if(deltaTime > timeLimit){gsm.push(new GameOverState(gsm,deltaTime));}
         board.updateAgents();
         

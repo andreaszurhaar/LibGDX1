@@ -1,10 +1,12 @@
 package com.game.AI;
 
+import com.badlogic.gdx.math.Vector2;
 import com.game.Board.Agent;
 import com.game.Board.Area;
 import com.game.Board.Board;
 import com.game.Board.MapDivider;
 import com.game.CopsAndRobbers;
+import com.game.States.MapState;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -18,6 +20,9 @@ public class HeuristicAI extends AI {
     public final static int BOARD_HEIGHT = 200;
     private ArrayList<Point2D.Float> explorationPoints;
     private String pattern;
+    public Vector2 startingPoint;
+    public static final float X_REDUC = MapState.X_REDUC;
+    public static final float Y_REDUC = MapState.Y_REDUC;
 
     public HeuristicAI(Agent agent)
     {
@@ -28,6 +33,7 @@ public class HeuristicAI extends AI {
     public HeuristicAI()
     {
         explorationSetUp();
+
     }
 /*
 
@@ -66,6 +72,29 @@ public class HeuristicAI extends AI {
     }
 
     private void snakeMovement(){
+        float startingX = agent.getX();
+        float startingY = agent.getY();
+        startingPoint = new Vector2(startingX,startingY);
+        if(startingPoint.x > 200){
+            if(startingPoint.y > 100){
+                startingPoint = new Vector2(360,180);
+            }
+            else{
+                startingPoint = new Vector2(360,30);
+            }
+        }
+        else{
+            if(startingPoint.y > 100){
+                startingPoint = new Vector2(30,180);
+            }
+            else{
+                startingPoint = new Vector2(30,30);
+            }
+        }
+
+        instruction.translate(startingPoint, agent, true);
+        rotation = instruction.getRotations();
+        speed = instruction.getSpeeds();
 
     }
 
@@ -75,12 +104,29 @@ public class HeuristicAI extends AI {
 
     @Override
     public float getRotation() {
-        return 0;
+        if (rotation.empty()){
+                exploration();
+                return rotation.pop();
+
+        }
+        else
+        {
+            //System.out.print("  and rotation: "+rotation.peek());
+            return rotation.pop();
+        }
     }
 
     @Override
     public float getSpeed() {
-        return 0;
+        if (speed.empty()){
+            exploration();
+            return speed.pop();
+        }
+        else
+        {
+            //System.out.println("  getting instruction to move with speed: "+speed.peek());
+            return speed.pop();
+        }
     }
 
     @Override
@@ -112,5 +158,11 @@ public class HeuristicAI extends AI {
     public void seeAgent(Agent agent) {
 
     }
+
+    public void setPattern(String pattern){
+        this.pattern = pattern;
+    }
+
+
 
 }
