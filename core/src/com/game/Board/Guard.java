@@ -186,7 +186,7 @@ public class Guard extends Agent {
 		/**
 		 * We don't want to switch our AI when the guard is tracking
 		 */
-		if (!(ai instanceof Tracking) && !(ai instanceof  TrackingLongDistance) && !(ai instanceof  InvestigateSound)){
+		if (!(ai instanceof Tracking) && !(ai instanceof  TrackingLongDistance) && !(ai instanceof InvestigateSound)){
 			ai = new InvestigateSound(this, directionAngle, ai);
 		}
 	}
