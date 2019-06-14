@@ -10,13 +10,15 @@ import com.game.States.MapState;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class HeuristicAI extends AI {
 
     private Agent agent;
     private Vector2 point;
+    private Random rand = new Random();
     //    private float areaWidth,areaHeight;
-    private final int FACTOR = 20; //number of squares that we want
+    private final int FACTOR = 20, AVERYBIGNUMBER = 500; //number of squares that we want
     public final static int BOARD_WIDTH = 400;
     public final static int BOARD_HEIGHT = 200;
     private ArrayList<Point2D.Float> explorationPoints;
@@ -91,7 +93,12 @@ public class HeuristicAI extends AI {
     }
 
     private Vector2 randomMovement() {
-
+                //find the angle which we can turn to
+                float angle = rand.nextInt(360);
+                //create a point outside the map according to the angle
+                Vector2 vector =  new Vector2((float) (agent.xCenter + AVERYBIGNUMBER*Math.cos(Math.toRadians(angle))),(float) (agent.yCenter + AVERYBIGNUMBER*Math.sin(Math.toRadians(angle))));
+                System.out.println("vector: " + vector.x + "," + vector.y);
+                return vector;
     }
 
     @Override
@@ -102,6 +109,7 @@ public class HeuristicAI extends AI {
             //System.out.print("  and rotation: "+rotation.peek());
             return rotation.pop();
         }
+        return 0f;
     }
 
     @Override
@@ -112,6 +120,7 @@ public class HeuristicAI extends AI {
             //System.out.println("  getting instruction to move with speed: "+speed.peek());
             return speed.pop();
         }
+        return 0f;
     }
 
     @Override
