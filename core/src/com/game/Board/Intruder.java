@@ -92,6 +92,7 @@ public class Intruder extends Agent {
 
 		this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
 		this.rotation = ai.getRotation()*Board.fps;
+		System.out.println("Intruder AI: " + ai);
 	}
 
     @Override
@@ -134,7 +135,7 @@ public class Intruder extends Agent {
 		/**
 		 * We don't want to switch our AI when the guard is escaping (i.e. moving away from a guard after it has seen it)
 		 */
-		if (!(ai instanceof Escape)){
+		if (!(ai instanceof Escape) && !(ai instanceof  MoveAwayFromSound)){
 			ai = new MoveAwayFromSound(this, directionAngle, ai);
 	  }
 	}

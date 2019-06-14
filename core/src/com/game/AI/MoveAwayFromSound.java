@@ -13,8 +13,8 @@ public class MoveAwayFromSound extends AI {
 
     private Intruder intruder;
     private float angle;
-    private Stack<Float> speeds = new Stack<Float>();
-    private Stack<Float> rotations = new Stack<Float>();
+    private Stack<Float> speed;
+    private Stack<Float> rotation;
     public Vector2 showvect;
     private AI previousAI;
     private float directionAngle;
