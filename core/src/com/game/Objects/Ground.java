@@ -11,9 +11,9 @@ public class Ground extends GameObject {
         SpriteReader reader = new SpriteReader();
         this.width = 30;
         this.height = 20;
-        bounds = new Rectangle(xPos,yPos,width,height);
+        bounds = new Rectangle(xPos, yPos, width, height);
         try {
-            this.texture = reader.getImage(58,292,26,28);
+            this.texture = reader.getImage(58, 292, 26, 28);
         } catch (IOException e) {
             e.printStackTrace();
         }

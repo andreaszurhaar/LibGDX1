@@ -55,8 +55,6 @@ public class HeuristicAI extends AI {
                 explorationPoints.add(new Point2D.Float(i * tempX + 0.5f * tempX, j * tempY + 0.5f * tempY));
             }
         }
-
-
     }
 
     public void exploration() {
@@ -71,7 +69,7 @@ public class HeuristicAI extends AI {
         speed = instruction.getSpeeds();
     }
 
-    private Vector2 snakeMovement() {
+    public Vector2 snakeMovement() {
         float startingX = agent.getX();
         float startingY = agent.getY();
         point = new Vector2(startingX, startingY);
@@ -91,7 +89,7 @@ public class HeuristicAI extends AI {
         return point;
     }
 
-    private Vector2 randomMovement() {
+    public Vector2 randomMovement() {
         //find the angle which we can turn to
         float angle = rand.nextInt(360);
         //create a point outside the map according to the angle
@@ -99,6 +97,9 @@ public class HeuristicAI extends AI {
         System.out.println("vector: " + vector.x + "," + vector.y);
         return vector;
     }
+
+
+
 
     @Override
     public float getRotation() {
