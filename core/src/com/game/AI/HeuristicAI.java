@@ -21,7 +21,7 @@ public class HeuristicAI extends AI {
     private Vector2 point;
     private Random rand = new Random();
     //    private float areaWidth,areaHeight;
-    private final int FACTOR = 20, AVERYBIGNUMBER = 500; //number of squares that we want
+    private final int FACTOR = 20, AVERYBIGNUMBER = 500, Y_FACTOR = 20, X_FACTOR = 50; //number of squares that we want
     public final static int BOARD_WIDTH = 400;
     public final static int BOARD_HEIGHT = 200;
     private ArrayList<Vector2> explorationPoints;
@@ -68,10 +68,15 @@ public class HeuristicAI extends AI {
         explorationPoints = new ArrayList<Vector2>();
         float tempX = (BOARD_WIDTH/MapState.X_REDUC) / FACTOR;
         float tempY = (500/MapState.Y_REDUC) / FACTOR;
-        for (int i = 0; i < FACTOR; i++) {
-            for (int j = 1; j < FACTOR; j++) {
+        for (int i = 0; i < X_FACTOR; i++) {
+            for (int j = 1; j < Y_FACTOR; j++) {
                 explorationPoints.add(new Vector2(i * tempX + 0.5f * tempX, j * tempY + 0.5f * tempY));
             }
+        }
+
+        for(int i = 0; i < explorationPoints.size(); i++){
+            System.out.print("x = " + explorationPoints.get(i).x + " " + " y = " + explorationPoints.get(i).y );
+            System.out.println(" ");
         }
 
 
