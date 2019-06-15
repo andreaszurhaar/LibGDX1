@@ -60,7 +60,7 @@ public class GuardCirclePatrolling extends AI {
         this.areaWidth = areaWidth;
         this.areaHeight = areaHeight;
         areaCenter = new Point2D.Float(0.5f*areaWidth, 0.5f*areaHeight);
-        System.out.println("areacenter of patrolling is: " + areaCenter.x +","+areaCenter.y);
+        //System.out.println("areacenter of patrolling is: " + areaCenter.x +","+areaCenter.y);
     }
 
      //single agent version
@@ -166,6 +166,10 @@ public class GuardCirclePatrolling extends AI {
         createDestPoints();
     }
 
+    @Override
+    public void updatedSeenLocations() {
+
+    }
 
 
 }

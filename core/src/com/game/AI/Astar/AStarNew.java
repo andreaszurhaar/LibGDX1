@@ -253,4 +253,9 @@ public class AStarNew extends AI {
     public void seeAgent(Agent agent) {
 
     }
+
+    @Override
+    public void updatedSeenLocations() {
+
+    }
 }

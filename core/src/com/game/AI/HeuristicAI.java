@@ -1,5 +1,6 @@
 package com.game.AI;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.game.Board.Agent;
 import com.game.Board.Area;
@@ -23,10 +24,12 @@ public class HeuristicAI extends AI {
     private final int FACTOR = 20, AVERYBIGNUMBER = 500; //number of squares that we want
     public final static int BOARD_WIDTH = 400;
     public final static int BOARD_HEIGHT = 200;
-    private ArrayList<Point2D.Float> explorationPoints;
-    private String pattern = "random";
+    private ArrayList<Vector2> explorationPoints;
+    private String pattern;
     public static final float X_REDUC = MapState.X_REDUC;
     public static final float Y_REDUC = MapState.Y_REDUC;
+    public boolean startingPos;
+    public ArrayList<Area> seenStructures;
 
     public HeuristicAI(Agent agent)
     {
@@ -34,6 +37,8 @@ public class HeuristicAI extends AI {
         speed = new Stack<Float>();
         rotation = new Stack<Float>();
         instruction = new Instruction();
+        seenStructures = new ArrayList<Area>();
+        startingPos = false;
         explorationSetUp();
     }
 
@@ -42,6 +47,8 @@ public class HeuristicAI extends AI {
         speed = new Stack<Float>();
         rotation = new Stack<Float>();
         instruction = new Instruction();
+        seenStructures = new ArrayList<Area>();
+        startingPos = false;
         explorationSetUp();
 
     }
@@ -58,12 +65,12 @@ public class HeuristicAI extends AI {
 
     public void explorationSetUp() {
 
-        explorationPoints = new ArrayList<Point2D.Float>();
-        float tempX = BOARD_WIDTH / FACTOR;
-        float tempY = BOARD_HEIGHT / FACTOR;
+        explorationPoints = new ArrayList<Vector2>();
+        float tempX = (BOARD_WIDTH/MapState.X_REDUC) / FACTOR;
+        float tempY = (500/MapState.Y_REDUC) / FACTOR;
         for (int i = 0; i < FACTOR; i++) {
             for (int j = 0; j < FACTOR; j++) {
-                explorationPoints.add(new Point2D.Float(i * tempX + 0.5f * tempX, j * tempY + 0.5f * tempY));
+                explorationPoints.add(new Vector2(i * tempX + 0.5f * tempX, j * tempY + 0.5f * tempY));
             }
         }
 
@@ -83,22 +90,41 @@ public class HeuristicAI extends AI {
     }
 
     private Vector2 snakeMovement() {
-        float startingX = agent.getX();
-        float startingY = agent.getY();
-        point = new Vector2(startingX, startingY);
-        if (point.x > 200) {
-            if (point.y > 100) {
-                point = new Vector2(360, 180);
+
+        if(startingPos == false) {
+            float startingX = agent.getX();
+            float startingY = agent.getY();
+            point = new Vector2(startingX, startingY);
+            if (point.x > 200) {
+                if (point.y > 100) {
+                    point = new Vector2(380, 180);
+                    startingPos = true;
+                } else {
+                    point = new Vector2(380, 30);
+                    startingPos = true;
+                }
             } else {
-                point = new Vector2(360, 30);
-            }
-        } else {
-            if (point.y > 100) {
-                point = new Vector2(30, 180);
-            } else {
-                point = new Vector2(30, 30);
+                if (point.y > 100) {
+                    point = new Vector2(30, 180);
+                    startingPos = true;
+                } else {
+                    point = new Vector2(30, 30);
+                    startingPos = true;
+                }
             }
         }
+        else {
+            for (int i = 0; i < explorationPoints.size(); i++) {
+                Rectangle area = agent.area;
+                area.x += 100;
+                if (area.contains(explorationPoints.get(i))) {
+                    System.out.println("Made it to contains");
+                    point = new Vector2(explorationPoints.get(i));
+                    break;
+                }
+            }
+        }
+
         return point;
     }
 
@@ -156,10 +182,36 @@ public class HeuristicAI extends AI {
     @Override
     public void seeArea(Area area) {
 
+        boolean check = false;
+        //checking to see if area is in seen structures, if not it is added to the array
+        if(seenStructures.size() > 0) {
+            for (int i = 0; i < seenStructures.size(); i++) {
+                if (area == seenStructures.get(i)) {
+                    check = true;
+                }
+            }
+            if(!check){
+                seenStructures.add(area);
+            }
+        }
+        else{
+            seenStructures.add(area);
+        }
+        System.out.println("Seen Structures count = " + seenStructures.size());
     }
 
     @Override
     public void seeAgent(Agent agent) {
+
+    }
+
+    @Override
+    public void updatedSeenLocations() {
+        for(int i = 0; i < explorationPoints.size(); i++){
+            if(agent.area.contains(explorationPoints.get(i))){
+                explorationPoints.remove(i);
+            }
+        }
 
     }
 

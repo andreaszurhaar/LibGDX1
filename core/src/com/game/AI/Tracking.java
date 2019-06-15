@@ -206,4 +206,9 @@ public class Tracking extends AI {
     	}
     }
 
+	@Override
+	public void updatedSeenLocations() {
+
+	}
+
 }

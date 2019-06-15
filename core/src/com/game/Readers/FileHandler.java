@@ -301,7 +301,7 @@ public class FileHandler {
                 }
 
                 else {
-                    System.out.println("made it to else");
+                  //  System.out.println("made it to else");
                     walls.add(new Structure((Integer.parseInt(data3.get(i)[2])), Integer.parseInt(data3.get(i)[3]), Integer.parseInt(data3.get(i)[4]), Integer.parseInt(data3.get(i)[5]), false));
                 }
             }
@@ -312,9 +312,9 @@ public class FileHandler {
          master.add(agents);
          master.add(structures);
          master.add(walls);
-        System.out.print("Agents" + "" + agents.size());
-        System.out.print("struc" + "" + structures.size());
-        System.out.println("walls" + "" + walls.size());
+      //  System.out.print("Agents" + "" + agents.size());
+     //   System.out.print("struc" + "" + structures.size());
+     //   System.out.println("walls" + "" + walls.size());
 
          return master;
     }
