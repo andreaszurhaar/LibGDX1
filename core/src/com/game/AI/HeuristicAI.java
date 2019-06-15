@@ -69,7 +69,7 @@ public class HeuristicAI extends AI {
         float tempX = (BOARD_WIDTH/MapState.X_REDUC) / FACTOR;
         float tempY = (500/MapState.Y_REDUC) / FACTOR;
         for (int i = 0; i < FACTOR; i++) {
-            for (int j = 0; j < FACTOR; j++) {
+            for (int j = 1; j < FACTOR; j++) {
                 explorationPoints.add(new Vector2(i * tempX + 0.5f * tempX, j * tempY + 0.5f * tempY));
             }
         }
@@ -114,7 +114,7 @@ public class HeuristicAI extends AI {
             }
         }
         else {
-            for (int i = 0; i < explorationPoints.size(); i++) {
+            /*for (int i = 0; i < explorationPoints.size(); i++) {
                 Rectangle area = agent.area;
                 area.x += 100;
                 if (area.contains(explorationPoints.get(i))) {
@@ -122,7 +122,13 @@ public class HeuristicAI extends AI {
                     point = new Vector2(explorationPoints.get(i));
                     break;
                 }
-            }
+
+                point = explorationPoints.get()
+            }*/
+            Random rand = new Random();
+            point = explorationPoints.get(rand.nextInt(explorationPoints.size()));
+            System.out.println("x - coordinate explore = " + point.x);
+            System.out.println("y - coordinate explore = " + point.y);
         }
 
         return point;
@@ -197,7 +203,7 @@ public class HeuristicAI extends AI {
         else{
             seenStructures.add(area);
         }
-        System.out.println("Seen Structures count = " + seenStructures.size());
+       // System.out.println("Seen Structures count = " + seenStructures.size());
     }
 
     @Override
@@ -207,11 +213,16 @@ public class HeuristicAI extends AI {
 
     @Override
     public void updatedSeenLocations() {
+
+        System.out.println("before update = " + explorationPoints.size());
+
         for(int i = 0; i < explorationPoints.size(); i++){
             if(agent.area.contains(explorationPoints.get(i))){
                 explorationPoints.remove(i);
             }
         }
+
+        System.out.println("after update = " + explorationPoints.size());
 
     }
 

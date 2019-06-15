@@ -161,7 +161,7 @@ public class Instruction {
 	}
 	
 	public Stack<Float> getSpeeds() {
-		System.out.println("This other stack is of size: "+speeds.size());
+	//	System.out.println("This other stack is of size: "+speeds.size());
 		Stack<Float> sps = speeds;
 		speeds = new Stack<Float>();
 		return sps;
