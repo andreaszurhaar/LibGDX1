@@ -89,7 +89,7 @@ public class HeuristicAI extends AI {
 
     public void exploration() {
         if (pattern.equals("closest")) {
-            point = closestUnkown();
+            point = closestUnknown();
         } else if (pattern.equals("random")) {
             point = randomMovement();
         }
@@ -102,7 +102,7 @@ public class HeuristicAI extends AI {
         speed = instruction.getSpeeds();
     }
 
-    private Vector2 closestUnkown() {
+    private Vector2 closestUnknown() {
 
         //Checks if there are sturctures that need to be explored and moves to them
         if (exploredStructures.size() > 0){
