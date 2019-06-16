@@ -20,17 +20,18 @@ public class HeuristicAI extends AI {
 
     private Agent agent;
     private Vector2 point;
+    private float prevAngle, guardAngle;
     private Random rand = new Random();
     private ArrayList<Area> structures;
     //    private float areaWidth,areaHeight;
-    private final int FACTOR = 20, AVERYBIGNUMBER = 500, Y_FACTOR = 20, X_FACTOR = 50; //number of squares that we want
+    private final int FACTOR = 20, AVERYBIGNUMBER = 500, Y_FACTOR = 20, X_FACTOR = 50, DEGREE_RANGE = 90 ;
     public final static int BOARD_WIDTH = 400;
     public final static int BOARD_HEIGHT = 200;
     private ArrayList<Vector2> explorationPoints;
     private String pattern;
     public static final float X_REDUC = MapState.X_REDUC;
     public static final float Y_REDUC = MapState.Y_REDUC;
-    public boolean startingPos;
+    public boolean startingPos, guardSeen;
     public ArrayList<Area> seenStructures;
 
     public HeuristicAI(Agent agent)
@@ -132,8 +133,23 @@ public class HeuristicAI extends AI {
     }
 
     private Vector2 randomMovement() {
-        //find the angle which we can turn to
-        float angle = rand.nextInt(360);
+        //creates range so the agent doesn't move in the direction it came from (currently at least 90 degrees in a different direction)
+        float angle;
+        if (guardSeen){
+            //adjust upper and lower so that is directly in the opposite direction of the guard
+            angle = guardAngle + 180;
+        }
+        else {
+            int upper = (int) prevAngle + DEGREE_RANGE;
+            int lower = (int) prevAngle - DEGREE_RANGE;
+            angle = (float) rand.nextInt(upper - lower) + lower;
+
+        }
+        if (angle>360)
+        {
+            angle = angle - 360;
+        }
+        prevAngle = angle;
         //create a point outside the map according to the angle
         Vector2 vector =  new Vector2((float) (agent.xCenter + AVERYBIGNUMBER*Math.cos(Math.toRadians(angle))),(float) (agent.yCenter + AVERYBIGNUMBER*Math.sin(Math.toRadians(angle))));
         System.out.println("vector: " + vector.x + "," + vector.y);
@@ -189,6 +205,7 @@ public class HeuristicAI extends AI {
 
     @Override
     public void seeArea(Area area) {
+        System.out.println("we see a structure");
         boolean check = false;
         //checking to see if area is in seen structures, if not it is added to the array
         if(seenStructures.size() > 0) {
@@ -213,7 +230,8 @@ public class HeuristicAI extends AI {
 
     @Override
     public void seeAgent(Agent agent) {
-
+        guardSeen = true;
+        guardAngle = agent.angle;
     }
 
     @Override
