@@ -88,10 +88,13 @@ public class HeuristicAI extends AI {
     }
 
     public void exploration() {
-        if (pattern.equals("explore")) {
-            point = snakeMovement();
+        if (pattern.equals("closest")) {
+            point = closestUnkown();
         } else if (pattern.equals("random")) {
             point = randomMovement();
+        }
+        else if (pattern.equals("all")) {
+            point = allOptions();
         }
 
         instruction.translate(point, agent, true);
@@ -99,7 +102,7 @@ public class HeuristicAI extends AI {
         speed = instruction.getSpeeds();
     }
 
-    private Vector2 snakeMovement() {
+    private Vector2 closestUnkown() {
 
         //Checks if there are sturctures that need to be explored and moves to them
         if (exploredStructures.size() > 0){
@@ -175,6 +178,30 @@ public class HeuristicAI extends AI {
         return vector;
     }
 
+    public Vector2 allOptions(){
+        //Checks if there are sturctures that need to be explored and moves to them
+        if (exploredStructures.size() > 0){
+
+            for(int i = 0; i < explorationPoints.size(); i++){
+                if(exploredStructures.get(0).area.contains(explorationPoints.get(i))){
+                    explorationPoints.remove(i);
+                }
+            }
+            if(exploredStructures.get(0).xPos > 12 && exploredStructures.get(0).xPos < 388 && exploredStructures.get(0).yPos < 195 && exploredStructures.get(0).yPos > 15){
+                point = new Vector2(exploredStructures.get(0).xPos,exploredStructures.get(0).yPos);
+                exploredStructures.remove(0);
+                return point;
+            }
+            exploredStructures.remove(0);
+
+        }
+
+        Random rand = new Random();
+        int n = rand.nextInt(explorationPoints.size());
+        point = explorationPoints.get(n);
+        return point;
+    }
+
     public boolean checkCollision(){
 
         return false;
@@ -224,7 +251,7 @@ public class HeuristicAI extends AI {
 
     @Override
     public void seeArea(Area area) {
-
+        //System.out.println("printing some area ");
         boolean check = false;
         //checking to see if area is in seen structures, if not it is added to the array
         if(seenStructures.size() > 0) {
@@ -257,7 +284,7 @@ public class HeuristicAI extends AI {
     @Override
     public void updatedSeenLocations() {
 
-        System.out.println("before update = " + explorationPoints.size());
+      //  System.out.println("before update = " + explorationPoints.size());
 
         for(int i = 0; i < explorationPoints.size(); i++){
             if(agent.area.contains(explorationPoints.get(i))){
@@ -265,7 +292,7 @@ public class HeuristicAI extends AI {
             }
         }
 
-        System.out.println("after update = " + explorationPoints.size());
+       // System.out.println("after update = " + explorationPoints.size());
       //  System.out.println("Agent locaton x = " + agent.area.x + " " + "y loocation = " + agent.area.y);
 
     }

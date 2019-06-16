@@ -131,7 +131,7 @@ public class MainState extends State {
                     this.agents.get(i).setAI(agentAI);
 //	                ((HeuristicAI) agentAI).setPattern("snake");
 //	                agentAI.setAgent(agents.get(i));
-                    ((HeuristicAI) agentAI).setPattern("explore");
+                    ((HeuristicAI) agentAI).setPattern("closest");
 	                agentAI.setAgent(this.agents.get(i));
                     intruders.add(agents.get(i));
 //	                this.agents.get(i).ai.setArea(400,200);
