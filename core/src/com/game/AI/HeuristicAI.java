@@ -23,7 +23,8 @@ public class HeuristicAI extends AI {
     private final int FACTOR = 20, AVERYBIGNUMBER = 500; //number of squares that we want
     public final static int BOARD_WIDTH = 400;
     public final static int BOARD_HEIGHT = 200;
-    private ArrayList<Point2D.Float> explorationPoints;
+    private ArrayList<Vector2> explorationPoints;
+    private ArrayList<Vector2> exploredPoints;
     private String pattern = "random";
     public static final float X_REDUC = MapState.X_REDUC;
     public static final float Y_REDUC = MapState.Y_REDUC;
@@ -41,8 +42,9 @@ public class HeuristicAI extends AI {
         speed = new Stack<Float>();
         rotation = new Stack<Float>();
         instruction = new Instruction();
-        explorationSetUp();
 
+        ArrayList<Vector2> exploredPoints = new ArrayList<Vector2>();
+        explorationSetUp();
     }
 /*
 
@@ -57,12 +59,12 @@ public class HeuristicAI extends AI {
 
     public void explorationSetUp() {
 
-        explorationPoints = new ArrayList<Point2D.Float>();
+        explorationPoints = new ArrayList<Vector2>();
         float tempX = BOARD_WIDTH / FACTOR;
         float tempY = BOARD_HEIGHT / FACTOR;
         for (int i = 0; i < FACTOR; i++) {
             for (int j = 0; j < FACTOR; j++) {
-                explorationPoints.add(new Point2D.Float(i * tempX + 0.5f * tempX, j * tempY + 0.5f * tempY));
+                explorationPoints.add(new Vector2(i * tempX + 0.5f * tempX, j * tempY + 0.5f * tempY));
             }
         }
     }
@@ -106,6 +108,19 @@ public class HeuristicAI extends AI {
         Vector2 vector =  new Vector2((float) (agent.xCenter + AVERYBIGNUMBER*Math.cos(Math.toRadians(angle))),(float) (agent.yCenter + AVERYBIGNUMBER*Math.sin(Math.toRadians(angle))));
         System.out.println("vector: " + vector.x + "," + vector.y);
         return vector;
+    }
+
+    public Vector2 heatMapMovement(){
+        /**
+         * -store the arraylist of exploration points
+         * -choose the next point based on: has it been visited yet, distance, is it in same direction as last one
+         */
+        //Vector2 currentPoint =
+        for(int i = 0; i < explorationPoints.size(); i++){
+
+        }
+
+        return null;
     }
 
 
