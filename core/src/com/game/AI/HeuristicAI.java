@@ -20,11 +20,11 @@ public class HeuristicAI extends AI {
 
     private Agent agent;
     private Vector2 point;
-    private float prevAngle, guardAngle;
+    private float guardAngle, prevAngle;
     private Random rand = new Random();
     private ArrayList<Area> structures;
     //    private float areaWidth,areaHeight;
-    private final int FACTOR = 20, AVERYBIGNUMBER = 500, Y_FACTOR = 20, X_FACTOR = 50, DEGREE_RANGE = 90 ;
+    private final int FACTOR = 20, AVERYBIGNUMBER = 500, Y_FACTOR = 20, X_FACTOR = 49, DEGREE_RANGE = 90; //number of squares that we want
     public final static int BOARD_WIDTH = 400;
     public final static int BOARD_HEIGHT = 200;
     private ArrayList<Vector2> explorationPoints;
@@ -258,7 +258,7 @@ public class HeuristicAI extends AI {
 
     @Override
     public void seeArea(Area area) {
-        System.out.println("we see a structure");
+        //System.out.println("printing some area ");
         boolean check = false;
         //checking to see if area is in seen structures, if not it is added to the array
         if(seenStructures.size() > 0) {
@@ -285,14 +285,13 @@ public class HeuristicAI extends AI {
 
     @Override
     public void seeAgent(Agent agent) {
-        guardSeen = true;
-        guardAngle = agent.angle;
+            guardSeen = true;
     }
 
     @Override
     public void updatedSeenLocations() {
 
-        System.out.println("before update = " + explorationPoints.size());
+      //  System.out.println("before update = " + explorationPoints.size());
 
         for(int i = 0; i < explorationPoints.size(); i++){
             if(agent.area.contains(explorationPoints.get(i))){
@@ -300,7 +299,8 @@ public class HeuristicAI extends AI {
             }
         }
 
-        System.out.println("after update = " + explorationPoints.size());
+       // System.out.println("after update = " + explorationPoints.size());
+      //  System.out.println("Agent locaton x = " + agent.area.x + " " + "y loocation = " + agent.area.y);
 
     }
 
