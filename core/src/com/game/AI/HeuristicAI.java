@@ -245,8 +245,8 @@ public class HeuristicAI extends AI {
         if (!structures.contains(area)) {
             structures.add(area);
         }
-        speed.clear();
-        rotation.clear();
+        //speed.clear();
+        //rotation.clear();
     }
 
     @Override
