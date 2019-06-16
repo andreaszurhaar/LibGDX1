@@ -97,8 +97,6 @@ public class Board {
 	}
 	
 	public void updateAgents() {
-
-
 		//update every agent's x,y coordinates and rotate his view angle
 		for(int a=0; a<agents.size(); a++) {
 			//check collision with all nearby structures
@@ -108,7 +106,6 @@ public class Board {
 			float rot = agents.get(a).getRotation();
 			agents.get(a).rotate(rot/fps);
 			//System.out.println("Agent " + agents.get(a) + " has AI: " + agents.get(a).ai);
-
 			
 			float speed = agents.get(a).getSpeed()/fps;
 			double angle = (double) agents.get(a).getAngleRad();

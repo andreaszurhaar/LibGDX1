@@ -27,7 +27,7 @@ public class Intruder extends Agent {
 	public float speed;
 	public float angle;
 	public float soundRange;
-	private ArrayList<Area> structures;
+	public ArrayList<Area> structures;
     SpriteReader reader = new SpriteReader();
     public int sprintCount = 0;
 	public int restCount = 0;

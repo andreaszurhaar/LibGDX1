@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.Board.Agent;
 import com.game.Board.Area;
 import com.game.Board.Board;
+import com.game.Board.Intruder;
 import com.game.Board.MapDivider;
 import com.game.CopsAndRobbers;
 import com.game.States.MapState;
@@ -20,6 +21,7 @@ public class HeuristicAI extends AI {
     private Agent agent;
     private Vector2 point;
     private Random rand = new Random();
+    private ArrayList<Area> structures;
     //    private float areaWidth,areaHeight;
     private final int FACTOR = 20, AVERYBIGNUMBER = 500, Y_FACTOR = 20, X_FACTOR = 50; //number of squares that we want
     public final static int BOARD_WIDTH = 400;
@@ -39,6 +41,7 @@ public class HeuristicAI extends AI {
         instruction = new Instruction();
         seenStructures = new ArrayList<Area>();
         startingPos = false;
+        structures = new ArrayList<Area>();
         explorationSetUp();
     }
 
@@ -49,19 +52,10 @@ public class HeuristicAI extends AI {
         instruction = new Instruction();
         seenStructures = new ArrayList<Area>();
         startingPos = false;
+        structures = new ArrayList<Area>();
         explorationSetUp();
 
     }
-/*
-
-    public HeuristicAI(Agent agent, float areaWidth, float areaHeight)
-    {
-        this.agent = agent;
-        this.areaWidth = areaWidth;
-        this.areaHeight = areaHeight;
-        exploration();
-    }
-*/
 
     public void explorationSetUp() {
 
@@ -78,8 +72,6 @@ public class HeuristicAI extends AI {
             System.out.print("x = " + explorationPoints.get(i).x + " " + " y = " + explorationPoints.get(i).y );
             System.out.println(" ");
         }
-
-
     }
 
     public void exploration() {
@@ -140,12 +132,17 @@ public class HeuristicAI extends AI {
     }
 
     private Vector2 randomMovement() {
-                //find the angle which we can turn to
-                float angle = rand.nextInt(360);
-                //create a point outside the map according to the angle
-                Vector2 vector =  new Vector2((float) (agent.xCenter + AVERYBIGNUMBER*Math.cos(Math.toRadians(angle))),(float) (agent.yCenter + AVERYBIGNUMBER*Math.sin(Math.toRadians(angle))));
-                System.out.println("vector: " + vector.x + "," + vector.y);
-                return vector;
+        //find the angle which we can turn to
+        float angle = rand.nextInt(360);
+        //create a point outside the map according to the angle
+        Vector2 vector =  new Vector2((float) (agent.xCenter + AVERYBIGNUMBER*Math.cos(Math.toRadians(angle))),(float) (agent.yCenter + AVERYBIGNUMBER*Math.sin(Math.toRadians(angle))));
+        System.out.println("vector: " + vector.x + "," + vector.y);
+        return vector;
+    }
+
+    public boolean checkCollision(){
+
+        return false;
     }
 
     @Override
@@ -192,7 +189,6 @@ public class HeuristicAI extends AI {
 
     @Override
     public void seeArea(Area area) {
-
         boolean check = false;
         //checking to see if area is in seen structures, if not it is added to the array
         if(seenStructures.size() > 0) {
@@ -208,7 +204,11 @@ public class HeuristicAI extends AI {
         else{
             seenStructures.add(area);
         }
-       // System.out.println("Seen Structures count = " + seenStructures.size());
+        if (!structures.contains(area)) {
+            structures.add(area);
+        }
+        speed.clear();
+        rotation.clear();
     }
 
     @Override
