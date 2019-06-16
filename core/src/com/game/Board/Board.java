@@ -299,8 +299,8 @@ public class Board {
 		{
 		    if(observingAgent != agents.get(i)) {
 		        SoundOccurence s;
-                if (computeDist(observingAgent.area, agents.get(i).area) < 1000 && agents.get(i).getSpeed() < 0.5){
-                    s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 1000);
+                if (computeDist(observingAgent.area, agents.get(i).area) < 1 && agents.get(i).getSpeed() < 0.5){
+                    s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 1);
                     return s;
                 }
                 if (computeDist(observingAgent.area, agents.get(i).area) < 3 && agents.get(i).getSpeed() > 0.5 && agents.get(i).getSpeed() <1.0){
