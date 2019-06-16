@@ -107,6 +107,11 @@ public class Escape extends AI {
     public void seeAgent(Agent agent) {
 
     }
+
+    @Override
+    public void updatedSeenLocations() {
+
+    }
 }
 
 

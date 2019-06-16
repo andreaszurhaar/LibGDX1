@@ -97,8 +97,6 @@ public class Board {
 	}
 	
 	public void updateAgents() {
-
-
 		//update every agent's x,y coordinates and rotate his view angle
 		for(int a=0; a<agents.size(); a++) {
 			//check collision with all nearby structures
@@ -108,7 +106,6 @@ public class Board {
 			float rot = agents.get(a).getRotation();
 			agents.get(a).rotate(rot/fps);
 			//System.out.println("Agent " + agents.get(a) + " has AI: " + agents.get(a).ai);
-
 			
 			float speed = agents.get(a).getSpeed()/fps;
 			double angle = (double) agents.get(a).getAngleRad();
@@ -181,7 +178,7 @@ public class Board {
 							//check if seeing agent is guard and if seen agent is intruder, if so, and distance < 0.5m
 							if((agents.get(a) instanceof Guard) && (agents.get(i) instanceof Intruder)){
 								//getArea(): rectangle objects of the agents
-								System.out.println("DISTANCE OF: "+computeDist(agents.get(a).area,agents.get(i).area));
+								//System.out.println("DISTANCE OF: "+computeDist(agents.get(a).area,agents.get(i).area));
 								if(computeDist(agents.get(a).area,agents.get(i).area) < 0.5) {
 									gameOver = true;
 								}

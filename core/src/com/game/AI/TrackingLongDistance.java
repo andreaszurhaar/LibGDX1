@@ -97,4 +97,9 @@ public class TrackingLongDistance extends AI{
 
     }
 
+    @Override
+    public void updatedSeenLocations() {
+
+    }
+
 }

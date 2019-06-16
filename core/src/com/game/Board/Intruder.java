@@ -27,7 +27,7 @@ public class Intruder extends Agent {
 	public float speed;
 	public float angle;
 	public float soundRange;
-	private ArrayList<Area> structures;
+	public ArrayList<Area> structures;
     SpriteReader reader = new SpriteReader();
     public int sprintCount = 0;
 	public int restCount = 0;
@@ -35,6 +35,8 @@ public class Intruder extends Agent {
 	public Intruder(float x, float y, float width, float height) {
 		super(x, y, width, height);
 		viewAngle.setAngle(-45);
+		this.width = width;
+		this.height = height;
 		//viewAngle.setToRandomDirection();
 		speed = 1;
 		rotation = 0;

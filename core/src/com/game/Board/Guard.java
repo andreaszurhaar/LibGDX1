@@ -40,6 +40,8 @@ public class Guard extends Agent {
 
 	public Guard(float x, float y, float width, float height) {
 		super(x, y, width, height);
+		this.width = width;
+		this.height = height;
 		//viewAngle.setToRandomDirection();
 		speed = 1;
 		maxSpeed = 1.4f;

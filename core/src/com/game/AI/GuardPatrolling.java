@@ -52,7 +52,7 @@ public class GuardPatrolling extends AI {
         this.areaWidth = areaWidth;
         this.areaHeight = areaHeight;
         areaCenter = new Point2D.Float(0.5f*areaWidth, 0.5f*areaHeight);
-        System.out.println("areacenter of patrolling is: " + areaCenter.x +","+areaCenter.y);
+      //  System.out.println("areacenter of patrolling is: " + areaCenter.x +","+areaCenter.y);
     }
 
     public void patrolInArea()
@@ -91,13 +91,13 @@ public class GuardPatrolling extends AI {
 
         }
         Point2D.Float currentPoint = areaCenter;
-        System.out.println("Area center is " + currentPoint.x + ", " +currentPoint.y);
+      //  System.out.println("Area center is " + currentPoint.x + ", " +currentPoint.y);
         seenPoints = new ArrayList<Point2D.Float>();
     }
 
     public void patrol()
     {
-    	System.out.println("Started Patrolling");
+    	//System.out.println("Started Patrolling");
 
         if((!reachedCenter && (Math.sqrt(((guard.getX() - guard.getCenterLocation().x) * (guard.getX() - guard.getCenterLocation().x)) + ((guard.getY() - guard.getCenterLocation().y) * (guard.getY() - guard.getCenterLocation().y))) > ALLOWED_DISTANCE_ERROR))
             && !guard.isCollided())   {
@@ -127,14 +127,14 @@ public class GuardPatrolling extends AI {
 
             Point2D.Float currentPoint = new Point2D.Float(guard.xPos, guard.yPos);
             seenPoints.add(currentPoint);
-            System.out.println("Current point is " + currentPoint.x + ", " + currentPoint.y);
+           // System.out.println("Current point is " + currentPoint.x + ", " + currentPoint.y);
             addSeenPoints(seenPoints);
 
             //go to point that is close and not seen yet
             Point2D.Float temp = findClosestPoint(currentPoint);
             Vector2 point = new Vector2(temp.x, temp.y);
 
-            System.out.println("going to point: " + temp.x + " " + temp.y + "   from point: " + guard.xCenter + " " + guard.yCenter);
+           // System.out.println("going to point: " + temp.x + " " + temp.y + "   from point: " + guard.xCenter + " " + guard.yCenter);
             instruction.translate(point, guard, false);
             rotation = instruction.getRotations();
             speed = instruction.getSpeeds();
@@ -163,7 +163,7 @@ public class GuardPatrolling extends AI {
         }
         for (Point2D.Float p: seenPoints)
         {
-            System.out.println("we remove point " + p + " from the areapoints");
+          //  System.out.println("we remove point " + p + " from the areapoints");
             areaPoints.remove(p);
         }
     }
@@ -171,7 +171,7 @@ public class GuardPatrolling extends AI {
     public Point2D.Float findClosestPoint(Point2D.Float currentPoint)
     {
         Point2D.Float temp = new Point2D.Float((int)currentPoint.x, (int)currentPoint.y);
-        System.out.println("Temp: " + temp.x + "," + temp.y);
+      //  System.out.println("Temp: " + temp.x + "," + temp.y);
         int i = 1;
         boolean foundPoint = false;
         while (!foundPoint) {
@@ -179,51 +179,51 @@ public class GuardPatrolling extends AI {
             for (Point2D.Float p : areaPoints) {
                 //System.out.println("Possible area point: " + p.x + ", " + p.y);
                 if (p.x == temp.x + i && p.y == temp.y) {
-                    System.out.println("We take point: " + (temp.x+i) + ", " + temp.y);
+                   // System.out.println("We take point: " + (temp.x+i) + ", " + temp.y);
                     foundPoint = true;
                     areaPoints.remove(p);
                     return p;
                 }
                 else if (p.x == temp.x && p.y == temp.y + i){
-                    System.out.println("We take point: " + (temp.x) + ", " + (temp.y+i));
+                   // System.out.println("We take point: " + (temp.x) + ", " + (temp.y+i));
                     foundPoint = true;
                     areaPoints.remove(p);
                     return p;
                 }
                 else if (p.x == temp.x + i && p.y == temp.y + i ){
-                    System.out.println("We take point: " + (temp.x+i) + ", " + (temp.y+i));
+                   // System.out.println("We take point: " + (temp.x+i) + ", " + (temp.y+i));
                     foundPoint = true;
                     areaPoints.remove(p);
                     return p;
                 }
                 else if (p.x == temp.x - i && p.y == temp.y){
-                    System.out.println("We take point: " + (temp.x-i) + ", " + (temp.y));
+                  //  System.out.println("We take point: " + (temp.x-i) + ", " + (temp.y));
                     foundPoint = true;
                     areaPoints.remove(p);
                     return p;
                 }
                 else if (p.x == temp.x && p.y == temp.y - i){
-                    System.out.println("We take point: " + (temp.x) + ", " + (temp.y-i));
+                   // System.out.println("We take point: " + (temp.x) + ", " + (temp.y-i));
                     foundPoint = true;
                     areaPoints.remove(p);
                     return p;
                 }
                 else if (p.x == temp.x - i && p.y == temp.y - i)
                 {
-                    System.out.println("We take point: " + (temp.x-i) + ", " + (temp.y-i));
+                  //  System.out.println("We take point: " + (temp.x-i) + ", " + (temp.y-i));
                     foundPoint = true;
                     areaPoints.remove(p);
                     return p;
                 }
                 else if (p.x == temp.x - i && p.y == temp.y + i)
                 {
-                    System.out.println("We take point: " + (temp.x-i) + ", " + (temp.y+i));
+                   // System.out.println("We take point: " + (temp.x-i) + ", " + (temp.y+i));
                     foundPoint = true;
                     areaPoints.remove(p);
                     return p;
                 }
                 else if(p.x == temp.x + i && p.y == temp.y - i) {
-                    System.out.println("We take point: " + (temp.x+i) + ", " + (temp.y-i));
+                  //  System.out.println("We take point: " + (temp.x+i) + ", " + (temp.y-i));
                     foundPoint = true;
                     areaPoints.remove(p);
                     return p;
@@ -231,7 +231,7 @@ public class GuardPatrolling extends AI {
             }
             i+=5;
         }
-        System.out.println("There are no unseen closest points, so we return back to the centre of the area");
+       // System.out.println("There are no unseen closest points, so we return back to the centre of the area");
         return areaCenter;
 
     }
@@ -296,6 +296,11 @@ public class GuardPatrolling extends AI {
     @Override
     public void seeAgent(Agent agent) {
    
+    }
+
+    @Override
+    public void updatedSeenLocations() {
+
     }
 
 

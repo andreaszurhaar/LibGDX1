@@ -37,6 +37,7 @@ public class MainState extends State {
     public ArrayList<Area> structures;
     public ArrayList<Agent> agents;
     public ArrayList<Agent> guards;
+    public ArrayList<Agent> intruders;
     public ArrayList<Structure> walls;
 
     private BitmapFont font;
@@ -82,6 +83,7 @@ public class MainState extends State {
         }
 
         guards = new ArrayList<Agent>();
+        intruders = new ArrayList<Agent>();
 
         for(int i = 0; i < this.agents.size(); i++){
             if(this.agents.get(i) instanceof Guard){
@@ -116,19 +118,22 @@ public class MainState extends State {
 	                agentAI.setAgent(this.agents.get(i));
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
+	                intruders.add(agents.get(i));
             	} else if(intruderAI == "A*") {
 	                AI agentAI = new AStarNew(structures);
 	                this.agents.get(i).setAI(agentAI);
 	                agentAI.setAgent(this.agents.get(i));
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
+                    intruders.add(agents.get(i));
             	} else if(intruderAI == "Heuristic AI") {
 	                AI agentAI = new HeuristicAI();
                     this.agents.get(i).setAI(agentAI);
 //	                ((HeuristicAI) agentAI).setPattern("snake");
 //	                agentAI.setAgent(agents.get(i));
-                    ((HeuristicAI) agentAI).setPattern("random");
+                    ((HeuristicAI) agentAI).setPattern("closest");
 	                agentAI.setAgent(this.agents.get(i));
+                    intruders.add(agents.get(i));
 //	                this.agents.get(i).ai.setArea(400,200);
 //	                this.agents.get(i).ai.setStructures(structures);
             	} else {
@@ -194,14 +199,13 @@ public class MainState extends State {
         }
         if (board.gameOver) {gsm.push(new GameOverState(gsm, deltaTime));}
 
-        for(int i = 0; i < this.agents.size(); i++){
-            if(this.agents.get(i) instanceof Intruder) {
-               // if()
-               // agents.get(i).pa
-            }
-        }
         //if(deltaTime > timeLimit){gsm.push(new GameOverState(gsm,deltaTime));}
         board.updateAgents();
+        if(intruderAI == "Heuristic AI"){
+            for(int i = 0; i < intruders.size(); i++){
+                intruders.get(i).ai.updatedSeenLocations();
+            }
+        }
         
     }
 

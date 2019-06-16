@@ -282,4 +282,9 @@ public class Astar extends AI {
    
     }
 
+    @Override
+    public void updatedSeenLocations() {
+
+    }
+
 }
