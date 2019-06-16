@@ -33,6 +33,7 @@ public class HeuristicAI extends AI {
     public static final float Y_REDUC = MapState.Y_REDUC;
     public boolean startingPos, guardSeen;
     public ArrayList<Area> seenStructures;
+    public ArrayList<Area> exploredStructures;
 
     public HeuristicAI(Agent agent)
     {
@@ -41,6 +42,7 @@ public class HeuristicAI extends AI {
         rotation = new Stack<Float>();
         instruction = new Instruction();
         seenStructures = new ArrayList<Area>();
+        exploredStructures = new ArrayList<Area>();
         startingPos = false;
         structures = new ArrayList<Area>();
         explorationSetUp();
@@ -52,18 +54,29 @@ public class HeuristicAI extends AI {
         rotation = new Stack<Float>();
         instruction = new Instruction();
         seenStructures = new ArrayList<Area>();
+        exploredStructures = new ArrayList<Area>();
         startingPos = false;
         structures = new ArrayList<Area>();
         explorationSetUp();
 
     }
+/*
+
+    public HeuristicAI(Agent agent, float areaWidth, float areaHeight)
+    {
+        this.agent = agent;
+        this.areaWidth = areaWidth;
+        this.areaHeight = areaHeight;
+        exploration();
+    }
+*/
 
     public void explorationSetUp() {
 
         explorationPoints = new ArrayList<Vector2>();
         float tempX = (BOARD_WIDTH/MapState.X_REDUC) / FACTOR;
         float tempY = (500/MapState.Y_REDUC) / FACTOR;
-        for (int i = 0; i < X_FACTOR; i++) {
+        for (int i = 1; i < X_FACTOR; i++) {
             for (int j = 1; j < Y_FACTOR; j++) {
                 explorationPoints.add(new Vector2(i * tempX + 0.5f * tempX, j * tempY + 0.5f * tempY));
             }
@@ -76,10 +89,13 @@ public class HeuristicAI extends AI {
     }
 
     public void exploration() {
-        if (pattern.equals("snake")) {
-            point = snakeMovement();
+        if (pattern.equals("closest")) {
+            point = closestUnknown();
         } else if (pattern.equals("random")) {
             point = randomMovement();
+        }
+        else if (pattern.equals("all")) {
+            point = allOptions();
         }
 
         instruction.translate(point, agent, true);
@@ -87,8 +103,25 @@ public class HeuristicAI extends AI {
         speed = instruction.getSpeeds();
     }
 
-    private Vector2 snakeMovement() {
+    private Vector2 closestUnknown() {
 
+        //Checks if there are sturctures that need to be explored and moves to them
+        if (exploredStructures.size() > 0){
+
+            for(int i = 0; i < explorationPoints.size(); i++){
+                if(exploredStructures.get(0).area.contains(explorationPoints.get(i))){
+                    explorationPoints.remove(i);
+                }
+            }
+            if(exploredStructures.get(0).xPos > 12 && exploredStructures.get(0).xPos < 388 && exploredStructures.get(0).yPos < 195 && exploredStructures.get(0).yPos > 15){
+                point = new Vector2(exploredStructures.get(0).xPos,exploredStructures.get(0).yPos);
+                exploredStructures.remove(0);
+                return point;
+            }
+            exploredStructures.remove(0);
+
+        }
+        //Checks to see if the agent is in a starting corner
         if(startingPos == false) {
             float startingX = agent.getX();
             float startingY = agent.getY();
@@ -110,23 +143,19 @@ public class HeuristicAI extends AI {
                     startingPos = true;
                 }
             }
-        }
+        }//Moves to the closest exploration point if there is nothing interesting to search
         else {
-            /*for (int i = 0; i < explorationPoints.size(); i++) {
-                Rectangle area = agent.area;
-                area.x += 100;
-                if (area.contains(explorationPoints.get(i))) {
-                    System.out.println("Made it to contains");
-                    point = new Vector2(explorationPoints.get(i));
-                    break;
+            float distance = 100000;
+            int index = 0;
+            for (int i = 0; i < explorationPoints.size(); i++) {
+                float temp_distance = explorationPoints.get(i).dst2(agent.xPos,agent.yPos);
+                if(temp_distance < distance ){
+                    distance = temp_distance;
+                    index = i;
                 }
+            }
 
-                point = explorationPoints.get()
-            }*/
-            Random rand = new Random();
-            point = explorationPoints.get(rand.nextInt(explorationPoints.size()));
-            System.out.println("x - coordinate explore = " + point.x);
-            System.out.println("y - coordinate explore = " + point.y);
+            point = explorationPoints.get(index);
         }
 
         return point;
@@ -154,6 +183,30 @@ public class HeuristicAI extends AI {
         Vector2 vector =  new Vector2((float) (agent.xCenter + AVERYBIGNUMBER*Math.cos(Math.toRadians(angle))),(float) (agent.yCenter + AVERYBIGNUMBER*Math.sin(Math.toRadians(angle))));
         System.out.println("vector: " + vector.x + "," + vector.y);
         return vector;
+    }
+
+    public Vector2 allOptions(){
+        //Checks if there are sturctures that need to be explored and moves to them
+        if (exploredStructures.size() > 0){
+
+            for(int i = 0; i < explorationPoints.size(); i++){
+                if(exploredStructures.get(0).area.contains(explorationPoints.get(i))){
+                    explorationPoints.remove(i);
+                }
+            }
+            if(exploredStructures.get(0).xPos > 12 && exploredStructures.get(0).xPos < 388 && exploredStructures.get(0).yPos < 195 && exploredStructures.get(0).yPos > 15){
+                point = new Vector2(exploredStructures.get(0).xPos,exploredStructures.get(0).yPos);
+                exploredStructures.remove(0);
+                return point;
+            }
+            exploredStructures.remove(0);
+
+        }
+
+        Random rand = new Random();
+        int n = rand.nextInt(explorationPoints.size());
+        point = explorationPoints.get(n);
+        return point;
     }
 
     public boolean checkCollision(){
@@ -216,16 +269,18 @@ public class HeuristicAI extends AI {
             }
             if(!check){
                 seenStructures.add(area);
+                exploredStructures.add(area);
             }
         }
         else{
             seenStructures.add(area);
+            exploredStructures.add(area);
         }
         if (!structures.contains(area)) {
             structures.add(area);
         }
-        speed.clear();
-        rotation.clear();
+        //speed.clear();
+        //rotation.clear();
     }
 
     @Override
