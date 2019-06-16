@@ -53,6 +53,8 @@ public class Agent extends AssetManager {
 	private Point2D.Float centerLocation;
 	public AI ai;
 	protected ArrayList<Agent> agentList;
+	public float width;
+	public float height;
 	
 	
 	public Agent(float x, float y, float width, float height) {

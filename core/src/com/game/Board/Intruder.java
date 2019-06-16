@@ -35,6 +35,8 @@ public class Intruder extends Agent {
 	public Intruder(float x, float y, float width, float height) {
 		super(x, y, width, height);
 		viewAngle.setAngle(-45);
+		this.width = width;
+		this.height = height;
 		//viewAngle.setToRandomDirection();
 		speed = 1;
 		rotation = 0;
