@@ -198,14 +198,27 @@ public class AStarNew extends AI {
     }
 
     @Override
-    public ArrayList<Float> getRotation() {
+    public float getRotation() {
+    	if(rotation.isEmpty()) {
+    		return 0;
+    	}
+    	return rotation.pop();
+    }
+    
+    public Stack<Float> getRotationStack() {
     	return rotation;
+    }    
+    
+    public Stack<Float> getSpeedStack() {
+    	return speed;
     }
 
     @Override
-    public ArrayList<Float> getSpeed() {
-    	return speed;    
-    }
+    public float getSpeed() {
+    	if(speed.isEmpty()) {
+    		return 0;
+    	}
+    	return speed.pop();    }
 
     @Override
     public void setAgent(Agent agent) {
