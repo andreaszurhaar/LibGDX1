@@ -1,8 +1,12 @@
 package com.game.AI;
 
 public enum Direction {
-    UP,
-    RIGHT,
-    DOWN,
-    LEFT
+    NORTH,
+    NORTH_EAST,
+    EAST,
+    SOUTH_EAST,
+    SOUTH,
+    SOUTH_WEST,
+    WEST,
+    NORTH_WEST
 }

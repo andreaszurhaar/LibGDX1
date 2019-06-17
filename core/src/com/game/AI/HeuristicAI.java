@@ -35,7 +35,7 @@ public class HeuristicAI extends AI {
     public ArrayList<Area> seenStructures;
     public ArrayList<Area> exploredStructures;
     private Vector2 currentExplorationPoint;
-    private Direction currentDirection = Direction.UP;
+    private Direction currentDirection = Direction.NORTH;
 
     public HeuristicAI(Agent agent)
     {
@@ -58,7 +58,7 @@ public class HeuristicAI extends AI {
         seenStructures = new ArrayList<Area>();
         exploredStructures = new ArrayList<Area>();
         startingPos = false;
-        structures = new ArrayList<Area>();
+        //structures = new ArrayList<Area>();
         explorationSetUp();
 
     }
@@ -75,15 +75,25 @@ public class HeuristicAI extends AI {
 
     public void explorationSetUp() {
 
-        //TODO remove structures from explorationPoints
         explorationPoints = new ArrayList<Vector2>();
         float tempX = (BOARD_WIDTH/MapState.X_REDUC) / FACTOR;
-        float tempY = (500/MapState.Y_REDUC) / FACTOR;
+        float tempY = (650/MapState.Y_REDUC) / FACTOR;
         for (int i = 1; i < X_FACTOR; i++) {
             for (int j = 1; j < Y_FACTOR; j++) {
                 explorationPoints.add(new Vector2(i * tempX + 0.5f * tempX, j * tempY + 0.5f * tempY));
             }
         }
+
+        //TODO uncomment for evenly spaced points
+//        explorationPoints = new ArrayList<Vector2>();
+//        float tempX = 10;
+//        float tempY = 10;
+//        for (int i = 1; i < BOARD_WIDTH/tempX - 1; i++) {
+//            for (int j = 1; j < BOARD_HEIGHT/tempY - 1; j++) {
+//                explorationPoints.add(new Vector2(i * tempX + 0.5f * tempX, j * tempY + 0.5f * tempY));
+//            }
+//        }
+
 
         for(int i = 0; i < explorationPoints.size(); i++){
             System.out.print("x = " + explorationPoints.get(i).x + " " + " y = " + explorationPoints.get(i).y );
@@ -249,10 +259,18 @@ public class HeuristicAI extends AI {
         //otherwise return closestPoints.get(0), and save the direction we are now going in
         Direction relativeDirection = currentDirection;
         for(int j = 0; j < closestPoints.size(); j++){
-            if(closestPoints.get(j).x > currentExplorationPoint.x) relativeDirection = Direction.RIGHT;
-            if(closestPoints.get(j).x < currentExplorationPoint.x) relativeDirection = Direction.LEFT;
-            if(closestPoints.get(j).y > currentExplorationPoint.y) relativeDirection = Direction.UP;
-            if(closestPoints.get(j).y < currentExplorationPoint.y) relativeDirection = Direction.DOWN;
+            float pointX = closestPoints.get(j).x;
+            float pointY = closestPoints.get(j).y;
+
+            if(pointX == currentExplorationPoint.x && pointY > currentExplorationPoint.y) relativeDirection = Direction.NORTH;
+            if(pointX > currentExplorationPoint.x && pointY > currentExplorationPoint.y) relativeDirection = Direction.NORTH_EAST;
+            if(pointX > currentExplorationPoint.x && pointY == currentExplorationPoint.y) relativeDirection = Direction.EAST;
+            if(pointX > currentExplorationPoint.x && pointY < currentExplorationPoint.y) relativeDirection = Direction.SOUTH_EAST;
+            if(pointX == currentExplorationPoint.x && pointY < currentExplorationPoint.y) relativeDirection = Direction.SOUTH;
+            if(pointX < currentExplorationPoint.x && pointY < currentExplorationPoint.y) relativeDirection = Direction.SOUTH_WEST;
+            if(pointX < currentExplorationPoint.x && pointY == currentExplorationPoint.y) relativeDirection = Direction.WEST;
+            if(pointX < currentExplorationPoint.x && pointY > currentExplorationPoint.y) relativeDirection = Direction.NORTH_WEST;
+
 
             if(relativeDirection == currentDirection){
                 currentExplorationPoint = closestPoints.get(j);
@@ -261,10 +279,14 @@ public class HeuristicAI extends AI {
             }
         }
 
-        if(closestPoints.get(0).x > currentExplorationPoint.x) relativeDirection = Direction.RIGHT;
-        if(closestPoints.get(0).x < currentExplorationPoint.x) relativeDirection = Direction.LEFT;
-        if(closestPoints.get(0).y > currentExplorationPoint.y) relativeDirection = Direction.UP;
-        if(closestPoints.get(0).y < currentExplorationPoint.y) relativeDirection = Direction.DOWN;
+        if(closestPoints.get(0).x == currentExplorationPoint.x && closestPoints.get(0).y > currentExplorationPoint.y) relativeDirection = Direction.NORTH;
+        if(closestPoints.get(0).x > currentExplorationPoint.x && closestPoints.get(0).y > currentExplorationPoint.y) relativeDirection = Direction.NORTH_EAST;
+        if(closestPoints.get(0).x > currentExplorationPoint.x && closestPoints.get(0).y == currentExplorationPoint.y) relativeDirection = Direction.EAST;
+        if(closestPoints.get(0).x > currentExplorationPoint.x && closestPoints.get(0).y < currentExplorationPoint.y) relativeDirection = Direction.SOUTH_EAST;
+        if(closestPoints.get(0).x == currentExplorationPoint.x && closestPoints.get(0).y < currentExplorationPoint.y) relativeDirection = Direction.SOUTH;
+        if(closestPoints.get(0).x < currentExplorationPoint.x && closestPoints.get(0).y < currentExplorationPoint.y) relativeDirection = Direction.SOUTH_WEST;
+        if(closestPoints.get(0).x < currentExplorationPoint.x && closestPoints.get(0).y == currentExplorationPoint.y) relativeDirection = Direction.WEST;
+        if(closestPoints.get(0).x < currentExplorationPoint.x && closestPoints.get(0).y > currentExplorationPoint.y) relativeDirection = Direction.NORTH_WEST;
         currentDirection = relativeDirection;
         currentExplorationPoint = closestPoints.get(0);
 
@@ -306,7 +328,7 @@ public class HeuristicAI extends AI {
 
     @Override
     public void setStructures(ArrayList<Area> structures) {
-
+        this.structures = structures;
     }
 
     @Override
