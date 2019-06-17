@@ -107,7 +107,7 @@ public class MenuState extends State {
         String[] arrayGuard = new String[3];
         arrayGuard[0] = "Patrolling";
         arrayGuard[1] = "Circle patrolling";
-        arrayGuard[2] = "Bot3";
+        arrayGuard[2] = "Heatmap patrolling";
         
         float selectBoxHeight = Gdx.graphics.getHeight()/25;
         float selectBoxOffset = Gdx.graphics.getHeight()/200;

@@ -51,8 +51,12 @@ public class MapDivider {
     public ArrayList<Point2D.Float> findCenters(int nrVertical, int nrHorizontal){
         ArrayList<Point2D.Float> centres = new ArrayList<Point2D.Float>();
 
+        //if(nrVertical == 0 ) nrVertical = 1;
+        //if(nrHorizontal == 0 ) nrHorizontal = 1;
+
         width = boardWidth/nrVertical;
         height = boardHeight/nrHorizontal;
+
 
         float tempX = 0.0f;
         float tempY = 0.0f;

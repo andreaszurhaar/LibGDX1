@@ -60,13 +60,16 @@ public class TrackingLongDistance extends AI{
     @Override
     public float getSpeed() {
         if (speed.empty()){
-            trackIntruder();
+            previousAI.reset();
+            guard.setAI(previousAI);
+            return guard.ai.getSpeed();
         }
         else
         {
             return speed.pop();
         }
-        return speed.pop();    }
+        //return speed.pop();
+    }
     @Override
     public void setAgent(Agent agent) {
 

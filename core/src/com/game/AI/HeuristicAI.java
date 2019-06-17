@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.game.Board.Agent;
 import com.game.Board.Area;
 import com.game.Board.Board;
+import com.game.Board.Guard;
 import com.game.Board.Intruder;
 import com.game.Board.MapDivider;
 import com.game.CopsAndRobbers;
@@ -36,6 +37,7 @@ public class HeuristicAI extends AI {
     public ArrayList<Area> exploredStructures;
     private Vector2 currentExplorationPoint;
     private Direction currentDirection = Direction.NORTH;
+    private ArrayList<Point2D.Float> cornerPoints;
 
     public HeuristicAI(Agent agent)
     {
@@ -47,6 +49,7 @@ public class HeuristicAI extends AI {
         exploredStructures = new ArrayList<Area>();
         startingPos = false;
         structures = new ArrayList<Area>();
+        cornerPoints = new ArrayList<Point2D.Float>();
         explorationSetUp();
     }
 
@@ -59,6 +62,7 @@ public class HeuristicAI extends AI {
         exploredStructures = new ArrayList<Area>();
         startingPos = false;
         //structures = new ArrayList<Area>();
+        cornerPoints = new ArrayList<Point2D.Float>();
         explorationSetUp();
 
     }
@@ -75,24 +79,24 @@ public class HeuristicAI extends AI {
 
     public void explorationSetUp() {
 
-        explorationPoints = new ArrayList<Vector2>();
-        float tempX = (BOARD_WIDTH/MapState.X_REDUC) / FACTOR;
-        float tempY = (650/MapState.Y_REDUC) / FACTOR;
-        for (int i = 1; i < X_FACTOR; i++) {
-            for (int j = 1; j < Y_FACTOR; j++) {
-                explorationPoints.add(new Vector2(i * tempX + 0.5f * tempX, j * tempY + 0.5f * tempY));
-            }
-        }
-
-        //TODO uncomment for evenly spaced points
 //        explorationPoints = new ArrayList<Vector2>();
-//        float tempX = 10;
-//        float tempY = 10;
-//        for (int i = 1; i < BOARD_WIDTH/tempX - 1; i++) {
-//            for (int j = 1; j < BOARD_HEIGHT/tempY - 1; j++) {
+//        float tempX = (BOARD_WIDTH/MapState.X_REDUC) / FACTOR;
+//        float tempY = (650/MapState.Y_REDUC) / FACTOR;
+//        for (int i = 1; i < X_FACTOR; i++) {
+//            for (int j = 1; j < Y_FACTOR; j++) {
 //                explorationPoints.add(new Vector2(i * tempX + 0.5f * tempX, j * tempY + 0.5f * tempY));
 //            }
 //        }
+
+        //TODO uncomment for evenly spaced points
+        explorationPoints = new ArrayList<Vector2>();
+        float tempX = 10;
+        float tempY = 10;
+        for (int i = 1; i < BOARD_WIDTH/tempX - 1; i++) {
+            for (int j = 1; j < BOARD_HEIGHT/tempY - 1; j++) {
+                explorationPoints.add(new Vector2(i * tempX + 0.5f * tempX, j * tempY + 0.5f * tempY));
+            }
+        }
 
 
         for(int i = 0; i < explorationPoints.size(); i++){
@@ -101,6 +105,28 @@ public class HeuristicAI extends AI {
         }
 
         currentExplorationPoint = explorationPoints.get(0);
+    }
+
+    public void explorationSetUpGuards(){
+        explorationPoints = new ArrayList<Vector2>();
+        float tempX = 10;
+        float tempY = 10;
+
+        float areaWidth = cornerPoints.get(2).x - cornerPoints.get(0).x;
+        int nrOfSquaresWidth = (int) (areaWidth / tempX);
+        float areaHeight = cornerPoints.get(2).y - cornerPoints.get(0).y;
+        int nrOfSquaresHeight = (int) (areaHeight / tempY);
+
+        for (int i = 1; i < nrOfSquaresWidth - 1; i++) {
+            for (int j = 1; j < nrOfSquaresHeight - 1; j++) {
+                explorationPoints.add(new Vector2(cornerPoints.get(0).x + (i * tempX + 0.5f * tempX), cornerPoints.get(0).y +  (j * tempY + 0.5f * tempY)));
+            }
+        }
+
+        for(int i = 0; i < explorationPoints.size(); i++){
+            System.out.print("x = " + explorationPoints.get(i).x + " " + " y = " + explorationPoints.get(i).y );
+            System.out.println(" ");
+        }
     }
 
     public void exploration() {
@@ -252,7 +278,6 @@ public class HeuristicAI extends AI {
                 closestPoints.add(explorationPoints.get(i));
             }
         }
-        //TODO add diagonal directions, test with tempX = tempY
 
         //check where each of the closest points are with respect to the the currentExplorationPoint
         //if any have the same relativeDirection as the currentDirection, return that point
@@ -361,9 +386,9 @@ public class HeuristicAI extends AI {
             seenStructures.add(area);
             exploredStructures.add(area);
         }
-        if (!structures.contains(area)) {
-            structures.add(area);
-        }
+//        if (!structures.contains(area)) {
+//            structures.add(area);
+//        }
         //speed.clear();
         //rotation.clear();
     }
@@ -391,5 +416,18 @@ public class HeuristicAI extends AI {
 
     public void setPattern(String pattern) {
         this.pattern = pattern;
+    }
+
+    public void setCurrentExplorationPoint(Vector2 currentExplorationPoint) {
+        this.currentExplorationPoint = currentExplorationPoint;
+    }
+
+    @Override
+    public void setCornerPoints(ArrayList<Point2D.Float> cornerPoints) {
+        this.cornerPoints = cornerPoints;
+        if(agent instanceof Guard){
+            explorationSetUpGuards();
+        }
+        System.out.println("sout boys");
     }
 }

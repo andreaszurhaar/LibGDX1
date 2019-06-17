@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.game.AI.AI;
 import com.game.AI.Astar.AStarNew;
 import com.game.AI.Astar.Astar;
@@ -101,12 +102,13 @@ public class MainState extends State {
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
 	                guards.add(this.agents.get(i));
-            	} else if(guardAI == "Bot3") {
-	                AI agentAI = new AStarNew(structures);
-	                this.agents.get(i).setAI(agentAI);
-	                agentAI.setAgent(this.agents.get(i));
-	                this.agents.get(i).ai.setArea(400,200);
-	                this.agents.get(i).ai.setStructures(structures);
+            	} else if(guardAI == "Heatmap patrolling") {
+
+                    AI agentAI = new HeuristicAI();
+                    this.agents.get(i).setAI(agentAI);
+                    ((HeuristicAI) agentAI).setPattern("heatmap");
+                    agentAI.setAgent(this.agents.get(i));
+                    guards.add(agents.get(i));
             	} else {
             		System.out.println("Unrecognised AI name: "+guardAI);
             		System.exit(0);
@@ -131,11 +133,12 @@ public class MainState extends State {
                     this.agents.get(i).setAI(agentAI);
 //	                ((HeuristicAI) agentAI).setPattern("snake");
 //	                agentAI.setAgent(agents.get(i));
-                    ((HeuristicAI) agentAI).setPattern("closest");
+                    //((HeuristicAI) agentAI).setPattern("closest");
+                    ((HeuristicAI) agentAI).setPattern("heatmap");
 	                agentAI.setAgent(this.agents.get(i));
                     intruders.add(agents.get(i));
 //	                this.agents.get(i).ai.setArea(400,200);
-//	                this.agents.get(i).ai.setStructures(structures);
+	                this.agents.get(i).ai.setStructures(structures);
             	} else {
             		System.out.println("Unrecognised AI name: "+intruderAI);
             		System.exit(0);
@@ -166,6 +169,10 @@ public class MainState extends State {
             if(guards.get(i).ai instanceof GuardCirclePatrolling){
                 //TODO (add increment away from wall so that guards dont get stuck)
                 guards.get(i).ai.setCornerPoints(areas.get(i));
+            }
+            if(guards.get(i).ai instanceof HeuristicAI){
+                guards.get(i).ai.setCornerPoints(areas.get(i));
+                ((HeuristicAI) guards.get(i).ai).setCurrentExplorationPoint(new Vector2(guards.get(i).getCenterLocation().x,guards.get(i).getCenterLocation().y));
             }
             //TODO clean up AI-specific things like this from main state
         }
