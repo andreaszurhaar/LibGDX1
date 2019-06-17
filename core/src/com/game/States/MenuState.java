@@ -104,10 +104,11 @@ public class MenuState extends State {
         arrayAgent[2] = "Bot3";
         arrayAgent[3] = "Heuristic AI";
 
-        String[] arrayGuard = new String[3];
+        String[] arrayGuard = new String[4];
         arrayGuard[0] = "Patrolling";
         arrayGuard[1] = "Circle patrolling";
-        arrayGuard[2] = "Bot3";
+        arrayGuard[2] = "Heatmap patrolling";
+        arrayGuard[3] = "Random patrolling";
         
         float selectBoxHeight = Gdx.graphics.getHeight()/25;
         float selectBoxOffset = Gdx.graphics.getHeight()/200;

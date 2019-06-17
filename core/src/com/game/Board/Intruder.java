@@ -146,7 +146,8 @@ public class Intruder extends Agent {
 		 * We don't want to switch our AI when the guard is escaping (i.e. moving away from a guard after it has seen it)
 		 */
 		if (!(ai instanceof Escape) && !(ai instanceof  MoveAwayFromSound)){
-			ai = new MoveAwayFromSound(this, directionAngle, ai);
+			ArrayList<Area> storedStructures = this.ai.seenStructures;
+			ai = new MoveAwayFromSound(this, directionAngle, ai, storedStructures);
 	  }
 	}
 

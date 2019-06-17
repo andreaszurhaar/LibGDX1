@@ -58,6 +58,7 @@ public class InvestigateSound extends AI{
 
     @Override
     public float getSpeed() {
+
         if (speed.empty()){
             previousAI.reset();
             guard.setAI(previousAI);

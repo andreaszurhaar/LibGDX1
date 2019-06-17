@@ -2,11 +2,14 @@ package com.game.AI;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.game.AI.Astar.AStarNew;
 import com.game.Board.Agent;
 import com.game.Board.Area;
 import com.game.Board.Board;
+import com.game.Board.Guard;
 import com.game.Board.Intruder;
 import com.game.Board.MapDivider;
+import com.game.Board.OuterWall;
 import com.game.CopsAndRobbers;
 import com.game.States.MapState;
 
@@ -32,10 +35,10 @@ public class HeuristicAI extends AI {
     public static final float X_REDUC = MapState.X_REDUC;
     public static final float Y_REDUC = MapState.Y_REDUC;
     public boolean startingPos, guardSeen;
-    public ArrayList<Area> seenStructures;
     public ArrayList<Area> exploredStructures;
     private Vector2 currentExplorationPoint;
     private Direction currentDirection = Direction.NORTH;
+    private ArrayList<Point2D.Float> cornerPoints;
 
     public HeuristicAI(Agent agent)
     {
@@ -47,6 +50,7 @@ public class HeuristicAI extends AI {
         exploredStructures = new ArrayList<Area>();
         startingPos = false;
         structures = new ArrayList<Area>();
+        cornerPoints = new ArrayList<Point2D.Float>();
         explorationSetUp();
     }
 
@@ -59,6 +63,7 @@ public class HeuristicAI extends AI {
         exploredStructures = new ArrayList<Area>();
         startingPos = false;
         //structures = new ArrayList<Area>();
+        cornerPoints = new ArrayList<Point2D.Float>();
         explorationSetUp();
 
     }
@@ -103,22 +108,53 @@ public class HeuristicAI extends AI {
         currentExplorationPoint = explorationPoints.get(0);
     }
 
+    public void explorationSetUpGuards(){
+        explorationPoints = new ArrayList<Vector2>();
+        float tempX = 10;
+        float tempY = 10;
+
+        float areaWidth = cornerPoints.get(2).x - cornerPoints.get(0).x;
+        int nrOfSquaresWidth = (int) (areaWidth / tempX);
+        float areaHeight = cornerPoints.get(2).y - cornerPoints.get(0).y;
+        int nrOfSquaresHeight = (int) (areaHeight / tempY);
+
+        for (int i = 1; i < nrOfSquaresWidth - 1; i++) {
+            for (int j = 1; j < nrOfSquaresHeight - 1; j++) {
+                explorationPoints.add(new Vector2(cornerPoints.get(0).x + (i * tempX + 0.5f * tempX), cornerPoints.get(0).y +  (j * tempY + 0.5f * tempY)));
+            }
+        }
+
+        for(int i = 0; i < explorationPoints.size(); i++){
+            System.out.print("x = " + explorationPoints.get(i).x + " " + " y = " + explorationPoints.get(i).y );
+            System.out.println(" ");
+        }
+    }
+
     public void exploration() {
         if (pattern.equals("closest")) {
             point = closestUnknown();
-        } else if (pattern.equals("random")) {
-            point = randomMovement();
         }
-        else if (pattern.equals("all")) {
+        else if (pattern.equals("random")) {
             point = allOptions();
         }
+//        else if (pattern.equals("all")) {
+//            point = allOptions();
+//        }
         else if (pattern.equals("heatmap")){
             point = heatMapMovement();
         }
 
-        instruction.translate(point, agent, true);
-        rotation = instruction.getRotations();
-        speed = instruction.getSpeeds();
+        AStarNew astar = new AStarNew(seenStructures);
+        astar.setAgent(agent);
+        astar.runAgain(agent.xPos,agent.yPos,point.x,point.y);
+        rotation = astar.getRotationStack();
+        speed = astar.getSpeedStack();
+//        System.out.println("agent xPos = " + agent.xPos);
+//        System.out.println("agent yPos = " + agent.yPos);
+//        System.out.println("target xPos = " + point.x);
+//        System.out.println("target yPos = " + point.y);
+//        System.out.println("rotation stack = " + rotation.size());
+//        System.out.println("speed stack = " + speed.size());
     }
 
     private Vector2 closestUnknown() {
@@ -126,13 +162,23 @@ public class HeuristicAI extends AI {
         //Checks if there are sturctures that need to be explored and moves to them
         if (exploredStructures.size() > 0){
 
+
             for(int i = 0; i < explorationPoints.size(); i++){
                 if(exploredStructures.get(0).area.contains(explorationPoints.get(i))){
                     explorationPoints.remove(i);
                 }
             }
             if(exploredStructures.get(0).xPos > 12 && exploredStructures.get(0).xPos < 388 && exploredStructures.get(0).yPos < 195 && exploredStructures.get(0).yPos > 15){
-                point = new Vector2(exploredStructures.get(0).xPos,exploredStructures.get(0).yPos);
+                float distance = 100000;
+                int index = 0;
+                for (int i = 0; i < explorationPoints.size(); i++) {
+                    float temp_distance = explorationPoints.get(i).dst2(exploredStructures.get(0).xPos, exploredStructures.get(0).yPos);
+                    if (temp_distance < distance) {
+                        distance = temp_distance;
+                        index = i;
+                    }
+                }
+                    point = explorationPoints.get(index);
                 exploredStructures.remove(0);
                 return point;
             }
@@ -179,7 +225,8 @@ public class HeuristicAI extends AI {
         return point;
     }
 
-    private Vector2 randomMovement() {
+    //Useless since it's already in alloptions
+/*    private Vector2 randomMovement() {
         //creates range so the agent doesn't move in the direction it came from (currently at least 90 degrees in a different direction)
         float angle;
         if (guardSeen){
@@ -201,10 +248,10 @@ public class HeuristicAI extends AI {
         Vector2 vector =  new Vector2((float) (agent.xCenter + AVERYBIGNUMBER*Math.cos(Math.toRadians(angle))),(float) (agent.yCenter + AVERYBIGNUMBER*Math.sin(Math.toRadians(angle))));
         System.out.println("vector: " + vector.x + "," + vector.y);
         return vector;
-    }
+    }*/
 
     public Vector2 allOptions(){
-        //Checks if there are sturctures that need to be explored and moves to them
+        //Checks if there are structures that need to be explored and moves to them
         if (exploredStructures.size() > 0){
 
             for(int i = 0; i < explorationPoints.size(); i++){
@@ -213,12 +260,11 @@ public class HeuristicAI extends AI {
                 }
             }
             if(exploredStructures.get(0).xPos > 12 && exploredStructures.get(0).xPos < 388 && exploredStructures.get(0).yPos < 195 && exploredStructures.get(0).yPos > 15){
-                point = new Vector2(exploredStructures.get(0).xPos,exploredStructures.get(0).yPos);
+
                 exploredStructures.remove(0);
                 return point;
             }
             exploredStructures.remove(0);
-
         }
 
         Random rand = new Random();
@@ -227,7 +273,7 @@ public class HeuristicAI extends AI {
         return point;
     }
 
-    public Vector2 heatMapMovement(){
+    public Vector2 heatMapMovement() {
         /**
          * Choose one of the exploration points to go to based on:
          * -has it already been explored
@@ -237,61 +283,100 @@ public class HeuristicAI extends AI {
 
         //TODO start at one of the corners
 
-        float minPointDistance = Float.MAX_VALUE;
-        ArrayList<Vector2> closestPoints = new ArrayList<Vector2>();
+        if (exploredStructures.size() > 0) {
 
-        //find closests points
-        for(int i = 0; i < explorationPoints.size(); i++){
-            float pointDistance = currentExplorationPoint.dst(explorationPoints.get(i));
-            if(currentExplorationPoint != explorationPoints.get(i) && pointDistance < minPointDistance){
-                minPointDistance = pointDistance;
-                closestPoints.clear();
-                closestPoints.add(explorationPoints.get(i));
+
+            for (int i = 0; i < explorationPoints.size(); i++) {
+                if (exploredStructures.get(0).area.contains(explorationPoints.get(i))) {
+                    explorationPoints.remove(i);
+                }
             }
-            else if(currentExplorationPoint != explorationPoints.get(i) && pointDistance == minPointDistance){
-                closestPoints.add(explorationPoints.get(i));
+            if (exploredStructures.get(0).xPos > 12 && exploredStructures.get(0).xPos < 388 && exploredStructures.get(0).yPos < 195 && exploredStructures.get(0).yPos > 15) {
+                float distance = 100000;
+                int index = 0;
+                for (int i = 0; i < explorationPoints.size(); i++) {
+                    float temp_distance = explorationPoints.get(i).dst2(exploredStructures.get(0).xPos, exploredStructures.get(0).yPos);
+                    if (temp_distance < distance) {
+                        distance = temp_distance;
+                        index = i;
+                    }
+                }
+                point = explorationPoints.get(index);
+                exploredStructures.remove(0);
+                return point;
             }
-        }
-        //TODO add diagonal directions, test with tempX = tempY
+            exploredStructures.remove(0);
 
-        //check where each of the closest points are with respect to the the currentExplorationPoint
-        //if any have the same relativeDirection as the currentDirection, return that point
-        //otherwise return closestPoints.get(0), and save the direction we are now going in
-        Direction relativeDirection = currentDirection;
-        for(int j = 0; j < closestPoints.size(); j++){
-            float pointX = closestPoints.get(j).x;
-            float pointY = closestPoints.get(j).y;
-
-            if(pointX == currentExplorationPoint.x && pointY > currentExplorationPoint.y) relativeDirection = Direction.NORTH;
-            if(pointX > currentExplorationPoint.x && pointY > currentExplorationPoint.y) relativeDirection = Direction.NORTH_EAST;
-            if(pointX > currentExplorationPoint.x && pointY == currentExplorationPoint.y) relativeDirection = Direction.EAST;
-            if(pointX > currentExplorationPoint.x && pointY < currentExplorationPoint.y) relativeDirection = Direction.SOUTH_EAST;
-            if(pointX == currentExplorationPoint.x && pointY < currentExplorationPoint.y) relativeDirection = Direction.SOUTH;
-            if(pointX < currentExplorationPoint.x && pointY < currentExplorationPoint.y) relativeDirection = Direction.SOUTH_WEST;
-            if(pointX < currentExplorationPoint.x && pointY == currentExplorationPoint.y) relativeDirection = Direction.WEST;
-            if(pointX < currentExplorationPoint.x && pointY > currentExplorationPoint.y) relativeDirection = Direction.NORTH_WEST;
-
-
-            if(relativeDirection == currentDirection){
-                currentExplorationPoint = closestPoints.get(j);
-                explorationPoints.remove(currentExplorationPoint);
-                return currentExplorationPoint;
-            }
         }
 
-        if(closestPoints.get(0).x == currentExplorationPoint.x && closestPoints.get(0).y > currentExplorationPoint.y) relativeDirection = Direction.NORTH;
-        if(closestPoints.get(0).x > currentExplorationPoint.x && closestPoints.get(0).y > currentExplorationPoint.y) relativeDirection = Direction.NORTH_EAST;
-        if(closestPoints.get(0).x > currentExplorationPoint.x && closestPoints.get(0).y == currentExplorationPoint.y) relativeDirection = Direction.EAST;
-        if(closestPoints.get(0).x > currentExplorationPoint.x && closestPoints.get(0).y < currentExplorationPoint.y) relativeDirection = Direction.SOUTH_EAST;
-        if(closestPoints.get(0).x == currentExplorationPoint.x && closestPoints.get(0).y < currentExplorationPoint.y) relativeDirection = Direction.SOUTH;
-        if(closestPoints.get(0).x < currentExplorationPoint.x && closestPoints.get(0).y < currentExplorationPoint.y) relativeDirection = Direction.SOUTH_WEST;
-        if(closestPoints.get(0).x < currentExplorationPoint.x && closestPoints.get(0).y == currentExplorationPoint.y) relativeDirection = Direction.WEST;
-        if(closestPoints.get(0).x < currentExplorationPoint.x && closestPoints.get(0).y > currentExplorationPoint.y) relativeDirection = Direction.NORTH_WEST;
-        currentDirection = relativeDirection;
-        currentExplorationPoint = closestPoints.get(0);
+            float minPointDistance = Float.MAX_VALUE;
+            ArrayList<Vector2> closestPoints = new ArrayList<Vector2>();
 
-        explorationPoints.remove(currentExplorationPoint);
-        return currentExplorationPoint;
+            //find closests points
+            for (int i = 0; i < explorationPoints.size(); i++) {
+                float pointDistance = currentExplorationPoint.dst(explorationPoints.get(i));
+                if (currentExplorationPoint != explorationPoints.get(i) && pointDistance < minPointDistance) {
+                    minPointDistance = pointDistance;
+                    closestPoints.clear();
+                    closestPoints.add(explorationPoints.get(i));
+                } else if (currentExplorationPoint != explorationPoints.get(i) && pointDistance == minPointDistance) {
+                    closestPoints.add(explorationPoints.get(i));
+                }
+            }
+
+            //check where each of the closest points are with respect to the the currentExplorationPoint
+            //if any have the same relativeDirection as the currentDirection, return that point
+            //otherwise return closestPoints.get(0), and save the direction we are now going in
+            Direction relativeDirection = currentDirection;
+            for (int j = 0; j < closestPoints.size(); j++) {
+                float pointX = closestPoints.get(j).x;
+                float pointY = closestPoints.get(j).y;
+
+                if (pointX == currentExplorationPoint.x && pointY > currentExplorationPoint.y)
+                    relativeDirection = Direction.NORTH;
+                if (pointX > currentExplorationPoint.x && pointY > currentExplorationPoint.y)
+                    relativeDirection = Direction.NORTH_EAST;
+                if (pointX > currentExplorationPoint.x && pointY == currentExplorationPoint.y)
+                    relativeDirection = Direction.EAST;
+                if (pointX > currentExplorationPoint.x && pointY < currentExplorationPoint.y)
+                    relativeDirection = Direction.SOUTH_EAST;
+                if (pointX == currentExplorationPoint.x && pointY < currentExplorationPoint.y)
+                    relativeDirection = Direction.SOUTH;
+                if (pointX < currentExplorationPoint.x && pointY < currentExplorationPoint.y)
+                    relativeDirection = Direction.SOUTH_WEST;
+                if (pointX < currentExplorationPoint.x && pointY == currentExplorationPoint.y)
+                    relativeDirection = Direction.WEST;
+                if (pointX < currentExplorationPoint.x && pointY > currentExplorationPoint.y)
+                    relativeDirection = Direction.NORTH_WEST;
+
+                if (relativeDirection == currentDirection) {
+                    currentExplorationPoint = closestPoints.get(j);
+                    explorationPoints.remove(currentExplorationPoint);
+                    return currentExplorationPoint;
+                }
+            }
+
+            if (closestPoints.get(0).x == currentExplorationPoint.x && closestPoints.get(0).y > currentExplorationPoint.y)
+                relativeDirection = Direction.NORTH;
+            if (closestPoints.get(0).x > currentExplorationPoint.x && closestPoints.get(0).y > currentExplorationPoint.y)
+                relativeDirection = Direction.NORTH_EAST;
+            if (closestPoints.get(0).x > currentExplorationPoint.x && closestPoints.get(0).y == currentExplorationPoint.y)
+                relativeDirection = Direction.EAST;
+            if (closestPoints.get(0).x > currentExplorationPoint.x && closestPoints.get(0).y < currentExplorationPoint.y)
+                relativeDirection = Direction.SOUTH_EAST;
+            if (closestPoints.get(0).x == currentExplorationPoint.x && closestPoints.get(0).y < currentExplorationPoint.y)
+                relativeDirection = Direction.SOUTH;
+            if (closestPoints.get(0).x < currentExplorationPoint.x && closestPoints.get(0).y < currentExplorationPoint.y)
+                relativeDirection = Direction.SOUTH_WEST;
+            if (closestPoints.get(0).x < currentExplorationPoint.x && closestPoints.get(0).y == currentExplorationPoint.y)
+                relativeDirection = Direction.WEST;
+            if (closestPoints.get(0).x < currentExplorationPoint.x && closestPoints.get(0).y > currentExplorationPoint.y)
+                relativeDirection = Direction.NORTH_WEST;
+            currentDirection = relativeDirection;
+            currentExplorationPoint = closestPoints.get(0);
+
+            //explorationPoints.remove(currentExplorationPoint);
+            return currentExplorationPoint;
     }
 
     public boolean checkCollision(){
@@ -338,34 +423,44 @@ public class HeuristicAI extends AI {
 
     @Override
     public void reset() {
+        for(int i = 0; i < rotation.size(); i++){
+            rotation.pop();
+        }
 
+        for(int i = 0; i < speed.size(); i++){
+            speed.pop();
+        }
     }
 
     @Override
     public void seeArea(Area area) {
-        //System.out.println("printing some area ");
-        boolean check = false;
-        //checking to see if area is in seen structures, if not it is added to the array
-        if(seenStructures.size() > 0) {
-            for (int i = 0; i < seenStructures.size(); i++) {
-                if (area == seenStructures.get(i)) {
-                    check = true;
+//        System.out.println("printing some area ");
+
+        if(!(area instanceof OuterWall)) {
+            boolean check = false;
+            //checking to see if area is in seen structures, if not it is added to the array
+            if (seenStructures.size() > 0) {
+                for (int i = 0; i < seenStructures.size(); i++) {
+                    if (area == seenStructures.get(i)) {
+                        check = true;
+                    }
                 }
-            }
-            if(!check){
+                if (!check) {
+                    seenStructures.add(area);
+                    Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
+                    exploredStructures.add(rectangle);
+
+                    reset();
+                }
+            } else {
                 seenStructures.add(area);
+                Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
+                exploredStructures.add(rectangle);
                 exploredStructures.add(area);
+                reset();
             }
         }
-        else{
-            seenStructures.add(area);
-            exploredStructures.add(area);
-        }
-        if (!structures.contains(area)) {
-            structures.add(area);
-        }
-        //speed.clear();
-        //rotation.clear();
+
     }
 
     @Override
@@ -374,7 +469,7 @@ public class HeuristicAI extends AI {
     }
 
     @Override
-    public void updatedSeenLocations() {
+    public void updatedSeenLocations(){
 
       //  System.out.println("before update = " + explorationPoints.size());
 
@@ -391,5 +486,18 @@ public class HeuristicAI extends AI {
 
     public void setPattern(String pattern) {
         this.pattern = pattern;
+    }
+
+    public void setCurrentExplorationPoint(Vector2 currentExplorationPoint) {
+        this.currentExplorationPoint = currentExplorationPoint;
+    }
+
+    @Override
+    public void setCornerPoints(ArrayList<Point2D.Float> cornerPoints) {
+        this.cornerPoints = cornerPoints;
+        if(agent instanceof Guard){
+            explorationSetUpGuards();
+        }
+        System.out.println("sout boys");
     }
 }
