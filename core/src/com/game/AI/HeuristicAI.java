@@ -273,7 +273,7 @@ public class HeuristicAI extends AI {
         return point;
     }
 
-    public Vector2 heatMapMovement(){
+    public Vector2 heatMapMovement() {
         /**
          * Choose one of the exploration points to go to based on:
          * -has it already been explored
@@ -283,60 +283,100 @@ public class HeuristicAI extends AI {
 
         //TODO start at one of the corners
 
-        float minPointDistance = Float.MAX_VALUE;
-        ArrayList<Vector2> closestPoints = new ArrayList<Vector2>();
+        if (exploredStructures.size() > 0) {
 
-        //find closests points
-        for(int i = 0; i < explorationPoints.size(); i++){
-            float pointDistance = currentExplorationPoint.dst(explorationPoints.get(i));
-            if(currentExplorationPoint != explorationPoints.get(i) && pointDistance < minPointDistance){
-                minPointDistance = pointDistance;
-                closestPoints.clear();
-                closestPoints.add(explorationPoints.get(i));
+
+            for (int i = 0; i < explorationPoints.size(); i++) {
+                if (exploredStructures.get(0).area.contains(explorationPoints.get(i))) {
+                    explorationPoints.remove(i);
+                }
             }
-            else if(currentExplorationPoint != explorationPoints.get(i) && pointDistance == minPointDistance){
-                closestPoints.add(explorationPoints.get(i));
+            if (exploredStructures.get(0).xPos > 12 && exploredStructures.get(0).xPos < 388 && exploredStructures.get(0).yPos < 195 && exploredStructures.get(0).yPos > 15) {
+                float distance = 100000;
+                int index = 0;
+                for (int i = 0; i < explorationPoints.size(); i++) {
+                    float temp_distance = explorationPoints.get(i).dst2(exploredStructures.get(0).xPos, exploredStructures.get(0).yPos);
+                    if (temp_distance < distance) {
+                        distance = temp_distance;
+                        index = i;
+                    }
+                }
+                point = explorationPoints.get(index);
+                exploredStructures.remove(0);
+                return point;
             }
+            exploredStructures.remove(0);
+
         }
 
-        //check where each of the closest points are with respect to the the currentExplorationPoint
-        //if any have the same relativeDirection as the currentDirection, return that point
-        //otherwise return closestPoints.get(0), and save the direction we are now going in
-        Direction relativeDirection = currentDirection;
-        for(int j = 0; j < closestPoints.size(); j++){
-            float pointX = closestPoints.get(j).x;
-            float pointY = closestPoints.get(j).y;
+            float minPointDistance = Float.MAX_VALUE;
+            ArrayList<Vector2> closestPoints = new ArrayList<Vector2>();
 
-            if(pointX == currentExplorationPoint.x && pointY > currentExplorationPoint.y) relativeDirection = Direction.NORTH;
-            if(pointX > currentExplorationPoint.x && pointY > currentExplorationPoint.y) relativeDirection = Direction.NORTH_EAST;
-            if(pointX > currentExplorationPoint.x && pointY == currentExplorationPoint.y) relativeDirection = Direction.EAST;
-            if(pointX > currentExplorationPoint.x && pointY < currentExplorationPoint.y) relativeDirection = Direction.SOUTH_EAST;
-            if(pointX == currentExplorationPoint.x && pointY < currentExplorationPoint.y) relativeDirection = Direction.SOUTH;
-            if(pointX < currentExplorationPoint.x && pointY < currentExplorationPoint.y) relativeDirection = Direction.SOUTH_WEST;
-            if(pointX < currentExplorationPoint.x && pointY == currentExplorationPoint.y) relativeDirection = Direction.WEST;
-            if(pointX < currentExplorationPoint.x && pointY > currentExplorationPoint.y) relativeDirection = Direction.NORTH_WEST;
-
-
-            if(relativeDirection == currentDirection){
-                currentExplorationPoint = closestPoints.get(j);
-                explorationPoints.remove(currentExplorationPoint);
-                return currentExplorationPoint;
+            //find closests points
+            for (int i = 0; i < explorationPoints.size(); i++) {
+                float pointDistance = currentExplorationPoint.dst(explorationPoints.get(i));
+                if (currentExplorationPoint != explorationPoints.get(i) && pointDistance < minPointDistance) {
+                    minPointDistance = pointDistance;
+                    closestPoints.clear();
+                    closestPoints.add(explorationPoints.get(i));
+                } else if (currentExplorationPoint != explorationPoints.get(i) && pointDistance == minPointDistance) {
+                    closestPoints.add(explorationPoints.get(i));
+                }
             }
-        }
 
-        if(closestPoints.get(0).x == currentExplorationPoint.x && closestPoints.get(0).y > currentExplorationPoint.y) relativeDirection = Direction.NORTH;
-        if(closestPoints.get(0).x > currentExplorationPoint.x && closestPoints.get(0).y > currentExplorationPoint.y) relativeDirection = Direction.NORTH_EAST;
-        if(closestPoints.get(0).x > currentExplorationPoint.x && closestPoints.get(0).y == currentExplorationPoint.y) relativeDirection = Direction.EAST;
-        if(closestPoints.get(0).x > currentExplorationPoint.x && closestPoints.get(0).y < currentExplorationPoint.y) relativeDirection = Direction.SOUTH_EAST;
-        if(closestPoints.get(0).x == currentExplorationPoint.x && closestPoints.get(0).y < currentExplorationPoint.y) relativeDirection = Direction.SOUTH;
-        if(closestPoints.get(0).x < currentExplorationPoint.x && closestPoints.get(0).y < currentExplorationPoint.y) relativeDirection = Direction.SOUTH_WEST;
-        if(closestPoints.get(0).x < currentExplorationPoint.x && closestPoints.get(0).y == currentExplorationPoint.y) relativeDirection = Direction.WEST;
-        if(closestPoints.get(0).x < currentExplorationPoint.x && closestPoints.get(0).y > currentExplorationPoint.y) relativeDirection = Direction.NORTH_WEST;
-        currentDirection = relativeDirection;
-        currentExplorationPoint = closestPoints.get(0);
+            //check where each of the closest points are with respect to the the currentExplorationPoint
+            //if any have the same relativeDirection as the currentDirection, return that point
+            //otherwise return closestPoints.get(0), and save the direction we are now going in
+            Direction relativeDirection = currentDirection;
+            for (int j = 0; j < closestPoints.size(); j++) {
+                float pointX = closestPoints.get(j).x;
+                float pointY = closestPoints.get(j).y;
 
-        explorationPoints.remove(currentExplorationPoint);
-        return currentExplorationPoint;
+                if (pointX == currentExplorationPoint.x && pointY > currentExplorationPoint.y)
+                    relativeDirection = Direction.NORTH;
+                if (pointX > currentExplorationPoint.x && pointY > currentExplorationPoint.y)
+                    relativeDirection = Direction.NORTH_EAST;
+                if (pointX > currentExplorationPoint.x && pointY == currentExplorationPoint.y)
+                    relativeDirection = Direction.EAST;
+                if (pointX > currentExplorationPoint.x && pointY < currentExplorationPoint.y)
+                    relativeDirection = Direction.SOUTH_EAST;
+                if (pointX == currentExplorationPoint.x && pointY < currentExplorationPoint.y)
+                    relativeDirection = Direction.SOUTH;
+                if (pointX < currentExplorationPoint.x && pointY < currentExplorationPoint.y)
+                    relativeDirection = Direction.SOUTH_WEST;
+                if (pointX < currentExplorationPoint.x && pointY == currentExplorationPoint.y)
+                    relativeDirection = Direction.WEST;
+                if (pointX < currentExplorationPoint.x && pointY > currentExplorationPoint.y)
+                    relativeDirection = Direction.NORTH_WEST;
+
+                if (relativeDirection == currentDirection) {
+                    currentExplorationPoint = closestPoints.get(j);
+                    explorationPoints.remove(currentExplorationPoint);
+                    return currentExplorationPoint;
+                }
+            }
+
+            if (closestPoints.get(0).x == currentExplorationPoint.x && closestPoints.get(0).y > currentExplorationPoint.y)
+                relativeDirection = Direction.NORTH;
+            if (closestPoints.get(0).x > currentExplorationPoint.x && closestPoints.get(0).y > currentExplorationPoint.y)
+                relativeDirection = Direction.NORTH_EAST;
+            if (closestPoints.get(0).x > currentExplorationPoint.x && closestPoints.get(0).y == currentExplorationPoint.y)
+                relativeDirection = Direction.EAST;
+            if (closestPoints.get(0).x > currentExplorationPoint.x && closestPoints.get(0).y < currentExplorationPoint.y)
+                relativeDirection = Direction.SOUTH_EAST;
+            if (closestPoints.get(0).x == currentExplorationPoint.x && closestPoints.get(0).y < currentExplorationPoint.y)
+                relativeDirection = Direction.SOUTH;
+            if (closestPoints.get(0).x < currentExplorationPoint.x && closestPoints.get(0).y < currentExplorationPoint.y)
+                relativeDirection = Direction.SOUTH_WEST;
+            if (closestPoints.get(0).x < currentExplorationPoint.x && closestPoints.get(0).y == currentExplorationPoint.y)
+                relativeDirection = Direction.WEST;
+            if (closestPoints.get(0).x < currentExplorationPoint.x && closestPoints.get(0).y > currentExplorationPoint.y)
+                relativeDirection = Direction.NORTH_WEST;
+            currentDirection = relativeDirection;
+            currentExplorationPoint = closestPoints.get(0);
+
+            //explorationPoints.remove(currentExplorationPoint);
+            return currentExplorationPoint;
     }
 
     public boolean checkCollision(){
