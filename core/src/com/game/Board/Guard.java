@@ -44,7 +44,7 @@ public class Guard extends Agent {
 		this.height = height;
 		//viewAngle.setToRandomDirection();
 		speed = 1;
-		maxSpeed = 15f;
+		maxSpeed = 1.4f;
 		//maxSpeed = 1.4f;
 		soundRange = 0;
 		viewRange = 6f + width / 2;

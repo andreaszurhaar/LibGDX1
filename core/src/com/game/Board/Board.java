@@ -417,7 +417,7 @@ public class Board {
 	*/
 
 	public float estimateDirection(float xStart, float yStart, float xPos, float yPos) {
-		Vector2 vector = new Vector2(xPos-xStart,yPos-yStart);
+		Vector2 vector = new Vector2(xStart - xPos,yStart - yPos);
 		float res = vector.angle()+(float) rand.nextGaussian()*10;
 		return res;
 	}
