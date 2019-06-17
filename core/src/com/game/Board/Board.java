@@ -161,7 +161,7 @@ public class Board {
 						if(victoryTime1 == 0) {
 							victoryTime1 = System.currentTimeMillis();
 						} else {
-							if((victoryTime1 - System.currentTimeMillis()) > 3*fps*1000) {gameOver = true;}
+							if((System.currentTimeMillis() - victoryTime1) > 3*1000) {gameOver = true;}
 						}
 					} else if(territories.get(i) instanceof LowVisionArea) {
 						agents.get(a).hidden = true;
@@ -195,10 +195,11 @@ public class Board {
 								agents.get(a).viewRadius = 45;
 							}
 						}
-					} else 
-					agents.get(a).hidden = false;
-					collided = true;
-					agents.get(a).setCollided(true);
+					} else {
+						agents.get(a).hidden = false;
+						collided = true;
+						agents.get(a).setCollided(true);
+					}
 				}
 				//System.out.println("collided");}
 			}
