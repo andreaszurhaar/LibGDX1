@@ -13,11 +13,13 @@ import com.game.Readers.SpriteReader;
  */
 public class Door extends Area{
 
+	public boolean horizontal;
 	SpriteReader reader = new SpriteReader();
 	public String name = "7";
 
 	public Door(float startX, float startY, float width, float height, boolean horizontal) {
 		super(startX, startY, width, height);
+		this.horizontal = horizontal;
 		try {
 			if(horizontal) {
         		this.texture = reader.getImage(32,417,30,30);

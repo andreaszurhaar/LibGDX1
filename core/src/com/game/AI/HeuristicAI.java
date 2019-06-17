@@ -40,6 +40,7 @@ public class HeuristicAI extends AI {
     private Direction currentDirection = Direction.NORTH;
     private ArrayList<Point2D.Float> cornerPoints;
 
+
     public HeuristicAI(Agent agent)
     {
         this.agent = agent;
@@ -62,7 +63,7 @@ public class HeuristicAI extends AI {
         seenStructures = new ArrayList<Area>();
         exploredStructures = new ArrayList<Area>();
         startingPos = false;
-        //structures = new ArrayList<Area>();
+        structures = new ArrayList<Area>();
         cornerPoints = new ArrayList<Point2D.Float>();
         explorationSetUp();
 
