@@ -204,6 +204,14 @@ public class AStarNew extends AI {
     	}
     	return rotation.pop();
     }
+    
+    public Stack<Float> getRotationStack() {
+    	return rotation;
+    }    
+    
+    public Stack<Float> getSpeedStack() {
+    	return speed;
+    }
 
     @Override
     public float getSpeed() {

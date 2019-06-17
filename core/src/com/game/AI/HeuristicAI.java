@@ -2,12 +2,14 @@ package com.game.AI;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.game.AI.Astar.AStarNew;
 import com.game.Board.Agent;
 import com.game.Board.Area;
 import com.game.Board.Board;
 import com.game.Board.Guard;
 import com.game.Board.Intruder;
 import com.game.Board.MapDivider;
+import com.game.Board.OuterWall;
 import com.game.CopsAndRobbers;
 import com.game.States.MapState;
 
@@ -79,24 +81,24 @@ public class HeuristicAI extends AI {
 
     public void explorationSetUp() {
 
-//        explorationPoints = new ArrayList<Vector2>();
-//        float tempX = (BOARD_WIDTH/MapState.X_REDUC) / FACTOR;
-//        float tempY = (650/MapState.Y_REDUC) / FACTOR;
-//        for (int i = 1; i < X_FACTOR; i++) {
-//            for (int j = 1; j < Y_FACTOR; j++) {
-//                explorationPoints.add(new Vector2(i * tempX + 0.5f * tempX, j * tempY + 0.5f * tempY));
-//            }
-//        }
-
-        //TODO uncomment for evenly spaced points
         explorationPoints = new ArrayList<Vector2>();
-        float tempX = 10;
-        float tempY = 10;
-        for (int i = 1; i < BOARD_WIDTH/tempX - 1; i++) {
-            for (int j = 1; j < BOARD_HEIGHT/tempY - 1; j++) {
+        float tempX = (BOARD_WIDTH/MapState.X_REDUC) / FACTOR;
+        float tempY = (650/MapState.Y_REDUC) / FACTOR;
+        for (int i = 1; i < X_FACTOR; i++) {
+            for (int j = 1; j < Y_FACTOR; j++) {
                 explorationPoints.add(new Vector2(i * tempX + 0.5f * tempX, j * tempY + 0.5f * tempY));
             }
         }
+
+        //TODO uncomment for evenly spaced points
+//        explorationPoints = new ArrayList<Vector2>();
+//        float tempX = 10;
+//        float tempY = 10;
+//        for (int i = 1; i < BOARD_WIDTH/tempX - 1; i++) {
+//            for (int j = 1; j < BOARD_HEIGHT/tempY - 1; j++) {
+//                explorationPoints.add(new Vector2(i * tempX + 0.5f * tempX, j * tempY + 0.5f * tempY));
+//            }
+//        }
 
 
         for(int i = 0; i < explorationPoints.size(); i++){
@@ -142,9 +144,17 @@ public class HeuristicAI extends AI {
             point = heatMapMovement();
         }
 
-        instruction.translate(point, agent, true);
-        rotation = instruction.getRotations();
-        speed = instruction.getSpeeds();
+        AStarNew astar = new AStarNew(seenStructures);
+        astar.setAgent(agent);
+        astar.runAgain(agent.xPos,agent.yPos,point.x,point.y);
+        rotation = astar.getRotationStack();
+        speed = astar.getSpeedStack();
+        System.out.println("agent xPos = " + agent.xPos);
+        System.out.println("agent yPos = " + agent.yPos);
+        System.out.println("target xPos = " + point.x);
+        System.out.println("target yPos = " + point.y);
+        System.out.println("rotation stack = " + rotation.size());
+        System.out.println("speed stack = " + speed.size());
     }
 
     private Vector2 closestUnknown() {
@@ -152,13 +162,23 @@ public class HeuristicAI extends AI {
         //Checks if there are sturctures that need to be explored and moves to them
         if (exploredStructures.size() > 0){
 
+
             for(int i = 0; i < explorationPoints.size(); i++){
                 if(exploredStructures.get(0).area.contains(explorationPoints.get(i))){
                     explorationPoints.remove(i);
                 }
             }
             if(exploredStructures.get(0).xPos > 12 && exploredStructures.get(0).xPos < 388 && exploredStructures.get(0).yPos < 195 && exploredStructures.get(0).yPos > 15){
-                point = new Vector2(exploredStructures.get(0).xPos,exploredStructures.get(0).yPos);
+                float distance = 100000;
+                int index = 0;
+                for (int i = 0; i < explorationPoints.size(); i++) {
+                    float temp_distance = explorationPoints.get(i).dst2(exploredStructures.get(0).xPos, exploredStructures.get(0).yPos);
+                    if (temp_distance < distance) {
+                        distance = temp_distance;
+                        index = i;
+                    }
+                }
+                    point = explorationPoints.get(index);
                 exploredStructures.remove(0);
                 return point;
             }
@@ -239,7 +259,7 @@ public class HeuristicAI extends AI {
                 }
             }
             if(exploredStructures.get(0).xPos > 12 && exploredStructures.get(0).xPos < 388 && exploredStructures.get(0).yPos < 195 && exploredStructures.get(0).yPos > 15){
-                point = new Vector2(exploredStructures.get(0).xPos,exploredStructures.get(0).yPos);
+
                 exploredStructures.remove(0);
                 return point;
             }
@@ -363,34 +383,44 @@ public class HeuristicAI extends AI {
 
     @Override
     public void reset() {
+        for(int i = 0; i < rotation.size(); i++){
+            rotation.pop();
+        }
 
+        for(int i = 0; i < speed.size(); i++){
+            speed.pop();
+        }
     }
 
     @Override
     public void seeArea(Area area) {
-        //System.out.println("printing some area ");
-        boolean check = false;
-        //checking to see if area is in seen structures, if not it is added to the array
-        if(seenStructures.size() > 0) {
-            for (int i = 0; i < seenStructures.size(); i++) {
-                if (area == seenStructures.get(i)) {
-                    check = true;
+        System.out.println("printing some area ");
+
+        if(!(area instanceof OuterWall)) {
+            boolean check = false;
+            //checking to see if area is in seen structures, if not it is added to the array
+            if (seenStructures.size() > 0) {
+                for (int i = 0; i < seenStructures.size(); i++) {
+                    if (area == seenStructures.get(i)) {
+                        check = true;
+                    }
                 }
-            }
-            if(!check){
+                if (!check) {
+                    seenStructures.add(area);
+                    Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
+                    exploredStructures.add(rectangle);
+
+                    reset();
+                }
+            } else {
                 seenStructures.add(area);
+                Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
+                exploredStructures.add(rectangle);
                 exploredStructures.add(area);
+                reset();
             }
         }
-        else{
-            seenStructures.add(area);
-            exploredStructures.add(area);
-        }
-//        if (!structures.contains(area)) {
-//            structures.add(area);
-//        }
-        //speed.clear();
-        //rotation.clear();
+
     }
 
     @Override
@@ -399,7 +429,7 @@ public class HeuristicAI extends AI {
     }
 
     @Override
-    public void updatedSeenLocations() {
+    public void updatedSeenLocations(){
 
       //  System.out.println("before update = " + explorationPoints.size());
 
