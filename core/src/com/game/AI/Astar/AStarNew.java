@@ -76,7 +76,6 @@ public class AStarNew extends AI {
 
     //use same structures and map, but just running it with a different start and end position
     public void runAgain(float startx, float starty, float targetx, float targety){
-        path.clear();
         pathReg.clear();
         open.clear();
         closed.clear();
