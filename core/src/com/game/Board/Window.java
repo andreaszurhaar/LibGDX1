@@ -14,10 +14,11 @@ import com.game.Readers.SpriteReader;
 public class Window extends Area {
 	
 	SpriteReader reader = new SpriteReader();
-
+	public boolean horizontal;
 
 	public Window(float startX, float startY, float width, float height, boolean horizontal) {
 		super(startX, startY, width, height);
+		this.horizontal = horizontal;
 		name = "10";
 		try {
 			if(horizontal) {

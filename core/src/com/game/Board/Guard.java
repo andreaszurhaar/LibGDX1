@@ -83,6 +83,13 @@ public class Guard extends Agent {
 	}
 	
 	public void triggerStep() {
+		
+		if(idlecount > 0) {
+			speed = 0;
+			rotation = 0;
+			idlecount--;
+			return;
+		}
 		//System.out.println("AI in guard is " + ai);
 
 
@@ -121,7 +128,7 @@ public class Guard extends Agent {
 	   	renderer.begin(ShapeType.Line);
 	   	if(seeing) {renderer.setColor(1, 0, 0, 1);}
 	   	else {renderer.setColor(1, 1, 0, 1);}
-	   	renderer.arc(xCenter*xReduc, yCenter*yReduc, viewRange*xReduc,viewAngle.angle()-(viewRadius/2),viewRadius,20);
+	   	if(idlecount == 0) {renderer.arc(xCenter*xReduc, yCenter*yReduc, this.viewRange*xReduc,this.viewAngle.angle()-(this.viewRadius/2),this.viewRadius,20);}
 		
 		if (ai instanceof Tracking) {
 			Tracking guardcopy = (Tracking) this.ai;

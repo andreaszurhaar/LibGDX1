@@ -67,6 +67,13 @@ public class Intruder extends Agent {
 	}
 	
 	public void triggerStep() {
+		
+		if(idlecount > 0) {
+			speed = 0;
+			rotation = 0;
+			idlecount--;
+			return;
+		}
 		this.speed = 1.4f;//(float) Math.random()*1.4f;
 //		rotation = -10;
 //		/*
@@ -107,7 +114,7 @@ public class Intruder extends Agent {
 	   	renderer.begin(ShapeType.Line);
 	   	if(seeing) {renderer.setColor(1, 0, 0, 1);}
 	   	else {renderer.setColor(1, 1, 0, 1);}
-	   	renderer.arc(xCenter*xReduc, yCenter*yReduc, viewRange*xReduc,viewAngle.angle()-(viewRadius/2),viewRadius,20);
+	   	if(idlecount == 0) {renderer.arc(xCenter*xReduc, yCenter*yReduc, this.viewRange*xReduc,this.viewAngle.angle()-(this.viewRadius/2),this.viewRadius,20);}
 	   	renderer.setColor(1, 0, 1, 1);
 		renderer.rect(xPos*xReduc-1,yPos*yReduc-1,area.width*xReduc+2,area.height*yReduc+2);
 	   	renderer.end();

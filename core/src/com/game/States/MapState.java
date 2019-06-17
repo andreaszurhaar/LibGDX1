@@ -246,7 +246,9 @@ public class MapState extends State {
                 if(!overlaps) {
 
                     if (this.name == "target") {
-                        structures.add(new TargetArea(x, y, 20 / X_REDUC, 20 / Y_REDUC));
+                    	if(!checkOverlap(new Rectangle(x, y, 20 / X_REDUC, 20 / Y_REDUC))) {
+                    		structures.add(new TargetArea(x, y, 20 / X_REDUC, 20 / Y_REDUC));
+                    	}
                     }
 
                     if (name == "steps") {
@@ -254,21 +256,29 @@ public class MapState extends State {
                     }
                     if (name == "wall") {
                         if (vertical == true) {
-                            walls.add(new Structure(x, y, 20 / X_REDUC, 100 / Y_REDUC, false));
-
+                        	if(!checkOverlap(new Rectangle(x, y, 20 / X_REDUC, 100 / Y_REDUC))) {
+                        		walls.add(new Structure(x, y, 20 / X_REDUC, 100 / Y_REDUC, false));
+                        	}
                         } else {
-                            walls.add(new Structure(x, y, 100 / X_REDUC, 20 / Y_REDUC, true));
-
+                        	if(!checkOverlap(new Rectangle(x, y, 100 / X_REDUC, 20 / Y_REDUC))) {
+                        		walls.add(new Structure(x, y, 100 / X_REDUC, 20 / Y_REDUC, true));
+                        	}
                         }
                     }
                     if (name == "robber") {
-                        agents.add(new Intruder(x, y, 15 / X_REDUC, 15 / Y_REDUC));
+                    	if(!checkOverlap(new Rectangle(x, y, 15 / X_REDUC, 15 / Y_REDUC))) {
+                    		agents.add(new Intruder(x, y, 15 / X_REDUC, 15 / Y_REDUC));
+                    	}
                     }
                     if (name == "candle") {
-                        structures.add(new LowVisionArea(x, y, 20 / X_REDUC, 40 / Y_REDUC));
+                    	if(!checkOverlap(new Rectangle(x, y, 20 / X_REDUC, 40 / Y_REDUC))) {
+                    		structures.add(new LowVisionArea(x, y, 20 / X_REDUC, 40 / Y_REDUC));
+                    	}
                     }
                     if (name == "lookout") {
-                        structures.add(new SentryTower(x, y, 50 / X_REDUC, 50 / Y_REDUC));
+                    	if(!checkOverlap(new Rectangle(x, y, 50 / X_REDUC, 50 / Y_REDUC))) {
+                    		structures.add(new SentryTower(x, y, 50 / X_REDUC, 50 / Y_REDUC));
+                    	}
                     }
                     if (name == "Vdoor") {
                         for (int i = 0; i < walls.size(); i++) {
@@ -285,7 +295,9 @@ public class MapState extends State {
                         }
                     }
                     if (name == "cop") {
-                        agents.add(new Guard(x, y, 15 / X_REDUC, 15 / Y_REDUC));
+                    	if(!checkOverlap(new Rectangle(x, y, 20 / X_REDUC, 20 / Y_REDUC))) {
+                    		agents.add(new Guard(x, y, 15 / X_REDUC, 15 / Y_REDUC));
+                    	}
                     }
                     if (name == "web") {
                         for (int i = 0; i < walls.size(); i++) {
@@ -303,6 +315,34 @@ public class MapState extends State {
 
 
         robberObjects = collider.copVsRobber(robberObjects, copObjects);
+    }
+    
+    public boolean checkOverlap(Rectangle rec) {
+    	boolean overlap = false;
+    	for(int a=0; a<11 ;a++) {
+        	for(int b=0; b<11 ;b++) {
+        		float x = rec.x + rec.width/10*a;
+        		float y = rec.y + rec.height/10*b;
+        		for(int i = 0; i < structures.size(); i++) {
+					if(structures.get(i).area.contains(x,y)) {
+						return true;
+					}
+				}
+				    	
+        		for(int i = 0; i < walls.size(); i++) {
+					if(walls.get(i).area.contains(x,y)) {
+						return true;
+					}
+				}
+				    	
+				for(int j = 0; j < agents.size(); j++) {
+					if(agents.get(j).area.contains(x,y)) {
+						return true;
+					}
+				}
+        	}
+    	}
+    	return overlap;
     }
 
     @Override

@@ -11,6 +11,7 @@ import java.util.Random;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.game.AI.Tracking;
 import com.game.States.MainState;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
@@ -32,6 +33,7 @@ public class Board {
 	private Point2D currentPoint;
 	public boolean gameOver = false;
 	private final int RANDOM_NOISE_SOUND_RANGE = 5;
+	public long victoryTime1 = 0;
 
 	private Random rand = new Random();
 
@@ -115,6 +117,86 @@ public class Board {
 			for(int i=0; i<territories.size(); i++) {
 				Rectangle projected = new Rectangle(newX,newY,agents.get(a).area.width,agents.get(a).area.height);
 				if(territories.get(i).intersects(projected)) {
+					if (territories.get(i) instanceof Structure) {
+						Structure struct = (Structure) territories.get(i);
+						ArrayList<Area> daw = struct.doorsAndWindows;
+						for(int f=0; f<daw.size(); f++) {
+							Vector2 vecToDaw = new Vector2((daw.get(f).xPos+daw.get(f).area.width/2)-(agents.get(a).xPos+agents.get(a).area.width/2),(daw.get(f).yPos+daw.get(f).area.height/2)-(agents.get(a).yPos+agents.get(a).area.height/2));
+							if(vecToDaw.x < vecToDaw.y) {
+								//horizontal door
+								if(vecToDaw.len() < daw.get(f).area.height/2+agents.get(a).area.height/2+10) {
+									agents.get(a).setPos(agents.get(a).xPos, agents.get(a).yPos+2*vecToDaw.y);
+									if(daw.get(f) instanceof Door) {
+										if(agents.get(a).speed < 0.5) {
+											agents.get(a).idlecount = fps*12 + (int) (fps*rand.nextGaussian()*2+1/2);
+										} else {
+											agents.get(a).idlecount = fps*5;
+											agents.get(a).soundRange = 5;
+										}
+									} else {
+										agents.get(a).idlecount = fps*3;
+										agents.get(a).soundRange = 10;
+									}
+								}
+							} else {
+								//vertical door
+								if(vecToDaw.len() < daw.get(f).area.width/2+agents.get(a).area.width/2+10) {
+									agents.get(a).setPos(agents.get(a).xPos+2*vecToDaw.x, agents.get(a).yPos);
+									if(daw.get(f) instanceof Door) {
+										if(agents.get(a).speed < 0.5) {
+											agents.get(a).idlecount = fps*12 + (int) (fps*rand.nextGaussian()*2+1/2);
+										} else {
+											agents.get(a).idlecount = fps*5;
+											agents.get(a).soundRange = 5;
+										}
+									} else {
+										agents.get(a).idlecount = fps*3;
+										agents.get(a).soundRange = 10;
+									}
+								}
+							}
+						}
+					}
+					if(territories.get(i) instanceof TargetArea) {
+						if(victoryTime1 == 0) {
+							victoryTime1 = System.currentTimeMillis();
+						} else {
+							if((victoryTime1 - System.currentTimeMillis()) > 3*fps*1000) {gameOver = true;}
+						}
+					} else if(territories.get(i) instanceof LowVisionArea) {
+						agents.get(a).hidden = true;
+					} else if (agents.get(a) instanceof Guard && territories.get(i) instanceof SentryTower) {
+						if(!agents.get(a).inTower) {
+							agents.get(a).inTower = true;
+							agents.get(a).idlecount = fps*3;
+							agents.get(a).viewRadius = 30;
+							agents.get(a).viewRange = 15;
+							agents.get(a).minViewRange = 2;
+							agents.get(a).setPos(territories.get(i).xPos+territories.get(i).area.width/2-agents.get(a).area.width/2,territories.get(i).yPos+territories.get(i).area.height/2-agents.get(a).area.height/2);
+						} else {
+							if(agents.get(a).ai instanceof Tracking) {
+								agents.get(a).soundRange = 1000;
+							}
+							if(agents.get(a).speed > 0) {
+								agents.get(a).inTower = false;
+								agents.get(a).idlecount = fps*3;
+								float exitAngle = agents.get(a).viewAngle.angle();
+								if (exitAngle >= 45 && exitAngle < 135) {
+									agents.get(a).setPos(agents.get(a).xPos,agents.get(a).yPos+territories.get(i).area.height/2+agents.get(a).area.height/2);
+								} else if (exitAngle >= 135 && exitAngle < 225) {
+									agents.get(a).setPos(agents.get(a).xPos-territories.get(i).area.width/2-agents.get(a).area.width/2,agents.get(a).yPos);
+								} else if (exitAngle >= 225 && exitAngle < 315) {
+									agents.get(a).setPos(agents.get(a).xPos,agents.get(a).yPos-territories.get(i).area.height/2-agents.get(a).area.height/2);
+								} else {
+									agents.get(a).setPos(agents.get(a).xPos+territories.get(i).area.width/2+agents.get(a).area.width/2,agents.get(a).yPos);
+								}
+								agents.get(a).viewRange = 6f + agents.get(a).area.width/2;
+								agents.get(a).minViewRange = 0;
+								agents.get(a).viewRadius = 45;
+							}
+						}
+					} else 
+					agents.get(a).hidden = false;
 					collided = true;
 					agents.get(a).setCollided(true);
 				}
@@ -156,13 +238,14 @@ public class Board {
 	        for(int i=0; i<agents.size(); i++) {
 				if(i!=a) {
 					float range = agents.get(a).viewRange;
+					if(agents.get(i).hidden) {range = range/2;}
 					Vector2 dis = distPointToRect(agents.get(a).xCenter,agents.get(a).yCenter,agents.get(i).area);
 					Vector2 vec = new Vector2(agents.get(a).viewAngle);
 					vec.scl(range);
 					Vector2 pos = new Vector2(agents.get(a).xCenter,agents.get(a).yCenter);
 					Vector2 fullVec = (new Vector2(pos)).add(vec);
 	
-					if(dis.len() < range) {
+					if(dis.len() < range && dis.len() > agents.get(a).minViewRange) {
 						Vector2 rightVec = new Vector2(vec);
 						rightVec.rotate(agents.get(a).viewRadius/2);
 						Vector2 leftVec = new Vector2(vec);
@@ -198,7 +281,7 @@ public class Board {
 				Vector2 pos = new Vector2(agents.get(a).xCenter,agents.get(a).yCenter);
 				Vector2 fullVec = (new Vector2(pos)).add(vec);
 
-				if(dis.len() < range*4) {
+				if(dis.len() < range && dis.len() > agents.get(a).minViewRange) {
 					Vector2 rightVec = new Vector2(vec);
 					rightVec.rotate(agents.get(a).viewRadius/2);
 					Vector2 leftVec = new Vector2(vec);
@@ -264,7 +347,7 @@ public class Board {
 		//check for agents hearing agents
 		for(int i=0; i<agents.size(); i++) {
 			//creating SoundOccurences with different ranges, depending on the current speed of the agent
-			SoundOccurence s = createHearableSound(agents.get(i));
+			//SoundOccurence s = createHearableSound(agents.get(i));
 //			if(agents.get(i).getSpeed() < 0.5 && agentNearby(agents.get(i))){
 //				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 1);
 //			}
@@ -277,23 +360,25 @@ public class Board {
 //			else{
 //				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 10);
 //			}
-            if(s != null){
-                agents.get(i).hearSound(estimateDirection(s,agents.get(i).xCenter,agents.get(i).yCenter));
-            }
+//            if(s != null){
+//                agents.get(i).hearSound(estimateDirection(s,agents.get(i).xCenter,agents.get(i).yCenter));
+//            }
 
-//			for(int j=0; j<agents.size(); j++) {
-//				if(i!=j) {
-//					Agent a = agents.get(j);
-//					//check if distance between sound and agent is within the sound range
-//					if (distPointToRect(s.xpos,s.ypos,a.area).len() < s.soundRange) {
-//						a.hearSound(estimateDirection(s,a.xCenter,a.yCenter));
-//						//System.out.println("heard sound between: "+i+"  and "+j+"   "+Math.random());
-//					}
-//				}
-//			}
+			for(int j=0; j<agents.size(); j++) {
+				if(i!=j) {
+					Agent a = agents.get(j);
+					Agent b = agents.get(i);
+					//check if distance between sound and agent is within the sound range
+					if (distPointToRect(b.xCenter,b.yCenter,a.area).len() < a.soundRange) {
+						a.hearSound(estimateDirection(b.xCenter,b.yCenter,a.xCenter,a.yCenter));
+						//System.out.println("heard sound between: "+i+"  and "+j+"   "+Math.random());
+					}
+				}
+			}
 		}
 	}
 
+	/*
 	public SoundOccurence createHearableSound(Agent observingAgent){
 		for (int i = 0; i< agents.size(); i++)
 		{
@@ -328,18 +413,10 @@ public class Board {
 		}
 		return null;
 	}
+	*/
 
-	public void checkIfAgentHears(SoundOccurence s) {
-		for (Agent a : agents) {
-			//check if distance between sound and agent is within the sound range
-			if (distPointToRect(s.xpos,s.ypos,a.area).len() < s.soundRange) {
-				a.hearSound(estimateDirection(s,a.getX(),a.getY()));
-			}
-		}
-	}
-
-	public float estimateDirection(SoundOccurence s, float xPos, float yPos) {
-		Vector2 vector = new Vector2(s.xpos-xPos,s.ypos-yPos);
+	public float estimateDirection(float xStart, float yStart, float xPos, float yPos) {
+		Vector2 vector = new Vector2(xPos-xStart,yPos-yStart);
 		float res = vector.angle()+(float) rand.nextGaussian()*10;
 		return res;
 	}

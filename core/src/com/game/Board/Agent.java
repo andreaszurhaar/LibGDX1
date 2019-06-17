@@ -38,6 +38,7 @@ public class Agent extends AssetManager {
 	public float turningCircle;
 	public float viewRadius;
 	public float viewRange;
+	public float minViewRange = 0;
 	public float maxSpeed;
 	public float soundRange;
 	public SoundOccurence lastHeardSound;
@@ -45,6 +46,10 @@ public class Agent extends AssetManager {
 	public boolean seeing;
 	public int hearingCount;
 	public boolean collided;
+	public boolean hidden;
+    public boolean inTower = false;
+    public int idlecount = 0;
+    public int hidingCount = 600;
 
 	public String name;
     public TextureRegion texture;
