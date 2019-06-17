@@ -134,9 +134,10 @@ public class HeuristicAI extends AI {
     public void exploration() {
         if (pattern.equals("closest")) {
             point = closestUnknown();
-        } else if (pattern.equals("random")) {
-            point = randomMovement();
         }
+//        else if (pattern.equals("random")) {
+//            point = randomMovement();
+//        }
         else if (pattern.equals("all")) {
             point = allOptions();
         }
@@ -225,7 +226,8 @@ public class HeuristicAI extends AI {
         return point;
     }
 
-    private Vector2 randomMovement() {
+    //Useless since it's already in alloptions
+/*    private Vector2 randomMovement() {
         //creates range so the agent doesn't move in the direction it came from (currently at least 90 degrees in a different direction)
         float angle;
         if (guardSeen){
@@ -247,7 +249,7 @@ public class HeuristicAI extends AI {
         Vector2 vector =  new Vector2((float) (agent.xCenter + AVERYBIGNUMBER*Math.cos(Math.toRadians(angle))),(float) (agent.yCenter + AVERYBIGNUMBER*Math.sin(Math.toRadians(angle))));
         System.out.println("vector: " + vector.x + "," + vector.y);
         return vector;
-    }
+    }*/
 
     public Vector2 allOptions(){
         //Checks if there are sturctures that need to be explored and moves to them

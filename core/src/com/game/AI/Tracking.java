@@ -163,7 +163,7 @@ public class Tracking extends AI {
     public float getSpeed(){
     	trackcounter++;
     	//System.out.println("got speed with counter: "+trackcounter);
-    	if(trackcounter > 60) {
+    	if(trackcounter > 180) {
     		previousAI.reset();
     		guard.setAI(previousAI);
     		return 0;
