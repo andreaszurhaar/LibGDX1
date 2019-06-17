@@ -35,7 +35,6 @@ public class HeuristicAI extends AI {
     public static final float X_REDUC = MapState.X_REDUC;
     public static final float Y_REDUC = MapState.Y_REDUC;
     public boolean startingPos, guardSeen;
-    public ArrayList<Area> seenStructures;
     public ArrayList<Area> exploredStructures;
     private Vector2 currentExplorationPoint;
     private Direction currentDirection = Direction.NORTH;

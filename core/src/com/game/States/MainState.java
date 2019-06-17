@@ -210,17 +210,15 @@ public class MainState extends State {
 
         //if(deltaTime > timeLimit){gsm.push(new GameOverState(gsm,deltaTime));}
         board.updateAgents();
-        if(intruderAI == "Heuristic AI" ){
-            for(int i = 0; i < intruders.size(); i++){
+
+        for(int i = 0; i < intruders.size(); i++){
                 intruders.get(i).ai.updatedSeenLocations();
-            }
         }
 
-        if(guardAI == "Heatmap patrolling" ){
-            for(int i = 0; i < guards.size(); i++){
+        for(int i = 0; i < guards.size(); i++){
                 guards.get(i).ai.updatedSeenLocations();
             }
-        }
+
         
     }
 

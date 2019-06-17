@@ -15,6 +15,7 @@ public abstract class AI {
     public Stack<Float> speed;
     public Agent agent;
     public Instruction instruction;
+    public ArrayList<Area> seenStructures;
 
 
     public AI(){};
