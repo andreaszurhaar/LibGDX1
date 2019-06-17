@@ -58,6 +58,7 @@ public class MainState extends State {
     public static final float Y_REDUC = MapState.Y_REDUC;
     public double timeLimit = 60.00;
     String intruderAI;
+    String guardAI;
 
 
     public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls, String guardAI, String intruderAI) {
@@ -65,6 +66,7 @@ public class MainState extends State {
         font = new BitmapFont();
         font.setColor(Color.WHITE);
         this.intruderAI = intruderAI;
+        this.guardAI = guardAI;
         wall = new Texture("wall.png");
         play = new Play(865,545);
         ground = new Ground(0,0);
@@ -134,7 +136,7 @@ public class MainState extends State {
 //	                ((HeuristicAI) agentAI).setPattern("snake");
 //	                agentAI.setAgent(agents.get(i));
                     //((HeuristicAI) agentAI).setPattern("closest");
-                    ((HeuristicAI) agentAI).setPattern("heatmap");
+                    ((HeuristicAI) agentAI).setPattern("closest");
 	                agentAI.setAgent(this.agents.get(i));
                     intruders.add(agents.get(i));
 //	                this.agents.get(i).ai.setArea(400,200);
@@ -208,9 +210,15 @@ public class MainState extends State {
 
         //if(deltaTime > timeLimit){gsm.push(new GameOverState(gsm,deltaTime));}
         board.updateAgents();
-        if(intruderAI == "Heuristic AI"){
+        if(intruderAI == "Heuristic AI" ){
             for(int i = 0; i < intruders.size(); i++){
                 intruders.get(i).ai.updatedSeenLocations();
+            }
+        }
+
+        if(guardAI == "Heatmap patrolling" ){
+            for(int i = 0; i < guards.size(); i++){
+                guards.get(i).ai.updatedSeenLocations();
             }
         }
         
