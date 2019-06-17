@@ -135,12 +135,12 @@ public class HeuristicAI extends AI {
         if (pattern.equals("closest")) {
             point = closestUnknown();
         }
-//        else if (pattern.equals("random")) {
-//            point = randomMovement();
-//        }
-        else if (pattern.equals("all")) {
+        else if (pattern.equals("random")) {
             point = allOptions();
         }
+//        else if (pattern.equals("all")) {
+//            point = allOptions();
+//        }
         else if (pattern.equals("heatmap")){
             point = heatMapMovement();
         }
@@ -150,12 +150,12 @@ public class HeuristicAI extends AI {
         astar.runAgain(agent.xPos,agent.yPos,point.x,point.y);
         rotation = astar.getRotationStack();
         speed = astar.getSpeedStack();
-        System.out.println("agent xPos = " + agent.xPos);
-        System.out.println("agent yPos = " + agent.yPos);
-        System.out.println("target xPos = " + point.x);
-        System.out.println("target yPos = " + point.y);
-        System.out.println("rotation stack = " + rotation.size());
-        System.out.println("speed stack = " + speed.size());
+//        System.out.println("agent xPos = " + agent.xPos);
+//        System.out.println("agent yPos = " + agent.yPos);
+//        System.out.println("target xPos = " + point.x);
+//        System.out.println("target yPos = " + point.y);
+//        System.out.println("rotation stack = " + rotation.size());
+//        System.out.println("speed stack = " + speed.size());
     }
 
     private Vector2 closestUnknown() {
@@ -252,7 +252,7 @@ public class HeuristicAI extends AI {
     }*/
 
     public Vector2 allOptions(){
-        //Checks if there are sturctures that need to be explored and moves to them
+        //Checks if there are structures that need to be explored and moves to them
         if (exploredStructures.size() > 0){
 
             for(int i = 0; i < explorationPoints.size(); i++){
@@ -266,7 +266,6 @@ public class HeuristicAI extends AI {
                 return point;
             }
             exploredStructures.remove(0);
-
         }
 
         Random rand = new Random();
@@ -436,7 +435,7 @@ public class HeuristicAI extends AI {
 
     @Override
     public void seeArea(Area area) {
-        System.out.println("printing some area ");
+//        System.out.println("printing some area ");
 
         if(!(area instanceof OuterWall)) {
             boolean check = false;

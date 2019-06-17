@@ -103,12 +103,17 @@ public class MainState extends State {
 	                this.agents.get(i).ai.setStructures(structures);
 	                guards.add(this.agents.get(i));
             	} else if(guardAI == "Heatmap patrolling") {
-
                     AI agentAI = new HeuristicAI();
                     this.agents.get(i).setAI(agentAI);
                     ((HeuristicAI) agentAI).setPattern("heatmap");
                     agentAI.setAgent(this.agents.get(i));
                     guards.add(agents.get(i));
+                } else if(guardAI == "Random patrolling") {
+                        AI agentAI = new HeuristicAI();
+                        this.agents.get(i).setAI(agentAI);
+                        ((HeuristicAI) agentAI).setPattern("random");
+                        agentAI.setAgent(this.agents.get(i));
+                        guards.add(agents.get(i));
             	} else {
             		System.out.println("Unrecognised AI name: "+guardAI);
             		System.exit(0);
