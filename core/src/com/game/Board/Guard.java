@@ -102,7 +102,7 @@ public class Guard extends Agent {
 		this.speed = 0f;
 		this.speed = ai.getSpeed() * Board.fps;
 		this.rotation = ai.getRotation() * Board.fps;
-		System.out.println("Current guard AI: " + ai);
+//		System.out.println("Current guard AI: " + ai);
 
 		if (this.speed == 0)
 			framesStationaryCounter++;
