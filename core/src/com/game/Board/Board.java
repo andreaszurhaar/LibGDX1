@@ -370,7 +370,7 @@ public class Board {
 					Agent a = agents.get(j);
 					Agent b = agents.get(i);
 					//check if distance between sound and agent is within the sound range
-					if (distPointToRect(b.xCenter,b.yCenter,a.area).len() < a.soundRange) {
+					if (distPointToRect(b.xCenter,b.yCenter,a.area).len() < a.soundRange+b.area.width) {
 						a.hearSound(estimateDirection(b.xCenter,b.yCenter,a.xCenter,a.yCenter));
 						//System.out.println("heard sound between: "+i+"  and "+j+"   "+Math.random());
 					}
