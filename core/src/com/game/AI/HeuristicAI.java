@@ -343,7 +343,7 @@ public class HeuristicAI extends AI {
 
     @Override
     public void seeArea(Area area) {
-        //System.out.println("printing some area ");
+        System.out.println("printing some area ");
         boolean check = false;
         //checking to see if area is in seen structures, if not it is added to the array
         if(seenStructures.size() > 0) {
