@@ -1,6 +1,7 @@
 package com.game.AI;
 
 import com.badlogic.gdx.math.Vector2;
+import com.game.AI.Astar.AStarNew;
 import com.game.Board.Agent;
 import com.game.Board.Area;
 import com.game.Board.Guard;
@@ -21,13 +22,14 @@ public class MoveAwayFromSound extends AI {
     private Instruction instruction;
     private final double MOVING_AWAY_FROM_SOUND_TIME = 7.14; //in seconds, should be at most 10/1.4 = 7.14 because a sound can be heard at most 10 meters away, and guards move at 1.4m/s
 
-    public MoveAwayFromSound(Intruder intruder, float directionAngle, AI storeAI) {
+    public MoveAwayFromSound(Intruder intruder, float directionAngle, AI storeAI, ArrayList<Area> seenStructures) {
         this.intruder = intruder;
         this.directionAngle = directionAngle;
         previousAI = storeAI;
         speed = new Stack<Float>();
         rotation = new Stack<Float>();
         instruction = new Instruction();
+        this.seenStructures = seenStructures;
         moveAwayFromSound();
     }
 
@@ -35,15 +37,20 @@ public class MoveAwayFromSound extends AI {
         /**
          * We create a destination point for the instruction class based on: the max speed of the agent, the directionAngle and the amount of time we want to move away from the sound before going back to patrolling
          */
-        //TODO find out why speed = 0
         double directionAngleRadian = Math.toRadians(directionAngle);
         double oppositeAngleRadian = directionAngleRadian + Math.PI;
 
         Vector2 destPoint = new Vector2((float) (intruder.xCenter + MOVING_AWAY_FROM_SOUND_TIME * intruder.getSpeed() * Math.cos(oppositeAngleRadian)), (float) (intruder.yCenter + MOVING_AWAY_FROM_SOUND_TIME * intruder.getSpeed() * Math.sin(oppositeAngleRadian)));
 
-        instruction.translate(destPoint, intruder, false);
-        rotation = instruction.getRotations();
-        speed = instruction.getSpeeds();
+        AStarNew astar = new AStarNew(seenStructures);
+        astar.setAgent(intruder);
+        astar.runAgain(intruder.xPos, intruder.yPos, destPoint.x, destPoint.y);
+        rotation = astar.getRotationStack();
+        speed = astar.getSpeedStack();
+
+//        instruction.translate(destPoint, intruder, false);
+//        rotation = instruction.getRotations();
+//        speed = instruction.getSpeeds();
     }
 
     @Override
@@ -79,7 +86,7 @@ public class MoveAwayFromSound extends AI {
 
     @Override
     public void setStructures(ArrayList<Area> structures) {
-
+        seenStructures = structures;
     }
 
     @Override
