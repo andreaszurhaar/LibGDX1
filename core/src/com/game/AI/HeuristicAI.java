@@ -438,6 +438,7 @@ public class HeuristicAI extends AI {
         System.out.println("printing some area ");
 
         if(!(area instanceof OuterWall)) {
+            System.out.println("MAde it inside mutha fucka");
             boolean check = false;
             //checking to see if area is in seen structures, if not it is added to the array
             if (seenStructures.size() > 0) {
