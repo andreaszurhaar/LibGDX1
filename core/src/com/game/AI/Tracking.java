@@ -115,7 +115,6 @@ public class Tracking extends AI {
     		currDist = currDist+deltaDist;
     		currAngle = currAngle+currTurn;
 
-    		//TODO shouldn't this angle be in radians instead of degrees?
     		float newx = currPoint.x+(float) Math.cos((double) currAngle)*currDist;
     		float newy = currPoint.y+(float) Math.sin((double) currAngle)*currDist;
     		
@@ -163,7 +162,7 @@ public class Tracking extends AI {
     public float getSpeed(){
     	trackcounter++;
     	//System.out.println("got speed with counter: "+trackcounter);
-    	if(trackcounter > 180) {
+    	if(trackcounter > 60) {
     		previousAI.reset();
     		guard.setAI(previousAI);
     		return 0;
