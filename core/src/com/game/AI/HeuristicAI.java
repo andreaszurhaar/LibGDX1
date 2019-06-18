@@ -147,10 +147,10 @@ public class HeuristicAI extends AI {
 
        // if (seenStructures.size()>0) {
             AStarNew astar = new AStarNew(seenStructures);
-            System.out.println("seen structures: ");
-            for (Area a : seenStructures) {
-                System.out.println("seen structure: " + a);
-            }
+//            System.out.println("seen structures: ");
+//            for (Area a : seenStructures) {
+//                System.out.println("seen structure: " + a);
+//            }
             astar.setAgent(agent);
             astar.runAgain(agent.xPos, agent.yPos, point.x, point.y);
             rotation = astar.getRotationStack();
