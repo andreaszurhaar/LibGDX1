@@ -44,8 +44,8 @@ public class Guard extends Agent {
 		this.height = height;
 		//viewAngle.setToRandomDirection();
 		speed = 1;
-		maxSpeed = 1.4f;
 		//maxSpeed = 1.4f;
+		maxSpeed = 14f;
 		soundRange = 0;
 		viewRange = 6f + width / 2;
 		name = "2";
@@ -202,18 +202,18 @@ public class Guard extends Agent {
 	 */
 	public void hearSound(float directionAngle) {
 
-			//TODO check if works
-			prevAngle = directionAngle;
+		//TODO check if works
+		prevAngle = directionAngle;
 
-			if (!(directionAngle < (prevAngle + 20) && directionAngle > (prevAngle - 20)) && framesStationaryCounter > 180) {
+		if (!(directionAngle < (prevAngle + 20) && directionAngle > (prevAngle - 20)) && framesStationaryCounter < 60) {
 
-				hearing = true;
-				/**
-				 * We don't want to switch our AI when the guard is tracking
-				 */
-				if (!(ai instanceof Tracking) && !(ai instanceof TrackingLongDistance) && !(ai instanceof InvestigateSound)) {
-					ai = new InvestigateSound(this, directionAngle, ai);
-				}
+			hearing = true;
+			/**
+			 * We don't want to switch our AI when the guard is tracking
+			 */
+			if (!(ai instanceof Tracking) && !(ai instanceof TrackingLongDistance) && !(ai instanceof InvestigateSound)) {
+				ai = new InvestigateSound(this, directionAngle, ai);
+			}
 		}
 
 	}

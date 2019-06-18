@@ -75,7 +75,7 @@ public class Agent extends AssetManager {
 		renderer = new ShapeRenderer();
 		//maxSpeed = 1.4f;
 		maxSpeed = 14f;
-		speed = 0f;
+		speed = 1f;
 	}
 	
 	/* 

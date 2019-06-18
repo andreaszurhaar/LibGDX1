@@ -67,7 +67,7 @@ public class Intruder extends Agent {
 	}
 	
 	public void triggerStep() {
-		
+
 		if(idlecount > 0) {
 			speed = 0;
 			rotation = 0;
