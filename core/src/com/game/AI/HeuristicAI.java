@@ -101,10 +101,10 @@ public class HeuristicAI extends AI {
 //        }
 
 
-        for(int i = 0; i < explorationPoints.size(); i++){
+        /*for(int i = 0; i < explorationPoints.size(); i++){
             System.out.print("x = " + explorationPoints.get(i).x + " " + " y = " + explorationPoints.get(i).y );
             System.out.println(" ");
-        }
+        }*/
 
         currentExplorationPoint = explorationPoints.get(0);
     }
@@ -125,10 +125,10 @@ public class HeuristicAI extends AI {
             }
         }
 
-        for(int i = 0; i < explorationPoints.size(); i++){
+        /*for(int i = 0; i < explorationPoints.size(); i++){
             System.out.print("x = " + explorationPoints.get(i).x + " " + " y = " + explorationPoints.get(i).y );
             System.out.println(" ");
-        }
+        }*/
     }
 
     public void exploration() {
@@ -145,11 +145,17 @@ public class HeuristicAI extends AI {
             point = heatMapMovement();
         }
 
-        AStarNew astar = new AStarNew(seenStructures);
-        astar.setAgent(agent);
-        astar.runAgain(agent.xPos,agent.yPos,point.x,point.y);
-        rotation = astar.getRotationStack();
-        speed = astar.getSpeedStack();
+       // if (seenStructures.size()>0) {
+            AStarNew astar = new AStarNew(seenStructures);
+            System.out.println("seen structures: ");
+            for (Area a : seenStructures) {
+                System.out.println("seen structure: " + a);
+            }
+            astar.setAgent(agent);
+            astar.runAgain(agent.xPos, agent.yPos, point.x, point.y);
+            rotation = astar.getRotationStack();
+            speed = astar.getSpeedStack();
+        //}
 //        System.out.println("agent xPos = " + agent.xPos);
 //        System.out.println("agent yPos = " + agent.yPos);
 //        System.out.println("target xPos = " + point.x);
@@ -226,7 +232,7 @@ public class HeuristicAI extends AI {
         return point;
     }
 
-    //Useless since it's already in alloptions
+    //Useless since it's a duplicate
 /*    private Vector2 randomMovement() {
         //creates range so the agent doesn't move in the direction it came from (currently at least 90 degrees in a different direction)
         float angle;
@@ -461,7 +467,6 @@ public class HeuristicAI extends AI {
                 reset();
             }
         }
-
     }
 
     @Override
