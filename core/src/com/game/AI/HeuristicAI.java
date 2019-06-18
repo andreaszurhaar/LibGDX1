@@ -155,6 +155,8 @@ public class HeuristicAI extends AI {
             astar.runAgain(agent.xPos, agent.yPos, point.x, point.y);
             rotation = astar.getRotationStack();
             speed = astar.getSpeedStack();
+
+
         //}
 //        System.out.println("agent xPos = " + agent.xPos);
 //        System.out.println("agent yPos = " + agent.yPos);

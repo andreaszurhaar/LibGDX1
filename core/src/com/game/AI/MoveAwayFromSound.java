@@ -42,6 +42,7 @@ public class MoveAwayFromSound extends AI {
 
         Vector2 destPoint = new Vector2((float) (intruder.xCenter + MOVING_AWAY_FROM_SOUND_TIME * intruder.getSpeed() * Math.cos(oppositeAngleRadian)), (float) (intruder.yCenter + MOVING_AWAY_FROM_SOUND_TIME * intruder.getSpeed() * Math.sin(oppositeAngleRadian)));
 
+
         AStarNew astar = new AStarNew(seenStructures);
         astar.setAgent(intruder);
         astar.runAgain(intruder.xPos, intruder.yPos, destPoint.x, destPoint.y);
