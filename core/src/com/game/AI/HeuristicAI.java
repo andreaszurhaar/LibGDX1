@@ -506,6 +506,5 @@ public class HeuristicAI extends AI {
         if(agent instanceof Guard){
             explorationSetUpGuards();
         }
-        System.out.println("sout boys");
     }
 }

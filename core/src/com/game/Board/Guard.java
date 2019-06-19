@@ -45,7 +45,7 @@ public class Guard extends Agent {
 		//viewAngle.setToRandomDirection();
 		speed = 1;
 		//maxSpeed = 1.4f;
-		maxSpeed = 14f;
+		maxSpeed = 1.4f;
 		soundRange = 0;
 		viewRange = 6f + width / 2;
 		name = "2";
@@ -110,7 +110,6 @@ public class Guard extends Agent {
 		//System.out.println("Guard AI: " + ai);
 		this.speed = ai.getSpeed() * Board.fps;
 		this.rotation = ai.getRotation() * Board.fps;
-		System.out.println("Current guard AI: " + ai);
 
 		if (this.speed == 0)
 			framesStationaryCounter++;
@@ -182,7 +181,6 @@ public class Guard extends Agent {
 			 * Communicating the intruder's location to all other guards every X seconds
 			 */
 			if (agent instanceof Intruder) {
-				//TODO make sure the communicated location changes after each message
 				if (System.currentTimeMillis() > timeOfLastMessage + INTER_MESSAGE_TIME * 1000) {
 					timeOfLastMessage = System.currentTimeMillis();
 					for (int i = 0; i < agentList.size(); i++) {
