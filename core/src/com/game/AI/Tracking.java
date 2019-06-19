@@ -34,6 +34,7 @@ public class Tracking extends AI {
 
     public Tracking(Guard guard, Agent opponent,AI storeAI)
     {
+    	timeToTrack = System.currentTimeMillis();
     	this.guard = guard;
     	previousAI = storeAI;
     	enemyx = opponent.xCenter;
@@ -46,7 +47,6 @@ public class Tracking extends AI {
 
     public void trackIntruder()
     {
-    	timeToTrack = System.currentTimeMillis();
     	boolean following = false;
     	if(!speeds.isEmpty() && !rotations.isEmpty() && recalcInterval < intervalLimit) {
     		//System.out.println("popping instrcutions");
