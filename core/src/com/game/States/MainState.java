@@ -179,7 +179,7 @@ public class MainState extends State {
             }
             if(guards.get(i).ai instanceof HeuristicAI){
                 guards.get(i).ai.setCornerPoints(areas.get(i));
-                ((HeuristicAI) guards.get(i).ai).setCurrentExplorationPoint(new Vector2(guards.get(i).getCenterLocation().x,guards.get(i).getCenterLocation().y));
+                ((HeuristicAI) guards.get(i).ai).moveGuardToCenter(new Vector2(guards.get(i).getCenterLocation().x,guards.get(i).getCenterLocation().y));
             }
             //TODO clean up AI-specific things like this from main state
         }
