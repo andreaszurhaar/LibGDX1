@@ -66,6 +66,13 @@ public class Intruder extends Agent {
 		}
 	}
 	
+	public void timedSprint(int frames) {
+		if(restCount == 0 ) {
+			sprintCount = frames;
+			restCount = 10*Board.fps;
+		}
+	}
+	
 	public void triggerStep() {
 
 		if(idlecount > 0) {
@@ -82,14 +89,9 @@ public class Intruder extends Agent {
 //		if(Math.random() < 0.001) {triggerSprint();}
 //		*/
 //
-//		if(sprintCount != 0) {
-//			speed = 3f;
-//			sprintCount--;
-//
-//			if(rotation > 10) {rotation = 10;}
-//			else if(rotation < -10) {rotation = -10;}
-//
-//		} else if(restCount != 0) {restCount--;}
+		if(sprintCount != 0) {
+			sprintCount--;
+		} else if(restCount != 0) {restCount--;}
 
 		if(speed < 0.5) {
 			soundRange = 1;
@@ -104,6 +106,15 @@ public class Intruder extends Agent {
 		//System.out.println("Intruder AI: " + ai);
 		this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
 		this.rotation = ai.getRotation()*Board.fps;
+		if(sprintCount != 0) {
+			if(speed > 3) {speed = 3;}
+			if(rotation > 10) {rotation = 10;}
+			else if(rotation < -10) {rotation = -10;}
+		} else {
+			if(speed > 1.4f) {speed = 1.4f;}
+			if(rotation > 180) {rotation = 180;}
+			else if(rotation < -180) {rotation = -180;}	
+		}
 	}
 
     @Override

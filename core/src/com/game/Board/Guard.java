@@ -129,6 +129,9 @@ public class Guard extends Agent {
 				}
 			}
 		}
+		//if(speed > 1.4f) {speed = 1.4f;}
+		if(rotation > 180) {rotation = 180;}
+		else if(rotation < -180) {rotation = -180;}
 	}
 
 	@Override
