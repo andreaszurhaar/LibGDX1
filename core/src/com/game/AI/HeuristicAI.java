@@ -27,7 +27,7 @@ public class HeuristicAI extends AI {
     private Random rand = new Random();
     private ArrayList<Area> structures;
     //    private float areaWidth,areaHeight;
-    private final int FACTOR = 20, AVERYBIGNUMBER = 500, Y_FACTOR = 20, X_FACTOR = 49, DEGREE_RANGE = 90; //number of squares that we want
+    private final int FACTOR = 20, AVERYBIGNUMBER = 500, Y_FACTOR = 15, X_FACTOR = 49, DEGREE_RANGE = 90; //number of squares that we want
     public final static int BOARD_WIDTH = 400;
     public final static int BOARD_HEIGHT = 200;
     private ArrayList<Vector2> explorationPoints;
@@ -39,6 +39,7 @@ public class HeuristicAI extends AI {
     private Vector2 currentExplorationPoint;
     private Direction currentDirection = Direction.NORTH;
     private ArrayList<Point2D.Float> cornerPoints;
+    public ArrayList<Area> astarStructures;
     private AStarNew astar;
 
 
@@ -53,6 +54,7 @@ public class HeuristicAI extends AI {
         startingPos = false;
         structures = new ArrayList<Area>();
         cornerPoints = new ArrayList<Point2D.Float>();
+        astarStructures = new ArrayList<Area>();
         explorationSetUp();
     }
 
@@ -66,6 +68,7 @@ public class HeuristicAI extends AI {
         startingPos = false;
         structures = new ArrayList<Area>();
         cornerPoints = new ArrayList<Point2D.Float>();
+        astarStructures = new ArrayList<Area>();
         explorationSetUp();
 
     }
@@ -146,18 +149,25 @@ public class HeuristicAI extends AI {
             point = heatMapMovement();
         }
 
-        //we create a new astar since the seen structures change on every iteration
-        astar = new AStarNew(seenStructures);
-        astar.setAgent(agent);
-        astar.runAgain(agent.xPos, agent.yPos, point.x, point.y);
-        rotation = astar.getRotationStack();
-        speed = astar.getSpeedStack();
-//        System.out.println("agent xPos = " + agent.xPos);
-//        System.out.println("agent yPos = " + agent.yPos);
-//        System.out.println("target xPos = " + point.x);
-//        System.out.println("target yPos = " + point.y);
-//        System.out.println("rotation stack = " + rotation.size());
-//        System.out.println("speed stack = " + speed.size());
+       // if (seenStructures.size()>0) {
+            AStarNew astar = new AStarNew(astarStructures);
+//            System.out.println("seen structures: ");
+//            for (Area a : seenStructures) {
+//                System.out.println("seen structure: " + a);
+//            }
+            astar.setAgent(agent);
+            astar.runAgain(agent.xPos, agent.yPos, point.x, point.y);
+            rotation = astar.getRotationStack();
+            speed = astar.getSpeedStack();
+
+       System.out.println("agent xPos = " + agent.xPos);
+        System.out.println("agent yPos = " + agent.yPos);
+        System.out.println("target xPos = " + point.x);
+        System.out.println("target yPos = " + point.y);
+        System.out.println("rotation stack = " + rotation.size());
+        System.out.println("speed stack = " + speed.size());
+        System.out.println("seen structures =" + seenStructures.size());
+        System.out.println("explored stuctures = " + exploredStructures.size());
     }
 
     public void moveGuardToCenter(Vector2 centerLocation) {
@@ -195,7 +205,6 @@ public class HeuristicAI extends AI {
 
         }
         //Checks to see if the agent is in a starting corner
-        System.out.println("are we in a starting position? "+ startingPos);
         if(startingPos == false) {
             float startingX = agent.getX();
             float startingY = agent.getY();
@@ -279,7 +288,7 @@ public class HeuristicAI extends AI {
                 }
             }
             if(exploredStructures.get(0).xPos > 12 && exploredStructures.get(0).xPos < 388 && exploredStructures.get(0).yPos < 195 && exploredStructures.get(0).yPos > 15){
-
+                point = new Vector2(exploredStructures.get(0).xPos,exploredStructures.get(0).yPos);
                 exploredStructures.remove(0);
                 return point;
             }
@@ -453,7 +462,7 @@ public class HeuristicAI extends AI {
 
     @Override
     public void seeArea(Area area) {
-       System.out.println("we see some area ");
+//        System.out.println("printing some area ");
 
         if(!(area instanceof OuterWall)) {
             boolean check = false;
@@ -461,7 +470,6 @@ public class HeuristicAI extends AI {
             if (seenStructures.size() > 0) {
                 for (int i = 0; i < seenStructures.size(); i++) {
                     if (area == seenStructures.get(i)) {
-                        System.out.println("we already saw the area we're seeing now");
                         check = true;
                     }
                 }
@@ -469,18 +477,21 @@ public class HeuristicAI extends AI {
                     seenStructures.add(area);
                     Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
                     exploredStructures.add(rectangle);
+                    astarStructures.add(rectangle);
 
-                    reset();
+                   // reset();
                 }
                 reset();
             } else {
                 seenStructures.add(area);
                 Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
                 exploredStructures.add(rectangle);
-                exploredStructures.add(area);
-                reset();
+                seenStructures.add(rectangle);
+                astarStructures.add(rectangle);
+               // reset();
             }
         }
+
     }
 
     @Override
