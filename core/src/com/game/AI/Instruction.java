@@ -163,7 +163,7 @@ public class Instruction {
 		//System.out.println("Distance to travel:" + positions.x +","+positions.y);
 		float pathLength = positions.len();
 		float turnAngle = agent.viewAngle.angle(positions);
-		//System.out.println("TURNING FOR: "+turnAngle+"  AND MOVING FOR: "+pathLength);
+		System.out.println("TURNING FOR: "+turnAngle+"  AND MOVING FOR: "+pathLength);
 		
 		//prepare to invert turning if the shortest angle is negative
 		boolean positive = true;
