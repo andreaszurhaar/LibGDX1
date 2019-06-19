@@ -74,6 +74,7 @@ public class Intruder extends Agent {
 			idlecount--;
 			return;
 		}
+
 		this.speed = 1.4f;//(float) Math.random()*1.4f;
 //		rotation = -10;
 //		/*
