@@ -295,7 +295,7 @@ public class MapState extends State {
                         }
                     }
                     if (name == "cop") {
-                    	if(!checkOverlap(new Rectangle(x, y, 20 / X_REDUC, 20 / Y_REDUC))) {
+                    	if(!checkOverlap(new Rectangle(x, y, 15 / X_REDUC, 15 / Y_REDUC))) {
                     		agents.add(new Guard(x, y, 15 / X_REDUC, 15 / Y_REDUC));
                     	}
                     }
