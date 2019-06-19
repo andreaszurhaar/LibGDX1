@@ -6,16 +6,13 @@ package com.game.Board;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.Vector2;
 import com.game.AI.AI;
 import com.game.AI.Escape;
-import com.game.AI.InvestigateSound;
 import com.game.AI.MoveAwayFromSound;
-import com.game.AI.Tracking;
-import com.game.AI.TrackingLongDistance;
-import com.game.AI.Astar.AStarNew;
+import com.game.AI.MoveToTarget;
 import com.game.Readers.SpriteReader;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 /**
@@ -136,14 +133,26 @@ public class Intruder extends Agent {
 	}
 
 	@Override
+	public void see(Area object){
+		if(!(Math.abs(rotation) > 45)) {
+			seeing = true;
+		}
+		if(!(ai instanceof MoveToTarget) && object instanceof TargetArea){
+			ai = new MoveToTarget(this, new Vector2(object.xPos + object.area.getWidth(), object.yPos + object.area.getHeight()), ai);
+		}
+
+	}
+
+	@Override
 	public void see(Agent agent) {
 
 		if (!(Math.abs(rotation) > 45)) {
 			//TODO "if you turn more than 45 degrees/second you don't see anything for the turning time --plus half a second--"
 			seeing = true;
 			//TODO maybe should replace Escape with new Escape AI if another guard is seen
-			if (!(ai instanceof Escape) && agent instanceof Guard) {
-				ai = new Escape(this, agent, ai);
+			if (!(ai instanceof Escape) && !(ai instanceof MoveToTarget) && agent instanceof Guard) {
+                ArrayList<Area> storedStructures = ai.seenStructures;
+				ai = new Escape(this, agent, ai, storedStructures);
 			}
 		}
 	}
@@ -157,7 +166,7 @@ public class Intruder extends Agent {
 		/**
 		 * We don't want to switch our AI when the guard is escaping (i.e. moving away from a guard after it has seen it)
 		 */
-		if (!(ai instanceof Escape) && !(ai instanceof  MoveAwayFromSound)){
+		if (!(ai instanceof Escape) && !(ai instanceof  MoveAwayFromSound) && !(ai instanceof MoveToTarget)){
 			ArrayList<Area> storedStructures = ai.seenStructures;
 			ai = new MoveAwayFromSound(this, directionAngle, ai, storedStructures);
 	  }

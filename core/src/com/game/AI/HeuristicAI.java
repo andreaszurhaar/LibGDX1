@@ -160,6 +160,13 @@ public class HeuristicAI extends AI {
 //        System.out.println("speed stack = " + speed.size());
     }
 
+    public void moveGuardToCenter(Vector2 centerLocation) {
+        AStarNew astar = new AStarNew(seenStructures);
+        astar.setAgent(agent);
+        astar.runAgain(agent.xPos, agent.yPos, centerLocation.x, centerLocation.y);
+        rotation = astar.getRotationStack();
+        speed = astar.getSpeedStack();
+    }
     private Vector2 closestUnknown() {
 
         //Checks if there are structures that need to be explored and moves to them
@@ -512,4 +519,5 @@ public class HeuristicAI extends AI {
             explorationSetUpGuards();
         }
     }
+
 }
