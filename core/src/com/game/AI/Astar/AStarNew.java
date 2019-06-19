@@ -38,6 +38,7 @@ public class AStarNew extends AI {
     	speed = new Stack<Float>();
         rotation = new Stack<Float>();
         instruction = new ChainInstruction();
+        structures = new ArrayList<Area>();
         this.rectangles = rectangles;
         this.targetx = targetx;
         this.targety = targety;
@@ -184,7 +185,7 @@ public class AStarNew extends AI {
         }
 
         for (int i = pathInv.size()-1; i>0; i--){
-            System.out.println("i is: " + i);
+//            System.out.println("i is: " + i);
             pathReg.add(new Vector2(pathInv.get(i).xcoord, pathInv.get(i).ycoord));
         }
         instruction.translate(pathReg, intruder);

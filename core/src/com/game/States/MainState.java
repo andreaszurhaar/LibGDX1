@@ -145,7 +145,7 @@ public class MainState extends State {
                     ((HeuristicAI) agentAI).setPattern("closest");
 	                agentAI.setAgent(this.agents.get(i));
                     intruders.add(agents.get(i));
-//	                this.agents.get(i).ai.setArea(400,200);
+	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
             	} else {
             		System.out.println("Unrecognised AI name: "+intruderAI);
