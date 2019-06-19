@@ -26,10 +26,11 @@ public class Tracking extends AI {
     private AI previousAI;
     private int trackcounter;
     private ArrayList<Vector2> previousPos;
-    private boolean predictive = true;
+    public boolean predictive = true;
     private Instruction instruct = new Instruction();
     private int recalcInterval;
-    private int intervalLimit = 60;
+    public int intervalLimit = 60;
+    public long timeToTrack = 0;
 
     public Tracking(Guard guard, Agent opponent,AI storeAI)
     {
@@ -45,6 +46,7 @@ public class Tracking extends AI {
 
     public void trackIntruder()
     {
+    	timeToTrack = System.currentTimeMillis();
     	boolean following = false;
     	if(!speeds.isEmpty() && !rotations.isEmpty() && recalcInterval < intervalLimit) {
     		//System.out.println("popping instrcutions");
