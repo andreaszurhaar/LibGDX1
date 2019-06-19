@@ -34,6 +34,7 @@ public class Tracking extends AI {
 
     public Tracking(Guard guard, Agent opponent,AI storeAI)
     {
+    	timeToTrack = System.currentTimeMillis();
     	this.guard = guard;
     	previousAI = storeAI;
     	enemyx = opponent.xCenter;
@@ -46,7 +47,6 @@ public class Tracking extends AI {
 
     public void trackIntruder()
     {
-    	timeToTrack = System.currentTimeMillis();
     	boolean following = false;
     	if(!speeds.isEmpty() && !rotations.isEmpty() && recalcInterval < intervalLimit) {
     		//System.out.println("popping instrcutions");
@@ -109,7 +109,7 @@ public class Tracking extends AI {
     	//System.out.println("going from point: "+currPoint.x+"  "+currPoint.y);
     	
     	int instCount = 0;
-    	while (prevPos.get(prevPos.size()-1).dst(guard.xCenter,guard.yCenter) > ((float) (instCount*20) * (guard.maxSpeed/Board.fps)) && instCount < 1000) {
+    	while (prevPos.get(prevPos.size()-1).dst(guard.xCenter,guard.yCenter) > ((float) (instCount*12) * (guard.maxSpeed/Board.fps)) && instCount < 1000) {
     		//System.out.println("cycle for dist: "+currPoint.dst(guard.xCenter,guard.yCenter)+"   and countmutip: "+((float) (instCount*10) * (guard.maxSpeed/Board.fps)));
     		instCount++;
     		

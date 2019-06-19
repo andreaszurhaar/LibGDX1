@@ -2,6 +2,7 @@ package com.game.AI.Astar;
 
 import com.badlogic.gdx.math.Vector2;
 import com.game.Board.Area;
+import com.game.Board.Guard;
 
 import java.awt.Rectangle;
 import java.awt.geom.Line2D;
@@ -19,7 +20,7 @@ public class GraphNew {
     public ArrayList<NodeNew> nodes;
     public ArrayList<EdgeNew> edges;
     List<NodeNew> neighbours = new ArrayList<NodeNew>();
-    private final float OFFSET = 0.1f;
+    private final float OFFSET = 2.5f;
     private NodeNew target, start;
     private ArrayList<Rectangle2D.Float> rectangles;
 

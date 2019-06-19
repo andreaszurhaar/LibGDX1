@@ -1,6 +1,7 @@
 package com.game.AI;
 
 import com.badlogic.gdx.math.Vector2;
+import com.game.AI.Astar.AStarNew;
 import com.game.Board.Agent;
 import com.game.Board.Area;
 import com.game.Board.Guard;
@@ -22,7 +23,7 @@ public class Escape extends AI {
     private Instruction instruct = new Instruction();
     private final double MOVE_AWAY_FROM_GUARD_TIME = 5; //in seconds
 
-    public Escape(Intruder intruder, Agent opponent, AI storeAI)
+    public Escape(Intruder intruder, Agent opponent, AI storeAI, ArrayList<Area> seenStructures)
     {
         this.intruder = intruder;
         previousAI = storeAI;
@@ -32,6 +33,7 @@ public class Escape extends AI {
         speed = new Stack<Float>();
         rotation = new Stack<Float>();
         instruction = new Instruction();
+        this.seenStructures = seenStructures;
         escapeFromGuard();
     }
 
@@ -49,10 +51,21 @@ public class Escape extends AI {
 
         //intruder.triggerSprint();
 
-        instruction.translate(destPoint, intruder, false);
-        rotation = instruction.getRotations();
-        speed = instruction.getSpeeds();
+        if(previousAI instanceof HeuristicAI) {
+            AStarNew astar = new AStarNew(seenStructures);
+            astar.setAgent(intruder);
+            astar.runAgain(intruder.xPos, intruder.yPos, destPoint.x, destPoint.y);
+            rotation = astar.getRotationStack();
+            speed = astar.getSpeedStack();
+
+        }
+        else {
+            instruction.translate(destPoint, intruder, false);
+            rotation = instruction.getRotations();
+            speed = instruction.getSpeeds();
+        }
     }
+
 
     @Override
     public float getRotation() {

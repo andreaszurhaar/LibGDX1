@@ -40,6 +40,7 @@ public class HeuristicAI extends AI {
     private Direction currentDirection = Direction.NORTH;
     private ArrayList<Point2D.Float> cornerPoints;
     public ArrayList<Area> astarStructures;
+    private AStarNew astar;
 
 
     public HeuristicAI(Agent agent)
@@ -104,10 +105,10 @@ public class HeuristicAI extends AI {
 //        }
 
 
-        for(int i = 0; i < explorationPoints.size(); i++){
+        /*for(int i = 0; i < explorationPoints.size(); i++){
             System.out.print("x = " + explorationPoints.get(i).x + " " + " y = " + explorationPoints.get(i).y );
             System.out.println(" ");
-        }
+        }*/
 
         currentExplorationPoint = explorationPoints.get(0);
     }
@@ -169,12 +170,18 @@ public class HeuristicAI extends AI {
         System.out.println("explored stuctures = " + exploredStructures.size());
     }
 
+    public void moveGuardToCenter(Vector2 centerLocation) {
+        AStarNew astar = new AStarNew(seenStructures);
+        astar.setAgent(agent);
+        astar.runAgain(agent.xPos, agent.yPos, centerLocation.x, centerLocation.y);
+        rotation = astar.getRotationStack();
+        speed = astar.getSpeedStack();
+    }
     private Vector2 closestUnknown() {
 
         //Checks if there are structures that need to be explored and moves to them
+        System.out.println("explored structures size is: " + exploredStructures.size());
         if (exploredStructures.size() > 0){
-
-
             for(int i = 0; i < explorationPoints.size(); i++){
                 if(exploredStructures.get(0).area.contains(explorationPoints.get(i))){
                     explorationPoints.remove(i);
@@ -232,6 +239,15 @@ public class HeuristicAI extends AI {
             }
 
             point = explorationPoints.get(index);
+            for (Area a: structures){
+                if (a.contains(point.x, point.y)){
+                    point.x = point.x+2;
+                    point.y = point.y+2;
+                }
+            }
+
+
+            System.out.println("closest new exploration point: " + point);
         }
 
         return point;
@@ -300,11 +316,11 @@ public class HeuristicAI extends AI {
 
             for (int i = 0; i < explorationPoints.size(); i++) {
                 if (exploredStructures.get(0).area.contains(explorationPoints.get(i))) {
-                   // explorationPoints.remove(i);
+                    explorationPoints.remove(i);
                 }
             }
             if (exploredStructures.get(0).xPos > 12 && exploredStructures.get(0).xPos < 388 && exploredStructures.get(0).yPos < 195 && exploredStructures.get(0).yPos > 15) {
-               /* float distance = 100000;
+                float distance = 100000;
                 int index = 0;
                 for (int i = 0; i < explorationPoints.size(); i++) {
                     float temp_distance = explorationPoints.get(i).dst2(exploredStructures.get(0).xPos, exploredStructures.get(0).yPos);
@@ -313,9 +329,7 @@ public class HeuristicAI extends AI {
                         index = i;
                     }
                 }
-
-                point = explorationPoints.get(index); */
-               point = new Vector2(exploredStructures.get(0).xPos,exploredStructures.get(0).yPos);
+                point = explorationPoints.get(index);
                 exploredStructures.remove(0);
                 return point;
             }
@@ -435,7 +449,7 @@ public class HeuristicAI extends AI {
 
     }
 
-     @Override
+    @Override
     public void reset() {
         for(int i = 0; i < rotation.size(); i++){
             rotation.pop();
@@ -451,7 +465,6 @@ public class HeuristicAI extends AI {
 //        System.out.println("printing some area ");
 
         if(!(area instanceof OuterWall)) {
-          //  System.out.println("MAde it inside mutha fucka");
             boolean check = false;
             //checking to see if area is in seen structures, if not it is added to the array
             if (seenStructures.size() > 0) {
@@ -516,6 +529,6 @@ public class HeuristicAI extends AI {
         if(agent instanceof Guard){
             explorationSetUpGuards();
         }
-        //System.out.println("sout boys");
     }
+
 }
