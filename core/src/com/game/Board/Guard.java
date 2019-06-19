@@ -188,11 +188,8 @@ public class Guard extends Agent {
 					for (int i = 0; i < agentList.size(); i++) {
 						//agentList.get(i).ai.moveToPoint(new Vector2(agent.xPos, agent.yPos));
 						Agent currentGuard = agentList.get(i);
-						if (computeDistance(currentGuard,this)<RADIUS) {
+						if (computeDistance(currentGuard,this)<RADIUS && currentGuard != this) {
 //						System.out.println("set guard " + currentGuard + " to tracking long distance");
-							currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai));
-						}
-						if (currentGuard != this) {
 							currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai));
 						}
 					}
