@@ -42,15 +42,22 @@ public class MoveAwayFromSound extends AI {
 
         Vector2 destPoint = new Vector2((float) (intruder.xCenter + MOVING_AWAY_FROM_SOUND_TIME * intruder.getSpeed() * Math.cos(oppositeAngleRadian)), (float) (intruder.yCenter + MOVING_AWAY_FROM_SOUND_TIME * intruder.getSpeed() * Math.sin(oppositeAngleRadian)));
 
-        AStarNew astar = new AStarNew(seenStructures);
-        astar.setAgent(intruder);
-        astar.runAgain(intruder.xPos, intruder.yPos, destPoint.x, destPoint.y);
-        rotation = astar.getRotationStack();
-        speed = astar.getSpeedStack();
+        //TODO add sprinting functionality to instruction
+        //intruder.triggerSprint();
 
-//        instruction.translate(destPoint, intruder, false);
-//        rotation = instruction.getRotations();
-//        speed = instruction.getSpeeds();
+        if(previousAI instanceof HeuristicAI) {
+            AStarNew astar = new AStarNew(seenStructures);
+            astar.setAgent(intruder);
+            astar.runAgain(intruder.xPos, intruder.yPos, destPoint.x, destPoint.y);
+            rotation = astar.getRotationStack();
+            speed = astar.getSpeedStack();
+
+        }
+        else {
+        instruction.translate(destPoint, intruder, false);
+        rotation = instruction.getRotations();
+        speed = instruction.getSpeeds();
+        }
     }
 
     @Override

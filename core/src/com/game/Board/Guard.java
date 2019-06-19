@@ -108,6 +108,7 @@ public class Guard extends Agent {
 
 		//this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
 		this.speed = 0f;
+		//System.out.println("Guard AI: " + ai);
 		this.speed = ai.getSpeed() * Board.fps;
 		this.rotation = ai.getRotation() * Board.fps;
 //		System.out.println("Current guard AI: " + ai);
@@ -187,7 +188,7 @@ public class Guard extends Agent {
 					for (int i = 0; i < agentList.size(); i++) {
 						//agentList.get(i).ai.moveToPoint(new Vector2(agent.xPos, agent.yPos));
 						Agent currentGuard = agentList.get(i);
-						if (computeDistance(currentGuard,this)<RADIUS) {
+						if (computeDistance(currentGuard,this)<RADIUS && currentGuard != this) {
 //						System.out.println("set guard " + currentGuard + " to tracking long distance");
 							currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai));
 						}
