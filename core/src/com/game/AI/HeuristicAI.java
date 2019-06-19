@@ -39,6 +39,7 @@ public class HeuristicAI extends AI {
     private Vector2 currentExplorationPoint;
     private Direction currentDirection = Direction.NORTH;
     private ArrayList<Point2D.Float> cornerPoints;
+    private AStarNew astar;
 
 
     public HeuristicAI(Agent agent)
@@ -145,19 +146,12 @@ public class HeuristicAI extends AI {
             point = heatMapMovement();
         }
 
-       // if (seenStructures.size()>0) {
-            AStarNew astar = new AStarNew(seenStructures);
-//            System.out.println("seen structures: ");
-//            for (Area a : seenStructures) {
-//                System.out.println("seen structure: " + a);
-//            }
-            astar.setAgent(agent);
-            astar.runAgain(agent.xPos, agent.yPos, point.x, point.y);
-            rotation = astar.getRotationStack();
-            speed = astar.getSpeedStack();
-
-
-        //}
+        //we create a new astar since the seen structures change on every iteration
+        astar = new AStarNew(seenStructures);
+        astar.setAgent(agent);
+        astar.runAgain(agent.xPos, agent.yPos, point.x, point.y);
+        rotation = astar.getRotationStack();
+        speed = astar.getSpeedStack();
 //        System.out.println("agent xPos = " + agent.xPos);
 //        System.out.println("agent yPos = " + agent.yPos);
 //        System.out.println("target xPos = " + point.x);
@@ -169,9 +163,8 @@ public class HeuristicAI extends AI {
     private Vector2 closestUnknown() {
 
         //Checks if there are structures that need to be explored and moves to them
+        System.out.println("explored structures size is: " + exploredStructures.size());
         if (exploredStructures.size() > 0){
-
-
             for(int i = 0; i < explorationPoints.size(); i++){
                 if(exploredStructures.get(0).area.contains(explorationPoints.get(i))){
                     explorationPoints.remove(i);
@@ -195,6 +188,7 @@ public class HeuristicAI extends AI {
 
         }
         //Checks to see if the agent is in a starting corner
+        System.out.println("are we in a starting position? "+ startingPos);
         if(startingPos == false) {
             float startingX = agent.getX();
             float startingY = agent.getY();
@@ -229,6 +223,15 @@ public class HeuristicAI extends AI {
             }
 
             point = explorationPoints.get(index);
+            for (Area a: structures){
+                if (a.contains(point.x, point.y)){
+                    point.x = point.x+2;
+                    point.y = point.y+2;
+                }
+            }
+
+
+            System.out.println("closest new exploration point: " + point);
         }
 
         return point;
@@ -443,7 +446,7 @@ public class HeuristicAI extends AI {
 
     @Override
     public void seeArea(Area area) {
-//        System.out.println("printing some area ");
+       System.out.println("we see some area ");
 
         if(!(area instanceof OuterWall)) {
             boolean check = false;
@@ -451,6 +454,7 @@ public class HeuristicAI extends AI {
             if (seenStructures.size() > 0) {
                 for (int i = 0; i < seenStructures.size(); i++) {
                     if (area == seenStructures.get(i)) {
+                        System.out.println("we already saw the area we're seeing now");
                         check = true;
                     }
                 }
@@ -461,6 +465,7 @@ public class HeuristicAI extends AI {
 
                     reset();
                 }
+                reset();
             } else {
                 seenStructures.add(area);
                 Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
