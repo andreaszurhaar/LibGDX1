@@ -68,8 +68,8 @@ public class HeuristicAI extends AI {
         explorationSetUp();
 
     }
-/*
 
+/*
     public HeuristicAI(Agent agent, float areaWidth, float areaHeight)
     {
         this.agent = agent;
@@ -168,7 +168,7 @@ public class HeuristicAI extends AI {
 
     private Vector2 closestUnknown() {
 
-        //Checks if there are sturctures that need to be explored and moves to them
+        //Checks if there are structures that need to be explored and moves to them
         if (exploredStructures.size() > 0){
 
 

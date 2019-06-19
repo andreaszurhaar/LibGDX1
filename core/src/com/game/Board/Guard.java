@@ -36,6 +36,7 @@ public class Guard extends Agent {
 	private double timeOfLastMessage;
 	private final double INTER_MESSAGE_TIME = 5; //in seconds
 	private int framesStationaryCounter;
+	private final float RADIUS = 400;
 
 
 	public Guard(float x, float y, float width, float height) {
@@ -45,7 +46,7 @@ public class Guard extends Agent {
 		//viewAngle.setToRandomDirection();
 		speed = 1;
 		//maxSpeed = 1.4f;
-		maxSpeed = 1.4f;
+		maxSpeed = 14f;
 		soundRange = 0;
 		viewRange = 6f + width / 2;
 		name = "2";
@@ -110,6 +111,7 @@ public class Guard extends Agent {
 		//System.out.println("Guard AI: " + ai);
 		this.speed = ai.getSpeed() * Board.fps;
 		this.rotation = ai.getRotation() * Board.fps;
+//		System.out.println("Current guard AI: " + ai);
 
 		if (this.speed == 0)
 			framesStationaryCounter++;
@@ -126,7 +128,6 @@ public class Guard extends Agent {
 					aiConv.runAgain(this.xCenter, this.yCenter, 100, 100);
 				}
 			}
-
 		}
 	}
 
@@ -181,11 +182,16 @@ public class Guard extends Agent {
 			 * Communicating the intruder's location to all other guards every X seconds
 			 */
 			if (agent instanceof Intruder) {
-				if (System.currentTimeMillis() > timeOfLastMessage + INTER_MESSAGE_TIME * 1000) {
+				//TODO make sure the communicated location changes after each message
+				if (System.currentTimeMillis() > (timeOfLastMessage + INTER_MESSAGE_TIME * 1000)) {
 					timeOfLastMessage = System.currentTimeMillis();
 					for (int i = 0; i < agentList.size(); i++) {
 						//agentList.get(i).ai.moveToPoint(new Vector2(agent.xPos, agent.yPos));
 						Agent currentGuard = agentList.get(i);
+						if (computeDistance(currentGuard,this)<RADIUS) {
+//						System.out.println("set guard " + currentGuard + " to tracking long distance");
+							currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai));
+						}
 						if (currentGuard != this) {
 							currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai));
 						}
@@ -195,6 +201,13 @@ public class Guard extends Agent {
 
 			ai.seeAgent(agent);
 		}
+	}
+
+	public float computeDistance(Agent a1, Agent a2)
+	{
+		Vector2 vect1 = new Vector2(a1.xCenter, a1.yCenter);
+		Vector2 vect2 = new Vector2(a2.xCenter, a2.yCenter);
+		return vect1.dst(vect2);
 	}
 
 	@Override
