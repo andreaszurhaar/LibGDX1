@@ -139,7 +139,7 @@ public class Intruder extends Agent {
 			seeing = true;
 		}
 		if(!(ai instanceof MoveToTarget) && object instanceof TargetArea){
-			ai = new MoveToTarget(this, new Vector2(object.xPos + object.area.getWidth(), object.yPos + object.area.getHeight()), ai);
+			ai = new MoveToTarget(this, new Vector2(object.xPos + 0.5f * object.area.getWidth(), object.yPos + 0.5f * object.area.getHeight()), ai);
 		}
 
 	}
