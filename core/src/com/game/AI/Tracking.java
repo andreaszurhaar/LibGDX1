@@ -55,12 +55,13 @@ public class Tracking extends AI {
     	}
     	//System.out.print("retracking with enemy at: "+enemyx+"   "+enemyy);
     	Vector2 toEnemy = new Vector2(enemyx,enemyy);
-    	if(!previousPos.isEmpty() && previousPos.get(previousPos.size()-1).dst(toEnemy) < 0.00001) {
+    	/*if(!previousPos.isEmpty() && previousPos.get(previousPos.size()-1).dst(toEnemy) < 0.00001) {
     		return;
-    	}
+    	} */
     	previousPos.add(toEnemy);
     	if (!following) {
-    		System.out.println("not following");
+    		recalcInterval = 0;
+    		//System.out.println("not following");
 	    	Vector2 toTarget = computeInterception(previousPos);
 	        angle = toTarget.angle(guard.viewAngle);
 	        showvect = toTarget;
@@ -115,7 +116,6 @@ public class Tracking extends AI {
     		currDist = currDist+deltaDist;
     		currAngle = currAngle+currTurn;
 
-    		//TODO shouldn't this angle be in radians instead of degrees?
     		float newx = currPoint.x+(float) Math.cos((double) currAngle)*currDist;
     		float newy = currPoint.y+(float) Math.sin((double) currAngle)*currDist;
     		

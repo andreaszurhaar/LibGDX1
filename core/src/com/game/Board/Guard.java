@@ -36,6 +36,7 @@ public class Guard extends Agent {
 	private double timeOfLastMessage;
 	private final double INTER_MESSAGE_TIME = 5; //in seconds
 	private int framesStationaryCounter;
+	private final float RADIUS = 400;
 
 
 	public Guard(float x, float y, float width, float height) {
@@ -44,8 +45,8 @@ public class Guard extends Agent {
 		this.height = height;
 		//viewAngle.setToRandomDirection();
 		speed = 1;
-		maxSpeed = 1.4f;
 		//maxSpeed = 1.4f;
+		maxSpeed = 14f;
 		soundRange = 0;
 		viewRange = 6f + width / 2;
 		name = "2";
@@ -126,7 +127,6 @@ public class Guard extends Agent {
 					aiConv.runAgain(this.xCenter, this.yCenter, 100, 100);
 				}
 			}
-
 		}
 	}
 
@@ -182,12 +182,15 @@ public class Guard extends Agent {
 			 */
 			if (agent instanceof Intruder) {
 				//TODO make sure the communicated location changes after each message
-				if (System.currentTimeMillis() > timeOfLastMessage + INTER_MESSAGE_TIME * 1000) {
+				if (System.currentTimeMillis() > (timeOfLastMessage + INTER_MESSAGE_TIME * 1000)) {
 					timeOfLastMessage = System.currentTimeMillis();
 					for (int i = 0; i < agentList.size(); i++) {
 						//agentList.get(i).ai.moveToPoint(new Vector2(agent.xPos, agent.yPos));
 						Agent currentGuard = agentList.get(i);
-						currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai));
+						if (computeDistance(currentGuard,this)<RADIUS) {
+//						System.out.println("set guard " + currentGuard + " to tracking long distance");
+							currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai));
+						}
 					}
 				}
 			}
@@ -196,24 +199,31 @@ public class Guard extends Agent {
 		}
 	}
 
+	public float computeDistance(Agent a1, Agent a2)
+	{
+		Vector2 vect1 = new Vector2(a1.xCenter, a1.yCenter);
+		Vector2 vect2 = new Vector2(a2.xCenter, a2.yCenter);
+		return vect1.dst(vect2);
+	}
+
 	@Override
 	/**
 	 * When a guard hears a sound, it moves towards its direction for X seconds before returning back to patrolling
 	 */
 	public void hearSound(float directionAngle) {
 
-			//TODO check if works
-			prevAngle = directionAngle;
+		//TODO check if works
+		prevAngle = directionAngle;
 
-			if (!(directionAngle < (prevAngle + 20) && directionAngle > (prevAngle - 20)) && framesStationaryCounter > 180) {
+		if (!(directionAngle < (prevAngle + 20) && directionAngle > (prevAngle - 20)) && framesStationaryCounter < 60) {
 
-				hearing = true;
-				/**
-				 * We don't want to switch our AI when the guard is tracking
-				 */
-				if (!(ai instanceof Tracking) && !(ai instanceof TrackingLongDistance) && !(ai instanceof InvestigateSound)) {
-					ai = new InvestigateSound(this, directionAngle, ai);
-				}
+			hearing = true;
+			/**
+			 * We don't want to switch our AI when the guard is tracking
+			 */
+			if (!(ai instanceof Tracking) && !(ai instanceof TrackingLongDistance) && !(ai instanceof InvestigateSound)) {
+				ai = new InvestigateSound(this, directionAngle, ai);
+			}
 		}
 
 	}

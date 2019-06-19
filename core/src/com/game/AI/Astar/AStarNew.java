@@ -38,6 +38,7 @@ public class AStarNew extends AI {
     	speed = new Stack<Float>();
         rotation = new Stack<Float>();
         instruction = new ChainInstruction();
+        structures = new ArrayList<Area>();
         this.rectangles = rectangles;
         this.targetx = targetx;
         this.targety = targety;
@@ -79,8 +80,8 @@ public class AStarNew extends AI {
         pathReg.clear();
         open.clear();
         closed.clear();
-        System.out.println("target is set to: " + targetx + "," + targety);
-        System.out.println("start is set to: " + startx + "," + starty);
+//        System.out.println("target is set to: " + targetx + "," + targety);
+//        System.out.println("start is set to: " + startx + "," + starty);
         map.addNode(0,startx, starty); //type = 0 means its the start node
         map.addNode(1, targetx, targety); //type = 1 means its the target node
         setTarget(targetx, targety);
@@ -89,19 +90,19 @@ public class AStarNew extends AI {
     }
 
     public void setTarget(float x, float y) {
-        System.out.println("We set a target node to " + x + "," + y);
+//        System.out.println("We set a target node to " + x + "," + y);
         target = map.setTargetNode(x, y);
     }
 
     public void setStart(float x, float y) {
         //System.out.println(map.setStartNode(x,y));
-        System.out.println("We set a start node to " + x + "," + y);
+//        System.out.println("We set a start node to " + x + "," + y);
         start = map.setStartNode(x, y);
     }
 
     public void start() {
-        System.out.println("Start loc is: " + start.xcoord + ", " + start.ycoord);
-        System.out.println("Target loc is: " + target.xcoord + ", " + target.ycoord);
+//        System.out.println("Start loc is: " + start.xcoord + ", " + start.ycoord);
+//        System.out.println("Target loc is: " + target.xcoord + ", " + target.ycoord);
         //System.out.println("Running the a-star algorithm");
         open.add(start);
         start.setTotalCost(0);
@@ -184,16 +185,16 @@ public class AStarNew extends AI {
         }
 
         for (int i = pathInv.size()-1; i>0; i--){
-            System.out.println("i is: " + i);
+//            System.out.println("i is: " + i);
             pathReg.add(new Vector2(pathInv.get(i).xcoord, pathInv.get(i).ycoord));
         }
         instruction.translate(pathReg, intruder);
         rotation = instruction.getRotations();
         speed = instruction.getSpeeds();
-        System.out.println("Path we take is: ");
-        for (Vector2 v:pathReg) {
-            System.out.println("Coords: " + v.x + "," + v.y);
-        }
+//        System.out.println("Path we take is: ");
+//        for (Vector2 v:pathReg) {
+//            System.out.println("Coords: " + v.x + "," + v.y);
+//        }
     }
 
     @Override
