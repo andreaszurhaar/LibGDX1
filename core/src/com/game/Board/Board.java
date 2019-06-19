@@ -34,6 +34,8 @@ public class Board {
 	public boolean gameOver = false;
 	private final int RANDOM_NOISE_SOUND_RANGE = 5;
 	public long victoryTime1 = 0;
+	public long timeOfTracking = 0;
+	public boolean predictiveTracking = true;
 
 	private Random rand = new Random();
 
@@ -264,6 +266,11 @@ public class Board {
 								//getArea(): rectangle objects of the agents
 								//System.out.println("DISTANCE OF: "+computeDist(agents.get(a).area,agents.get(i).area));
 								if(computeDist(agents.get(a).area,agents.get(i).area) < 0.5) {
+									if(agents.get(a).ai instanceof Tracking) {
+										Tracking trackingGuard = (Tracking) agents.get(a).ai;
+										timeOfTracking = trackingGuard.timeToTrack;
+										predictiveTracking = trackingGuard.predictive;
+									}
 									gameOver = true;
 								}
 							}

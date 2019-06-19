@@ -101,6 +101,7 @@ public class Intruder extends Agent {
 			soundRange = 10;
 		}
 
+		//System.out.println("Intruder AI: " + ai);
 		this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
 		this.rotation = ai.getRotation()*Board.fps;
 	}

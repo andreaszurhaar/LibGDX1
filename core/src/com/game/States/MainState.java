@@ -29,6 +29,7 @@ import com.game.Objects.Play;
 import com.game.Readers.SpriteReader;
 
 import java.awt.geom.Point2D;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -211,7 +212,17 @@ public class MainState extends State {
             int y = (int) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY()));
 
         }
-        if (board.gameOver) {gsm.push(new GameOverState(gsm, deltaTime));}
+        if (board.gameOver) {
+        	if(board.timeOfTracking != 0) {
+        		try {
+            		gsm.push(new GameOverState(gsm, deltaTime, board.timeOfTracking, board.predictiveTracking));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+        	} else {
+        		gsm.push(new GameOverState(gsm, deltaTime));
+        	}
+        }
 
         //if(deltaTime > timeLimit){gsm.push(new GameOverState(gsm,deltaTime));}
         board.updateAgents();

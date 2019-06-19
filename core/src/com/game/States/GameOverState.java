@@ -17,13 +17,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.game.AI.Astar.Astar;
+import com.game.Board.Agent;
+import com.game.Board.Area;
+import com.game.Board.Guard;
+import com.game.Board.Structure;
 import com.game.AI.GuardCirclePatrolling;
 import com.game.AI.GuardPatrolling;
 import com.game.GameLogic.Button;
 import com.game.Readers.FileHandler;
 import com.game.Readers.SpriteReader;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class GameOverState extends State {
 
@@ -42,6 +49,86 @@ public class GameOverState extends State {
     public GameOverState(final GameStateManager gsm, float deltaTime) {
         super(gsm);
         gamestatemanager = gsm;
+        stage=new Stage();
+        SpriteReader reader = new SpriteReader();
+        this.deltaTime = deltaTime;
+
+        try {
+            background  = reader.getImage(58,292,26,28);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Create a font
+        font = new BitmapFont();
+        skin = new Skin();
+        skin.add("default", font);
+        skin2 = new Skin();
+        skin2.add("default", font);
+
+        //Create a texture
+        Pixmap pixmap = new Pixmap(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/10, Pixmap.Format.RGB888);
+        pixmap.setColor(Color.WHITE);
+        pixmap.fill();
+        skin.add("background",new Texture(pixmap));
+        skin2.add("background",new Texture(pixmap));
+        
+      //Create a button style
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.up = skin.newDrawable("background", Color.ORANGE);
+        textButtonStyle.down = skin.newDrawable("background", Color.BLACK);
+        textButtonStyle.checked = skin.newDrawable("background", Color.BLACK);
+        textButtonStyle.over = skin.newDrawable("background", Color.RED);
+        textButtonStyle.font = skin.getFont("default");
+        skin.add("default", textButtonStyle);
+
+      //Create a 2nd button style
+        TextButton.TextButtonStyle textButtonStyle2 = new TextButton.TextButtonStyle();
+        textButtonStyle2.up = skin2.newDrawable("background", Color.BLACK);
+        textButtonStyle2.down = skin2.newDrawable("background", Color.BLACK);
+        textButtonStyle2.checked = skin2.newDrawable("background", Color.BLACK);
+        textButtonStyle2.over = skin2.newDrawable("background", Color.BLACK);
+        textButtonStyle2.font = skin2.getFont("default");
+        skin2.add("default", textButtonStyle2);
+
+        restart = new TextButton("Try Again", skin); // Use the initialized skin
+        restart.setPosition(Gdx.graphics.getWidth()/4 , 4* Gdx.graphics.getHeight()/7);
+        restart.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+            	gamestatemanager.push(new MenuState(gsm));
+            
+            }
+        });
+        
+        gameov = new TextButton("GameOver", skin2); // Use the initialized skin
+        gameov.setPosition(Gdx.graphics.getWidth()/4 , 6* Gdx.graphics.getHeight()/7);
+        
+        stage.addActor(restart);
+        stage.addActor(gameov);
+
+        Gdx.input.setInputProcessor(stage);
+        
+    }
+
+    public GameOverState(final GameStateManager gsm, float deltaTime, long timeToCatch, boolean predictive) throws FileNotFoundException {
+        super(gsm);
+        gamestatemanager = gsm;
+        String trackingSaveFile = "";
+        if(predictive) {
+        	trackingSaveFile = "predictiveTrackingTests.txt";
+        } else if(!predictive) {
+        	trackingSaveFile = "simpleTrackingTests.txt";
+        }
+        long caught = System.currentTimeMillis()-timeToCatch;
+        try {
+        	FileWriter fileWriter = new FileWriter(trackingSaveFile,true);
+            fileWriter.append("\n");
+            fileWriter.append(Long.toString(caught));
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
         stage=new Stage();
         SpriteReader reader = new SpriteReader();
         this.deltaTime = deltaTime;

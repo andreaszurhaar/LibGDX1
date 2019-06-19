@@ -47,6 +47,8 @@ public class Escape extends AI {
 
         Vector2 destPoint = new Vector2((float) (intruder.xCenter + MOVE_AWAY_FROM_GUARD_TIME * intruder.getSpeed() * Math.cos(differenceAngleRadian)), (float) (intruder.yCenter + MOVE_AWAY_FROM_GUARD_TIME * intruder.getSpeed() * Math.sin(differenceAngleRadian)));
 
+        //intruder.triggerSprint();
+
         instruction.translate(destPoint, intruder, false);
         rotation = instruction.getRotations();
         speed = instruction.getSpeeds();
