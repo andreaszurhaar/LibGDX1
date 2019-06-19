@@ -64,7 +64,7 @@ public class Intruder extends Agent {
 	}
 	
 	public void timedSprint(int frames) {
-		if(restCount == 0 ) {
+		if(restCount == 0 && frames/Board.fps < 6) {
 			sprintCount = frames;
 			restCount = 10*Board.fps;
 		}
