@@ -26,13 +26,15 @@ public class Tracking extends AI {
     private AI previousAI;
     private int trackcounter;
     private ArrayList<Vector2> previousPos;
-    private boolean predictive = true;
+    public boolean predictive = true;
     private Instruction instruct = new Instruction();
     private int recalcInterval;
-    private int intervalLimit = 60;
+    public int intervalLimit = 60;
+    public long timeToTrack = 0;
 
     public Tracking(Guard guard, Agent opponent,AI storeAI)
     {
+    	timeToTrack = System.currentTimeMillis();
     	this.guard = guard;
     	previousAI = storeAI;
     	enemyx = opponent.xCenter;
@@ -107,7 +109,7 @@ public class Tracking extends AI {
     	//System.out.println("going from point: "+currPoint.x+"  "+currPoint.y);
     	
     	int instCount = 0;
-    	while (prevPos.get(prevPos.size()-1).dst(guard.xCenter,guard.yCenter) > ((float) (instCount*20) * (guard.maxSpeed/Board.fps)) && instCount < 1000) {
+    	while (prevPos.get(prevPos.size()-1).dst(guard.xCenter,guard.yCenter) > ((float) (instCount*12) * (guard.maxSpeed/Board.fps)) && instCount < 1000) {
     		//System.out.println("cycle for dist: "+currPoint.dst(guard.xCenter,guard.yCenter)+"   and countmutip: "+((float) (instCount*10) * (guard.maxSpeed/Board.fps)));
     		instCount++;
     		
