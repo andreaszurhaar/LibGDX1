@@ -50,10 +50,13 @@ public class TestState extends State {
     public static final float X_REDUC = MapState.X_REDUC;
     public static final float Y_REDUC = MapState.Y_REDUC;
     public double timeLimit = 60.00;
-    String intruderAI;
-    String guardAI;
-    int counter;
-    TestWriter testWriter;
+    public String intruderAI;
+    public String guardAI;
+    public int counter;
+    public TestWriter testWriter;
+    public float guardTravel = 0;
+    public float intruderTravel = 0;
+
 
     public TestState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls, String guardAI, String intruderAI, int counter) {
         super(gsm);
@@ -163,38 +166,36 @@ public class TestState extends State {
     @Override
     public void handleInput() {
 
-        if(counter < 100) {
-            if (board.timeOfTracking != 0) {
-                try {
-                    testWriter = new TestWriter("Test.txt", str,"lost",  )
-                    gsm.push(new TestState(gsm, structures,agents, walls,guardAI, intruderAI, counter));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+        deltaTime += Gdx.graphics.getDeltaTime();
+        str = Float.toString(deltaTime);
+
+        if(board.gameOver) {
+            for(int i = 0; i < guards.size(); i++){
+                guardTravel += guards.get(i).totalDistanceTravelled;
+            }
+            for(int i = 0; i < intruders.size(); i++){
+                intruderTravel += intruders.get(i).totalDistanceTravelled;
+            }
+            if (counter < 100) {
+                if (board.timeOfTracking != 0) {
+
+                    testWriter = new TestWriter("Test.txt", deltaTime, "lost",guardTravel,intruderTravel);
+                    gsm.push(new TestState(gsm, structures, agents, walls, guardAI, intruderAI, counter));
+
+                } else {
+                    testWriter = new TestWriter("Test.txt", deltaTime, "won",guardTravel,intruderTravel);
+                    gsm.push(new TestState(gsm, structures, agents, walls, guardAI, intruderAI, counter));
+
                 }
             } else {
-                try {
-                    testWriter = new TestWriter("Test.txt", str,"won",  )
-                    gsm.push(new TestState(gsm, structures,agents, walls,guardAI, intruderAI, counter));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        else{
-            if (board.timeOfTracking != 0) {
-                try {
-                    testWriter = new TestWriter("Test.txt", str,"lost",  )
+                if (board.timeOfTracking != 0) {
+
+                    testWriter = new TestWriter("Test.txt", deltaTime, "lost",guardTravel,intruderTravel);
                     System.exit(0);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-            else{
-                try {
-                    testWriter = new TestWriter("Test.txt", str,"won",  )
+
+                } else {
+                    testWriter = new TestWriter("Test.txt", deltaTime, "won",guardTravel,intruderTravel);
                     System.exit(0);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
                 }
             }
         }
@@ -209,8 +210,7 @@ public class TestState extends State {
             guards.get(i).ai.updatedSeenLocations();
         }
 
-        deltaTime += Gdx.graphics.getDeltaTime();
-        str = Float.toString(deltaTime);
+
     }
 
     @Override

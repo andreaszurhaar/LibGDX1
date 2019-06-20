@@ -10,7 +10,7 @@ public class TestWriter {
 
     String outputFile;
 
-    public TestWriter(String level, String time, String win, String guard_distance, String intruder_distance  ){
+    public TestWriter(String level, float time, String win, float guard_distance, float intruder_distance  ){
 
         outputFile = level;
         try {

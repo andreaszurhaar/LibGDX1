@@ -46,7 +46,7 @@ public class Guard extends Agent {
 		//viewAngle.setToRandomDirection();
 		speed = 1;
 		maxSpeed = 1.4f;
-		//maxSpeed = 15f;
+		maxSpeed = 15f;
 		soundRange = 0;
 		viewRange = 6f + width / 2;
 		name = "2";
