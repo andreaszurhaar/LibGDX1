@@ -20,7 +20,6 @@ import java.util.Stack;
 
 public class AStarNew extends AI {
 
-    private float startx, starty, targetx, targety;
     private NodeNew start, target;
     private List<NodeNew> open = new ArrayList<NodeNew>();
     private List<NodeNew> closed = new ArrayList<NodeNew>();
@@ -31,7 +30,7 @@ public class AStarNew extends AI {
     private ArrayList<NodeNew> path;
     private ArrayList<Area> structures;
     private int counter;
-    private Agent intruder;
+    private Agent agent;
     private ChainInstruction instruction;
 
     public AStarNew(ArrayList<Rectangle2D.Float> rectangles, float startx, float starty, float targetx, float targety) {
@@ -40,14 +39,28 @@ public class AStarNew extends AI {
         instruction = new ChainInstruction();
         structures = new ArrayList<Area>();
         this.rectangles = rectangles;
-        this.targetx = targetx;
-        this.targety = targety;
-        this.startx = startx;
-        this.starty = starty;
+        target = new NodeNew(targetx,targety);
+        start = new NodeNew(startx,starty);
+        createInitialGraph();
         setStart(startx, starty);
         //Take random target coordinates
         setTarget(targetx, targety);
+        start();
+    }
+
+    public AStarNew(ArrayList<Rectangle2D.Float> rectangles, float startx, float starty, float targetx, float targety, Agent agent) {
+        speed = new Stack<Float>();
+        rotation = new Stack<Float>();
+        instruction = new ChainInstruction();
+        structures = new ArrayList<Area>();
+        this.rectangles = rectangles;
+        target = new NodeNew(targetx,targety);
+        start = new NodeNew(startx,starty);
+        this.agent = agent;
         createInitialGraph();
+        setStart(startx, starty);
+        //Take random target coordinates
+        setTarget(targetx, targety);
         start();
     }
 
@@ -77,7 +90,6 @@ public class AStarNew extends AI {
 
     //use same structures and map, but just running it with a different start and end position
     public void runAgain(float startx, float starty, float targetx, float targety){
-        pathReg.clear();
         open.clear();
         closed.clear();
 //        System.out.println("target is set to: " + targetx + "," + targety);
@@ -153,7 +165,7 @@ public class AStarNew extends AI {
             //System.out.println("Failure");
         }
 
-        //printPath(target);
+        printPath(target);
         returnPath(target);
     }
 
@@ -188,7 +200,7 @@ public class AStarNew extends AI {
             //System.out.println("i is: " + i);
             pathReg.add(new Vector2(pathInv.get(i).xcoord, pathInv.get(i).ycoord));
         }
-        instruction.translate(pathReg, intruder);
+        instruction.translate(pathReg, agent);
         rotation = instruction.getRotations();
         speed = instruction.getSpeeds();
 //        System.out.println("Path we take is: ");
@@ -222,8 +234,8 @@ public class AStarNew extends AI {
 
     @Override
     public void setAgent(Agent agent) {
-    	intruder = agent;
-    	for(int i=0; i<structures.size(); i++) {
+    	this.agent = agent;
+    	/*for(int i=0; i<structures.size(); i++) {
         	rectangles.add(new Rectangle2D.Float(structures.get(i).xPos-agent.area.width/2,structures.get(i).yPos-agent.area.height/2
         			,structures.get(i).area.width+agent.area.width,structures.get(i).area.height+agent.area.height));
         }
@@ -234,7 +246,7 @@ public class AStarNew extends AI {
 //        System.out.println("we create the map (setAgent)");
         setStart(start.xcoord,start.ycoord);
         setTarget(target.xcoord, target.ycoord);
-        start();
+        start();*/
     }
 
     @Override

@@ -82,7 +82,6 @@ public class GraphNew {
 //        }
         Line2D.Float line2D = new Line2D.Float(new Point2D.Float(node1.xcoord, node1.ycoord), new Point2D.Float(node2.xcoord, node2.ycoord));
 //        System.out.println("Our line: "+line2D.x1 +"," + line2D.y1 + " and " +line2D.x2 +"," + line2D.y2);
-        //TODO: find out why it doesn't create an edge between (0,2) and (0,3)
         for (Rectangle2D.Float r : rectangles){
 //            System.out.println("Rectangle is:" + r);
 //            if (node1.xcoord-OFFSET )
@@ -105,6 +104,7 @@ public class GraphNew {
             if (nodes.get(i).xcoord == x && nodes.get(i).ycoord == y)
             {
                 nodes.get(i).setStart();
+//                nodes.get(i).xcoord = nodes.get(i).xcoord - OFFSET;
                 return nodes.get(i);
             }
         }
