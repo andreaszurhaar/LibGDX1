@@ -290,11 +290,11 @@ public class HeuristicAI extends AI {
         if (exploredStructures.size() > 0){
 
             for(int i = 0; i < explorationPoints.size(); i++){
-                for (int j = 0; j<exploredStructures.size();j++) {
-                    if (exploredStructures.get(j).area.contains(explorationPoints.get(i))) {
+
+                    if (exploredStructures.get(0).area.contains(explorationPoints.get(i))) {
                         explorationPoints.remove(i);
                     }
-                }
+
             }
             if(exploredStructures.get(0).xPos > 12 && exploredStructures.get(0).xPos < 388 && exploredStructures.get(0).yPos < 195 && exploredStructures.get(0).yPos > 15){
                 point = new Vector2(exploredStructures.get(0).xPos,exploredStructures.get(0).yPos);
