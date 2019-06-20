@@ -22,6 +22,9 @@ public class MoveToTarget extends AI {
     private boolean predictive = false;
     private Instruction instruction;
     private Vector2 targetLocation;
+    private final int STAND_STILL_TIME = 1000; //in seconds
+    private double reachedTargetTime;
+    private boolean reachedTarget = false;
 
     public MoveToTarget(Intruder intruder, Vector2 targetLocation, AI storeAI) {
         this.intruder = intruder;
@@ -39,30 +42,79 @@ public class MoveToTarget extends AI {
         speed = instruction.getSpeeds();
     }
 
-    @Override
-    public float getRotation() {
-        if (rotation.empty()){
-            moveToTarget();
-        }
-        else
-        {
-            return rotation.pop();
-        }
-        return rotation.pop();
-    }
+//    @Override
+//    public float getRotation() {
+//        if(FirstFrameAfterReachingTarget) {
+//            reachedTargetTime = System.currentTimeMillis();
+//        }
+//        if (!FirstFrameAfterReachingTarget && rotation.empty()) {
+//            if(System.currentTimeMillis() > reachedTargetTime + 1000 * STAND_STILL_TIME && FirstFrameAfterReachingTarget){
+//                previousAI.reset();
+//                intruder.setAI(previousAI);
+//                return intruder.ai.getSpeed();
+//            }
+//            FirstFrameAfterReachingTarget = true;
+//            return 0;
+//        } else {
+//            return rotation.pop();
+//        }
+//    }
 
     @Override
-    public float getSpeed() {
-        if (speed.empty()){
-            previousAI.reset();
-            intruder.setAI(previousAI);
-            return intruder.ai.getSpeed();
+    public float getRotation(){
+        if(rotation.empty()){
+            if(!reachedTarget){
+                reachedTargetTime = System.currentTimeMillis();
+                reachedTarget = true;
+            }
+            if(System.currentTimeMillis() > reachedTargetTime + 1000 * STAND_STILL_TIME && reachedTarget){
+                previousAI.reset();
+                intruder.setAI(previousAI);
+                return intruder.ai.getRotation();
+            }
+            return 0;
         }
-        else
-        {
+        else{
+            return rotation.pop();
+        }
+    }
+
+//    @Override
+//    public float getSpeed() {
+//        if(FirstFrameAfterReachingTarget) {
+//            reachedTargetTime = System.currentTimeMillis();
+//        }
+//        if (!FirstFrameAfterReachingTarget && speed.empty()){
+//            if(System.currentTimeMillis() > reachedTargetTime + 1000 * STAND_STILL_TIME && FirstFrameAfterReachingTarget){
+//                previousAI.reset();
+//                intruder.setAI(previousAI);
+//                return intruder.ai.getSpeed();
+//            }
+//            FirstFrameAfterReachingTarget = true;
+//            return 0;
+//        }
+//        else {
+//            return speed.pop();
+//        }
+//    }
+
+    @Override
+    public float getSpeed(){
+        if(speed.empty()){
+            if(!reachedTarget){
+                reachedTargetTime = System.currentTimeMillis();
+                reachedTarget = true;
+            }
+            if(System.currentTimeMillis() > reachedTargetTime + 1000 * STAND_STILL_TIME && reachedTarget){
+                previousAI.reset();
+                intruder.setAI(previousAI);
+                return intruder.ai.getSpeed();
+            }
+            return 0;
+        }
+        else{
             return speed.pop();
         }
-        //return speed.pop();
     }
 
     @Override

@@ -41,6 +41,7 @@ public class Agent extends AssetManager {
 	public float minViewRange = 0;
 	public float maxSpeed;
 	public float soundRange;
+	public float totalDistanceTravelled = 0;
 	public SoundOccurence lastHeardSound;
 	public boolean hearing;
 	public boolean seeing;

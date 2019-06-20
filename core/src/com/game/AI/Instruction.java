@@ -163,7 +163,7 @@ public class Instruction {
 		//System.out.println("Distance to travel:" + positions.x +","+positions.y);
 		float pathLength = positions.len();
 		float turnAngle = agent.viewAngle.angle(positions);
-		//System.out.println("TURNING FOR: "+turnAngle+"  AND MOVING FOR: "+pathLength);
+		System.out.println("TURNING FOR: "+turnAngle+"  AND MOVING FOR: "+pathLength);
 		
 		//prepare to invert turning if the shortest angle is negative
 		boolean positive = true;
@@ -194,14 +194,35 @@ public class Instruction {
 		speeds.push(0f);
 		
 		//solve normally the distance you cannot cover in one sprint
+		float subPathLength = 0;
 		if(pathLength > 15) {
-			float subPathLength = pathLength - 15;
+			subPathLength = pathLength - 15;
 			pathLength = 15;
-			
-			float maxWalk = agent.maxSpeed/Board.fps;
-			float ufWalk = subPathLength/maxWalk;
-			int walkcount = (int) ufWalk;
-			float leftoverSpeed = subPathLength - ((float) walkcount * maxWalk);
+		}
+		
+		//now repeat for only speed
+				int sprintCount = 0;
+				float maxWalk = 3f/Board.fps;
+				float ufWalk = pathLength/maxWalk;
+				int walkcount = (int) ufWalk;
+				float leftoverSpeed = pathLength - ((float) walkcount * maxWalk);
+				
+				for(int i=0; i < walkcount; i++) {
+					rotations.push(0f);
+					speeds.push(maxWalk);
+				}
+				if(leftoverSpeed != 0) {
+					rotations.push(0f);
+					speeds.push(leftoverSpeed);
+					sprintCount++;
+				}
+				sprintCount = sprintCount+walkcount;
+
+		if(subPathLength != 0) {
+			maxWalk = agent.maxSpeed/Board.fps;
+			ufWalk = subPathLength/maxWalk;
+			walkcount = (int) ufWalk;
+			leftoverSpeed = subPathLength - ((float) walkcount * maxWalk);
 			
 			for(int i=0; i < walkcount; i++) {
 				rotations.push(0f);
@@ -209,27 +230,9 @@ public class Instruction {
 			}
 			rotations.push(0f);
 			speeds.push(leftoverSpeed);
+		}
 			
-			
-		}
-		//now repeat for only speed
-		int sprintCount = 0;
-		float maxWalk = 3f/Board.fps;
-		float ufWalk = pathLength/maxWalk;
-		int walkcount = (int) ufWalk;
-		float leftoverSpeed = pathLength - ((float) walkcount * maxWalk);
-		
-		for(int i=0; i < walkcount; i++) {
-			rotations.push(0f);
-			speeds.push(maxWalk);
-		}
-		if(leftoverSpeed != 0) {
-			rotations.push(0f);
-			speeds.push(leftoverSpeed);
-			sprintCount++;
-		}
-		sprintCount = sprintCount+walkcount;
-		
+				
 		Stack<Float> reverseRotations = new Stack<Float>();
 		Stack<Float> reverseSpeeds = new Stack<Float>();
 
