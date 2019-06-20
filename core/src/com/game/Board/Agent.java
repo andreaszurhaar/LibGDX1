@@ -114,6 +114,8 @@ public class Agent extends AssetManager {
 	
 	public void setPos(float x, float y) {
 
+		oldX = this.xPos;
+		oldY = this.yPos;
 		//System.out.println("Updating xPos to " + x);
 		//System.out.println("Updating yPos to " + y);
 		xPos = x;
@@ -188,12 +190,13 @@ public class Agent extends AssetManager {
 	public void triggerStepTowardPoint(Point2D point){}
 
     public void setX(int xPos){
+		oldX = xPos;
 		System.out.println("Updating xPos to " + xPos);
         this.xPos += xPos;
         //bounds.setX((int) this.xPos);
     }
     public void setY(int yPos){
-
+		oldY = this.yPos;
 		System.out.println("Updating yPos to " + yPos);
         this.yPos += yPos;
         //bounds.setY((int) this.yPos);

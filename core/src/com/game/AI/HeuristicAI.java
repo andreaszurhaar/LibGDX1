@@ -160,8 +160,9 @@ public class HeuristicAI extends AI {
         if (prevPoint == point)
         {
             System.out.println("adjusting the point");
-            point.x = point.x + 1;
-            point.y = point.y + 1;
+//            point.x = point.x + 1;
+//            point.y = point.y + 1;
+            explorationPoints.remove(point);
         }
         prevPoint = point;
 
