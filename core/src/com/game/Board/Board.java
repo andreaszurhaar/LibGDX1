@@ -159,7 +159,7 @@ public class Board {
 							}
 						}
 					}
-					if(territories.get(i) instanceof TargetArea) {
+					if(territories.get(i) instanceof TargetArea && agents.get(a) instanceof Intruder) {
 						if(victoryTime1 == 0) {
 							victoryTime1 = System.currentTimeMillis();
 						} else {
