@@ -31,6 +31,7 @@ public class Agent extends AssetManager {
 	public volatile float yPos;
 	public volatile float xCenter;
 	public volatile float yCenter;
+	public float oldX, oldY;
 	public Vector2 viewAngle;
 	public float speed;
 	public float rotation;
@@ -64,11 +65,14 @@ public class Agent extends AssetManager {
 	
 	
 	public Agent(float x, float y, float width, float height) {
+
         area = new Rectangle(x,y,width,height);
         xPos = x;
 		yPos = y;
 		xCenter = xPos+width/2;
 		yCenter = yPos+height/2;
+		oldX = xCenter;
+		oldY = yCenter;
 		viewAngle = new Vector2(1,1);
 		turningCircle = 180;
 		viewRadius = 45;
@@ -84,7 +88,8 @@ public class Agent extends AssetManager {
 	 * 
 	 */
 	public Agent(Agent ag) {
-		
+		oldX = xCenter;
+		oldY = yCenter;
         area = new Rectangle(ag.xPos,ag.yPos,ag.area.getWidth(),ag.area.getHeight());
         xPos = ag.xPos;
 		yPos = ag.yPos;

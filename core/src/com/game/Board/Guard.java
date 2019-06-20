@@ -219,7 +219,7 @@ public class Guard extends Agent {
 		//TODO check if works
 		prevAngle = directionAngle;
 
-		if (!(directionAngle < (prevAngle + 20) && directionAngle > (prevAngle - 20)) && framesStationaryCounter < 60) {
+		if (!(directionAngle < (prevAngle + 20) && directionAngle > (prevAngle - 20)) && framesStationaryCounter < 30) {
 
 			hearing = true;
 			/**
