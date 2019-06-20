@@ -246,8 +246,8 @@ public class MapState extends State {
                 if(!overlaps) {
 
                     if (this.name == "target") {
-                    	if(!checkOverlap(new Rectangle(x, y, 20 / X_REDUC, 20 / Y_REDUC))) {
-                    		structures.add(new TargetArea(x, y, 20 / X_REDUC, 20 / Y_REDUC));
+                    	if(!checkOverlap(new Rectangle(x, y, 40 / X_REDUC, 40 / Y_REDUC))) {
+                    		structures.add(new TargetArea(x, y, 40 / X_REDUC, 40 / Y_REDUC));
                     	}
                     }
 

@@ -25,7 +25,7 @@ public class Board {
 	private ArrayList<Integer>[][] positionTracker;
 	public ArrayList<Area> territories;
 	private ArrayList<Agent> agents;
-	public final static int fps = 6;
+	public final static int fps = 60;
 	private final int VISUAL_RANGE = 20;
 	public final static int BOARD_WIDTH = 80;
 	public final static int BOARD_HEIGHT = 40;
@@ -159,7 +159,7 @@ public class Board {
 							}
 						}
 					}
-					if(territories.get(i) instanceof TargetArea) {
+					if(territories.get(i) instanceof TargetArea && agents.get(a) instanceof Intruder) {
 						if(victoryTime1 == 0) {
 							victoryTime1 = System.currentTimeMillis();
 						} else {
@@ -218,6 +218,7 @@ public class Board {
 			
 			//move the agent if it's not colliding
 			if(!collided) {
+				agents.get(a).totalDistanceTravelled = agents.get(a).totalDistanceTravelled+new Vector2(agents.get(a).xPos-newX,agents.get(a).yPos-newY).len();
 				agents.get(a).setPos(newX,newY);
 
 			}

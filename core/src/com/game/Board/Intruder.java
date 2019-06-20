@@ -35,7 +35,7 @@ public class Intruder extends Agent {
 		this.width = width;
 		this.height = height;
 		//viewAngle.setToRandomDirection();
-		speed = 1;
+		speed = 15;
 		rotation = 0;
 		soundRange = 0;
 		name = "1";
@@ -46,6 +46,7 @@ public class Intruder extends Agent {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        maxSpeed = 15;
 	}
 	
 	public float getSpeed() {
@@ -79,7 +80,7 @@ public class Intruder extends Agent {
 			return;
 		}
 
-		this.speed = 1.4f;//(float) Math.random()*1.4f;
+		this.speed = 15f;//(float) Math.random()*1.4f;
 //		rotation = -10;
 //		/*
 //		rotation = (float) Math.random()*turningCircle/4;
@@ -105,11 +106,11 @@ public class Intruder extends Agent {
 		this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
 		this.rotation = ai.getRotation()*Board.fps;
 		if(sprintCount != 0) {
-			if(speed > 3) {speed = 3;}
+			//if(speed > 3) {speed = 3;}
 			if(rotation > 10) {rotation = 10;}
 			else if(rotation < -10) {rotation = -10;}
 		} else {
-			if(speed > 1.4f) {speed = 1.4f;}
+			//if(speed > 1.4f) {speed = 1.4f;}
 			if(rotation > 180) {rotation = 180;}
 			else if(rotation < -180) {rotation = -180;}	
 		}
@@ -139,7 +140,7 @@ public class Intruder extends Agent {
 			seeing = true;
 		}
 		if(!(ai instanceof MoveToTarget) && object instanceof TargetArea){
-			ai = new MoveToTarget(this, new Vector2(object.xPos + object.area.getWidth(), object.yPos + object.area.getHeight()), ai);
+			ai = new MoveToTarget(this, new Vector2(object.xPos + 0.5f * object.area.getWidth(), object.yPos + 0.5f * object.area.getHeight()), ai);
 		}
 
 	}

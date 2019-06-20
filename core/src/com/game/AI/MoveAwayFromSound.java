@@ -23,6 +23,8 @@ public class MoveAwayFromSound extends AI {
     private float directionAngle;
     private Instruction instruction;
     private final double MOVING_AWAY_FROM_SOUND_TIME = 7.14; //in seconds, should be at most 10/1.4 = 7.14 because a sound can be heard at most 10 meters away, and guards move at 1.4m/s
+    private int count;
+    private int countSprint;
 
     public MoveAwayFromSound(Intruder intruder, float directionAngle, AI storeAI, ArrayList<Area> seenStructures) {
         this.intruder = intruder;
@@ -45,8 +47,10 @@ public class MoveAwayFromSound extends AI {
 
         Vector2 destPoint = new Vector2((float) (intruder.xCenter + MOVING_AWAY_FROM_SOUND_TIME * intruder.getSpeed() * Math.cos(oppositeAngleRadian)), (float) (intruder.yCenter + MOVING_AWAY_FROM_SOUND_TIME * intruder.getSpeed() * Math.sin(oppositeAngleRadian)));
 
-        //TODO add sprinting functionality to instruction
-        //intruder.triggerSprint();
+        /**
+         * We sprint away in a straight line until the intruder collides/its speed is 0
+         */
+        //instruction with sprinting: after -count- amount of pops, call intruder.sprint()
 
         if(previousAI instanceof HeuristicAI) {
             for (Area a : seenStructures)
@@ -68,15 +72,19 @@ public class MoveAwayFromSound extends AI {
 
     @Override
     public float getRotation() {
-        if (rotation.empty()){
-            previousAI.reset();
-            intruder.setAI(previousAI);
-            return intruder.ai.getSpeed();
+        if(count > 0) {
+            count--;
+            //if (count == 0) {
+                intruder.timedSprint(rotation.size());
+            //}
         }
-        else
-        {
-            return rotation.pop();
-        }
+            if (rotation.empty()) {
+                previousAI.reset();
+                intruder.setAI(previousAI);
+                return intruder.ai.getSpeed();
+            } else {
+                return rotation.pop();
+            }
     }
 
     @Override
