@@ -79,7 +79,7 @@ public class Intruder extends Agent {
 			return;
 		}
 
-		this.speed = 1.4f;//(float) Math.random()*1.4f;
+		this.speed = 15f;//(float) Math.random()*1.4f;
 //		rotation = -10;
 //		/*
 //		rotation = (float) Math.random()*turningCircle/4;
@@ -109,7 +109,7 @@ public class Intruder extends Agent {
 			if(rotation > 10) {rotation = 10;}
 			else if(rotation < -10) {rotation = -10;}
 		} else {
-			if(speed > 1.4f) {speed = 1.4f;}
+			//if(speed > 1.4f) {speed = 1.4f;}
 			if(rotation > 180) {rotation = 180;}
 			else if(rotation < -180) {rotation = -180;}	
 		}
