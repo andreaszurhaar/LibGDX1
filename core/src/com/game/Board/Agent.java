@@ -62,6 +62,7 @@ public class Agent extends AssetManager {
 	protected ArrayList<Agent> agentList;
 	public float width;
 	public float height;
+	public int framesStationaryCounter;
 	
 	
 	public Agent(float x, float y, float width, float height) {
@@ -252,6 +253,8 @@ public class Agent extends AssetManager {
 		this.agentList = agentList;
 	}
 
-
+	public int getFramesStationaryCounter() {
+		return framesStationaryCounter;
+	}
 	
 }

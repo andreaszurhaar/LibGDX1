@@ -30,13 +30,12 @@ public class Guard extends Agent {
 	private Point2D.Float locationIntruder;
 	private float angleIntruder, prevAngle;
 	private Tracking tracking;
-	private ArrayList<Area> structures = new ArrayList<Area>();
+	private ArrayList<Area> seenStructures = new ArrayList<Area>(); //TODO: we never update the seen structures
 	public SpriteReader reader = new SpriteReader();
 	private final int ALLOWED_DISTANCE_ERROR = 10;
 	private boolean reachedCentre;
 	private double timeOfLastMessage;
 	private final double INTER_MESSAGE_TIME = 5; //in seconds
-	private int framesStationaryCounter;
 	private final float RADIUS = 400;
 
 
@@ -62,7 +61,7 @@ public class Guard extends Agent {
 
 	public Guard(float x, float y, float width, float height, ArrayList<Area> structures) {
 		super(x, y, width, height);
-		this.structures = structures;
+		seenStructures = structures;
 		//viewAngle.setToRandomDirection();
 		speed = 1;
 		soundRange = 0;
@@ -118,6 +117,12 @@ public class Guard extends Agent {
 			framesStationaryCounter++;
 		else
 			framesStationaryCounter = 0;
+
+
+		if(framesStationaryCounter > 180){
+			System.out.println("GUARD NOT MOVING");
+
+		}
 
 		//System.out.println("to: "+speed+"  "+angle);
 		if (ai instanceof AStarNew) {
@@ -199,6 +204,8 @@ public class Guard extends Agent {
 								ArrayList<Area> storedStructures = currentGuard.ai.seenStructures;
 								currentGuard.ai = new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, storedStructures);
 							}
+							System.out.println("size of seen structures of this guard: " + ((Guard) currentGuard).seenStructures.size());;
+							currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, ((Guard) currentGuard).seenStructures));
 						}
 					}
 				}
@@ -236,5 +243,6 @@ public class Guard extends Agent {
 		}
 
 	}
+
 
 }

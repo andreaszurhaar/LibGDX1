@@ -177,4 +177,5 @@ public class Intruder extends Agent {
 	public void addStructures(Area structure){
 		structures.add(structure);
 	}
+
 }

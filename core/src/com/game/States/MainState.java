@@ -83,6 +83,7 @@ public class MainState extends State {
         this.agents = agents;
         this.walls = walls;
 
+
         for(int i = 0; i < this.walls.size(); i++){
             this.structures.add(this.walls.get(i));
         }
@@ -112,11 +113,14 @@ public class MainState extends State {
                     ((HeuristicAI) agentAI).setPattern("heatmap");
                     this.agents.get(i).ai.setArea(400,200);
                     agentAI.setAgent(this.agents.get(i));
+                    this.agents.get(i).ai.setStructures(structures);
                     guards.add(agents.get(i));
                 } else if(guardAI == "Random patrolling") {
                         AI agentAI = new HeuristicAI();
                         this.agents.get(i).setAI(agentAI);((HeuristicAI) agentAI).setPattern("random");
                     this.agents.get(i).ai.setArea(400,200);
+
+                    this.agents.get(i).ai.setStructures(structures);
                     agentAI.setAgent(this.agents.get(i));
                     guards.add(agents.get(i));
             	} else {
