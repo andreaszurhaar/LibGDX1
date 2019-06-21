@@ -156,6 +156,7 @@ public class HeuristicAI extends AI {
         else if (pattern.equals("heatmap")){
 
             System.out.println("running heuristic heatmap");
+            //if we removed all exploration points, run explorationSetup again
             point = heatMapMovement();
         }
 
@@ -366,6 +367,15 @@ public class HeuristicAI extends AI {
                     closestPoints.add(explorationPoints.get(i));
                 }
             }
+
+        /**
+         * When the guard runs out of exploration points, refill the list
+         */
+        if(closestPoints.size() == 0){
+                explorationSetUpGuards();
+                return currentExplorationPoint;
+            }
+
 
             //check where each of the closest points are with respect to the the currentExplorationPoint
             //if any have the same relativeDirection as the currentDirection, return that point
