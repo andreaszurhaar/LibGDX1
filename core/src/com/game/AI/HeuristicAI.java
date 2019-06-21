@@ -120,6 +120,8 @@ public class HeuristicAI extends AI {
         explorationPoints = new ArrayList<Vector2>();
         float tempX = 10;
         float tempY = 10;
+//        float tempX = (BOARD_WIDTH/MapState.X_REDUC) / FACTOR;
+//        float tempY = (650/MapState.Y_REDUC) / FACTOR;
 
         float areaWidth = cornerPoints.get(2).x - cornerPoints.get(0).x;
         int nrOfSquaresWidth = (int) (areaWidth / tempX);
@@ -325,7 +327,6 @@ public class HeuristicAI extends AI {
 //        System.out.println("size of explored structures: " + exploredStructures.size());
         if (exploredStructures.size() > 0) {
 
-
             for (int i = 0; i < explorationPoints.size(); i++) {
                 for (int j = 0; j<exploredStructures.size();j++) {
                     if (exploredStructures.get(j).area.contains(explorationPoints.get(i))) {
@@ -349,7 +350,6 @@ public class HeuristicAI extends AI {
                 return point;
             }
             exploredStructures.remove(0);
-
         }
 
             float minPointDistance = Float.MAX_VALUE;

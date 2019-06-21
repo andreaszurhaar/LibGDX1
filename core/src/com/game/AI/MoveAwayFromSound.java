@@ -69,6 +69,19 @@ public class MoveAwayFromSound extends AI {
         instruction.translate(destPoint, intruder, false);
         rotation = instruction.getRotations();
         speed = instruction.getSpeeds();
+
+//        if(previousAI instanceof HeuristicAI) {
+//            AStarNew astar = new AStarNew(seenStructures);
+//            astar.setAgent(intruder);
+//            astar.runAgain(intruder.xPos, intruder.yPos, destPoint.x, destPoint.y);
+//            rotation = astar.getRotationStack();
+//            speed = astar.getSpeedStack();
+//        }
+//        else {
+//        instruction.translate(destPoint, intruder, false);
+//        rotation = instruction.getRotations();
+//        speed = instruction.getSpeeds();
+//        }
         }
     }
 
