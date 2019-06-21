@@ -165,7 +165,7 @@ public class AStarNew extends AI {
             //System.out.println("Failure");
         }
 
-        printPath(target);
+//        printPath(target);
         returnPath(target);
     }
 

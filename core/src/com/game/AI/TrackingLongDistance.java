@@ -26,7 +26,7 @@ public class TrackingLongDistance extends AI{
     private boolean predictive = false;
     private Instruction instruction;
     private Vector2 opponentLocation;
-    private ArrayList<Area> structures = new ArrayList<Area>();
+    private ArrayList<Area> seenStructures = new ArrayList<Area>();
     private ArrayList<Rectangle2D.Float> rectangles;
     private AStarNew astar;
 
@@ -39,7 +39,7 @@ public class TrackingLongDistance extends AI{
         speed = new Stack<Float>();
         rotation = new Stack<Float>();
         previousAI = storeAI;
-        structures = seenStructures;
+        this.seenStructures = seenStructures;
         //previousPos = new ArrayList<Vector2>();
         //trackcounter = 0;
         instruction = new Instruction();
@@ -47,10 +47,12 @@ public class TrackingLongDistance extends AI{
     }
 
     public void trackIntruder(){
-        for (Area a : structures)
+        for (Area a : seenStructures)
         {
             rectangles.add(new Rectangle2D.Float(a.xPos,a.yPos,a.getMaxX()-a.xPos, a.getMaxY()-a.yPos));
         }
+        System.out.println("opponentlocation is: " + opponentLocation.x +","+opponentLocation.y);
+        System.out.println("guard centers are: " + guard.xCenter +","+guard.yCenter);
         astar = new AStarNew(rectangles, guard.xCenter, guard.yCenter, opponentLocation.x, opponentLocation.y, guard);
 //        instruction.translate(opponentLocation, guard, false);
         rotation = astar.getRotationStack();
@@ -89,7 +91,7 @@ public class TrackingLongDistance extends AI{
 
     @Override
     public void setStructures(ArrayList<Area> structures) {
-        this.structures = structures;
+        seenStructures = structures;
     }
 
     @Override
