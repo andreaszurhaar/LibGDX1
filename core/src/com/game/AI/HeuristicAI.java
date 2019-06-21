@@ -40,6 +40,7 @@ public class HeuristicAI extends AI {
     public boolean startingPos, guardSeen;
     public ArrayList<Area> exploredStructures;
     private Vector2 currentExplorationPoint;
+    private Vector2 previousExplorationPoint;
     private Direction currentDirection = Direction.NORTH;
     private ArrayList<Point2D.Float> cornerPoints;
     public ArrayList<Rectangle2D.Float> astarStructures;
@@ -426,9 +427,10 @@ public class HeuristicAI extends AI {
             if (closestPoints.get(0).x < currentExplorationPoint.x && closestPoints.get(0).y > currentExplorationPoint.y)
                 relativeDirection = Direction.NORTH_WEST;
             currentDirection = relativeDirection;
+            previousExplorationPoint = currentExplorationPoint;
             currentExplorationPoint = closestPoints.get(0);
 
-            //explorationPoints.remove(currentExplorationPoint);
+            explorationPoints.remove(currentExplorationPoint);
 //            System.out.println("to go to point: " + currentExplorationPoint);
             return currentExplorationPoint;
     }

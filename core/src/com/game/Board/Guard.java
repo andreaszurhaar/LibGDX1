@@ -36,7 +36,6 @@ public class Guard extends Agent {
 	private boolean reachedCentre;
 	private double timeOfLastMessage;
 	private final double INTER_MESSAGE_TIME = 5; //in seconds
-	private int framesStationaryCounter;
 	private final float RADIUS = 400;
 
 
@@ -118,6 +117,10 @@ public class Guard extends Agent {
 			framesStationaryCounter++;
 		else
 			framesStationaryCounter = 0;
+
+		if(framesStationaryCounter > 180){
+			System.out.println("GUARD NOT MOVING");
+		}
 
 		//System.out.println("to: "+speed+"  "+angle);
 		if (ai instanceof AStarNew) {
@@ -238,5 +241,6 @@ public class Guard extends Agent {
 		}
 
 	}
+
 
 }
