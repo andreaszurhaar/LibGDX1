@@ -142,12 +142,12 @@ public class HeuristicAI extends AI {
 
     public void exploration() {
         if (pattern.equals("closest")) {
-            System.out.println("running heuristic closestUnknown");
+//            System.out.println("running heuristic closestUnknown");
             point = closestUnknown();
         }
         else if (pattern.equals("random")) {
 
-            System.out.println("running heuristic random");
+//            System.out.println("running heuristic random");
             point = allOptions();
         }
 //        else if (pattern.equals("all")) {
@@ -156,7 +156,6 @@ public class HeuristicAI extends AI {
         else if (pattern.equals("heatmap")){
 
             System.out.println("running heuristic heatmap");
-            //if we removed all exploration points, run explorationSetup again
             point = heatMapMovement();
         }
 
@@ -179,9 +178,9 @@ public class HeuristicAI extends AI {
     }
 
     public void moveGuardToCenter(Vector2 centerLocation) {
-        System.out.println("Agent is: " + agent);
-        System.out.println("calling a star with location: " + agent.xCenter + "," + agent.yCenter);
-        System.out.println("target centerloc for astar: " + centerLocation.x + "," + centerLocation.y);
+//        System.out.println("Agent is: " + agent);
+//        System.out.println("calling a star with location: " + agent.xCenter + "," + agent.yCenter);
+//        System.out.println("target centerloc for astar: " + centerLocation.x + "," + centerLocation.y);
 
         AStarNew astar = new AStarNew(astarStructures,agent.xCenter, agent.yCenter, centerLocation.x, centerLocation.y,agent);
 
@@ -405,7 +404,7 @@ public class HeuristicAI extends AI {
                 if (relativeDirection == currentDirection) {
                     currentExplorationPoint = closestPoints.get(j);
                     explorationPoints.remove(currentExplorationPoint);
-                    System.out.println("to go to point: " + currentExplorationPoint);
+//                    System.out.println("to go to point: " + currentExplorationPoint);
                     return currentExplorationPoint;
                 }
             }
@@ -430,7 +429,7 @@ public class HeuristicAI extends AI {
             currentExplorationPoint = closestPoints.get(0);
 
             //explorationPoints.remove(currentExplorationPoint);
-            System.out.println("to go to point: " + currentExplorationPoint);
+//            System.out.println("to go to point: " + currentExplorationPoint);
             return currentExplorationPoint;
     }
 

@@ -111,11 +111,14 @@ public class MainState extends State {
                     ((HeuristicAI) agentAI).setPattern("heatmap");
                     this.agents.get(i).ai.setArea(400,200);
                     agentAI.setAgent(this.agents.get(i));
+                    this.agents.get(i).ai.setStructures(structures);
                     guards.add(agents.get(i));
                 } else if(guardAI == "Random patrolling") {
                         AI agentAI = new HeuristicAI();
                         this.agents.get(i).setAI(agentAI);((HeuristicAI) agentAI).setPattern("random");
                     this.agents.get(i).ai.setArea(400,200);
+
+                    this.agents.get(i).ai.setStructures(structures);
                     agentAI.setAgent(this.agents.get(i));
                     guards.add(agents.get(i));
             	} else {
