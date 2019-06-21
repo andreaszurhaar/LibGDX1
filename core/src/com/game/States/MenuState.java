@@ -137,6 +137,7 @@ public class MenuState extends State {
                 String intruderAI = (String) agentBots.getSelected();
                 if(levelInt == 0 ) {
                     gamestatemanager.push(new MapState(gamestatemanager, guardAI, intruderAI));
+                    //TODO change here to use test state
                 }
                 else{
                     //gamestatemanager.push(new MainState(gsm,levelReader.fileReader(levelInt).get(1),levelReader.fileReader(levelInt).get(0),levelReader.fileReader(levelInt).get(2),new GuardCirclePatrolling(),new Astar()));
