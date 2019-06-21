@@ -61,6 +61,7 @@ public class MainState extends State {
     public double timeLimit = 60.00;
     String intruderAI;
     String guardAI;
+    public long startTime;
 
 
     public MainState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls, String guardAI, String intruderAI) {
@@ -197,6 +198,8 @@ public class MainState extends State {
 //                guardCounter++;
 //            }
 //        }
+        //start the timer
+        startTime = System.currentTimeMillis();
     }
 
 
@@ -257,7 +260,7 @@ public class MainState extends State {
         sb.draw(wall, 820, 520, 20, 180);
 
         //Draws the time onto the screen
-        deltaTime += Gdx.graphics.getDeltaTime();
+        deltaTime = (float) (System.currentTimeMillis()-startTime)/1000;
         str = Float.toString(deltaTime);
         font.draw(sb, str, 100, 600);
         font.draw(sb, "TIME", 50, 600);
