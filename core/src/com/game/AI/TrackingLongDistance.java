@@ -42,15 +42,17 @@ public class TrackingLongDistance extends AI{
         structures = seenStructures;
         //previousPos = new ArrayList<Vector2>();
         //trackcounter = 0;
+        this.seenStructures = seenStructures;
         instruction = new Instruction();
         trackIntruder();
     }
 
     public void trackIntruder(){
-        for (Area a : structures)
+        for (Area a : seenStructures)
         {
             rectangles.add(new Rectangle2D.Float(a.xPos,a.yPos,a.getMaxX()-a.xPos, a.getMaxY()-a.yPos));
         }
+
         astar = new AStarNew(rectangles, guard.xCenter, guard.yCenter, opponentLocation.x, opponentLocation.y, guard);
 //        instruction.translate(opponentLocation, guard, false);
         rotation = astar.getRotationStack();
@@ -89,7 +91,7 @@ public class TrackingLongDistance extends AI{
 
     @Override
     public void setStructures(ArrayList<Area> structures) {
-        this.structures = structures;
+       // this.structures = structures;
     }
 
     @Override

@@ -12,6 +12,7 @@ import com.game.AI.AI;
 //import com.game.AI.CopsCenters;
 import com.game.AI.GuardPatrolling;
 import com.game.AI.InvestigateSound;
+import com.game.AI.MoveAwayFromSound;
 import com.game.AI.Tracking;
 import com.game.AI.TrackingLongDistance;
 import com.game.AI.Astar.AStarNew;
@@ -193,7 +194,11 @@ public class Guard extends Agent {
 						Agent currentGuard = agentList.get(i);
 						if (computeDistance(currentGuard,this)<RADIUS && currentGuard != this) {
 //						System.out.println("set guard " + currentGuard + " to tracking long distance");
-							currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, ((Guard) currentGuard).structures));
+							//currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, ((Guard) currentGuard).structures));
+							if(!(currentGuard instanceof Guard)) {
+								ArrayList<Area> storedStructures = currentGuard.ai.seenStructures;
+								currentGuard.ai = new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, storedStructures);
+							}
 						}
 					}
 				}
