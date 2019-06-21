@@ -171,18 +171,18 @@ public class AStarNew extends AI {
 
     public void printPath(NodeNew node) {
         NodeNew temp = node;
-        System.out.println("The path to be taken from target node " + target.id + " is: ");
+      //  System.out.println("The path to be taken from target node " + target.id + " is: ");
         path = new ArrayList<NodeNew>();
         path.add(target);
         while (temp.hasParent()) {
-            System.out.print("Node " + temp.id + " with coords: " + temp.xcoord + "," + temp.ycoord );
+       //     System.out.print("Node " + temp.id + " with coords: " + temp.xcoord + "," + temp.ycoord );
             //Path starting from last node to start node
             path.add(temp);
-            System.out.println(" to ");
+        //    System.out.println(" to ");
             temp = temp.getParent();
         }
         path.add(start);
-        System.out.println("start node " + start.id + " with coords: " + temp.xcoord + "," + temp.ycoord);
+     //   System.out.println("start node " + start.id + " with coords: " + temp.xcoord + "," + temp.ycoord);
         counter = path.size();
 
     }

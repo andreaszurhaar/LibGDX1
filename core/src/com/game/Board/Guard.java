@@ -118,8 +118,10 @@ public class Guard extends Agent {
 		else
 			framesStationaryCounter = 0;
 
+
 		if(framesStationaryCounter > 180){
 			System.out.println("GUARD NOT MOVING");
+
 		}
 
 		//System.out.println("to: "+speed+"  "+angle);
