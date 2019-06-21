@@ -82,6 +82,7 @@ public class MainState extends State {
         this.agents = agents;
         this.walls = walls;
 
+
         for(int i = 0; i < this.walls.size(); i++){
             this.structures.add(this.walls.get(i));
         }

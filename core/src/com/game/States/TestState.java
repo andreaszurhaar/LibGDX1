@@ -6,8 +6,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.game.AI.AI;
 import com.game.AI.Astar.AStarNew;
+import com.game.AI.CopsCenters;
 import com.game.AI.GuardCirclePatrolling;
 import com.game.AI.GuardPatrolling;
 import com.game.AI.HeuristicAI;
@@ -22,6 +24,7 @@ import com.game.Objects.Play;
 import com.game.Readers.SpriteReader;
 import com.game.Readers.TestWriter;
 
+import java.awt.geom.Point2D;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,11 +36,9 @@ public class TestState extends State {
     public ArrayList<Agent> guards;
     public ArrayList<Agent> intruders;
     public ArrayList<Structure> walls;
-
     private BitmapFont font;
     private float deltaTime = -10;
     CharSequence str;
-
     public Texture background;
     public Texture wall;
     public Play play;
@@ -60,17 +61,17 @@ public class TestState extends State {
 
     public TestState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls, String guardAI, String intruderAI, int counter) {
         super(gsm);
+        this.counter = counter +1;
         font = new BitmapFont();
-        this.counter = counter + 1;
         font.setColor(Color.WHITE);
         this.intruderAI = intruderAI;
         this.guardAI = guardAI;
         wall = new Texture("wall.png");
-        play = new Play(865, 545);
-        ground = new Ground(0, 0);
+        play = new Play(865,545);
+        ground = new Ground(0,0);
         reader = new SpriteReader();
         try {
-            tR = reader.getImage(100, 100, 25, 25);
+            tR = reader.getImage(100,100,25,25);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,73 +80,76 @@ public class TestState extends State {
         this.agents = agents;
         this.walls = walls;
 
-        for (int i = 0; i < this.walls.size(); i++) {
+
+        for(int i = 0; i < this.walls.size(); i++){
             this.structures.add(this.walls.get(i));
         }
 
         guards = new ArrayList<Agent>();
         intruders = new ArrayList<Agent>();
 
-        for (int i = 0; i < this.agents.size(); i++) {
-            if (this.agents.get(i) instanceof Guard) {
-                if (guardAI == "Patrolling") {
+        for(int i = 0; i < this.agents.size(); i++){
+            if(this.agents.get(i) instanceof Guard){
+                if(guardAI == "Patrolling") {
                     AI agentAI = new GuardPatrolling();
                     this.agents.get(i).setAI(agentAI);
                     agentAI.setAgent(this.agents.get(i));
-                    this.agents.get(i).ai.setArea(400, 200);
+                    this.agents.get(i).ai.setArea(400,200);
                     this.agents.get(i).ai.setStructures(structures);
                     guards.add(this.agents.get(i));
-                } else if (guardAI == "Circle patrolling") {
+                } else if(guardAI == "Circle patrolling") {
                     AI agentAI = new GuardCirclePatrolling();
                     this.agents.get(i).setAI(agentAI);
                     agentAI.setAgent(this.agents.get(i));
-                    this.agents.get(i).ai.setArea(400, 200);
+                    this.agents.get(i).ai.setArea(400,200);
                     this.agents.get(i).ai.setStructures(structures);
                     guards.add(this.agents.get(i));
-                } else if (guardAI == "Heatmap patrolling") {
+                } else if(guardAI == "Heatmap patrolling") {
                     AI agentAI = new HeuristicAI();
                     this.agents.get(i).setAI(agentAI);
                     ((HeuristicAI) agentAI).setPattern("heatmap");
+                    this.agents.get(i).ai.setArea(400,200);
+                    agentAI.setAgent(this.agents.get(i));
+                    this.agents.get(i).ai.setStructures(structures);
+                    guards.add(agents.get(i));
+                } else if(guardAI == "Random patrolling") {
+                    AI agentAI = new HeuristicAI();
+                    this.agents.get(i).setAI(agentAI);((HeuristicAI) agentAI).setPattern("random");
+                    this.agents.get(i).ai.setArea(400,200);
+
+                    this.agents.get(i).ai.setStructures(structures);
                     agentAI.setAgent(this.agents.get(i));
                     guards.add(agents.get(i));
-                } else if (guardAI == "Random patrolling") {
+                } else {
+                    System.out.println("Unrecognised AI name: "+guardAI);
+                    System.exit(0);
+                }
+            } else {
+                if(intruderAI == "Basic") {
+                    AI agentAI = new IntruderBasicMovement();
+                    this.agents.get(i).setAI(agentAI);
+                    agentAI.setAgent(this.agents.get(i));
+                    this.agents.get(i).ai.setArea(400,200);
+                    this.agents.get(i).ai.setStructures(structures);
+                    intruders.add(agents.get(i));
+                } else if(intruderAI == "Heuristic Closest AI") {
+                    AI agentAI = new HeuristicAI();
+                    this.agents.get(i).setAI(agentAI);
+                    ((HeuristicAI) agentAI).setPattern("closest");
+                    agentAI.setAgent(this.agents.get(i));
+                    intruders.add(agents.get(i));
+                    this.agents.get(i).ai.setArea(400,200);
+                    this.agents.get(i).ai.setStructures(structures);
+                } else if(intruderAI == "Heuristic Random AI") {
                     AI agentAI = new HeuristicAI();
                     this.agents.get(i).setAI(agentAI);
                     ((HeuristicAI) agentAI).setPattern("random");
                     agentAI.setAgent(this.agents.get(i));
-                    guards.add(agents.get(i));
-                } else {
-                    System.out.println("Unrecognised AI name: " + guardAI);
-                    System.exit(0);
-                }
-            } else {
-                if (intruderAI == "Basic") {
-                    AI agentAI = new IntruderBasicMovement();
-                    this.agents.get(i).setAI(agentAI);
-                    agentAI.setAgent(this.agents.get(i));
-                    this.agents.get(i).ai.setArea(400, 200);
-                    this.agents.get(i).ai.setStructures(structures);
                     intruders.add(agents.get(i));
-                } else if (intruderAI == "A*") {
-                    AI agentAI = new AStarNew(structures);
-                    this.agents.get(i).setAI(agentAI);
-                    agentAI.setAgent(this.agents.get(i));
-                    this.agents.get(i).ai.setArea(400, 200);
-                    this.agents.get(i).ai.setStructures(structures);
-                    intruders.add(agents.get(i));
-                } else if (intruderAI == "Heuristic AI") {
-                    AI agentAI = new HeuristicAI();
-                    this.agents.get(i).setAI(agentAI);
-//	                ((HeuristicAI) agentAI).setPattern("snake");
-//	                agentAI.setAgent(agents.get(i));
-                    //((HeuristicAI) agentAI).setPattern("closest");
-                    ((HeuristicAI) agentAI).setPattern("closest");
-                    agentAI.setAgent(this.agents.get(i));
-                    intruders.add(agents.get(i));
-                    this.agents.get(i).ai.setArea(400, 200);
+                    this.agents.get(i).ai.setArea(400,200);
                     this.agents.get(i).ai.setStructures(structures);
                 } else {
-                    System.out.println("Unrecognised AI name: " + intruderAI);
+                    System.out.println("Unrecognised AI name: "+intruderAI);
                     System.exit(0);
                 }
             }
@@ -154,11 +158,40 @@ public class TestState extends State {
              * Giving each guard the arraylist of guards so that
              * they are accesible for communication
              */
-            for (int j = 0; j < guards.size(); j++) {
+            for(int j = 0; j < guards.size(); j++){
                 guards.get(j).setAgentList(guards);
             }
 
         }
+        board = new Board();
+        if(!this.structures.isEmpty()) {board.setUp(this.structures);}
+        if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}
+        //guardPatrol = new GuardPatrolling(board)
+        //Controller controller = new Controller(board);
+        CopsCenters copsCenters = new CopsCenters(guards);
+
+        Point2D.Float[] guardCenters = copsCenters.getCenters();
+        ArrayList<ArrayList<Point2D.Float>> areas = copsCenters.getAreas(guardCenters);
+
+        for(int i = 0; i < guards.size(); i++){
+            guards.get(i).setCenterLocation(guardCenters[i]);
+            if(guards.get(i).ai instanceof GuardCirclePatrolling){
+                //TODO (add increment away from wall so that guards dont get stuck)
+                guards.get(i).ai.setCornerPoints(areas.get(i));
+            }
+            if(guards.get(i).ai instanceof HeuristicAI){
+                guards.get(i).ai.setCornerPoints(areas.get(i));
+                ((HeuristicAI) guards.get(i).ai).moveGuardToCenter(new Vector2(guards.get(i).getCenterLocation().x,guards.get(i).getCenterLocation().y));
+            }
+            //TODO clean up AI-specific things like this from main state
+        }
+
+
+//        int guardCounter = 0;
+//        for(int i = 0; i < this.agents.size(); i++){
+//            if(agents.get(i) instanceof Guard){
+//                guards.get(guardCounter).setCenterLocation(guardCenters[guardCounter]);
+//                guardCounter++;
     }
 
 
