@@ -108,7 +108,7 @@ public class MainState extends State {
             	} else if(guardAI == "Heatmap patrolling") {
                     AI agentAI = new HeuristicAI();
                     this.agents.get(i).setAI(agentAI);
-                    ((HeuristicAI) agentAI).setPattern("closest");
+                    ((HeuristicAI) agentAI).setPattern("heatmap");
                     agentAI.setAgent(this.agents.get(i));
                     guards.add(agents.get(i));
                 } else if(guardAI == "Random patrolling") {
