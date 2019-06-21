@@ -166,9 +166,6 @@ public class MainState extends State {
             }
         }
 
-        //TODO remove to not generate random map
-        //RandomMapGenerator rmg = new RandomMapGenerator()
-
         board = new Board();
         if(!this.structures.isEmpty()) {board.setUp(this.structures);}
         if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}

@@ -1,6 +1,7 @@
 package com.game.Board;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.game.CopsAndRobbers;
 import com.game.Objects.hWall;
 
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ public class RandomMapGenerator {
     private int maxNrOfStructures;
     private int minNrOfGuards;
     private int maxNrOfGuards;
+    private int minNrOfTargets;
+    private int maxNrOfTargets;
     private final int ADJUSTED_BOARD_WIDTH = 360;
     private final int ADJUSTED_BOARD_HEIGHT = 160;
     //the fractions of frequency of each type of structure
@@ -33,20 +36,26 @@ public class RandomMapGenerator {
      * Minimum/maximum amount of agents
      */
 
-    public RandomMapGenerator(int minNrOfStructures, int maxNrOfStructures, int minNrOfGuards, int maxNrOfGuards){
+    public RandomMapGenerator(int minNrOfStructures, int maxNrOfStructures, int minNrOfGuards, int maxNrOfGuards, int minNrOfTargets, int maxNrOfTargets){
         this.minNrOfStructures = minNrOfStructures;
         this.maxNrOfStructures = maxNrOfStructures;
         this.minNrOfGuards = minNrOfGuards;
         this.maxNrOfGuards = maxNrOfGuards;
+        this.minNrOfTargets = minNrOfTargets;
+        this.maxNrOfTargets = maxNrOfTargets;
+        structures = new ArrayList<Area>();
+        agents = new ArrayList<Agent>();
+
+
         generateStructureList();
         generateAgentList();
+        //generateIntruder();
     }
 
     public ArrayList<Agent> generateAgentList() {
         /**
          * Generate a number of agents from U(minNrOfAgents, maxNrOfAgents) with random x and y coordinates
          */
-        ArrayList<Agent> agents = new ArrayList<Agent>();
 
         Random r = new Random();
         int nrOfGuards = r.nextInt(maxNrOfGuards + 1 - minNrOfGuards) + minNrOfGuards;
@@ -62,23 +71,53 @@ public class RandomMapGenerator {
             }
         }
 
-        for(int i = 0; i < 1; i++) {
+        //TODO use 1 intruder instead
+        boolean intruderAdded = false;
+        while(!intruderAdded) {
             int intruderXpos = r.nextInt(ADJUSTED_BOARD_WIDTH) + 20; //random x between 20 and 380
             int intruderYpos = r.nextInt(ADJUSTED_BOARD_HEIGHT) + 20; //random y between 20 and 180
+
             if (!checkOverlap(new Rectangle(intruderXpos, intruderYpos, 15 / X_REDUC, 15 / Y_REDUC))) {
-                agents.add(new Guard(intruderXpos, intruderYpos, 15 / X_REDUC, 15 / Y_REDUC));
-            }
-            else{
-                i--;
+                agents.add(new Intruder(intruderXpos, intruderYpos, 15 / X_REDUC, 15 / Y_REDUC));
+                intruderAdded = true;
             }
         }
-        return agents;
 
+
+//        for(int i = 0; i < 1; i++) {
+//            int intruderXpos = r.nextInt(ADJUSTED_BOARD_WIDTH) + 20; //random x between 20 and 380
+//            int intruderYpos = r.nextInt(ADJUSTED_BOARD_HEIGHT) + 20; //random y between 20 and 180
+//            if (!checkOverlap(new Rectangle(intruderXpos, intruderYpos, 15 / X_REDUC, 15 / Y_REDUC))) {
+//                agents.add(new Intruder(intruderXpos, intruderYpos, 15 / X_REDUC, 15 / Y_REDUC));
+//            }
+//            else{
+//                i--;
+//            }
+//        }
+        return agents;
     }
+//
+//    public ArrayList<Agent> generateIntruder(){
+//        for(int i = 0; i < 1; i++) {
+//            int intruderXpos = r.nextInt(ADJUSTED_BOARD_WIDTH) + 20; //random x between 20 and 380
+//            int intruderYpos = r.nextInt(ADJUSTED_BOARD_HEIGHT) + 20; //random y between 20 and 180
+//            if (!checkOverlap(new Rectangle(intruderXpos, intruderYpos, 15 / X_REDUC, 15 / Y_REDUC))) {
+//                agents.add(new Guard(intruderXpos, intruderYpos, 15 / X_REDUC, 15 / Y_REDUC));
+//            }
+//            else{
+//                i--;
+//            }
+//        }
+//    }
+
+
 
     public ArrayList<Area> generateStructureList() {
 
-        ArrayList<Area> structures = new ArrayList<Area>();
+        structures.add(new OuterWall(20/X_REDUC,0,(CopsAndRobbers.WIDTH-40)/X_REDUC,20/Y_REDUC));
+        structures.add(new OuterWall(20/X_REDUC,(CopsAndRobbers.HEIGHT-150)/Y_REDUC,(CopsAndRobbers.WIDTH-40)/X_REDUC,20/Y_REDUC));
+        structures.add(new OuterWall(0,0,20/X_REDUC,(CopsAndRobbers.HEIGHT-130)/Y_REDUC));
+        structures.add(new OuterWall((CopsAndRobbers.WIDTH-20)/X_REDUC,0,20/X_REDUC,(CopsAndRobbers.HEIGHT-130)/Y_REDUC));
 
         Random r = new Random();
         int nrOfStructures = r.nextInt(maxNrOfStructures + 1 - minNrOfStructures) + minNrOfStructures;
@@ -152,6 +191,21 @@ public class RandomMapGenerator {
                 }
             }
         }
+
+
+        int nrOfTargets = r.nextInt(maxNrOfTargets + 1 - minNrOfTargets) + minNrOfTargets;
+
+        for(int i = 0; i < nrOfTargets; i++) {
+            int targetXpos = r.nextInt(ADJUSTED_BOARD_WIDTH) + 20; //random x between 20 and 380
+            int targetYpos = r.nextInt(ADJUSTED_BOARD_HEIGHT) + 20; //random y between 20 and 180
+            if (!checkOverlap(new Rectangle(targetXpos, targetYpos, 40 / X_REDUC, 40 / Y_REDUC))) {
+                structures.add(new TargetArea(targetXpos, targetYpos, 40 / X_REDUC, 40 / Y_REDUC));
+            }
+            else{
+                i--; //dont increment counter if we didn't add the agent
+            }
+        }
+
         return structures;
     }
 
@@ -159,7 +213,7 @@ public class RandomMapGenerator {
         public boolean checkOverlap(Rectangle rec) {
 
             //TODO change
-            ArrayList<Area> walls = null;
+            //ArrayList<Area> walls = null;
 
             boolean overlap = false;
             for(int a=0; a<11 ;a++) {
@@ -172,11 +226,11 @@ public class RandomMapGenerator {
                         }
                     }
 
-                    for(int i = 0; i < walls.size(); i++) {
-                        if(walls.get(i).area.contains(x,y)) {
-                            return true;
-                        }
-                    }
+//                    for(int i = 0; i < walls.size(); i++) {
+//                        if(walls.get(i).area.contains(x,y)) {
+//                            return true;
+//                        }
+//                    }
 
                     for(int j = 0; j < agents.size(); j++) {
                         if(agents.get(j).area.contains(x,y)) {

@@ -18,7 +18,9 @@ import com.game.Board.Agent;
 import com.game.Board.Area;
 import com.game.Board.Board;
 import com.game.Board.Guard;
+import com.game.Board.RandomMapGenerator;
 import com.game.Board.Structure;
+import com.game.CopsAndRobbers;
 import com.game.Objects.Ground;
 import com.game.Objects.Play;
 import com.game.Readers.SpriteReader;
@@ -76,14 +78,12 @@ public class TestState extends State {
             e.printStackTrace();
         }
         //separate the agents and structures
-        this.structures = structures;
-        this.agents = agents;
+        //TODO remove to not generate random map
+        RandomMapGenerator rmg = new RandomMapGenerator(0,10, 1, 4, 1, 2);
+
+        this.structures = rmg.generateStructureList();
+        this.agents = rmg.generateAgentList();
         this.walls = walls;
-
-
-        for(int i = 0; i < this.walls.size(); i++){
-            this.structures.add(this.walls.get(i));
-        }
 
         guards = new ArrayList<Agent>();
         intruders = new ArrayList<Agent>();
@@ -111,7 +111,7 @@ public class TestState extends State {
                     this.agents.get(i).ai.setArea(400,200);
                     agentAI.setAgent(this.agents.get(i));
                     this.agents.get(i).ai.setStructures(structures);
-                    guards.add(agents.get(i));
+                    guards.add(this.agents.get(i));
                 } else if(guardAI == "Random patrolling") {
                     AI agentAI = new HeuristicAI();
                     this.agents.get(i).setAI(agentAI);((HeuristicAI) agentAI).setPattern("random");
@@ -131,13 +131,13 @@ public class TestState extends State {
                     agentAI.setAgent(this.agents.get(i));
                     this.agents.get(i).ai.setArea(400,200);
                     this.agents.get(i).ai.setStructures(structures);
-                    intruders.add(agents.get(i));
+                    intruders.add(this.agents.get(i));
                 } else if(intruderAI == "Heuristic Closest AI") {
                     AI agentAI = new HeuristicAI();
                     this.agents.get(i).setAI(agentAI);
                     ((HeuristicAI) agentAI).setPattern("closest");
                     agentAI.setAgent(this.agents.get(i));
-                    intruders.add(agents.get(i));
+                    intruders.add(this.agents.get(i));
                     this.agents.get(i).ai.setArea(400,200);
                     this.agents.get(i).ai.setStructures(structures);
                 } else if(intruderAI == "Heuristic Random AI") {
@@ -209,7 +209,7 @@ public class TestState extends State {
             for(int i = 0; i < intruders.size(); i++){
                 intruderTravel += intruders.get(i).totalDistanceTravelled;
             }
-            if (counter < 100) {
+            if (counter < 1) {
                 if (board.timeOfTracking != 0) {
 
                     testWriter = new TestWriter("Test.txt", deltaTime, "lost",guardTravel,intruderTravel);
@@ -253,6 +253,29 @@ public class TestState extends State {
 
     @Override
     public void render(SpriteBatch sb) {
+
+        sb.begin();
+        sb.draw(ground.texture,ground.xPos,ground.yPos, CopsAndRobbers.WIDTH,CopsAndRobbers.HEIGHT);
+        sb.draw(play.texture, play.xPos, play.yPos, 100, 100);
+        sb.draw(wall, 0, 500, 1000, 20);
+        sb.draw(wall, 820, 520, 20, 180);
+
+        //Draws the time onto the screen
+        deltaTime += Gdx.graphics.getDeltaTime();
+        str = Float.toString(deltaTime);
+        font.draw(sb, str, 100, 600);
+        font.draw(sb, "TIME", 50, 600);
+
+        //Draws all structures and agents
+        for(int i =0; i < structures.size(); i++ ){
+            structures.get(i).drawTexture(sb,MapState.X_REDUC,MapState.Y_REDUC);
+        }
+
+        for(int i =0; i < agents.size(); i++ ){
+            agents.get(i).drawTexture(sb,MapState.X_REDUC,MapState.Y_REDUC);
+        }
+
+        sb.end();
 
     }
 }
