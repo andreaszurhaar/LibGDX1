@@ -44,19 +44,21 @@ public class TrackingLongDistance extends AI{
         //trackcounter = 0;
         this.seenStructures = seenStructures;
         instruction = new Instruction();
+        rectangles = new ArrayList<Rectangle2D.Float>();
         trackIntruder();
     }
 
     public void trackIntruder(){
-        for (Area a : seenStructures)
-        {
-            rectangles.add(new Rectangle2D.Float(a.xPos,a.yPos,a.getMaxX()-a.xPos, a.getMaxY()-a.yPos));
-        }
+        if(previousAI instanceof HeuristicAI) {
+            for (Area a : seenStructures) {
+                rectangles.add(new Rectangle2D.Float(a.xPos, a.yPos, a.getMaxX() - a.xPos, a.getMaxY() - a.yPos));
+            }
 
-        astar = new AStarNew(rectangles, guard.xCenter, guard.yCenter, opponentLocation.x, opponentLocation.y, guard);
-//        instruction.translate(opponentLocation, guard, false);
-        rotation = astar.getRotationStack();
-        speed = astar.getSpeedStack();
+            astar = new AStarNew(rectangles, guard.xCenter, guard.yCenter, opponentLocation.x, opponentLocation.y, guard);
+            //        instruction.translate(opponentLocation, guard, false);
+            rotation = astar.getRotationStack();
+            speed = astar.getSpeedStack();
+        }
     }
 
     @Override

@@ -195,7 +195,7 @@ public class Guard extends Agent {
 						if (computeDistance(currentGuard,this)<RADIUS && currentGuard != this) {
 //						System.out.println("set guard " + currentGuard + " to tracking long distance");
 							//currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, ((Guard) currentGuard).structures));
-							if(!(currentGuard instanceof Guard)) {
+							if((currentGuard instanceof Guard)) {
 								ArrayList<Area> storedStructures = currentGuard.ai.seenStructures;
 								currentGuard.ai = new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, storedStructures);
 							}
