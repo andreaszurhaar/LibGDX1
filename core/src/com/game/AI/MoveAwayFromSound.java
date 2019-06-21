@@ -45,6 +45,8 @@ public class MoveAwayFromSound extends AI {
         double directionAngleRadian = Math.toRadians(directionAngle);
         double oppositeAngleRadian = directionAngleRadian + Math.PI;
 
+        //we can also make it so the intruder doesn't stop for a few seconds
+
         Vector2 destPoint = new Vector2((float) (intruder.xCenter + MOVING_AWAY_FROM_SOUND_TIME * intruder.getSpeed() * Math.cos(oppositeAngleRadian)), (float) (intruder.yCenter + MOVING_AWAY_FROM_SOUND_TIME * intruder.getSpeed() * Math.sin(oppositeAngleRadian)));
 
         /**
