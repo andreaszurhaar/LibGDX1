@@ -13,7 +13,10 @@ import com.game.Board.OuterWall;
 import com.game.CopsAndRobbers;
 import com.game.States.MapState;
 
+import org.w3c.dom.css.Rect;
+
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.Random;
@@ -39,7 +42,7 @@ public class HeuristicAI extends AI {
     private Vector2 currentExplorationPoint;
     private Direction currentDirection = Direction.NORTH;
     private ArrayList<Point2D.Float> cornerPoints;
-    public ArrayList<Area> astarStructures;
+    public ArrayList<Rectangle2D.Float> astarStructures;
     private AStarNew astar;
     private Vector2 prevPoint;
 
@@ -54,7 +57,7 @@ public class HeuristicAI extends AI {
         startingPos = false;
         structures = new ArrayList<Area>();
         cornerPoints = new ArrayList<Point2D.Float>();
-        astarStructures = new ArrayList<Area>();
+        astarStructures = new ArrayList<Rectangle2D.Float>();
         explorationSetUp();
     }
 
@@ -68,7 +71,7 @@ public class HeuristicAI extends AI {
         startingPos = false;
         structures = new ArrayList<Area>();
         cornerPoints = new ArrayList<Point2D.Float>();
-        astarStructures = new ArrayList<Area>();
+        astarStructures = new ArrayList<Rectangle2D.Float>();
         explorationSetUp();
 
     }
@@ -139,51 +142,55 @@ public class HeuristicAI extends AI {
 
     public void exploration() {
         if (pattern.equals("closest")) {
+            System.out.println("running heuristic closestUnknown");
             point = closestUnknown();
         }
         else if (pattern.equals("random")) {
+
+            System.out.println("running heuristic random");
             point = allOptions();
         }
 //        else if (pattern.equals("all")) {
 //            point = allOptions();
 //        }
         else if (pattern.equals("heatmap")){
+
+            System.out.println("running heuristic heatmap");
             point = heatMapMovement();
         }
 
-       // if (seenStructures.size()>0) {
-            AStarNew astar = new AStarNew(astarStructures);
-//            System.out.println("seen structures: ");
-//            for (Area a : seenStructures) {
-//                System.out.println("seen structure: " + a);
-//            }
-            astar.setAgent(agent);
-            astar.runAgain(agent.xCenter, agent.yCenter, point.x, point.y);
-            rotation = astar.getRotationStack();
-            speed = astar.getSpeedStack();
-//
-//       System.out.println("agent xPos = " + agent.xPos);
-//        System.out.println("agent yPos = " + agent.yPos);
-//        System.out.println("target xPos = " + point.x);
-//        System.out.println("target yPos = " + point.y);
-//        System.out.println("rotation stack = " + rotation.size());
-//        System.out.println("speed stack = " + speed.size());
-//        System.out.println("seen structures =" + seenStructures.size());
-//        System.out.println("explored stuctures = " + exploredStructures.size());
+        if (prevPoint == point)
+        {
+            System.out.println("adjusting the point");
+//            point.x = point.x + 1;
+//            point.y = point.y + 1;
+            explorationPoints.remove(point);
+        }
+        prevPoint = point;
+
+        System.out.println("Agent is: " + agent);
+        System.out.println("calling a star with location: " + agent.xCenter + "," + agent.yCenter);
+        System.out.println("target loc for astar: " + point.x + "," + point.y);
+        AStarNew astar = new AStarNew(astarStructures, agent.xCenter, agent.yCenter, point.x, point.y,agent);
+
+        rotation = astar.getRotationStack();
+        speed = astar.getSpeedStack();
     }
 
     public void moveGuardToCenter(Vector2 centerLocation) {
-        AStarNew astar = new AStarNew(seenStructures);
-        astar.setAgent(agent);
-        astar.runAgain(agent.xPos, agent.yPos, centerLocation.x, centerLocation.y);
+        System.out.println("Agent is: " + agent);
+        System.out.println("calling a star with location: " + agent.xCenter + "," + agent.yCenter);
+        System.out.println("target centerloc for astar: " + centerLocation.x + "," + centerLocation.y);
+
+        AStarNew astar = new AStarNew(astarStructures,agent.xCenter, agent.yCenter, centerLocation.x, centerLocation.y,agent);
+
         rotation = astar.getRotationStack();
         speed = astar.getSpeedStack();
     }
     private Vector2 closestUnknown() {
-
         //Checks if there are structures that need to be explored and moves to them
-//        System.out.println("explored structures size is: " + exploredStructures.size());
         if (exploredStructures.size() > 0){
+
             for(int i = 0; i < explorationPoints.size(); i++){
                 for (int j = 0; j<exploredStructures.size();j++){
                     if(exploredStructures.get(j).area.contains(explorationPoints.get(i))){
@@ -191,6 +198,7 @@ public class HeuristicAI extends AI {
                     }
                 }
             }
+
             if(exploredStructures.get(0).xPos > 12 && exploredStructures.get(0).xPos < 388 && exploredStructures.get(0).yPos < 195 && exploredStructures.get(0).yPos > 15){
                 float distance = 100000;
                 int index = 0;
@@ -201,7 +209,8 @@ public class HeuristicAI extends AI {
                         index = i;
                     }
                 }
-                    point = explorationPoints.get(index);
+
+                point = explorationPoints.get(index);
                 exploredStructures.remove(0);
                 return point;
             }
@@ -245,18 +254,12 @@ public class HeuristicAI extends AI {
 
 
 //            System.out.println("closest new exploration point: " + point);
-            if (point == prevPoint)
+            if (point == prevPoint && agent.speed == 0)
             {
                 explorationPoints.remove(point);
 //                System.out.println("point is the same as previously, so we run closestUnknown again");
                 closestUnknown();
             }
-//            for (Area a: structures){
-//                if (a.contains(point.x, point.y)){
-//                    point.x = point.x+2;
-//                    point.y = point.y+2;
-//                }
-//            }
         }
         prevPoint = point;
         return point;
@@ -292,11 +295,11 @@ public class HeuristicAI extends AI {
         if (exploredStructures.size() > 0){
 
             for(int i = 0; i < explorationPoints.size(); i++){
-                for (int j = 0; j<exploredStructures.size();j++) {
-                    if (exploredStructures.get(j).area.contains(explorationPoints.get(i))) {
+
+                    if (exploredStructures.get(0).area.contains(explorationPoints.get(i))) {
                         explorationPoints.remove(i);
                     }
-                }
+
             }
             if(exploredStructures.get(0).xPos > 12 && exploredStructures.get(0).xPos < 388 && exploredStructures.get(0).yPos < 195 && exploredStructures.get(0).yPos > 15){
                 point = new Vector2(exploredStructures.get(0).xPos,exploredStructures.get(0).yPos);
@@ -490,8 +493,9 @@ public class HeuristicAI extends AI {
                 if (!check) {
                     seenStructures.add(area);
                     Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
+                    Rectangle2D.Float rect = new Rectangle2D.Float(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
                     exploredStructures.add(rectangle);
-                    astarStructures.add(rectangle);
+                    astarStructures.add(rect);
 
                    // reset();
                 }
@@ -499,9 +503,10 @@ public class HeuristicAI extends AI {
             } else {
                 seenStructures.add(area);
                 Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
+                Rectangle2D.Float rect = new Rectangle2D.Float(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
                 exploredStructures.add(rectangle);
                 seenStructures.add(rectangle);
-                astarStructures.add(rectangle);
+                astarStructures.add(rect);
                // reset();
             }
         }

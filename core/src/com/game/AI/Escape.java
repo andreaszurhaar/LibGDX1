@@ -7,6 +7,9 @@ import com.game.Board.Area;
 import com.game.Board.Guard;
 import com.game.Board.Intruder;
 
+import org.w3c.dom.css.Rect;
+
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -21,6 +24,7 @@ public class Escape extends AI {
     private int trackcounter;
     private ArrayList<Vector2> previousPos;
     private Instruction instruct = new Instruction();
+    private ArrayList<Rectangle2D.Float> rectangles;
     private final double MOVE_AWAY_FROM_GUARD_TIME = 5; //in seconds
 
     public Escape(Intruder intruder, Agent opponent, AI storeAI, ArrayList<Area> seenStructures)
@@ -33,6 +37,7 @@ public class Escape extends AI {
         speed = new Stack<Float>();
         rotation = new Stack<Float>();
         instruction = new Instruction();
+        rectangles = new ArrayList<Rectangle2D.Float>();
         this.seenStructures = seenStructures;
         escapeFromGuard();
     }
@@ -52,9 +57,11 @@ public class Escape extends AI {
         //intruder.triggerSprint();
 
         if(previousAI instanceof HeuristicAI) {
-            AStarNew astar = new AStarNew(seenStructures);
-            astar.setAgent(intruder);
-            astar.runAgain(intruder.xPos, intruder.yPos, destPoint.x, destPoint.y);
+            for (Area a : seenStructures)
+        {
+            rectangles.add(new Rectangle2D.Float(a.xPos,a.yPos,a.getMaxX()-a.xPos, a.getMaxY()-a.yPos));
+        }
+            AStarNew astar = new AStarNew(rectangles,intruder.xCenter, intruder.yCenter, destPoint.x, destPoint.y, intruder);
             rotation = astar.getRotationStack();
             speed = astar.getSpeedStack();
 

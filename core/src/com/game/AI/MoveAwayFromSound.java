@@ -7,6 +7,7 @@ import com.game.Board.Area;
 import com.game.Board.Guard;
 import com.game.Board.Intruder;
 
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -18,6 +19,7 @@ public class MoveAwayFromSound extends AI {
     private Stack<Float> rotation;
     public Vector2 showvect;
     private AI previousAI;
+    private ArrayList<Rectangle2D.Float> rectangles;
     private float directionAngle;
     private Instruction instruction;
     private final double MOVING_AWAY_FROM_SOUND_TIME = 7.14; //in seconds, should be at most 10/1.4 = 7.14 because a sound can be heard at most 10 meters away, and guards move at 1.4m/s
@@ -32,6 +34,7 @@ public class MoveAwayFromSound extends AI {
         rotation = new Stack<Float>();
         instruction = new Instruction();
         this.seenStructures = seenStructures;
+        rectangles = new ArrayList<Rectangle2D.Float>();
         moveAwayFromSound();
     }
 
@@ -42,6 +45,8 @@ public class MoveAwayFromSound extends AI {
         double directionAngleRadian = Math.toRadians(directionAngle);
         double oppositeAngleRadian = directionAngleRadian + Math.PI;
 
+        //we can also make it so the intruder doesn't stop for a few seconds
+
         Vector2 destPoint = new Vector2((float) (intruder.xCenter + MOVING_AWAY_FROM_SOUND_TIME * intruder.getSpeed() * Math.cos(oppositeAngleRadian)), (float) (intruder.yCenter + MOVING_AWAY_FROM_SOUND_TIME * intruder.getSpeed() * Math.sin(oppositeAngleRadian)));
 
         /**
@@ -49,25 +54,22 @@ public class MoveAwayFromSound extends AI {
          */
         //instruction with sprinting: after -count- amount of pops, call intruder.sprint()
 
-        count = instruction.translateWithSprinting(destPoint, intruder, false);
-        System.out.println("Count: " + count);
+        if(previousAI instanceof HeuristicAI) {
+            for (Area a : seenStructures)
+            {
+                rectangles.add(new Rectangle2D.Float(a.xPos,a.yPos,a.getMaxX()-a.xPos, a.getMaxY()-a.yPos));
+            }
+            System.out.println("size of rectangles: " + rectangles);
+            AStarNew astar = new AStarNew(rectangles, intruder.xCenter, intruder.yCenter, destPoint.x, destPoint.y, intruder);
+            rotation = astar.getRotationStack();
+            speed = astar.getSpeedStack();
+
+        }
+        else {
+        instruction.translate(destPoint, intruder, false);
         rotation = instruction.getRotations();
         speed = instruction.getSpeeds();
-
-
-
-//        if(previousAI instanceof HeuristicAI) {
-//            AStarNew astar = new AStarNew(seenStructures);
-//            astar.setAgent(intruder);
-//            astar.runAgain(intruder.xPos, intruder.yPos, destPoint.x, destPoint.y);
-//            rotation = astar.getRotationStack();
-//            speed = astar.getSpeedStack();
-//        }
-//        else {
-//        instruction.translate(destPoint, intruder, false);
-//        rotation = instruction.getRotations();
-//        speed = instruction.getSpeeds();
-//        }
+        }
     }
 
     @Override

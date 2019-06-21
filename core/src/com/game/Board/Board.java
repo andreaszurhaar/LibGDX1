@@ -113,6 +113,7 @@ public class Board {
 			
 			float speed = agents.get(a).getSpeed()/fps;
 			double angle = (double) agents.get(a).getAngleRad();
+
 			float newX = agents.get(a).getX()+(float) Math.cos(angle)*speed;
 			float newY = agents.get(a).getY()+(float) Math.sin(angle)*speed;
 				

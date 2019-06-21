@@ -29,7 +29,7 @@ public class Guard extends Agent {
 	private Point2D.Float locationIntruder;
 	private float angleIntruder, prevAngle;
 	private Tracking tracking;
-	private ArrayList<Area> structures;
+	private ArrayList<Area> structures = new ArrayList<Area>();
 	public SpriteReader reader = new SpriteReader();
 	private final int ALLOWED_DISTANCE_ERROR = 10;
 	private boolean reachedCentre;
@@ -193,7 +193,7 @@ public class Guard extends Agent {
 						Agent currentGuard = agentList.get(i);
 						if (computeDistance(currentGuard,this)<RADIUS && currentGuard != this) {
 //						System.out.println("set guard " + currentGuard + " to tracking long distance");
-							currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai));
+							currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, ((Guard) currentGuard).structures));
 						}
 					}
 				}
@@ -219,7 +219,7 @@ public class Guard extends Agent {
 		//TODO check if works
 		prevAngle = directionAngle;
 
-		if (!(directionAngle < (prevAngle + 20) && directionAngle > (prevAngle - 20)) && framesStationaryCounter < 60) {
+		if (!(directionAngle < (prevAngle + 20) && directionAngle > (prevAngle - 20)) && framesStationaryCounter < 30) {
 
 			hearing = true;
 			/**

@@ -36,9 +36,7 @@ public abstract class AI {
 
     public abstract void seeAgent(Agent agent);
 
-    public void setCornerPoints(ArrayList<Point2D.Float> cornerPoints){
-
-    }
+    public void setCornerPoints(ArrayList<Point2D.Float> cornerPoints){}
 
     public abstract void updatedSeenLocations();
 

@@ -109,14 +109,15 @@ public class MainState extends State {
                     AI agentAI = new HeuristicAI();
                     this.agents.get(i).setAI(agentAI);
                     ((HeuristicAI) agentAI).setPattern("heatmap");
+                    this.agents.get(i).ai.setArea(400,200);
                     agentAI.setAgent(this.agents.get(i));
                     guards.add(agents.get(i));
                 } else if(guardAI == "Random patrolling") {
                         AI agentAI = new HeuristicAI();
-                        this.agents.get(i).setAI(agentAI);
-                        ((HeuristicAI) agentAI).setPattern("random");
-                        agentAI.setAgent(this.agents.get(i));
-                        guards.add(agents.get(i));
+                        this.agents.get(i).setAI(agentAI);((HeuristicAI) agentAI).setPattern("random");
+                    this.agents.get(i).ai.setArea(400,200);
+                    agentAI.setAgent(this.agents.get(i));
+                    guards.add(agents.get(i));
             	} else {
             		System.out.println("Unrecognised AI name: "+guardAI);
             		System.exit(0);
@@ -129,24 +130,22 @@ public class MainState extends State {
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
 	                intruders.add(agents.get(i));
-            	} else if(intruderAI == "A*") {
-	                AI agentAI = new AStarNew(structures);
-	                this.agents.get(i).setAI(agentAI);
-	                agentAI.setAgent(this.agents.get(i));
-	                this.agents.get(i).ai.setArea(400,200);
-	                this.agents.get(i).ai.setStructures(structures);
-                    intruders.add(agents.get(i));
-            	} else if(intruderAI == "Heuristic AI") {
+            	} else if(intruderAI == "Heuristic Closest AI") {
 	                AI agentAI = new HeuristicAI();
                     this.agents.get(i).setAI(agentAI);
-//	                ((HeuristicAI) agentAI).setPattern("snake");
-//	                agentAI.setAgent(agents.get(i));
-                    //((HeuristicAI) agentAI).setPattern("closest");
                     ((HeuristicAI) agentAI).setPattern("closest");
 	                agentAI.setAgent(this.agents.get(i));
                     intruders.add(agents.get(i));
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
+                } else if(intruderAI == "Heuristic Random AI") {
+                    AI agentAI = new HeuristicAI();
+                    this.agents.get(i).setAI(agentAI);
+                    ((HeuristicAI) agentAI).setPattern("random");
+                    agentAI.setAgent(this.agents.get(i));
+                    intruders.add(agents.get(i));
+                    this.agents.get(i).ai.setArea(400,200);
+                    this.agents.get(i).ai.setStructures(structures);
             	} else {
             		System.out.println("Unrecognised AI name: "+intruderAI);
             		System.exit(0);
