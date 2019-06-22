@@ -120,7 +120,7 @@ public class Guard extends Agent {
 
 
 		if(framesStationaryCounter > 180){
-			System.out.println("GUARD NOT MOVING");
+	//		System.out.println("GUARD NOT MOVING");
 
 		}
 
@@ -184,7 +184,7 @@ public class Guard extends Agent {
 			/** Switching to tracking
 			 */
 			if (!(ai instanceof Tracking) && agent instanceof Intruder) {
-				System.out.println("saw intruder");
+			//	System.out.println("saw intruder");
 				ai = new Tracking(this, agent, ai);
 			}
 			/**
@@ -204,7 +204,7 @@ public class Guard extends Agent {
 								ArrayList<Area> storedStructures = currentGuard.ai.seenStructures;
 								currentGuard.ai = new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, storedStructures);
 							}
-							System.out.println("size of seen structures of this guard: " + ((Guard) currentGuard).seenStructures.size());;
+						//	System.out.println("size of seen structures of this guard: " + ((Guard) currentGuard).seenStructures.size());;
 							currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, ((Guard) currentGuard).seenStructures));
 						}
 					}

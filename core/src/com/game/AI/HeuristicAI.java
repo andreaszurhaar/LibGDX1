@@ -46,6 +46,7 @@ public class HeuristicAI extends AI {
     public ArrayList<Rectangle2D.Float> astarStructures;
     private AStarNew astar;
     private Vector2 prevPoint;
+    private int randomFactor = 95;
 
     public HeuristicAI(Agent agent)
     {
@@ -218,6 +219,11 @@ public class HeuristicAI extends AI {
             exploredStructures.remove(0);
 
         }
+
+        Random rand = new Random();
+        int percent = rand.nextInt(100);
+       // point = explorationPoints.get(n);
+
         //Checks to see if the agent is in a starting corner
         if(startingPos == false) {
             float startingX = agent.getX();
@@ -241,7 +247,8 @@ public class HeuristicAI extends AI {
                 }
             }
         }//Moves to the closest exploration point if there is nothing interesting to search
-        else {
+        else if(percent < randomFactor) {
+            System.out.println("percent = " + percent);
             float distance = 100000;
             int index = 0;
             for (int i = 0; i < explorationPoints.size(); i++) {
@@ -260,6 +267,19 @@ public class HeuristicAI extends AI {
                 explorationPoints.remove(point);
 //                System.out.println("point is the same as previously, so we run closestUnknown again");
                return closestUnknown();
+            }
+        }
+        else{
+            System.out.println("made it to all options");
+            System.out.println("all options percent = " + percent);
+            point = allOptions();
+            System.out.println("options x = " + point.x + " " + "options y = " + point.y);
+
+            if (point == prevPoint && agent.speed == 0)
+            {
+                explorationPoints.remove(point);
+//                System.out.println("point is the same as previously, so we run closestUnknown again");
+                return closestUnknown();
             }
         }
         prevPoint = point;
@@ -503,11 +523,11 @@ public class HeuristicAI extends AI {
                     }
                 }
                 if (!check) {
-                    System.out.println("point x = " + point.x + " " + "point y = " + point.y);
-                    System.out.println("area start x = " + area.xPos + " " + "area start y " + area.yPos);
+                 //   System.out.println("point x = " + point.x + " " + "point y = " + point.y);
+                 //   System.out.println("area start x = " + area.xPos + " " + "area start y " + area.yPos);
                     for(int i = 0; i < explorationPoints.size(); i++){
                             if(area.area.contains(explorationPoints.get(i))){
-                                System.out.println("exploration x = " + explorationPoints.get(i).x + " " + "exploration y = " + explorationPoints.get(i).y);
+                              //  System.out.println("exploration x = " + explorationPoints.get(i).x + " " + "exploration y = " + explorationPoints.get(i).y);
                                 explorationPoints.remove(i);
                             }
 
@@ -524,12 +544,12 @@ public class HeuristicAI extends AI {
                 reset();
             } else {
 
-                System.out.println("point x = " + point.x + " " + "point y = " + point.y);
-                System.out.println("area start x = " + area.xPos + " " + "area start y " + area.yPos);
+               // System.out.println("point x = " + point.x + " " + "point y = " + point.y);
+             //   System.out.println("area start x = " + area.xPos + " " + "area start y " + area.yPos);
 
                 for(int i = 0; i < explorationPoints.size(); i++) {
                     if (area.area.contains(explorationPoints.get(i))) {
-                        System.out.println("exploration x = " + explorationPoints.get(i).x + " " + "exploration y = " + explorationPoints.get(i).y);
+                     //   System.out.println("exploration x = " + explorationPoints.get(i).x + " " + "exploration y = " + explorationPoints.get(i).y);
 
                         explorationPoints.remove(i);
                     }
