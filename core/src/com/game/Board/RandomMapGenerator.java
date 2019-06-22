@@ -46,9 +46,6 @@ public class RandomMapGenerator {
         structures = new ArrayList<Area>();
         agents = new ArrayList<Agent>();
 
-
-        generateStructureList();
-        generateAgentList();
         //generateIntruder();
     }
 

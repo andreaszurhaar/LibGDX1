@@ -105,6 +105,7 @@ public class Board {
 		for(int a=0; a<agents.size(); a++) {
 			//check collision with all nearby structures
 			boolean collided = false;
+
 			
 			//update angle
 			float rot = agents.get(a).getRotation();
@@ -163,6 +164,7 @@ public class Board {
 					if(territories.get(i) instanceof TargetArea && agents.get(a) instanceof Intruder) {
 						if(victoryTime1 == 0) {
 							victoryTime1 = System.currentTimeMillis();
+							//TODO time to victory needs to scale with FPS
 						} else {
 							if((System.currentTimeMillis() - victoryTime1) > 3*1000) {gameOver = true;}
 						}
@@ -221,7 +223,6 @@ public class Board {
 			if(!collided) {
 				agents.get(a).totalDistanceTravelled = agents.get(a).totalDistanceTravelled+new Vector2(agents.get(a).xPos-newX,agents.get(a).yPos-newY).len();
 				agents.get(a).setPos(newX,newY);
-
 			}
 			//if(!agents.get(a).AgentReachedCentre()) agents.get(a).triggerStep();
 			//else agents.get(a).triggerStepTowardPoint(agents.get(a).getDestPoint());

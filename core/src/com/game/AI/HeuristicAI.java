@@ -26,6 +26,8 @@ public class HeuristicAI extends AI {
 
    // private Agent agent;
     private Vector2 point = new Vector2();
+    //private Agent agent;
+    //private Vector2 point;
     private float guardAngle, prevAngle;
     private Random rand = new Random();
     private ArrayList<Area> structures;

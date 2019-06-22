@@ -1,201 +1,49 @@
 
 
-time :50.168743 / lost / guard distance : 14134.145 / intruder distance : 2790.722
+time :-0.9774135 / lost / guard distance : 766.62445 / intruder distance : 314.23187
 
-time :-9.917559 / won / guard distance : 14138.784 / intruder distance : 2790.722
+time :-5.7145953 / lost / guard distance : 425.5795 / intruder distance : 120.47975
 
-time :-9.398265 / lost / guard distance : 14259.545 / intruder distance : 2795.222
+time :-2.4459684 / lost / guard distance : 1184.9214 / intruder distance : 125.34251
 
-time :-9.919198 / won / guard distance : 14262.545 / intruder distance : 2795.222
+time :7.926115 / lost / guard distance : 1879.8672 / intruder distance : 648.43665
 
-time :-8.350808 / lost / guard distance : 14591.9375 / intruder distance : 2802.722
+time :4.5422506 / won / guard distance : 2695.7346 / intruder distance : 384.78928
 
-time :-9.93362 / won / guard distance : 14595.732 / intruder distance : 2802.722
+time :-4.012645 / lost / guard distance : 629.7143 / intruder distance : 65.78775
 
-time :-9.084245 / lost / guard distance : 14773.404 / intruder distance : 2817.722
+time :10.169267 / won / guard distance : 3441.9353 / intruder distance : 914.6251
 
-time :-9.9338045 / lost / guard distance : 14776.545 / intruder distance : 2817.722
+time :5.791242 / won / guard distance : 1229.9526 / intruder distance : 319.14413
 
-time :-9.933392 / won / guard distance : 14776.564 / intruder distance : 2817.722
+time :45.950756 / won / guard distance : 6153.8613 / intruder distance : 1509.969
 
-time :-9.916875 / lost / guard distance : 14776.564 / intruder distance : 2817.722
+time :-8.4332 / lost / guard distance : 187.61954 / intruder distance : 13.500017
 
-time :-9.915868 / lost / guard distance : 14776.564 / intruder distance : 2817.722
+time :24.717567 / lost / guard distance : 2621.1772 / intruder distance : 976.11084
 
-time :-9.884009 / won / guard distance : 14781.084 / intruder distance : 2817.722
+time :59.204597 / lost / guard distance : 7816.5845 / intruder distance : 1893.5834
 
-time :-9.882912 / lost / guard distance : 14782.584 / intruder distance : 2817.722
+time :30.269691 / won / guard distance : 1226.8413 / intruder distance : 929.6106
 
-time :-9.916689 / lost / guard distance : 14782.584 / intruder distance : 2817.722
+time :130.03085 / lost / guard distance : 10480.485 / intruder distance : 1805.5869
 
-time :-9.91594 / won / guard distance : 14785.604 / intruder distance : 2817.722
+time :44.97621 / lost / guard distance : 6957.0254 / intruder distance : 473.16904
 
-time :-9.899963 / lost / guard distance : 14787.104 / intruder distance : 2817.722
+time :-9.066512 / lost / guard distance : 56.0001 / intruder distance : 3.0000014
 
-time :-9.918572 / lost / guard distance : 14788.604 / intruder distance : 2817.722
+time :-0.695222 / lost / guard distance : 1107.5216 / intruder distance : 306.97937
 
-time :-9.914804 / won / guard distance : 14791.625 / intruder distance : 2817.722
+time :15.231502 / lost / guard distance : 1067.2385 / intruder distance : 182.98012
 
-time :-9.879846 / lost / guard distance : 14793.125 / intruder distance : 2817.722
+time :4.3553386 / lost / guard distance : 167.93454 / intruder distance : 55.49974
 
-time :-9.938085 / lost / guard distance : 14794.625 / intruder distance : 2817.722
+time :21.371494 / lost / guard distance : 1811.4182 / intruder distance : 345.15482
 
-time :-9.917911 / won / guard distance : 14797.645 / intruder distance : 2817.722
+time :4.240267 / lost / guard distance : 1330.735 / intruder distance : 285.8838
 
-time :-9.88151 / lost / guard distance : 14799.145 / intruder distance : 2817.722
+time :22.334951 / lost / guard distance : 1758.1208 / intruder distance : 416.37476
 
-time :-9.917437 / lost / guard distance : 14800.645 / intruder distance : 2817.722
+time :-3.9972582 / lost / guard distance : 714.012 / intruder distance : 46.96099
 
-time :-9.916246 / won / guard distance : 14803.664 / intruder distance : 2817.722
-
-time :-9.866875 / lost / guard distance : 14805.164 / intruder distance : 2817.722
-
-time :-9.917846 / lost / guard distance : 14806.664 / intruder distance : 2817.722
-
-time :-9.899855 / won / guard distance : 14809.684 / intruder distance : 2817.722
-
-time :-9.916011 / lost / guard distance : 14811.184 / intruder distance : 2817.722
-
-time :-9.917211 / lost / guard distance : 14812.684 / intruder distance : 2817.722
-
-time :-9.916549 / won / guard distance : 14815.705 / intruder distance : 2817.722
-
-time :-9.899945 / lost / guard distance : 14817.205 / intruder distance : 2817.722
-
-time :-9.916939 / lost / guard distance : 14818.705 / intruder distance : 2817.722
-
-time :-9.911208 / won / guard distance : 14821.725 / intruder distance : 2817.722
-
-time :-9.888723 / lost / guard distance : 14823.225 / intruder distance : 2817.722
-
-time :-9.916686 / lost / guard distance : 14824.725 / intruder distance : 2817.722
-
-time :-9.900261 / won / guard distance : 14827.744 / intruder distance : 2817.722
-
-time :-9.916128 / lost / guard distance : 14829.244 / intruder distance : 2817.722
-
-time :-9.9340725 / lost / guard distance : 14830.744 / intruder distance : 2817.722
-
-time :-9.88333 / won / guard distance : 14833.764 / intruder distance : 2817.722
-
-time :-9.91741 / lost / guard distance : 14835.264 / intruder distance : 2817.722
-
-time :-9.931523 / lost / guard distance : 14836.764 / intruder distance : 2817.722
-
-time :-9.852087 / won / guard distance : 14839.785 / intruder distance : 2817.722
-
-time :-9.925551 / lost / guard distance : 14841.285 / intruder distance : 2817.722
-
-time :-9.888012 / lost / guard distance : 14842.785 / intruder distance : 2817.722
-
-time :-9.90126 / won / guard distance : 14845.805 / intruder distance : 2817.722
-
-time :-9.900324 / lost / guard distance : 14847.305 / intruder distance : 2817.722
-
-time :-9.916713 / lost / guard distance : 14848.805 / intruder distance : 2817.722
-
-time :-9.884049 / won / guard distance : 14851.805 / intruder distance : 2817.722
-
-time :-9.911265 / lost / guard distance : 14853.305 / intruder distance : 2817.722
-
-time :-9.904795 / lost / guard distance : 14854.805 / intruder distance : 2817.722
-
-time :-9.901511 / won / guard distance : 14857.805 / intruder distance : 2817.722
-
-time :-9.916811 / lost / guard distance : 14859.305 / intruder distance : 2817.722
-
-time :-9.933357 / lost / guard distance : 14859.305 / intruder distance : 2817.722
-
-time :-9.900458 / won / guard distance : 14860.805 / intruder distance : 2817.722
-
-time :-9.900069 / lost / guard distance : 14860.805 / intruder distance : 2817.722
-
-time :-9.916035 / lost / guard distance : 14862.305 / intruder distance : 2817.722
-
-time :-9.916696 / won / guard distance : 14863.805 / intruder distance : 2817.722
-
-time :-9.899548 / lost / guard distance : 14865.305 / intruder distance : 2817.722
-
-time :-9.917494 / lost / guard distance : 14866.805 / intruder distance : 2817.722
-
-time :-9.900441 / won / guard distance : 14866.805 / intruder distance : 2817.722
-
-time :-9.900499 / lost / guard distance : 14866.805 / intruder distance : 2817.722
-
-time :-9.932718 / lost / guard distance : 14866.805 / intruder distance : 2817.722
-
-time :-9.900295 / lost / guard distance : 14866.805 / intruder distance : 2817.722
-
-time :-9.929855 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.898892 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.903034 / won / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.9003315 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.934833 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.915042 / won / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.899746 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.884815 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.917828 / won / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.932014 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.93461 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.899957 / won / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.932727 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.917018 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.913084 / won / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.900178 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.869546 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.9151325 / won / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.902771 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.916704 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.914537 / won / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.896778 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.918786 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.903727 / won / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.932839 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.916723 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.917373 / won / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.167288 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.933539 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.9169855 / won / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.915414 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.917212 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.917414 / won / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.915967 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.916655 / lost / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.898641 / won / guard distance : 14866.824 / intruder distance : 2817.722
-
-time :-9.901572 / lost / guard distance : 14866.824 / intruder distance : 2817.722
+time :-0.795758 / lost / guard distance : 867.11475 / intruder distance : 143.82738

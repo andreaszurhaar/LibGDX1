@@ -59,6 +59,7 @@ public class TestState extends State {
     public TestWriter testWriter;
     public float guardTravel = 0;
     public float intruderTravel = 0;
+    private final int NR_OF_SIMULATIONS = 10;
 
 
     public TestState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls, String guardAI, String intruderAI, int counter) {
@@ -79,7 +80,7 @@ public class TestState extends State {
         }
         //separate the agents and structures
         //TODO remove to not generate random map
-        RandomMapGenerator rmg = new RandomMapGenerator(0,10, 1, 4, 1, 2);
+        RandomMapGenerator rmg = new RandomMapGenerator(5,20, 3, 6, 1, 2);
 
         this.structures = rmg.generateStructureList();
         this.agents = rmg.generateAgentList();
@@ -209,7 +210,7 @@ public class TestState extends State {
             for(int i = 0; i < intruders.size(); i++){
                 intruderTravel += intruders.get(i).totalDistanceTravelled;
             }
-            if (counter < 1) {
+            if (counter < NR_OF_SIMULATIONS) {
                 if (board.timeOfTracking != 0) {
 
                     testWriter = new TestWriter("Test.txt", deltaTime, "lost",guardTravel,intruderTravel);
