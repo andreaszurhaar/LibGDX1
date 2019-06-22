@@ -19,6 +19,7 @@ import com.game.AI.GuardPatrolling;
 import com.game.AI.IntruderBasicMovement;
 import com.game.Board.Guard;
 import com.game.Board.Intruder;
+import com.game.Board.RandomMapGenerator;
 import com.game.CopsAndRobbers;
 import com.game.Board.Agent;
 import com.game.Board.Area;
@@ -164,8 +165,8 @@ public class MainState extends State {
             for(int j = 0; j < guards.size(); j++){
                 guards.get(j).setAgentList(guards);
             }
-
         }
+
         board = new Board();
         if(!this.structures.isEmpty()) {board.setUp(this.structures);}
         if(!this.agents.isEmpty()) {board.putInAgents(this.agents);}

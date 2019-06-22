@@ -10,7 +10,7 @@ public class TestWriter {
 
     String outputFile;
 
-    public TestWriter(String level, float time, String win, float guard_distance, float intruder_distance  ){
+    public TestWriter(String level, float time, String win, float guard_distance, float intruder_distance, float intruder_random_percentage  ){
 
         outputFile = level;
         try {
@@ -26,6 +26,8 @@ public class TestWriter {
             fileWriter.write("guard distance : " + guard_distance);
             fileWriter.write(" / ");
             fileWriter.write("intruder distance : " + intruder_distance);
+            fileWriter.write(" / ");
+            fileWriter.write("intruder random percentage : " + intruder_random_percentage);
 
             fileWriter.close();
         } catch (IOException e) {
