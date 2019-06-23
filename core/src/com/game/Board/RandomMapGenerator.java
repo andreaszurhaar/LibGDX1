@@ -21,8 +21,8 @@ public class RandomMapGenerator {
     private final int ADJUSTED_BOARD_WIDTH = 360;
     private final int ADJUSTED_BOARD_HEIGHT = 160;
     //the fractions of frequency of each type of structure
-    private final double WALLS_FREQUENCY = 0.6;
-    private final double TOWER_FREQUENCY = 0.2;
+    private final double WALLS_FREQUENCY = 0.7;
+    private final double TOWER_FREQUENCY = 0.1;
     private final double CANDLE_FREQUENCY = 0.2;
     //private final double DOORS_FREQUENCY = 0.1;
     //private final double WINDOW_FREQUENCY = 0.1;

@@ -25,7 +25,7 @@ public class Board {
 	private ArrayList<Integer>[][] positionTracker;
 	public ArrayList<Area> territories;
 	private ArrayList<Agent> agents;
-	public final static int fps = 10;
+	public final static int fps = 6;
 	private final int VISUAL_RANGE = 20;
 	public final static int BOARD_WIDTH = 80;
 	public final static int BOARD_HEIGHT = 40;
@@ -164,9 +164,8 @@ public class Board {
 					if(territories.get(i) instanceof TargetArea && agents.get(a) instanceof Intruder) {
 						if(victoryTime1 == 0) {
 							victoryTime1 = System.currentTimeMillis();
-							//TODO time to victory needs to scale with FPS
 						} else {
-							if((System.currentTimeMillis() - victoryTime1) > 3*1000) {gameOver = true;}
+							if((System.currentTimeMillis() - victoryTime1) > 3*1000 * fps/60) {gameOver = true;}
 						}
 					} else if(territories.get(i) instanceof LowVisionArea) {
 						agents.get(a).hidden = true;
@@ -268,7 +267,9 @@ public class Board {
 							if((agents.get(a) instanceof Guard) && (agents.get(i) instanceof Intruder)){
 								//getArea(): rectangle objects of the agents
 								//System.out.println("DISTANCE OF: "+computeDist(agents.get(a).area,agents.get(i).area));
-								if(computeDist(agents.get(a).area,agents.get(i).area) < 0.5) {
+								Vector2 agentAloc = new Vector2(agents.get(a).xCenter, agents.get(a).yCenter);
+								Vector2 agentiloc = new Vector2(agents.get(i).xCenter, agents.get(i).yCenter);
+								if(computeDist(agents.get(a).area,agents.get(i).area) < 0.5 || agentAloc.dst(agentiloc) < 0.5 + agents.get(a).width) {
 									if(agents.get(a).ai instanceof Tracking) {
 										Tracking trackingGuard = (Tracking) agents.get(a).ai;
 										timeOfTracking = trackingGuard.timeToTrack;

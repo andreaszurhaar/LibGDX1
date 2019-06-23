@@ -59,7 +59,7 @@ public class MoveAwayFromSound extends AI {
             {
                 rectangles.add(new Rectangle2D.Float(a.xPos,a.yPos,a.getMaxX()-a.xPos, a.getMaxY()-a.yPos));
             }
-            System.out.println("size of rectangles: " + rectangles);
+            //System.out.println("size of rectangles: " + rectangles);
             AStarNew astar = new AStarNew(rectangles, intruder.xCenter, intruder.yCenter, destPoint.x, destPoint.y, intruder);
             rotation = astar.getRotationStack();
             speed = astar.getSpeedStack();

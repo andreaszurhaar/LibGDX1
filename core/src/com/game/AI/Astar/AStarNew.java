@@ -115,7 +115,7 @@ public class AStarNew extends AI {
     public void start() {
 //        System.out.println("Start loc is: " + start.xcoord + ", " + start.ycoord);
 //        System.out.println("Target loc is: " + target.xcoord + ", " + target.ycoord);
-        //System.out.println("Running the a-star algorithm");
+//        System.out.println("Running the a-star algorithm");
         open.add(start);
         start.setTotalCost(0);
         int steps = 0;

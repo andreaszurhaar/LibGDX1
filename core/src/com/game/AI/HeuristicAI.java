@@ -9,6 +9,7 @@ import com.game.Board.Area;
 import com.game.Board.Board;
 import com.game.Board.Guard;
 import com.game.Board.Intruder;
+import com.game.Board.LowVisionArea;
 import com.game.Board.MapDivider;
 import com.game.Board.OuterWall;
 import com.game.CopsAndRobbers;
@@ -114,8 +115,8 @@ public class HeuristicAI extends AI {
 
 
         for(int i = 0; i < explorationPoints.size(); i++){
-            System.out.print("x = " + explorationPoints.get(i).x + " " + " y = " + explorationPoints.get(i).y );
-            System.out.println(" ");
+            //System.out.print("x = " + explorationPoints.get(i).x + " " + " y = " + explorationPoints.get(i).y );
+            //System.out.println(" ");
         }
 
         currentExplorationPoint = explorationPoints.get(0);
@@ -173,9 +174,9 @@ public class HeuristicAI extends AI {
         }
         prevPoint = point;
 
-      //  System.out.println("Agent is: " + agent);
-     //   System.out.println("calling a star with location: " + agent.xCenter + "," + agent.yCenter);
-      //  System.out.println("target loc for astar: " + point.x + "," + point.y);
+//        System.out.println("Agent is: " + agent);
+//        System.out.println("calling a star with location: " + agent.xCenter + "," + agent.yCenter);
+//        System.out.println("target loc for astar: " + point.x + "," + point.y);
         AStarNew astar = new AStarNew(astarStructures, agent.xCenter, agent.yCenter, point.x, point.y,agent);
         rotation = astar.getRotationStack();
         speed = astar.getSpeedStack();
@@ -255,7 +256,7 @@ public class HeuristicAI extends AI {
             }
         }//Moves to the closest exploration point if there is nothing interesting to search
         else if(percent < randomFactor) {
-            System.out.println("percent = " + percent);
+            //System.out.println("percent = " + percent);
             float distance = 100000;
             int index = 0;
             for (int i = 0; i < explorationPoints.size(); i++) {
@@ -277,10 +278,10 @@ public class HeuristicAI extends AI {
             }
         }
         else{
-            System.out.println("made it to all options");
-            System.out.println("all options percent = " + percent);
+            //System.out.println("made it to all options");
+            //System.out.println("all options percent = " + percent);
             point = allOptions();
-            System.out.println("options x = " + point.x + " " + "options y = " + point.y);
+            //System.out.println("options x = " + point.x + " " + "options y = " + point.y);
 
             if (point == prevPoint && agent.speed == 0)
             {
@@ -523,11 +524,13 @@ public class HeuristicAI extends AI {
 
                     }
 
-                    seenStructures.add(area);
-                    Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
-                    Rectangle2D.Float rect = new Rectangle2D.Float(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
-                    exploredStructures.add(rectangle);
-                    astarStructures.add(rect);
+                    if(!(area instanceof LowVisionArea)){
+                        seenStructures.add(area);
+                        Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
+                        Rectangle2D.Float rect = new Rectangle2D.Float(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
+                        exploredStructures.add(rectangle);
+                        astarStructures.add(rect);
+                    }
 
                    // reset();
                 }
@@ -545,13 +548,15 @@ public class HeuristicAI extends AI {
                     }
                 }
 
-                seenStructures.add(area);
-                Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
-                Rectangle2D.Float rect = new Rectangle2D.Float(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
-                exploredStructures.add(rectangle);
-               // seenStructures.add(rectangle);
-                astarStructures.add(rect);
-               // reset();
+                if(!(area instanceof LowVisionArea)) {
+                    seenStructures.add(area);
+                    Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
+                    Rectangle2D.Float rect = new Rectangle2D.Float(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
+                    exploredStructures.add(rectangle);
+                    // seenStructures.add(rectangle);
+                    astarStructures.add(rect);
+                    // reset();
+                }
             }
       //  }
 

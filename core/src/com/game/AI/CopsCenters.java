@@ -127,11 +127,11 @@ public class CopsCenters {
         setDistances();
         order();
         for (int i=0;i<centres.size();i++) {
-            System.out.println("centres size: " + centres.size());
+            //System.out.println("centres size: " + centres.size());
             //System.out.println("ordered.get(i): " + ordered.get(i));
             coupled.set(ordered.get(i),findMin(distances.get(ordered.get(i))));
-            System.out.println("ok");
-            System.out.println("i: " + i);
+            //System.out.println("ok");
+            //System.out.println("i: " + i);
         }
         //coupled.set(0, findMin(distances.get(ordered.get(0))));
         //coupled.set(1, findMin(distances.get(ordered.get(1))));

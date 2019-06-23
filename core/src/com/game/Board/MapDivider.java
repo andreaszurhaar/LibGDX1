@@ -34,16 +34,16 @@ public class MapDivider {
             }
             else{
                 nrHorizontal = nrCops/nrVertical;
-                System.out.println("nrHorizontal=" + nrHorizontal);
+                //System.out.println("nrHorizontal=" + nrHorizontal);
             }
 
         }
         else {
             nrVertical = nrCops;
             nrHorizontal = 1;
-            System.out.println("nrHorizontal=" + nrHorizontal);
+            //System.out.println("nrHorizontal=" + nrHorizontal);
         }
-        System.out.println("nrVertical=" + nrVertical);
+        //System.out.println("nrVertical=" + nrVertical);
         centres = findCenters(nrVertical,nrHorizontal);
     }
 

@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AI.AI;
 //import com.game.AI.CopsCenters;
+import com.game.AI.Escape;
 import com.game.AI.GuardPatrolling;
+import com.game.AI.GuardPreventCollision;
 import com.game.AI.InvestigateSound;
 import com.game.AI.MoveAwayFromSound;
 import com.game.AI.Tracking;
@@ -45,7 +47,7 @@ public class Guard extends Agent {
 		this.height = height;
 		//viewAngle.setToRandomDirection();
 		speed = 1;
-		maxSpeed = 1.4f;
+		//maxSpeed = 1.4f;
 		maxSpeed = 15f;
 		soundRange = 0;
 		viewRange = 6f + width / 2;
@@ -74,6 +76,11 @@ public class Guard extends Agent {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setSeenStructures(ArrayList<Area> structures)
+	{
+		seenStructures = structures;
 	}
 
 	public float getSpeed() {
@@ -197,20 +204,20 @@ public class Guard extends Agent {
 					for (int i = 0; i < agentList.size(); i++) {
 						//agentList.get(i).ai.moveToPoint(new Vector2(agent.xPos, agent.yPos));
 						Agent currentGuard = agentList.get(i);
-						if (computeDistance(currentGuard,this)<RADIUS && currentGuard != this) {
+						if ((computeDistance(currentGuard,this)<RADIUS) && currentGuard != this && currentGuard instanceof Guard) {
 //						System.out.println("set guard " + currentGuard + " to tracking long distance");
 							//currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, ((Guard) currentGuard).structures));
 							if((currentGuard instanceof Guard)) {
 								ArrayList<Area> storedStructures = currentGuard.ai.seenStructures;
 								currentGuard.ai = new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, storedStructures);
 							}
-						//	System.out.println("size of seen structures of this guard: " + ((Guard) currentGuard).seenStructures.size());;
-							currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, ((Guard) currentGuard).seenStructures));
 						}
 					}
 				}
 			}
-
+			if(agent instanceof Guard && !(ai instanceof Tracking) && !(ai instanceof TrackingLongDistance) /*&& computeDistance(this, agent) < 100*/){
+				ai = new GuardPreventCollision(this, agent, ai, ai.seenStructures);
+			}
 			ai.seeAgent(agent);
 		}
 	}
