@@ -48,7 +48,7 @@ public class Guard extends Agent {
 		//viewAngle.setToRandomDirection();
 		speed = 1;
 		maxSpeed = 1.4f;
-		maxSpeed = 15f;
+//		maxSpeed = 15f;
 		soundRange = 0;
 		viewRange = 6f + width / 2;
 		name = "2";
@@ -76,6 +76,11 @@ public class Guard extends Agent {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setSeenStructures(ArrayList<Area> structures)
+	{
+		seenStructures = structures;
 	}
 
 	public float getSpeed() {
@@ -199,15 +204,13 @@ public class Guard extends Agent {
 					for (int i = 0; i < agentList.size(); i++) {
 						//agentList.get(i).ai.moveToPoint(new Vector2(agent.xPos, agent.yPos));
 						Agent currentGuard = agentList.get(i);
-						if (computeDistance(currentGuard,this)<RADIUS && currentGuard != this) {
+						if ((computeDistance(currentGuard,this)<RADIUS) && currentGuard != this && currentGuard instanceof Guard) {
 //						System.out.println("set guard " + currentGuard + " to tracking long distance");
 							//currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, ((Guard) currentGuard).structures));
 							if((currentGuard instanceof Guard)) {
 								ArrayList<Area> storedStructures = currentGuard.ai.seenStructures;
 								currentGuard.ai = new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, storedStructures);
 							}
-						//	System.out.println("size of seen structures of this guard: " + ((Guard) currentGuard).seenStructures.size());;
-							currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, ((Guard) currentGuard).seenStructures));
 						}
 					}
 				}

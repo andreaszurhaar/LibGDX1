@@ -25,7 +25,7 @@ public class Board {
 	private ArrayList<Integer>[][] positionTracker;
 	public ArrayList<Area> territories;
 	private ArrayList<Agent> agents;
-	public final static int fps = 10;
+	public final static int fps = 6;
 	private final int VISUAL_RANGE = 20;
 	public final static int BOARD_WIDTH = 80;
 	public final static int BOARD_HEIGHT = 40;
