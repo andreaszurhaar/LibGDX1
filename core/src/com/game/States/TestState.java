@@ -52,7 +52,7 @@ public class TestState extends State {
     public GuardPatrolling guardPatrol;
     public static final float X_REDUC = MapState.X_REDUC;
     public static final float Y_REDUC = MapState.Y_REDUC;
-    public double timeLimit = 60.00;
+    public double timeLimit = 200;
     public String intruderAI;
     public String guardAI;
     public int counter;
@@ -60,6 +60,8 @@ public class TestState extends State {
     public float guardTravel = 0;
     public float intruderTravel = 0;
     private final int NR_OF_SIMULATIONS = 10;
+    public long startTime;
+    public int intruder_randomness = 100 - 98;
 
 
     public TestState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls, String guardAI, String intruderAI, int counter) {
@@ -186,13 +188,7 @@ public class TestState extends State {
             }
             //TODO clean up AI-specific things like this from main state
         }
-
-
-//        int guardCounter = 0;
-//        for(int i = 0; i < this.agents.size(); i++){
-//            if(agents.get(i) instanceof Guard){
-//                guards.get(guardCounter).setCenterLocation(guardCenters[guardCounter]);
-//                guardCounter++;
+        startTime = System.currentTimeMillis();
     }
 
 
@@ -200,10 +196,16 @@ public class TestState extends State {
     @Override
     public void handleInput() {
 
-        deltaTime += Gdx.graphics.getDeltaTime();
+        deltaTime = (float) (System.currentTimeMillis()-startTime)/1000;
         str = Float.toString(deltaTime);
 
-        if(board.gameOver) {
+        if(board.gameOver || deltaTime > timeLimit) {
+            for(int i = 0; i < agents.size(); i++){
+                agents.get(i).texture.getTexture().dispose();
+            }
+            for(int i = 0; i < structures.size(); i++){
+                structures.get(i).texture.getTexture().dispose();
+            }
             for(int i = 0; i < guards.size(); i++){
                 guardTravel += guards.get(i).totalDistanceTravelled;
             }
@@ -211,24 +213,24 @@ public class TestState extends State {
                 intruderTravel += intruders.get(i).totalDistanceTravelled;
             }
             if (counter < NR_OF_SIMULATIONS) {
-                if (board.timeOfTracking != 0) {
+                if (board.timeOfTracking != 0 || deltaTime > timeLimit ) {
 
-                    testWriter = new TestWriter("Test.txt", deltaTime, "lost",guardTravel,intruderTravel);
+                    testWriter = new TestWriter("Test.txt", deltaTime, "lost",guardTravel,intruderTravel, intruder_randomness);
                     gsm.push(new TestState(gsm, structures, agents, walls, guardAI, intruderAI, counter));
 
                 } else {
-                    testWriter = new TestWriter("Test.txt", deltaTime, "won",guardTravel,intruderTravel);
+                    testWriter = new TestWriter("Test.txt", deltaTime, "won",guardTravel,intruderTravel, intruder_randomness);
                     gsm.push(new TestState(gsm, structures, agents, walls, guardAI, intruderAI, counter));
 
                 }
             } else {
-                if (board.timeOfTracking != 0) {
+                if (board.timeOfTracking != 0 || deltaTime > timeLimit) {
 
-                    testWriter = new TestWriter("Test.txt", deltaTime, "lost",guardTravel,intruderTravel);
+                    testWriter = new TestWriter("Test.txt", deltaTime, "lost",guardTravel,intruderTravel, intruder_randomness);
                     System.exit(0);
 
                 } else {
-                    testWriter = new TestWriter("Test.txt", deltaTime, "won",guardTravel,intruderTravel);
+                    testWriter = new TestWriter("Test.txt", deltaTime, "won",guardTravel,intruderTravel, intruder_randomness);
                     System.exit(0);
                 }
             }

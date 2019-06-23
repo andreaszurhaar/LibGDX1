@@ -3,6 +3,7 @@ package com.game.AI;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AI.Astar.AStarNew;
+import com.game.AI.Dijkstra.Dijkstra;
 import com.game.Board.Agent;
 import com.game.Board.Area;
 import com.game.Board.Board;
@@ -49,7 +50,7 @@ public class HeuristicAI extends AI {
     public ArrayList<Rectangle2D.Float> astarStructures;
     private AStarNew astar;
     private Vector2 prevPoint;
-    private int randomFactor = 95;
+    private int randomFactor = 98;
 
     public HeuristicAI(Agent agent)
     {
@@ -177,9 +178,11 @@ public class HeuristicAI extends AI {
      //   System.out.println("calling a star with location: " + agent.xCenter + "," + agent.yCenter);
       //  System.out.println("target loc for astar: " + point.x + "," + point.y);
         AStarNew astar = new AStarNew(astarStructures, agent.xCenter, agent.yCenter, point.x, point.y,agent);
-
         rotation = astar.getRotationStack();
         speed = astar.getSpeedStack();
+       /* Dijkstra dijkstra = new Dijkstra(seenStructures,agent, point.x, point.y);
+        rotation = dijkstra.rotations;
+        speed = dijkstra.speeds; */
     }
 
     public void moveGuardToCenter(Vector2 centerLocation) {
@@ -234,19 +237,21 @@ public class HeuristicAI extends AI {
             point = new Vector2(startingX, startingY);
             if (point.x > 200) {
                 if (point.y > 100) {
-                    point = new Vector2(380, 180);
                     startingPos = true;
+                    return new Vector2(380, 180);
                 } else {
-                    point = new Vector2(380, 30);
+
                     startingPos = true;
+                    return new Vector2(380, 30);
                 }
             } else {
                 if (point.y > 100) {
-                    point = new Vector2(30, 180);
                     startingPos = true;
+                    return new Vector2(30, 180);
                 } else {
-                    point = new Vector2(30, 30);
+
                     startingPos = true;
+                    return new Vector2(30, 30);
                 }
             }
         }//Moves to the closest exploration point if there is nothing interesting to search
@@ -269,7 +274,7 @@ public class HeuristicAI extends AI {
             {
                 explorationPoints.remove(point);
 //                System.out.println("point is the same as previously, so we run closestUnknown again");
-               return closestUnknown();
+               return allOptions();
             }
         }
         else{
@@ -290,30 +295,6 @@ public class HeuristicAI extends AI {
         return point;
     }
 
-    //Useless since it's a duplicate
-/*    private Vector2 randomMovement() {
-        //creates range so the agent doesn't move in the direction it came from (currently at least 90 degrees in a different direction)
-        float angle;
-        if (guardSeen){
-            //adjust upper and lower so that is directly in the opposite direction of the guard
-            angle = guardAngle + 180;
-        }
-        else {
-            int upper = (int) prevAngle + DEGREE_RANGE;
-            int lower = (int) prevAngle - DEGREE_RANGE;
-            angle = (float) rand.nextInt(upper - lower) + lower;
-
-        }
-        if (angle>360)
-        {
-            angle = angle - 360;
-        }
-        prevAngle = angle;
-        //create a point outside the map according to the angle
-        Vector2 vector =  new Vector2((float) (agent.xCenter + AVERYBIGNUMBER*Math.cos(Math.toRadians(angle))),(float) (agent.yCenter + AVERYBIGNUMBER*Math.sin(Math.toRadians(angle))));
-        System.out.println("vector: " + vector.x + "," + vector.y);
-        return vector;
-    }*/
 
     public Vector2 allOptions(){
         //Checks if there are structures that need to be explored and moves to them
@@ -332,6 +313,13 @@ public class HeuristicAI extends AI {
                 return point;
             }
             exploredStructures.remove(0);
+        }
+
+        for (int i = 0; i < explorationPoints.size(); i++) {
+            float temp_distance = explorationPoints.get(i).dst2(agent.xPos,agent.yPos);
+            if(temp_distance < 30 && temp_distance > 20 ){
+                return explorationPoints.get(i);
+            }
         }
 
         Random rand = new Random();

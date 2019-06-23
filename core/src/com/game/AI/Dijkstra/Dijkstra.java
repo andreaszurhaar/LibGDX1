@@ -161,4 +161,20 @@ public class Dijkstra {
 			current.neighbours.get(i).neighbours.remove(current);
 		}
 	}
+	
+	public float getSpeed() {
+		if(!speeds.isEmpty()) {
+			return speeds.pop();
+		}
+		return 0f;
+		
+	}
+	
+	public float getRotation() {
+		if(!rotations.isEmpty()) {
+			return rotations.pop();
+		}
+		return 0f;
+		
+	}
 }
