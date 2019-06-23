@@ -119,7 +119,7 @@ public class NodeNew {
                 return connections.get(i).weight;
             }
         }
-        System.out.println("we return edge weight = 10000 if edge doesn't exist");
+        //System.out.println("we return edge weight = 10000 if edge doesn't exist");
         return 10000;
     }
 

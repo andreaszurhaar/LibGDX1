@@ -115,8 +115,8 @@ public class HeuristicAI extends AI {
 
 
         for(int i = 0; i < explorationPoints.size(); i++){
-            System.out.print("x = " + explorationPoints.get(i).x + " " + " y = " + explorationPoints.get(i).y );
-            System.out.println(" ");
+            //System.out.print("x = " + explorationPoints.get(i).x + " " + " y = " + explorationPoints.get(i).y );
+            //System.out.println(" ");
         }
 
         currentExplorationPoint = explorationPoints.get(0);
@@ -256,7 +256,7 @@ public class HeuristicAI extends AI {
             }
         }//Moves to the closest exploration point if there is nothing interesting to search
         else if(percent < randomFactor) {
-            System.out.println("percent = " + percent);
+            //System.out.println("percent = " + percent);
             float distance = 100000;
             int index = 0;
             for (int i = 0; i < explorationPoints.size(); i++) {
@@ -278,10 +278,10 @@ public class HeuristicAI extends AI {
             }
         }
         else{
-            System.out.println("made it to all options");
-            System.out.println("all options percent = " + percent);
+            //System.out.println("made it to all options");
+            //System.out.println("all options percent = " + percent);
             point = allOptions();
-            System.out.println("options x = " + point.x + " " + "options y = " + point.y);
+            //System.out.println("options x = " + point.x + " " + "options y = " + point.y);
 
             if (point == prevPoint && agent.speed == 0)
             {

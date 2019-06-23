@@ -55,18 +55,41 @@ public class TestState extends State {
     public double timeLimit = 200;
     public String intruderAI;
     public String guardAI;
-    public int counter;
+
+    public int iteration_counter;
+    public int win_counter;
+    public ArrayList<Float> simulationTimes;
+    public ArrayList<Float> intruderTravelDistances;
+    public ArrayList<Float> guardTravelDistances;
+
     public TestWriter testWriter;
     public float guardTravel = 0;
     public float intruderTravel = 0;
-    private final int NR_OF_SIMULATIONS = 10;
+    private final int NR_OF_SIMULATIONS = 3;
     public long startTime;
     public int intruder_randomness = 100 - 98;
 
 
-    public TestState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls, String guardAI, String intruderAI, int counter) {
+    public TestState(GameStateManager gsm, ArrayList<Area> structures, ArrayList<Agent> agents, ArrayList<Structure> walls, String guardAI, String intruderAI, int iteration_counter, int win_counter, ArrayList<Float> simulationTimes, ArrayList<Float> intruderTravelDistances, ArrayList<Float> guardTravelDistances) {
         super(gsm);
-        this.counter = counter +1;
+
+//        ArrayList<Float> dataTest = new ArrayList<Float>();
+//        dataTest.add(1f);
+//        dataTest.add(2f);
+//        dataTest.add(4f);
+//        dataTest.add(8f);
+//        dataTest.add(100f);
+//
+//        System.out.println("MEAN: " + getSampleMean(dataTest));
+//        System.out.println("VARIANCE: " + getSampleVariance(dataTest));
+
+
+        this.iteration_counter = iteration_counter +1;
+        this.win_counter = win_counter;
+        this.simulationTimes = simulationTimes;
+        this.intruderTravelDistances = intruderTravelDistances;
+        this.guardTravelDistances = guardTravelDistances;
+
         font = new BitmapFont();
         font.setColor(Color.WHITE);
         this.intruderAI = intruderAI;
@@ -124,7 +147,7 @@ public class TestState extends State {
                     agentAI.setAgent(this.agents.get(i));
                     guards.add(agents.get(i));
                 } else {
-                    System.out.println("Unrecognised AI name: "+guardAI);
+                    //System.out.println("Unrecognised AI name: "+guardAI);
                     System.exit(0);
                 }
             } else {
@@ -152,7 +175,7 @@ public class TestState extends State {
                     this.agents.get(i).ai.setArea(400,200);
                     this.agents.get(i).ai.setStructures(structures);
                 } else {
-                    System.out.println("Unrecognised AI name: "+intruderAI);
+                    //System.out.println("Unrecognised AI name: "+intruderAI);
                     System.exit(0);
                 }
             }
@@ -212,24 +235,74 @@ public class TestState extends State {
             for(int i = 0; i < intruders.size(); i++){
                 intruderTravel += intruders.get(i).totalDistanceTravelled;
             }
-            if (counter < NR_OF_SIMULATIONS) {
+            if (iteration_counter < NR_OF_SIMULATIONS) {
                 if (board.timeOfTracking != 0 || deltaTime > timeLimit ) {
 
+                    simulationTimes.add(deltaTime);
+                    intruderTravelDistances.add(intruderTravel);
+                    guardTravelDistances.add(guardTravel);
+
                     testWriter = new TestWriter("Test.txt", deltaTime, "lost",guardTravel,intruderTravel, intruder_randomness);
-                    gsm.push(new TestState(gsm, structures, agents, walls, guardAI, intruderAI, counter));
+                    gsm.push(new TestState(gsm, structures, agents, walls, guardAI, intruderAI, iteration_counter, win_counter, simulationTimes, intruderTravelDistances, guardTravelDistances));
 
                 } else {
+                    win_counter++;
+                    simulationTimes.add(deltaTime);
+                    intruderTravelDistances.add(intruderTravel);
+                    guardTravelDistances.add(guardTravel);
+
                     testWriter = new TestWriter("Test.txt", deltaTime, "won",guardTravel,intruderTravel, intruder_randomness);
-                    gsm.push(new TestState(gsm, structures, agents, walls, guardAI, intruderAI, counter));
+                    gsm.push(new TestState(gsm, structures, agents, walls, guardAI, intruderAI, iteration_counter, win_counter, simulationTimes, intruderTravelDistances, guardTravelDistances));
 
                 }
             } else {
                 if (board.timeOfTracking != 0 || deltaTime > timeLimit) {
 
+                    simulationTimes.add(deltaTime);
+                    intruderTravelDistances.add(intruderTravel);
+                    guardTravelDistances.add(guardTravel);
+
+
+//                    for(int i = 0; i < simulationTimes.size(); i++){
+//                        System.out.println("Simulation time " + i + " is: " + simulationTimes.get(i));
+//                        System.out.println("Intruder distance " + i + " is: " + intruderTravelDistances.get(i));
+//                        System.out.println("Guard distance " + i + " is: " + guardTravelDistances.get(i));
+//                    }
+
+                    System.out.println(" ");
+                    System.out.println("Number of intruder wins: " + win_counter);
+                    System.out.println("Average simulation time: " + getSampleMean(simulationTimes));
+                    System.out.println("Simulation time variance : " + getSampleVariance(simulationTimes));
+                    System.out.println("Average intruder distance: " + getSampleMean(intruderTravelDistances));
+                    System.out.println("Intruder distance variance : " + getSampleVariance(intruderTravelDistances));
+                    System.out.println("Average guard distance: " + getSampleMean(guardTravelDistances));
+                    System.out.println("Guard distance variance : " + getSampleVariance(guardTravelDistances));
+
+
                     testWriter = new TestWriter("Test.txt", deltaTime, "lost",guardTravel,intruderTravel, intruder_randomness);
                     System.exit(0);
 
                 } else {
+                    win_counter++;
+                    simulationTimes.add(deltaTime);
+                    intruderTravelDistances.add(intruderTravel);
+                    guardTravelDistances.add(guardTravel);
+
+//                    for(int i = 0; i < simulationTimes.size(); i++){
+//                        System.out.println("Simulation time " + i + " is: " + simulationTimes.get(i));
+//                        System.out.println("Intruder distance " + i + " is: " + intruderTravelDistances.get(i));
+//                        System.out.println("Guard distance " + i + " is: " + guardTravelDistances.get(i));
+//                    }
+
+                    System.out.println(" ");
+                    System.out.println("Number of intruder wins: " + win_counter);
+                    System.out.println("Average simulation time: " + getSampleMean(simulationTimes));
+                    System.out.println("Simulation time variance : " + getSampleVariance(simulationTimes));
+                    System.out.println("Average intruder distance: " + getSampleMean(intruderTravelDistances));
+                    System.out.println("Intruder distance variance : " + getSampleVariance(intruderTravelDistances));
+                    System.out.println("Average guard distance: " + getSampleMean(guardTravelDistances));
+                    System.out.println("Guard distance variance : " + getSampleVariance(guardTravelDistances));
+
                     testWriter = new TestWriter("Test.txt", deltaTime, "won",guardTravel,intruderTravel, intruder_randomness);
                     System.exit(0);
                 }
@@ -280,5 +353,23 @@ public class TestState extends State {
 
         sb.end();
 
+    }
+
+    public float getSampleMean(ArrayList<Float> data){
+        float sum = 0;
+        for(int i = 0; i < data.size(); i++){
+            sum += data.get(i);
+        }
+        return sum / data.size();
+    }
+
+    public float getSampleVariance(ArrayList<Float> data){
+        float mean = getSampleMean(data);
+        float totalVariance = 0;
+
+        for(int i = 0; i < data.size(); i++){
+            totalVariance += ((data.get(i) - mean) * (data.get(i) - mean));
+        }
+        return totalVariance / (data.size() - 1);
     }
 }
