@@ -8,6 +8,7 @@ import com.game.Board.Area;
 import com.game.Board.Board;
 import com.game.Board.Guard;
 import com.game.Board.Intruder;
+import com.game.Board.LowVisionArea;
 import com.game.Board.MapDivider;
 import com.game.Board.OuterWall;
 import com.game.CopsAndRobbers;
@@ -535,11 +536,13 @@ public class HeuristicAI extends AI {
 
                     }
 
-                    seenStructures.add(area);
-                    Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
-                    Rectangle2D.Float rect = new Rectangle2D.Float(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
-                    exploredStructures.add(rectangle);
-                    astarStructures.add(rect);
+                    if(!(area instanceof LowVisionArea)){
+                        seenStructures.add(area);
+                        Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
+                        Rectangle2D.Float rect = new Rectangle2D.Float(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
+                        exploredStructures.add(rectangle);
+                        astarStructures.add(rect);
+                    }
 
                    // reset();
                 }
@@ -557,13 +560,15 @@ public class HeuristicAI extends AI {
                     }
                 }
 
-                seenStructures.add(area);
-                Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
-                Rectangle2D.Float rect = new Rectangle2D.Float(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
-                exploredStructures.add(rectangle);
-               // seenStructures.add(rectangle);
-                astarStructures.add(rect);
-               // reset();
+                if(!(area instanceof LowVisionArea)) {
+                    seenStructures.add(area);
+                    Area rectangle = new Area(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
+                    Rectangle2D.Float rect = new Rectangle2D.Float(area.xPos - agent.width / 2, area.yPos - agent.height / 2, area.area.width + agent.width, area.area.height + agent.height);
+                    exploredStructures.add(rectangle);
+                    // seenStructures.add(rectangle);
+                    astarStructures.add(rect);
+                    // reset();
+                }
             }
       //  }
 
