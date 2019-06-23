@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AI.AI;
 //import com.game.AI.CopsCenters;
+import com.game.AI.Escape;
 import com.game.AI.GuardPatrolling;
+import com.game.AI.GuardPreventCollision;
 import com.game.AI.InvestigateSound;
 import com.game.AI.MoveAwayFromSound;
 import com.game.AI.Tracking;
@@ -210,7 +212,9 @@ public class Guard extends Agent {
 					}
 				}
 			}
-
+			if(agent instanceof Guard && computeDistance(this, agent) < 5){
+				ai = new GuardPreventCollision(this, agent, ai, ai.seenStructures);
+			}
 			ai.seeAgent(agent);
 		}
 	}
