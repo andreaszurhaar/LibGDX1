@@ -488,6 +488,14 @@ public class Board {
 	
 	public float computeDist(Rectangle rect1, Rectangle rect2) {
 		
+		Vector2 vect = new Vector2((rect2.x+rect2.width/2)-(rect1.x+rect1.width/2),(rect2.y+rect2.height/2)-(rect1.y+rect1.height/2));
+		float ang = vect.angle();
+		while(ang > 45) {ang = ang-90f;}
+		if(ang < -45) {ang = ang+90f;}
+		float tot = vect.len()/(Math.cos((double) Math.abs(ang))); 
+		return (tot-rect1.width/2-rect2.width/2);
+		
+		/*
 		float bottom1 = rect1.y;
 		float left1 = rect1.x;
 		float top1 = rect1.y+rect1.height;
@@ -518,5 +526,6 @@ public class Board {
 		if(toRight == true && below == true) {return new Vector2(left2-right1,top2-bottom1).len();}
 				
 		return 0;
+		*/
 	}
 }
