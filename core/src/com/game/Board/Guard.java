@@ -47,8 +47,8 @@ public class Guard extends Agent {
 		this.height = height;
 		//viewAngle.setToRandomDirection();
 		speed = 1;
-		maxSpeed = 1.4f;
-//		maxSpeed = 15f;
+		//maxSpeed = 1.4f;
+		maxSpeed = 15f;
 		soundRange = 0;
 		viewRange = 6f + width / 2;
 		name = "2";
@@ -215,7 +215,7 @@ public class Guard extends Agent {
 					}
 				}
 			}
-			if(agent instanceof Guard && computeDistance(this, agent) < 5){
+			if(agent instanceof Guard && computeDistance(this, agent) < 100){
 				ai = new GuardPreventCollision(this, agent, ai, ai.seenStructures);
 			}
 			ai.seeAgent(agent);

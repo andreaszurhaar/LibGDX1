@@ -80,7 +80,7 @@ public class Agent extends AssetManager {
 		hearing = false;
 		renderer = new ShapeRenderer();
 		//maxSpeed = 1.4f;
-		maxSpeed = 1.4f;
+		maxSpeed = 15f;
 		speed = 1f;
 	}
 	
