@@ -215,7 +215,7 @@ public class Guard extends Agent {
 					}
 				}
 			}
-			if(agent instanceof Guard && computeDistance(this, agent) < 100){
+			if(agent instanceof Guard && !(ai instanceof Tracking) && !(ai instanceof TrackingLongDistance) /*&& computeDistance(this, agent) < 100*/){
 				ai = new GuardPreventCollision(this, agent, ai, ai.seenStructures);
 			}
 			ai.seeAgent(agent);

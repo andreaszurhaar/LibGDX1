@@ -267,7 +267,9 @@ public class Board {
 							if((agents.get(a) instanceof Guard) && (agents.get(i) instanceof Intruder)){
 								//getArea(): rectangle objects of the agents
 								//System.out.println("DISTANCE OF: "+computeDist(agents.get(a).area,agents.get(i).area));
-								if(computeDist(agents.get(a).area,agents.get(i).area) < 0.5) {
+								Vector2 agentAloc = new Vector2(agents.get(a).xCenter, agents.get(a).yCenter);
+								Vector2 agentiloc = new Vector2(agents.get(i).xCenter, agents.get(i).yCenter);
+								if(computeDist(agents.get(a).area,agents.get(i).area) < 0.5 || agentAloc.dst(agentiloc) < 0.5 + agents.get(a).width) {
 									if(agents.get(a).ai instanceof Tracking) {
 										Tracking trackingGuard = (Tracking) agents.get(a).ai;
 										timeOfTracking = trackingGuard.timeToTrack;

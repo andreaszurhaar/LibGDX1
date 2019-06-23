@@ -23,7 +23,7 @@ public class GuardPreventCollision extends AI{
     private ArrayList<Vector2> previousPos;
     private Instruction instruct = new Instruction();
     private ArrayList<Rectangle2D.Float> rectangles;
-    private final double MOVE_AWAY_FROM_GUARD_TIME = 5; //in seconds
+    private final double MOVE_AWAY_FROM_GUARD_TIME = 1; //in seconds
 
     public GuardPreventCollision(Guard guard, Agent opponent, AI storeAI, ArrayList<Area> seenStructures)
     {

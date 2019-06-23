@@ -82,7 +82,7 @@ public class TestState extends State {
         }
         //separate the agents and structures
         //TODO remove to not generate random map
-        RandomMapGenerator rmg = new RandomMapGenerator(5,20, 3, 6, 1, 2);
+        RandomMapGenerator rmg = new RandomMapGenerator(10,10, 5, 5, 2, 2);
 
         this.structures = rmg.generateStructureList();
         this.agents = rmg.generateAgentList();
