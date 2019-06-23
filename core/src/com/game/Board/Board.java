@@ -164,9 +164,8 @@ public class Board {
 					if(territories.get(i) instanceof TargetArea && agents.get(a) instanceof Intruder) {
 						if(victoryTime1 == 0) {
 							victoryTime1 = System.currentTimeMillis();
-							//TODO time to victory needs to scale with FPS
 						} else {
-							if((System.currentTimeMillis() - victoryTime1) > 3*1000) {gameOver = true;}
+							if((System.currentTimeMillis() - victoryTime1) > 3*1000 * fps/60) {gameOver = true;}
 						}
 					} else if(territories.get(i) instanceof LowVisionArea) {
 						agents.get(a).hidden = true;

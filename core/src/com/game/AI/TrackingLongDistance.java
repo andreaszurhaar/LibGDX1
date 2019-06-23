@@ -66,13 +66,15 @@ public class TrackingLongDistance extends AI{
     @Override
     public float getRotation() {
         if (rotation.empty()){
-                trackIntruder();
+            previousAI.reset();
+            guard.setAI(previousAI);
+            return guard.ai.getSpeed();
         }
         else
         {
             return rotation.pop();
         }
-        return rotation.pop();
+        //return rotation.pop();
     }
 
     @Override
