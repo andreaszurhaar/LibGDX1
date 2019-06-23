@@ -62,3 +62,7 @@ time :36.522 / won / guard distance : 2429.628 / intruder distance : 372.55316 /
 time :147.444 / lost / guard distance : 9776.544 / intruder distance : 1595.2349 / intruder random percentage : 2.0
 
 time :200.005 / lost / guard distance : 10651.15 / intruder distance : 2243.3445 / intruder random percentage : 2.0
+
+time :19.664 / won / guard distance : 1564.9126 / intruder distance : 209.60985 / intruder random percentage : 2.0
+
+time :115.269 / lost / guard distance : 4600.9863 / intruder distance : 1405.8344 / intruder random percentage : 2.0
