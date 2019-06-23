@@ -100,6 +100,7 @@ public class MainState extends State {
 	                agentAI.setAgent(this.agents.get(i));
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
+                    ((Guard) this.agents.get(i)).setSeenStructures(structures);
 	                guards.add(this.agents.get(i));
             	} else if(guardAI == "Circle patrolling") {
 	                AI agentAI = new GuardCirclePatrolling();
@@ -107,6 +108,7 @@ public class MainState extends State {
 	                agentAI.setAgent(this.agents.get(i));
 	                this.agents.get(i).ai.setArea(400,200);
 	                this.agents.get(i).ai.setStructures(structures);
+//                    ((Guard) this.agents.get(i)).setSeenStructures(structures);
 	                guards.add(this.agents.get(i));
             	} else if(guardAI == "Heatmap patrolling") {
                     AI agentAI = new HeuristicAI();
@@ -115,13 +117,13 @@ public class MainState extends State {
                     this.agents.get(i).ai.setArea(400,200);
                     agentAI.setAgent(this.agents.get(i));
                     this.agents.get(i).ai.setStructures(structures);
+//                    ((Guard) this.agents.get(i)).setSeenStructures(structures);
                     guards.add(agents.get(i));
                 } else if(guardAI == "Random patrolling") {
-                        AI agentAI = new HeuristicAI();
-                        this.agents.get(i).setAI(agentAI);((HeuristicAI) agentAI).setPattern("random");
+            	    AI agentAI = new HeuristicAI();
+            	    this.agents.get(i).setAI(agentAI);((HeuristicAI) agentAI).setPattern("random");
                     this.agents.get(i).ai.setArea(400,200);
-
-                    this.agents.get(i).ai.setStructures(structures);
+//                    ((Guard) this.agents.get(i)).setSeenStructures(structures);
                     agentAI.setAgent(this.agents.get(i));
                     guards.add(agents.get(i));
             	} else {

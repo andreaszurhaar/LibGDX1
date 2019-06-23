@@ -35,7 +35,7 @@ public class Intruder extends Agent {
 		this.width = width;
 		this.height = height;
 		//viewAngle.setToRandomDirection();
-		speed = 15;
+		speed = 1;
 		rotation = 0;
 		soundRange = 0;
 		name = "1";
@@ -46,7 +46,7 @@ public class Intruder extends Agent {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        maxSpeed = 15;
+//        maxSpeed = 15;
 	}
 	
 	public float getSpeed() {

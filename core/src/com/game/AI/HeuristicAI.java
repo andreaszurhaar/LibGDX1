@@ -173,9 +173,9 @@ public class HeuristicAI extends AI {
         }
         prevPoint = point;
 
-      //  System.out.println("Agent is: " + agent);
-     //   System.out.println("calling a star with location: " + agent.xCenter + "," + agent.yCenter);
-      //  System.out.println("target loc for astar: " + point.x + "," + point.y);
+//        System.out.println("Agent is: " + agent);
+//        System.out.println("calling a star with location: " + agent.xCenter + "," + agent.yCenter);
+//        System.out.println("target loc for astar: " + point.x + "," + point.y);
         AStarNew astar = new AStarNew(astarStructures, agent.xCenter, agent.yCenter, point.x, point.y,agent);
         rotation = astar.getRotationStack();
         speed = astar.getSpeedStack();
