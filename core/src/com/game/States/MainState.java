@@ -44,7 +44,7 @@ public class MainState extends State {
     public ArrayList<Structure> walls;
 
     private BitmapFont font;
-    private float deltaTime = -10;
+    private float deltaTime = 0;
     CharSequence str;
 
     public Texture background;

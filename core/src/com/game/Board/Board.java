@@ -493,7 +493,7 @@ public class Board {
 		float ang = vect.angle();
 		while(ang > 45) {ang = ang-90f;}
 		if(ang < -45) {ang = ang+90f;}
-		float tot = vect.len()/(Math.cos((double) Math.abs(ang))); 
+		float tot = vect.len()/(float) (Math.cos((double) Math.abs(ang))); 
 		return (tot-rect1.width/2-rect2.width/2);
 		
 		/*

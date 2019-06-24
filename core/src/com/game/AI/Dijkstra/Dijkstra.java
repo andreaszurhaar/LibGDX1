@@ -51,19 +51,19 @@ public class Dijkstra {
 						structures.get(i).area.width+agent.area.width,structures.get(i).area.height+agent.area.height);
 				//System.out.println("MADE A RECTANGLE OF X: "+rec.x+"  Y: "+rec.y+"   width: "+rec.width+"   height: "+rec.height);
 				obstacles.add(rec);
-				nodeGraph.add(new DijkstraNode((float) (rec.x-0.0001),(float) (rec.y-0.0001)));
-				nodeGraph.add(new DijkstraNode((float) (rec.x-0.0001),(float) (rec.y+rec.getHeight()+0.0001)));
-				nodeGraph.add(new DijkstraNode((float) (rec.x+rec.getWidth()+0.0001),(float) (rec.y-0.0001)));
-				nodeGraph.add(new DijkstraNode((float) (rec.x+rec.getWidth()+0.0001),(float) (rec.y+rec.getHeight()+0.0001)));
+				nodeGraph.add(new DijkstraNode((float) (rec.x-0.1),(float) (rec.y-0.1)));
+				nodeGraph.add(new DijkstraNode((float) (rec.x-0.1),(float) (rec.y+rec.getHeight()+0.1)));
+				nodeGraph.add(new DijkstraNode((float) (rec.x+rec.getWidth()+0.1),(float) (rec.y-0.1)));
+				nodeGraph.add(new DijkstraNode((float) (rec.x+rec.getWidth()+0.1),(float) (rec.y+rec.getHeight()+0.1)));
 			} else if(structures.get(i) instanceof Structure) {
-				Rectangle2D.Float rec = new Rectangle2D.Float(structures.get(i).area.x-agent.area.width/2,structures.get(i).area.y-agent.area.height/2,
-						structures.get(i).area.width+agent.area.width,structures.get(i).area.height+agent.area.height);
+				Rectangle2D.Float rec = new Rectangle2D.Float(structures.get(i).area.x-agent.area.width/2-1,structures.get(i).area.y-agent.area.height/2,
+						structures.get(i).area.width+agent.area.width+1,structures.get(i).area.height+agent.area.height+2);
 				//System.out.println("MADE A RECTANGLE OF X: "+rec.x+"  Y: "+rec.y+"   width: "+rec.width+"   height: "+rec.height);
 				obstacles.add(rec);
-				nodeGraph.add(new DijkstraNode((float) (rec.x-0.0001),(float) (rec.y-0.0001)));
-				nodeGraph.add(new DijkstraNode((float) (rec.x-0.0001),(float) (rec.y+rec.getHeight()+0.0001)));
-				nodeGraph.add(new DijkstraNode((float) (rec.x+rec.getWidth()+0.0001),(float) (rec.y-0.0001)));
-				nodeGraph.add(new DijkstraNode((float) (rec.x+rec.getWidth()+0.0001),(float) (rec.y+rec.getHeight()+0.0001)));
+				nodeGraph.add(new DijkstraNode((float) (rec.x-0.1),(float) (rec.y-0.1)));
+				nodeGraph.add(new DijkstraNode((float) (rec.x-0.1),(float) (rec.y+rec.getHeight()+0.1)));
+				nodeGraph.add(new DijkstraNode((float) (rec.x+rec.getWidth()+0.1),(float) (rec.y-0.1)));
+				nodeGraph.add(new DijkstraNode((float) (rec.x+rec.getWidth()+0.1),(float) (rec.y+rec.getHeight()+0.1)));
 			}
 		}
 		nodeGraph.add(new DijkstraNode(goalx,goaly));
@@ -129,6 +129,7 @@ public class Dijkstra {
 			//System.out.println("NODE NUMBER: "+i+"   "+"has score:  "+current.bestPathToHere.get(i).score);
 		}
 		//System.out.println("END NODE HAS SCORE: "+current.score);
+		result.remove(0);
 		return result;
 		
 	}
