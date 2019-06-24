@@ -1,3 +1,7 @@
+/**
+ * Sentry Tower Graphic and logic object
+ */
+
 package com.game.Board;
 
 import java.io.IOException;

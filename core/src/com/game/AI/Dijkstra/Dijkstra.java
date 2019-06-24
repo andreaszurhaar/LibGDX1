@@ -1,5 +1,5 @@
 /**
- * 
+ * Implementation of Dijkstra's shortest path algorithm for surveillance agents to go to a destination
  */
 package com.game.AI.Dijkstra;
 
@@ -49,7 +49,6 @@ public class Dijkstra {
 			if(structures.get(i) instanceof SentryTower) {
 				Rectangle2D.Float rec = new Rectangle2D.Float(structures.get(i).area.x-agent.area.width/2,structures.get(i).area.y-agent.area.height/2,
 						structures.get(i).area.width+agent.area.width,structures.get(i).area.height+agent.area.height);
-				//System.out.println("MADE A RECTANGLE OF X: "+rec.x+"  Y: "+rec.y+"   width: "+rec.width+"   height: "+rec.height);
 				obstacles.add(rec);
 				nodeGraph.add(new DijkstraNode((float) (rec.x-0.1),(float) (rec.y-0.1)));
 				nodeGraph.add(new DijkstraNode((float) (rec.x-0.1),(float) (rec.y+rec.getHeight()+0.1)));
@@ -58,7 +57,6 @@ public class Dijkstra {
 			} else if(structures.get(i) instanceof Structure) {
 				Rectangle2D.Float rec = new Rectangle2D.Float(structures.get(i).area.x-agent.area.width/2-1,structures.get(i).area.y-agent.area.height/2,
 						structures.get(i).area.width+agent.area.width+1,structures.get(i).area.height+agent.area.height+2);
-				//System.out.println("MADE A RECTANGLE OF X: "+rec.x+"  Y: "+rec.y+"   width: "+rec.width+"   height: "+rec.height);
 				obstacles.add(rec);
 				nodeGraph.add(new DijkstraNode((float) (rec.x-0.1),(float) (rec.y-0.1)));
 				nodeGraph.add(new DijkstraNode((float) (rec.x-0.1),(float) (rec.y+rec.getHeight()+0.1)));
@@ -87,8 +85,6 @@ public class Dijkstra {
 			        }
 			        if(!intersects) {
 			        	edgeGraph.add(new DijkstraEdge(nodeGraph.get(y),nodeGraph.get(z)));
-//			        	nodeGraph.get(y).addNeighbour(edgeGraph.get(edgeGraph.size()-1));
-//			        	nodeGraph.get(z).addNeighbour(edgeGraph.get(edgeGraph.size()-1));
 			        }
 				}
 			}
@@ -113,22 +109,18 @@ public class Dijkstra {
 				}
 			}
 			if(bestScore == 10000) {
-				//System.out.println("ERROR: Unreachable target");
 				ArrayList<Vector2> result = new ArrayList<Vector2>();
 				result.add(new Vector2(agent.xCenter,agent.yCenter));
 				return result;
 			}
 			if(nextIndex == nodesToExamine.size()-1) {foundGoal = true;}
 			current = nodesToExamine.remove(nextIndex);
-			//System.out.println("CHECKING INDEX: "+nextIndex+" for value: "+bestScore);
 			examineNode(current,angleToScoreConversion);
 		}
 		ArrayList<Vector2> result = new ArrayList<Vector2>();
 		for(int i=0; i<current.bestPathToHere.size(); i++) {
 			result.add(new Vector2(current.bestPathToHere.get(i).x,current.bestPathToHere.get(i).y));
-			//System.out.println("NODE NUMBER: "+i+"   "+"has score:  "+current.bestPathToHere.get(i).score);
 		}
-		//System.out.println("END NODE HAS SCORE: "+current.score);
 		result.remove(0);
 		return result;
 		
@@ -144,17 +136,14 @@ public class Dijkstra {
 			if(angleDifference >= 360) {
 				angleDifference = angleDifference-360;
 			}
-			//System.out.println("added to weight for angle:  "+angleDifference*angleToScoreConversion);
 			float adjlength = 10000;
 			for(int j=0; j<current.adjacent.size(); j++) {
 				if(current.adjacent.get(j).start.equals(current.neighbours.get(i)) || current.adjacent.get(j).end.equals(current.neighbours.get(i))) {
 					adjlength = current.adjacent.get(j).length;
 				}
 			}
-			//System.out.println("added to weight for distance:  "+adjlength);
 			float neighbourScore = current.score+angleDifference*angleToScoreConversion+adjlength;
 			if(neighbourScore < current.neighbours.get(i).score) {
-				//System.out.println("better score for node:  "+current.neighbours.get(i).x+"  "+current.neighbours.get(i).y+"    from node: "+current.x+"  "+current.y+"     of scores: "+neighbourScore+"   ->  "+current.neighbours.get(i).score);
 				current.neighbours.get(i).score = neighbourScore;
 				current.neighbours.get(i).bestEntryAngle = entryAngle;
 				current.neighbours.get(i).setBestPath(current.bestPathToHere);

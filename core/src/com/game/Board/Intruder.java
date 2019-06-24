@@ -1,5 +1,5 @@
 /**
- * 
+ * Graphical Object and State Machine for an intruder surveillance agent
  */
 package com.game.Board;
 

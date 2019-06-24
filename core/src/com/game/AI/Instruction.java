@@ -1,5 +1,6 @@
 /**
- * 
+ * Class used for translating simple decision making from AIs into sets of 
+ * instructions used by logic handling classes to simulate a game
  */
 package com.game.AI;
 
@@ -26,14 +27,9 @@ public class Instruction {
 	
 	public void translate(Vector2 destination, Agent agent, boolean exploring) {
 		
-		//find the length to traverse and how much to turn
-		//System.out.println("Our destination: "+ destination.x +","+destination.y );
-		//System.out.println("Our current position:" + agent.xCenter +","+agent.yCenter);
 		Vector2 positions = new Vector2((destination.x-agent.xCenter),(destination.y-agent.yCenter));
-		//System.out.println("Distance to travel:" + positions.x +","+positions.y);
 		float pathLength = positions.len();
 		float turnAngle = agent.viewAngle.angle(positions);
-		//System.out.println("TURNING FOR: "+turnAngle+"  AND MOVING FOR: "+pathLength);
 		
 		//prepare to invert turning if the shortest angle is negative
 		boolean positive = true;
@@ -100,9 +96,7 @@ public class Instruction {
 			if(turnAngle > 180) {turnAngle = turnAngle-360;}
 			
 		}
-		
-		//System.out.println("TURNING FOR: "+turnAngle+"  AND MOVING FOR: "+pathLength);
-		
+				
 		//prepare to invert turning if the shortest angle is negative
 		boolean positive = true;
 		if (turnAngle < 0) {
@@ -156,14 +150,9 @@ public class Instruction {
 	
 	public int translateWithSprinting(Vector2 destination, Agent agent, boolean exploring) {
 		
-		//find the length to traverse and how much to turn
-		//System.out.println("Our destination: "+ destination.x +","+destination.y );
-		//System.out.println("Our current position:" + agent.xCenter +","+agent.yCenter);
 		Vector2 positions = new Vector2((destination.x-agent.xCenter),(destination.y-agent.yCenter));
-		//System.out.println("Distance to travel:" + positions.x +","+positions.y);
 		float pathLength = positions.len();
 		float turnAngle = agent.viewAngle.angle(positions);
-		//System.out.println("TURNING FOR: "+turnAngle+"  AND MOVING FOR: "+pathLength);
 		
 		//prepare to invert turning if the shortest angle is negative
 		boolean positive = true;
@@ -246,14 +235,12 @@ public class Instruction {
 	}
 	
 	public Stack<Float> getRotations() {
-		//System.out.println("This stack rotation is of size: "+rotations.size());
 		Stack<Float> rots = rotations;
 		rotations = new Stack<Float>();
 		return rots;
 	}
 	
 	public Stack<Float> getSpeeds() {
-	//	System.out.println("This other stack is of size: "+speeds.size());
 		Stack<Float> sps = speeds;
 		speeds = new Stack<Float>();
 		return sps;

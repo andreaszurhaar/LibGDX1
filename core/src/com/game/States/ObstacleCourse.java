@@ -1,5 +1,8 @@
 package com.game.States;
-
+/**
+ * UI handling class for the Obstacle Course tests
+ * 
+ */
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -36,6 +39,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
+/**
+ * @author Lukas Padolevicius
+ *
+ */
 
 public class ObstacleCourse extends State {
 
