@@ -139,17 +139,15 @@ public class MenuState extends State {
                 String guardAI = (String) guardBots.getSelected();
                 String intruderAI = (String) agentBots.getSelected();
                 if(levelInt == 0 ) {
-                    //TODO change here to use test state
-                    //gamestatemanager.push(new MapState(gamestatemanager, guardAI, intruderAI));
+                    gamestatemanager.push(new MapState(gamestatemanager, guardAI, intruderAI));
 
-                    ArrayList<Float> simulationTimes = new ArrayList<Float>();
-                    ArrayList<Float> intruderTravelDistances = new ArrayList<Float>();
-                    ArrayList<Float> guardTravelDistances = new ArrayList<Float>();
-
-                    gamestatemanager.push(new TestState(gamestatemanager, levelReader.fileReader(9).get(1),levelReader.fileReader(9).get(0),levelReader.fileReader(9).get(2),guardAI, intruderAI,0, 0, simulationTimes, intruderTravelDistances, guardTravelDistances));
-                }
-                else{
-                    //gamestatemanager.push(new MainState(gsm,levelReader.fileReader(levelInt).get(1),levelReader.fileReader(levelInt).get(0),levelReader.fileReader(levelInt).get(2),new GuardCirclePatrolling(),new Astar()));
+                } else if(levelInt == 1 ) {
+                	ArrayList<Float> simulationTimes = new ArrayList<Float>();
+	                ArrayList<Float> intruderTravelDistances = new ArrayList<Float>();
+	                ArrayList<Float> guardTravelDistances = new ArrayList<Float>();	
+	                gamestatemanager.push(new TestState(gamestatemanager, levelReader.fileReader(9).get(1),levelReader.fileReader(9).get(0),levelReader.fileReader(9).get(2),guardAI, intruderAI,0, 0, simulationTimes, intruderTravelDistances, guardTravelDistances));
+	                	
+                } else {
                     gamestatemanager.push(new MainState(gsm,levelReader.fileReader(levelInt).get(1),levelReader.fileReader(levelInt).get(0),levelReader.fileReader(levelInt).get(2),guardAI,intruderAI));
                 }
             }
