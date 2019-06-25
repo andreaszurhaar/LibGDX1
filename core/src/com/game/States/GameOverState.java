@@ -1,3 +1,8 @@
+/**
+ * UI class used when a game has finished
+ * 
+ */
+
 package com.game.States;
 
 import com.badlogic.gdx.Gdx;
@@ -31,6 +36,11 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+/**
+ * @author Lukas Padolevicius
+ *
+ */
 
 public class GameOverState extends State {
 

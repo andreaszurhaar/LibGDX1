@@ -1,5 +1,5 @@
 /**
- * 
+ * Primary logic handling class for simulation of movement and handling of map element attributes
  */
 package com.game.Board;
 
@@ -85,17 +85,13 @@ public class Board {
 	}
 		
 	public ArrayList[][] getTrackerBoard() {
-		
-		//System.out.println(positionTracker.length);
 		return positionTracker;
 	}
 	
 	public void putInAgents(ArrayList<Agent> ags) {
 		int counter = 0;
 		for(int a=0; a<ags.size(); a++) {
-			//System.out.println("agents ai in board " + ags.get(a).ai);
 			agents.add(ags.get(a));
-			//System.out.println("agents ai after adding to board " + agents.get(counter).ai);
 			counter++;
 		}
 	}
@@ -110,7 +106,6 @@ public class Board {
 			//update angle
 			float rot = agents.get(a).getRotation();
 			agents.get(a).rotate(rot/fps);
-			//System.out.println("Agent " + agents.get(a) + " has AI: " + agents.get(a).ai);
 			
 			float speed = agents.get(a).getSpeed()/fps;
 			double angle = (double) agents.get(a).getAngleRad();
@@ -205,7 +200,6 @@ public class Board {
 						agents.get(a).setCollided(true);
 					}
 				}
-				//System.out.println("collided");}
 			}
 			for(int i=0; i<agents.size(); i++) {
 				if(a!=i) {
@@ -223,8 +217,6 @@ public class Board {
 				agents.get(a).totalDistanceTravelled = agents.get(a).totalDistanceTravelled+new Vector2(agents.get(a).xPos-newX,agents.get(a).yPos-newY).len();
 				agents.get(a).setPos(newX,newY);
 			}
-			//if(!agents.get(a).AgentReachedCentre()) agents.get(a).triggerStep();
-			//else agents.get(a).triggerStepTowardPoint(agents.get(a).getDestPoint());
 			agents.get(a).triggerStep();
 
 		}
@@ -265,8 +257,6 @@ public class Board {
 							agents.get(a).see(agents.get(i));
 							//check if seeing agent is guard and if seen agent is intruder, if so, and distance < 0.5m
 							if((agents.get(a) instanceof Guard) && (agents.get(i) instanceof Intruder)){
-								//getArea(): rectangle objects of the agents
-								//System.out.println("DISTANCE OF: "+computeDist(agents.get(a).area,agents.get(i).area));
 								Vector2 agentAloc = new Vector2(agents.get(a).xCenter, agents.get(a).yCenter);
 								Vector2 agentiloc = new Vector2(agents.get(i).xCenter, agents.get(i).yCenter);
 								if(computeDist(agents.get(a).area,agents.get(i).area) < 0.5 || agentAloc.dst(agentiloc) < 0.5 + agents.get(a).width) {
@@ -346,36 +336,14 @@ public class Board {
 			for (int j = 0; j < positionTracker[0].length; j++) {
 				Random rand = new Random();
 				if (rand.nextDouble() < 0.1/(fps*60)) {
-					//SoundOccurence s = new SoundOccurence(System.currentTimeMillis(), positionTracker[i][j], k);
 					float xpos = (float) ((i* BOARD_WIDTH/5)+Math.random()*5);
 					float ypos = (float) ((j* BOARD_HEIGHT/5)+Math.random()*5);
 					SoundOccurence s = new SoundOccurence(System.currentTimeMillis(), xpos, ypos, RANDOM_NOISE_SOUND_RANGE);
-					//System.out.println("Sound generated in square " + i + " " +  j + " in cell " + k);
-					//TODO uncomment for randomly generated sounds
-					//checkIfAgentHears(s);
-				}
+					}
 			}
 		}
 		//check for agents hearing agents
 		for(int i=0; i<agents.size(); i++) {
-			//creating SoundOccurences with different ranges, depending on the current speed of the agent
-			//SoundOccurence s = createHearableSound(agents.get(i));
-//			if(agents.get(i).getSpeed() < 0.5 && agentNearby(agents.get(i))){
-//				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 1);
-//			}
-//			else if(agents.get(i).getSpeed() > 0.5 && agents.get(i).getSpeed() <1.0){
-//				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 3);
-//			}
-//			else if(agents.get(i).getSpeed() > 1.0 && agents.get(i).getSpeed() <2.0){
-//				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 5);
-//			}
-//			else{
-//				s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 10);
-//			}
-//            if(s != null){
-//                agents.get(i).hearSound(estimateDirection(s,agents.get(i).xCenter,agents.get(i).yCenter));
-//            }
-
 			for(int j=0; j<agents.size(); j++) {
 				if(i!=j) {
 					Agent a = agents.get(j);
@@ -383,49 +351,11 @@ public class Board {
 					//check if distance between sound and agent is within the sound range
 					if (distPointToRect(b.xCenter,b.yCenter,a.area).len() < a.soundRange+b.area.width) {
 						a.hearSound(estimateDirection(b.xCenter,b.yCenter,a.xCenter,a.yCenter));
-						//System.out.println("heard sound between: "+i+"  and "+j+"   "+Math.random());
 					}
 				}
 			}
 		}
 	}
-
-	/*
-	public SoundOccurence createHearableSound(Agent observingAgent){
-		for (int i = 0; i< agents.size(); i++)
-		{
-		    if(observingAgent != agents.get(i)) {
-		        SoundOccurence s;
-                if (computeDist(observingAgent.area, agents.get(i).area) < 1 && agents.get(i).getSpeed() < 0.5){
-                    s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 1);
-                    return s;
-                }
-                if (computeDist(observingAgent.area, agents.get(i).area) < 3 && agents.get(i).getSpeed() > 0.5 && agents.get(i).getSpeed() <1.0){
-                    s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 3);
-                    return s;
-                }
-                if (computeDist(observingAgent.area, agents.get(i).area) < 5 && agents.get(i).getSpeed() > 1.0 && agents.get(i).getSpeed() <2.0){
-                    s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 5);
-                    return s;
-                }
-                if (computeDist(observingAgent.area, agents.get(i).area) < 10 && agents.get(i).getSpeed() > 2){
-                    s = new SoundOccurence(System.currentTimeMillis(),agents.get(i).xCenter,agents.get(i).yCenter, 10);
-                    return s;
-                }
-
-
-//			if (distPointToRect(agents.get(i).xPos, agents.get(i).yPos, agent.area).len() < 10 && agents.get(i).speed > 2){
-//				return true;
-//			}
-//			else if (distPointToRect(agents.get(i).xPos, agents.get(i).yPos, agent.area).len() < 5 && agents.get(i).speed > 1 && agents.get(i).speed < 2)
-//			{
-//				return true;
-//			}
-            }
-		}
-		return null;
-	}
-	*/
 
 	public float estimateDirection(float xStart, float yStart, float xPos, float yPos) {
 		Vector2 vector = new Vector2(xStart - xPos,yStart - yPos);
@@ -436,7 +366,6 @@ public class Board {
 	public void checkIfAgentSees(){
 		for(Agent a : agents){
 			for(Area t: territories){
-				//TODO change distance calculation so that it takes every point of the terrotitory in to account
 				if 		((Math.sqrt((t.getMinX() - a.getX()) * (t.getMinX() - a.getX()) + (t.getMinY() - a.getY()) * (t.getMinY() - a.getY())) < VISUAL_RANGE) ||
 						(Math.sqrt((t.getMaxX() - a.getX()) * (t.getMaxX() - a.getX()) + (t.getMinY() - a.getY()) * (t.getMinY() - a.getY()))   < VISUAL_RANGE) ||
 						(Math.sqrt((t.getMinX() - a.getX()) * (t.getMinX() - a.getX()) + (t.getMaxY() - a.getY()) * (t.getMaxY() - a.getY()))   < VISUAL_RANGE) ||
@@ -495,38 +424,5 @@ public class Board {
 		if(ang < -45) {ang = ang+90f;}
 		float tot = vect.len()/(float) (Math.cos((double) Math.abs(ang))); 
 		return (tot-rect1.width/2-rect2.width/2);
-		
-		/*
-		float bottom1 = rect1.y;
-		float left1 = rect1.x;
-		float top1 = rect1.y+rect1.height;
-		float right1 = rect1.x+rect1.width;
-		
-		float bottom2 = rect2.y;
-		float left2 = rect2.x;
-		float top2 = rect2.y+rect2.height;
-		float right2 = rect2.x+rect2.width;
-		
-
-		boolean toLeft = false;
-		boolean toRight = false;
-		boolean above = false;
-		boolean below = false;
-		
-		if(right2 < left1) {toLeft = true;}
-		if(right1 < left2) {toRight = true;}
-		if(top1 < bottom2) {above = true;}
-		if(top2 < bottom1) {below = true;}
-
-		if(toLeft == false && toRight == false) {return Math.min(Math.abs(bottom1-top2), Math.abs(bottom2-top1));}
-		if(above == false && below == false) {return Math.min(Math.abs(left1-right2), Math.abs(right2-left1));}
-		
-		if(toLeft == true && above == true) {return new Vector2(left1-right2,top1-bottom2).len();}
-		if(toLeft == true && below == true) {return new Vector2(left1-right2,top2-bottom1).len();}
-		if(toRight == true && above == true) {return new Vector2(left2-right1,top1-bottom2).len();}
-		if(toRight == true && below == true) {return new Vector2(left2-right1,top2-bottom1).len();}
-				
-		return 0;
-		*/
 	}
 }

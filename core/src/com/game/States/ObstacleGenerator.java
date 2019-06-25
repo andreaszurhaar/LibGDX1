@@ -1,5 +1,5 @@
 /**
- * 
+ * Class used to generate random Obstacle Courses
  */
 package com.game.States;
 

@@ -1,5 +1,5 @@
 /**
- * 
+ * Window Graphic and logic object
  */
 package com.game.Board;
 
