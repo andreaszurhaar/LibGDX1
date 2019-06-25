@@ -45,10 +45,8 @@ public class Guard extends Agent {
 		super(x, y, width, height);
 		this.width = width;
 		this.height = height;
-		//viewAngle.setToRandomDirection();
 		speed = 1;
-		//maxSpeed = 1.4f;
-		maxSpeed = 15f;
+		maxSpeed = 1.4f;
 		soundRange = 0;
 		viewRange = 6f + width / 2;
 		name = "2";
@@ -64,10 +62,10 @@ public class Guard extends Agent {
 	public Guard(float x, float y, float width, float height, ArrayList<Area> structures) {
 		super(x, y, width, height);
 		seenStructures = structures;
-		//viewAngle.setToRandomDirection();
 		speed = 1;
+		maxSpeed = 1.4f;
 		soundRange = 0;
-		viewRange = 6f;
+		viewRange = 6f + width / 2;
 		name = "2";
 		timeOfLastMessage = Float.MIN_VALUE;
 		try {
@@ -99,10 +97,7 @@ public class Guard extends Agent {
 			idlecount--;
 			return;
 		}
-		//System.out.println("AI in guard is " + ai);
 
-
-		//System.out.println("activated trigger and changed speed from: "+speed+"  "+angle);
 		if (speed < 0.5) {
 			soundRange = 1;
 		} else if (speed < 1) {
@@ -113,25 +108,14 @@ public class Guard extends Agent {
 			soundRange = 10;
 		}
 
-		//this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
-		this.speed = 0f;
-		//System.out.println("Guard AI: " + ai);
 		this.speed = ai.getSpeed() * Board.fps;
 		this.rotation = ai.getRotation() * Board.fps;
-//		System.out.println("Current guard AI: " + ai);
 
 		if (this.speed == 0)
 			framesStationaryCounter++;
 		else
 			framesStationaryCounter = 0;
 
-
-		if(framesStationaryCounter > 180){
-	//		System.out.println("GUARD NOT MOVING");
-
-		}
-
-		//System.out.println("to: "+speed+"  "+angle);
 		if (ai instanceof AStarNew) {
 			if (speed == 0 && rotation == 0) {
 				AStarNew aiConv = (AStarNew) ai;
@@ -142,7 +126,7 @@ public class Guard extends Agent {
 				}
 			}
 		}
-		//if(speed > 1.4f) {speed = 1.4f;}
+		if(speed > 1.4f) {speed = 1.4f;}
 		if(rotation > 180) {rotation = 180;}
 		else if(rotation < -180) {rotation = -180;}
 	}
@@ -158,7 +142,6 @@ public class Guard extends Agent {
 			Tracking guardcopy = (Tracking) this.ai;
 			renderer.setColor(0, 1, 0, 0);
 			renderer.rectLine(xCenter * xReduc, yCenter * yReduc, (xCenter + guardcopy.showvect.x) * xReduc, (yCenter + guardcopy.showvect.y) * yReduc, 2);
-//			System.out.println("VECTOR: " + guardcopy.showvect.x);
 		}
 		renderer.setColor(0, 1, 1, 1);
 		renderer.rect(xPos * xReduc - 1, yPos * yReduc - 1, area.width * xReduc + 2, area.height * yReduc + 2);
@@ -186,27 +169,21 @@ public class Guard extends Agent {
 	public void see(Agent agent) {
 
 		if (!(Math.abs(rotation) > 45)) {
-			//TODO "if you turn more than 45 degrees/second you don't see anything for the turning time --plus half a second--"
 			seeing = true;
 			/** Switching to tracking
 			 */
 			if (!(ai instanceof Tracking) && agent instanceof Intruder) {
-			//	System.out.println("saw intruder");
 				ai = new Tracking(this, agent, ai);
 			}
 			/**
 			 * Communicating the intruder's location to all other guards every X seconds
 			 */
 			if (agent instanceof Intruder) {
-				//TODO make sure the communicated location changes after each message
 				if (System.currentTimeMillis() > (timeOfLastMessage + INTER_MESSAGE_TIME * 1000)) {
 					timeOfLastMessage = System.currentTimeMillis();
 					for (int i = 0; i < agentList.size(); i++) {
-						//agentList.get(i).ai.moveToPoint(new Vector2(agent.xPos, agent.yPos));
 						Agent currentGuard = agentList.get(i);
 						if ((computeDistance(currentGuard,this)<RADIUS) && currentGuard != this && currentGuard instanceof Guard) {
-//						System.out.println("set guard " + currentGuard + " to tracking long distance");
-							//currentGuard.setAI(new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, ((Guard) currentGuard).structures));
 							if((currentGuard instanceof Guard)) {
 								ArrayList<Area> storedStructures = currentGuard.ai.seenStructures;
 								currentGuard.ai = new TrackingLongDistance((Guard) currentGuard, new Vector2(agent.xPos, agent.yPos), currentGuard.ai, storedStructures);
@@ -235,7 +212,6 @@ public class Guard extends Agent {
 	 */
 	public void hearSound(float directionAngle) {
 
-		//TODO check if works
 		prevAngle = directionAngle;
 
 		if (!(directionAngle < (prevAngle + 20) && directionAngle > (prevAngle - 20)) && framesStationaryCounter < 30) {

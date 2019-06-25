@@ -34,7 +34,6 @@ public class Intruder extends Agent {
 		viewAngle.setAngle(-45);
 		this.width = width;
 		this.height = height;
-		//viewAngle.setToRandomDirection();
 		speed = 1;
 		rotation = 0;
 		soundRange = 0;
@@ -46,7 +45,6 @@ public class Intruder extends Agent {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        maxSpeed = 15;
 	}
 	
 	public float getSpeed() {
@@ -79,15 +77,6 @@ public class Intruder extends Agent {
 			idlecount--;
 			return;
 		}
-
-		this.speed = 15f;//(float) Math.random()*1.4f;
-//		rotation = -10;
-//		/*
-//		rotation = (float) Math.random()*turningCircle/4;
-//		if(Math.random() < 0.3) {rotation = -rotation;}
-//		if(Math.random() < 0.001) {triggerSprint();}
-//		*/
-//
 		if(sprintCount != 0) {
 			sprintCount--;
 		} else if(restCount != 0) {restCount--;}
@@ -102,15 +91,14 @@ public class Intruder extends Agent {
 			soundRange = 10;
 		}
 
-		//System.out.println("Intruder AI: " + ai);
-		this.speed = ai.getSpeed()*Board.fps;//(float) (Math.random()*1.4f);
+		this.speed = ai.getSpeed()*Board.fps;
 		this.rotation = ai.getRotation()*Board.fps;
 		if(sprintCount != 0) {
-			//if(speed > 3) {speed = 3;}
+			if(speed > 3) {speed = 3;}
 			if(rotation > 10) {rotation = 10;}
 			else if(rotation < -10) {rotation = -10;}
 		} else {
-			//if(speed > 1.4f) {speed = 1.4f;}
+			if(speed > 1.4f) {speed = 1.4f;}
 			if(rotation > 180) {rotation = 180;}
 			else if(rotation < -180) {rotation = -180;}	
 		}
@@ -149,9 +137,7 @@ public class Intruder extends Agent {
 	public void see(Agent agent) {
 
 		if (!(Math.abs(rotation) > 45)) {
-			//TODO "if you turn more than 45 degrees/second you don't see anything for the turning time --plus half a second--"
 			seeing = true;
-			//TODO maybe should replace Escape with new Escape AI if another guard is seen
 			if (!(ai instanceof Escape) && !(ai instanceof MoveToTarget) && agent instanceof Guard) {
                 ArrayList<Area> storedStructures = ai.seenStructures;
 				ai = new Escape(this, agent, ai, storedStructures);
