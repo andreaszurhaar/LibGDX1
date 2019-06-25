@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.game.AI.AI;
 import com.game.AI.Astar.AStarNew;
@@ -208,18 +209,88 @@ public class MainState extends State {
     @Override
     public void handleInput() {
 
-        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+    	if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             try {
                 TimeUnit.MILLISECONDS.sleep(300);
             } catch (Exception e) {
                 System.out.println("Error");
             }
-            if (Gdx.input.getX() > 850 && Gdx.input.getY() < 835) {
+            if (Gdx.input.getX() > 860 && Gdx.input.getY() < 100) {
                 gsm.pop();
             }
             int x = (int) Math.floor(Gdx.input.getX());
             int y = (int) Math.floor((CopsAndRobbers.HEIGHT - Gdx.input.getY()));
 
+        }
+    	if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+            try {
+                TimeUnit.MILLISECONDS.sleep(50);
+            } catch (Exception e) {
+                System.out.println("Error");
+            }
+            boolean place = false;
+            float x = 0;
+            float y = 0;
+            float angle = 0;
+            if (Gdx.input.getX() > 20 && Gdx.input.getX() < CopsAndRobbers.WIDTH-20 && Gdx.input.getY() < 150 && Gdx.input.getY() > 130) {
+            	place = true;
+	            x = (float) Math.floor(Gdx.input.getX());
+	            y = (float) Math.floor((CopsAndRobbers.HEIGHT - 171));
+	            angle = 270;
+            } else if (Gdx.input.getX() > 20 && Gdx.input.getX() < CopsAndRobbers.WIDTH-20 && Gdx.input.getY() > CopsAndRobbers.HEIGHT-20 && Gdx.input.getY() < CopsAndRobbers.HEIGHT) {
+            	place = true;
+	            x = (float) Math.floor(Gdx.input.getX());
+	            y = (float) Math.floor(21);
+	            angle = 90;
+            } else if (Gdx.input.getX() > 0 && Gdx.input.getX() < 20 && Gdx.input.getY() < (CopsAndRobbers.HEIGHT - 20) && Gdx.input.getY() > 150) {
+            	place = true;
+	            x = (float) Math.floor(21);
+	            y = (float) Math.floor(CopsAndRobbers.HEIGHT-Gdx.input.getY());
+	            angle = 0;
+            } else if (Gdx.input.getX() > CopsAndRobbers.WIDTH-20 && Gdx.input.getX() < CopsAndRobbers.WIDTH && Gdx.input.getY() < (CopsAndRobbers.HEIGHT - 20) && Gdx.input.getY() > 150) {
+            	place = true;
+	            x = (float) Math.floor(CopsAndRobbers.WIDTH-36);
+	            y = (float) Math.floor(CopsAndRobbers.HEIGHT-Gdx.input.getY());
+	            angle = 180;
+            }
+            Intruder incoming = new Intruder(x / X_REDUC, y / Y_REDUC, 15 / X_REDUC, 15 / Y_REDUC);
+            if(!checkOverlap(incoming.area)) {
+                System.out.println("Putting agent at x: "+x+"  y: "+y);
+                if(intruderAI == "Basic") {
+	                AI agentAI = new IntruderBasicMovement();
+	                incoming.setAI(agentAI);
+	                agentAI.setAgent(incoming);
+	                incoming.ai.setArea(400,200);
+	                incoming.ai.setStructures(structures);
+	                intruders.add(incoming);
+            	} else if(intruderAI == "Heuristic Closest AI") {
+	                AI agentAI = new HeuristicAI();
+                    incoming.setAI(agentAI);
+                    ((HeuristicAI) agentAI).setPattern("closest");
+	                agentAI.setAgent(incoming);
+                    intruders.add(incoming);
+	                incoming.ai.setArea(400,200);
+	                incoming.ai.setStructures(structures);
+                } else if(intruderAI == "Heuristic Random AI") {
+                    AI agentAI = new HeuristicAI();
+                    incoming.setAI(agentAI);
+                    ((HeuristicAI) agentAI).setPattern("random");
+                    agentAI.setAgent(incoming);
+                    intruders.add(incoming);
+                    incoming.ai.setArea(400,200);
+                    incoming.ai.setStructures(structures);
+            	} else {
+            		System.out.println("Unrecognised AI name: "+intruderAI);
+            		System.exit(0);
+            	}
+            	incoming.angle = angle;
+            	incoming.viewAngle.setAngle(angle);
+            	incoming.soundRange = 5;
+            	agents.add(incoming);
+            	ArrayList<Agent> ar = new ArrayList<Agent>();
+            	ar.add(incoming);
+            	board.putInAgents(ar);
+            }
         }
         if (board.gameOver) {
         	if(board.timeOfTracking != 0) {
@@ -245,6 +316,34 @@ public class MainState extends State {
             }
 
         
+    }
+    
+    public boolean checkOverlap(Rectangle rec) {
+    	boolean overlap = false;
+    	for(int a=0; a<11 ;a++) {
+        	for(int b=0; b<11 ;b++) {
+        		float x = rec.x + rec.width/10*a;
+        		float y = rec.y + rec.height/10*b;
+        		for(int i = 0; i < structures.size(); i++) {
+					if(structures.get(i).area.contains(x,y)) {
+						return true;
+					}
+				}
+				    	
+        		for(int i = 0; i < walls.size(); i++) {
+					if(walls.get(i).area.contains(x,y)) {
+						return true;
+					}
+				}
+				    	
+				for(int j = 0; j < agents.size(); j++) {
+					if(agents.get(j).area.contains(x,y)) {
+						return true;
+					}
+				}
+        	}
+    	}
+    	return overlap;
     }
 
     @Override
