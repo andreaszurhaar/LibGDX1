@@ -1,5 +1,5 @@
 /**
- * Graph Edges used in Dijkstra's shortest path algorithm
+ * 
  */
 package com.game.AI.Dijkstra;
 
@@ -24,6 +24,7 @@ public class DijkstraEdge {
 		Vector2 v = new Vector2(end.x-start.x,end.y-start.y);
 		length = v.len();
 		angle = v.angle();
+    	//System.out.println("MADE AN EDGE BETWEEN: "+start.x+"  "+start.y+"  and:  "+end.x+"   "+end.y+"  of length: "+length);
 	}
 	
 	public DijkstraEdge(DijkstraNode startNode, DijkstraNode endNode, float traversalTime) {

@@ -1,5 +1,5 @@
 /**
- * Superclass of surveillance agents
+ * 
  */
 package com.game.Board;
 

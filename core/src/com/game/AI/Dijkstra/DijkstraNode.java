@@ -1,5 +1,5 @@
 /**
- * Graph Nodes used in Dijkstra's shortest path algorithm
+ * 
  */
 package com.game.AI.Dijkstra;
 
@@ -42,6 +42,7 @@ public class DijkstraNode {
 		for(int i=0; i<nodes.size(); i++) {
 			bestPathToHere.add(nodes.get(i));
 		}
+		//bestPathToHere = nodes;
 		bestPathToHere.add(this);
 	}
 	

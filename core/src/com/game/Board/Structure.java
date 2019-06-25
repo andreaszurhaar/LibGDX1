@@ -1,5 +1,5 @@
 /**
- * Structure Graphic and logic object
+ * 
  */
 package com.game.Board;
 
@@ -73,5 +73,17 @@ public class Structure extends Area {
 			doorsAndWindows.get(i).drawTexture(sb,xReduc,yReduc);
 		}
     }
+
+	/*
+	@Override
+	public void dispose() {
+		for(int i=0; i<doorsAndWindows.size(); i++) {
+			doorsAndWindows.get(i).dispose();
+		}
+		this.dispose();
+	}
+	*/
 	
+
+
 }

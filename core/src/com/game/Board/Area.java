@@ -1,7 +1,3 @@
-/**
- * Superclass Area based objects
- */
-
 package com.game.Board;
 
 

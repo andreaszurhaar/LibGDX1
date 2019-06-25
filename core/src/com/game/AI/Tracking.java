@@ -1,7 +1,5 @@
 package com.game.AI;
-/**
- * AI used by guard agents when actively pursuing an intruder agent
- */
+
 import com.badlogic.gdx.math.Vector2;
 import com.game.Board.Agent;
 import com.game.Board.Guard;
@@ -13,9 +11,6 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Stack;
 
-/**
- * @author Lukas Padolevicius
- */
 
 public class Tracking extends AI {
 
@@ -54,18 +49,25 @@ public class Tracking extends AI {
     {
     	boolean following = false;
     	if(!speeds.isEmpty() && !rotations.isEmpty() && recalcInterval < intervalLimit) {
+    		//System.out.println("popping instrcutions");
     		recalcInterval++;
     		speed = speeds.pop()*Board.fps;
     		rotation = rotations.pop()*Board.fps;
     		following = true;
     	}
+    	//System.out.print("retracking with enemy at: "+enemyx+"   "+enemyy);
     	Vector2 toEnemy = new Vector2(enemyx,enemyy);
+    	/*if(!previousPos.isEmpty() && previousPos.get(previousPos.size()-1).dst(toEnemy) < 0.00001) {
+    		return;
+    	} */
     	previousPos.add(toEnemy);
     	if (!following) {
     		recalcInterval = 0;
+    		//System.out.println("not following");
 	    	Vector2 toTarget = computeInterception(previousPos);
 	        angle = toTarget.angle(guard.viewAngle);
 	        showvect = toTarget;
+	        //System.out.println("angle of "+angle);
 	        if(angle >= 0 && angle < 45) {
 	        	speed = 1.4f;
 	        	rotation = -45;
@@ -83,6 +85,7 @@ public class Tracking extends AI {
     }
     
     public Vector2 computeInterception(ArrayList<Vector2> prevPos) {
+    	//System.out.println("try to trigger with positions: "+prevPos.size());
     	if(prevPos.size() < 31 || predictive == false) {
         	return new Vector2(enemyx-guard.xCenter,enemyy-guard.yCenter);
     	}
@@ -103,9 +106,11 @@ public class Tracking extends AI {
     	float currAngle = vec3.angleRad();
     	float currTurn = turn2;
     	float currDist = dist2;
+    	//System.out.println("going from point: "+currPoint.x+"  "+currPoint.y);
     	
     	int instCount = 0;
     	while (prevPos.get(prevPos.size()-1).dst(guard.xCenter,guard.yCenter) > ((float) (instCount*12) * (guard.maxSpeed/Board.fps)) && instCount < 1000) {
+    		//System.out.println("cycle for dist: "+currPoint.dst(guard.xCenter,guard.yCenter)+"   and countmutip: "+((float) (instCount*10) * (guard.maxSpeed/Board.fps)));
     		instCount++;
     		
     		//update angle and distance to travel
@@ -119,10 +124,38 @@ public class Tracking extends AI {
     		currPoint.set(newx,newy);
     	}
     	
+    	//System.out.println("going to point: "+currPoint.x+"  "+currPoint.y+"   by count of: "+instCount);
+    	//System.exit(0);
     	instruct.translate(currPoint,guard, true);
     	speeds = instruct.getSpeeds();
     	rotations = instruct.getRotations();
-   	return new Vector2(currPoint.x-guard.xCenter,currPoint.y-guard.yCenter);
+//    	for(int i=0; i<prevPos.size() ;i++) {
+//    		System.out.println("the positions of i: "+i+"  and xy: "+prevPos.get(i).x+"  "+prevPos.get(i).y);
+//    	}
+    	//System.exit(0);
+    	/*
+    	if(dist2 < 0.00001) {return new Vector2(enemyx-guard.xCenter,enemyy-guard.yCenter);}
+    	
+    	float enX = enemyx;
+    	float enY = enemyy;
+    	System.out.println("FROM THE START OF X: "+enemyx+"  Y: "+enemyy+"    AND WITH STEP OF DIST: "+dist1+"  and TURNING AT: "+turn1);
+    	Vector2 examinedVec = new Vector2(enX-guard.xCenter,enY-guard.yCenter);
+    	float cangle = examinedVec.angle();
+    	
+    	int countPoints = 0;
+    	System.out.println("try to reach count: "+new Vector2(enX-guard.xCenter,enY-guard.yCenter).len()/(1.4f/((float) Board.fps)));
+    	System.out.println("for a distance of: "+examinedVec.len());
+    	while(new Vector2(enX-guard.xCenter,enY-guard.yCenter).len()/(1.4f/((float) Board.fps)) > (float) countPoints*7) {
+    		countPoints++;
+			enX = enX + (float) Math.cos(cangle)*dist;//(float) Board.fps;
+			enY = enY + (float) Math.sin(cangle)*dist;//(float) Board.fps;
+			cangle = cangle + (turn/(float) Board.fps);
+    	}
+    	System.out.println("TO THE END OF X: "+enX+"  Y: "+enY+"   witha count of: "+countPoints);
+
+    	return new Vector2(enX-guard.xCenter,enY-guard.yCenter);
+    	*/
+    	return new Vector2(currPoint.x-guard.xCenter,currPoint.y-guard.yCenter);
     }
     
     public float getRotation(){
@@ -131,6 +164,7 @@ public class Tracking extends AI {
 
     public float getSpeed(){
     	trackcounter++;
+    	//System.out.println("got speed with counter: "+trackcounter);
     	if(trackcounter > 120) {
     		previousAI.reset();
     		guard.setAI(previousAI);
@@ -166,6 +200,7 @@ public class Tracking extends AI {
 
     @Override
     public void seeAgent(Agent agent) {
+    	//System.out.println("saw agent with counter: "+trackcounter);
     	if(agent instanceof Intruder) {
         	trackcounter = 3;
 	    	enemyx = agent.xCenter;
