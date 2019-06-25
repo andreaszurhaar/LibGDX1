@@ -109,8 +109,10 @@ public class ObstacleCourse extends State {
         struct2 = structures.get(iterations2);
         agents = new ArrayList<Agent>();
         agents2 = new ArrayList<Agent>();
-        intr1 = new Intruder(47f,97f,15/X_REDUC,15/Y_REDUC,false,struct1);
-        intr2 = new Intruder(47f,97f,15/X_REDUC,15/Y_REDUC,true,struct2);
+        //intr1 = new Intruder(47f,97f,15/X_REDUC,15/Y_REDUC,false,struct1);
+        //intr2 = new Intruder(47f,97f,15/X_REDUC,15/Y_REDUC,true,struct2);
+        intr1 = new Intruder(47f,97f,15/X_REDUC,15/Y_REDUC);
+        intr2 = new Intruder(47f,97f,15/X_REDUC,15/Y_REDUC);
         agents.add(intr1);
        	agents2.add(intr2);
        	
@@ -137,7 +139,7 @@ public class ObstacleCourse extends State {
             try {
             	FileWriter fileWriter = new FileWriter("DijkstraComputing.txt",true);
                 fileWriter.append("\n");
-                fileWriter.append(Float.toString(intr1.computeTime*(60/Board.fps)));
+                //fileWriter.append(Float.toString(intr1.computeTime*(60/Board.fps)));
                 fileWriter.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -153,7 +155,7 @@ public class ObstacleCourse extends State {
         	iterations1++;
             struct1 = structures.get(iterations1);
             agents = new ArrayList<Agent>();
-            intr1 = new Intruder(47f,97f,15/X_REDUC,15/Y_REDUC,false,struct1);
+            //intr1 = new Intruder(47f,97f,15/X_REDUC,15/Y_REDUC,false,struct1);
             agents.add(intr1);
            	board = new Board();
             if(!this.structures.isEmpty()) {board.setUp(struct1);}
@@ -164,7 +166,7 @@ public class ObstacleCourse extends State {
         	try {
             	FileWriter fileWriter = new FileWriter("AstarComputing.txt",true);
                 fileWriter.append("\n");
-                fileWriter.append(Float.toString(intr2.computeTime*(60/Board.fps)));
+                //fileWriter.append(Float.toString(intr2.computeTime*(60/Board.fps)));
                 fileWriter.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -180,7 +182,7 @@ public class ObstacleCourse extends State {
         	
         	iterations2++;
             struct2 = structures.get(iterations2);
-            intr2 = new Intruder(47f,97f,15/X_REDUC,15/Y_REDUC,true,struct2);
+            //intr2 = new Intruder(47f,97f,15/X_REDUC,15/Y_REDUC,true,struct2);
             agents2 = new ArrayList<Agent>();
            	agents2.add(intr2);
             board2 = new Board();
@@ -194,7 +196,7 @@ public class ObstacleCourse extends State {
         	iterations1++;
 	        struct1 = structures.get(iterations1);
 	        agents = new ArrayList<Agent>();
-	        intr1 = new Intruder(42.5f,92.5f,15/X_REDUC,15/Y_REDUC,false,struct1);
+	        //intr1 = new Intruder(42.5f,92.5f,15/X_REDUC,15/Y_REDUC,false,struct1);
 	        agents.add(intr1);
 	       	board = new Board();
 	        if(!this.structures.isEmpty()) {board.setUp(struct1);}
@@ -205,7 +207,7 @@ public class ObstacleCourse extends State {
         	iterations2++;
 	        struct2 = structures.get(iterations2);
 	        agents2 = new ArrayList<Agent>();
-	        intr2 = new Intruder(42.5f,92.5f,15/X_REDUC,15/Y_REDUC,true,struct2);
+	        //intr2 = new Intruder(42.5f,92.5f,15/X_REDUC,15/Y_REDUC,true,struct2);
 	       	agents2.add(intr2);
 	        board2 = new Board();
 	        if(!this.structures.isEmpty()) {board2.setUp(struct2);}
