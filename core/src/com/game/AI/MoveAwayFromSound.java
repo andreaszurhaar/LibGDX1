@@ -22,7 +22,7 @@ public class MoveAwayFromSound extends AI {
     private ArrayList<Rectangle2D.Float> rectangles;
     private float directionAngle;
     private Instruction instruction;
-    private final double MOVING_AWAY_FROM_SOUND_TIME = 7.14; //in seconds, should be at most 10/1.4 = 7.14 because a sound can be heard at most 10 meters away, and guards move at 1.4m/s
+    private final double MOVING_AWAY_FROM_SOUND_TIME = 0.7; //in seconds, should be at most 10/1.4 = 7.14 because a sound can be heard at most 10 meters away, and guards move at 1.4m/s
     private int count;
     private int countSprint;
 

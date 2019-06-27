@@ -1,68 +1,1201 @@
 
 
-time :25.283 / won / guard distance : 3098.541 / intruder distance : 605.2185 / intruder random percentage : 2.0
+time :1.606 / lost / guard distance : 884.73987 / intruder distance : 176.66788 / intruder random percentage : 2.0
 
-time :20.675 / won / guard distance : 3775.1208 / intruder distance : 651.23584 / intruder random percentage : 2.0
+time :2.188 / lost / guard distance : 1252.4099 / intruder distance : 198.49545 / intruder random percentage : 2.0
 
-time :14.571 / won / guard distance : 1792.5894 / intruder distance : 736.7981 / intruder random percentage : 2.0
+time :4.316 / lost / guard distance : 1986.0958 / intruder distance : 262.97852 / intruder random percentage : 2.0
 
-time :47.063 / won / guard distance : 8953.055 / intruder distance : 2023.7079 / intruder random percentage : 2.0
+time :4.209 / lost / guard distance : 2035.2334 / intruder distance : 290.80634 / intruder random percentage : 2.0
 
-time :38.936 / won / guard distance : 8241.464 / intruder distance : 1669.4985 / intruder random percentage : 2.0
+time :11.5 / lost / guard distance : 4683.143 / intruder distance : 1062.6936 / intruder random percentage : 2.0
 
-time :2.023 / lost / guard distance : 500.31104 / intruder distance : 87.93394 / intruder random percentage : 2.0
+time :13.976 / lost / guard distance : 6484.5723 / intruder distance : 1096.2319 / intruder random percentage : 2.0
 
-time :57.472 / won / guard distance : 9723.207 / intruder distance : 2447.4622 / intruder random percentage : 2.0
+time :4.741 / won / guard distance : 2488.3596 / intruder distance : 437.10986 / intruder random percentage : 2.0
 
-time :1.018 / lost / guard distance : 330.81662 / intruder distance : 71.999435 / intruder random percentage : 2.0
+time :3.875 / lost / guard distance : 1981.734 / intruder distance : 204.33694 / intruder random percentage : 2.0
 
-time :14.987 / lost / guard distance : 3963.5178 / intruder distance : 667.19745 / intruder random percentage : 2.0
+time :0.605 / lost / guard distance : 290.3866 / intruder distance : 25.27474 / intruder random percentage : 2.0
 
-time :3.665 / lost / guard distance : 1221.7344 / intruder distance : 159.09003 / intruder random percentage : 2.0
+time :13.139 / lost / guard distance : 5694.9624 / intruder distance : 1036.1361 / intruder random percentage : 2.0
 
-time :111.76 / won / guard distance : 3212.1753 / intruder distance : 2348.2927 / intruder random percentage : 2.0
+time :1.174 / lost / guard distance : 624.78796 / intruder distance : 143.00082 / intruder random percentage : 2.0
 
-time :46.272 / won / guard distance : 978.9536 / intruder distance : 1340.0173 / intruder random percentage : 2.0
+time :2.592 / lost / guard distance : 1481.2286 / intruder distance : 232.3263 / intruder random percentage : 2.0
 
-time :33.9 / lost / guard distance : 8166.436 / intruder distance : 1820.6986 / intruder random percentage : 2.0
+time :13.375 / lost / guard distance : 6214.8633 / intruder distance : 717.20184 / intruder random percentage : 2.0
 
-time :3.503 / lost / guard distance : 1293.4424 / intruder distance : 130.67287 / intruder random percentage : 2.0
+time :15.208 / lost / guard distance : 7055.843 / intruder distance : 1141.7029 / intruder random percentage : 2.0
 
-time :20.177 / won / guard distance : 5605.4785 / intruder distance : 940.92676 / intruder random percentage : 2.0
+time :7.96 / lost / guard distance : 3600.4375 / intruder distance : 618.8688 / intruder random percentage : 2.0
 
-time :16.937 / lost / guard distance : 4418.1646 / intruder distance : 910.86005 / intruder random percentage : 2.0
+time :2.275 / lost / guard distance : 957.4204 / intruder distance : 213.85504 / intruder random percentage : 2.0
 
-time :11.689 / won / guard distance : 2695.2478 / intruder distance : 516.89557 / intruder random percentage : 2.0
+time :3.458 / lost / guard distance : 1116.2728 / intruder distance : 317.32925 / intruder random percentage : 2.0
 
-time :6.362 / won / guard distance : 1753.0149 / intruder distance : 168.51956 / intruder random percentage : 2.0
+time :0.435 / lost / guard distance : 182.83331 / intruder distance : 42.66657 / intruder random percentage : 2.0
 
-time :12.922 / lost / guard distance : 3198.6821 / intruder distance : 578.41974 / intruder random percentage : 2.0
+time :2.258 / lost / guard distance : 931.48596 / intruder distance : 219.36455 / intruder random percentage : 2.0
 
-time :3.24 / won / guard distance : 1101.5708 / intruder distance : 17.56072 / intruder random percentage : 2.0
+time :8.339 / lost / guard distance : 3545.325 / intruder distance : 803.9331 / intruder random percentage : 2.0
 
-time :35.426 / lost / guard distance : 1874.4658 / intruder distance : 431.53 / intruder random percentage : 2.0
+time :1.018 / lost / guard distance : 509.0763 / intruder distance : 67.66662 / intruder random percentage : 2.0
 
-----
+time :7.959 / lost / guard distance : 3828.707 / intruder distance : 415.7435 / intruder random percentage : 2.0
 
+time :4.155 / lost / guard distance : 2033.4719 / intruder distance : 363.72443 / intruder random percentage : 2.0
 
-time :3.428 / won / guard distance : 234.53172 / intruder distance : 14.344975 / intruder random percentage : 2.0
+time :2.089 / lost / guard distance : 1106.4324 / intruder distance : 239.35199 / intruder random percentage : 2.0
 
-time :16.037 / lost / guard distance : 1243.6085 / intruder distance : 201.86151 / intruder random percentage : 2.0
+time :2.061 / lost / guard distance : 918.0908 / intruder distance : 184.06903 / intruder random percentage : 2.0
 
-time :57.831 / lost / guard distance : 2294.0542 / intruder distance : 745.1776 / intruder random percentage : 2.0
+time :1.586 / lost / guard distance : 803.96094 / intruder distance : 132.29648 / intruder random percentage : 2.0
 
-time :10.974 / lost / guard distance : 725.6167 / intruder distance : 139.23546 / intruder random percentage : 2.0
+time :1.077 / lost / guard distance : 610.4764 / intruder distance : 92.18601 / intruder random percentage : 2.0
 
-time :30.987 / won / guard distance : 1244.8417 / intruder distance : 297.88605 / intruder random percentage : 2.0
+time :6.436 / lost / guard distance : 3287.1414 / intruder distance : 430.58725 / intruder random percentage : 2.0
 
-time :200.015 / lost / guard distance : 13225.316 / intruder distance : 1356.9325 / intruder random percentage : 2.0
+time :2.982 / lost / guard distance : 1471.0571 / intruder distance : 286.75928 / intruder random percentage : 2.0
 
-time :36.522 / won / guard distance : 2429.628 / intruder distance : 372.55316 / intruder random percentage : 2.0
+time :1.697 / lost / guard distance : 1023.0264 / intruder distance : 152.32501 / intruder random percentage : 2.0
 
-time :147.444 / lost / guard distance : 9776.544 / intruder distance : 1595.2349 / intruder random percentage : 2.0
+time :8.958 / lost / guard distance : 4262.5874 / intruder distance : 794.2203 / intruder random percentage : 2.0
 
-time :200.005 / lost / guard distance : 10651.15 / intruder distance : 2243.3445 / intruder random percentage : 2.0
+time :21.003 / won / guard distance : 9851.989 / intruder distance : 1548.072 / intruder random percentage : 2.0
 
-time :19.664 / won / guard distance : 1564.9126 / intruder distance : 209.60985 / intruder random percentage : 2.0
+time :0.444 / won / guard distance : 237.85672 / intruder distance : 15.829159 / intruder random percentage : 2.0
 
-time :115.269 / lost / guard distance : 4600.9863 / intruder distance : 1405.8344 / intruder random percentage : 2.0
+time :0.11 / lost / guard distance : 20.833332 / intruder distance : 0.16666146 / intruder random percentage : 2.0
+
+time :1.674 / lost / guard distance : 833.6827 / intruder distance : 170.06122 / intruder random percentage : 2.0
+
+time :5.665 / won / guard distance : 1681.7338 / intruder distance : 500.38937 / intruder random percentage : 2.0
+
+time :10.539 / won / guard distance : 4530.744 / intruder distance : 834.03516 / intruder random percentage : 2.0
+
+time :7.82 / lost / guard distance : 3670.088 / intruder distance : 532.3525 / intruder random percentage : 2.0
+
+time :1.094 / lost / guard distance : 584.5152 / intruder distance : 35.166565 / intruder random percentage : 2.0
+
+time :0.222 / lost / guard distance : 70.86666 / intruder distance : 12.666721 / intruder random percentage : 2.0
+
+time :20.967 / won / guard distance : 9822.935 / intruder distance : 931.5652 / intruder random percentage : 2.0
+
+time :19.238 / lost / guard distance : 8039.746 / intruder distance : 1588.1238 / intruder random percentage : 2.0
+
+time :9.659 / lost / guard distance : 4703.6294 / intruder distance : 787.8736 / intruder random percentage : 2.0
+
+time :1.342 / won / guard distance : 832.08984 / intruder distance : 144.39767 / intruder random percentage : 2.0
+
+time :7.174 / lost / guard distance : 2766.4832 / intruder distance : 645.8199 / intruder random percentage : 2.0
+
+time :6.683 / lost / guard distance : 3174.5068 / intruder distance : 594.09534 / intruder random percentage : 2.0
+
+time :11.626 / lost / guard distance : 5519.909 / intruder distance : 942.43115 / intruder random percentage : 2.0
+
+time :5.772 / lost / guard distance : 2746.476 / intruder distance : 465.15308 / intruder random percentage : 2.0
+
+time :5.093 / won / guard distance : 2494.0469 / intruder distance : 498.50177 / intruder random percentage : 2.0
+
+time :4.876 / lost / guard distance : 2276.767 / intruder distance : 255.80067 / intruder random percentage : 2.0
+
+time :12.855 / won / guard distance : 4782.0737 / intruder distance : 1035.9238 / intruder random percentage : 2.0
+
+time :0.991 / won / guard distance : 409.53162 / intruder distance : 82.96107 / intruder random percentage : 2.0
+
+time :0.808 / lost / guard distance : 421.78928 / intruder distance : 25.16665 / intruder random percentage : 2.0
+
+time :26.738 / lost / guard distance : 12328.453 / intruder distance : 1776.9589 / intruder random percentage : 2.0
+
+time :0.481 / won / guard distance : 229.0452 / intruder distance : 17.952063 / intruder random percentage : 2.0
+
+time :5.627 / lost / guard distance : 2742.1245 / intruder distance : 580.9724 / intruder random percentage : 2.0
+
+time :4.604 / won / guard distance : 2139.6357 / intruder distance : 306.1669 / intruder random percentage : 2.0
+
+time :1.245 / won / guard distance : 663.8145 / intruder distance : 72.94198 / intruder random percentage : 2.0
+
+time :6.076 / lost / guard distance : 2992.315 / intruder distance : 558.62695 / intruder random percentage : 2.0
+
+time :1.949 / won / guard distance : 976.28577 / intruder distance : 80.10707 / intruder random percentage : 2.0
+
+time :1.522 / lost / guard distance : 820.8767 / intruder distance : 188.79514 / intruder random percentage : 2.0
+
+time :17.878 / lost / guard distance : 6802.105 / intruder distance : 1440.0812 / intruder random percentage : 2.0
+
+time :0.772 / lost / guard distance : 398.9527 / intruder distance : 17.666656 / intruder random percentage : 2.0
+
+time :3.309 / won / guard distance : 1781.83 / intruder distance : 336.36914 / intruder random percentage : 2.0
+
+time :6.953 / won / guard distance : 3236.4624 / intruder distance : 681.70184 / intruder random percentage : 2.0
+
+time :4.204 / lost / guard distance : 2194.0178 / intruder distance : 418.06137 / intruder random percentage : 2.0
+
+time :0.454 / won / guard distance : 245.32053 / intruder distance : 13.285059 / intruder random percentage : 2.0
+
+time :3.47 / won / guard distance : 1783.3025 / intruder distance : 213.68304 / intruder random percentage : 2.0
+
+time :17.107 / lost / guard distance : 7980.154 / intruder distance : 1454.1198 / intruder random percentage : 2.0
+
+time :3.759 / lost / guard distance : 1906.4514 / intruder distance : 363.15765 / intruder random percentage : 2.0
+
+time :8.806 / won / guard distance : 2417.0894 / intruder distance : 871.97736 / intruder random percentage : 2.0
+
+time :14.437 / lost / guard distance : 6789.4385 / intruder distance : 803.1108 / intruder random percentage : 2.0
+
+time :3.657 / lost / guard distance : 1352.3062 / intruder distance : 345.31012 / intruder random percentage : 2.0
+
+time :0.207 / lost / guard distance : 85.83331 / intruder distance : 17.66668 / intruder random percentage : 2.0
+
+time :7.548 / lost / guard distance : 3732.0427 / intruder distance : 570.52264 / intruder random percentage : 2.0
+
+time :2.191 / lost / guard distance : 1223.006 / intruder distance : 224.92007 / intruder random percentage : 2.0
+
+time :18.605 / won / guard distance : 5821.0503 / intruder distance : 1482.2981 / intruder random percentage : 2.0
+
+time :0.722 / won / guard distance : 349.15372 / intruder distance : 49.11733 / intruder random percentage : 2.0
+
+time :200.005 / lost / guard distance : 74362.52 / intruder distance : 365.6116 / intruder random percentage : 2.0
+
+time :1.931 / won / guard distance : 809.0022 / intruder distance : 139.70377 / intruder random percentage : 2.0
+
+time :1.761 / lost / guard distance : 881.5539 / intruder distance : 158.86455 / intruder random percentage : 2.0
+
+time :6.92 / won / guard distance : 3010.1797 / intruder distance : 545.147 / intruder random percentage : 2.0
+
+time :0.691 / won / guard distance : 384.37946 / intruder distance : 52.656532 / intruder random percentage : 2.0
+
+time :7.617 / won / guard distance : 2359.6182 / intruder distance : 544.71985 / intruder random percentage : 2.0
+
+time :7.291 / lost / guard distance : 3008.8635 / intruder distance : 421.03293 / intruder random percentage : 2.0
+
+time :3.34 / won / guard distance : 1540.1687 / intruder distance : 391.56335 / intruder random percentage : 2.0
+
+time :2.658 / lost / guard distance : 1347.4531 / intruder distance : 269.3287 / intruder random percentage : 2.0
+
+time :5.291 / lost / guard distance : 2190.2007 / intruder distance : 290.31888 / intruder random percentage : 2.0
+
+time :6.179 / won / guard distance : 2746.0142 / intruder distance : 360.55914 / intruder random percentage : 2.0
+
+time :0.644 / lost / guard distance : 246.15277 / intruder distance : 55.166737 / intruder random percentage : 2.0
+
+time :1.408 / lost / guard distance : 702.07526 / intruder distance : 92.222176 / intruder random percentage : 2.0
+
+time :0.873 / lost / guard distance : 404.9474 / intruder distance : 87.15014 / intruder random percentage : 2.0
+
+time :42.386 / lost / guard distance : 16710.379 / intruder distance : 2665.8572 / intruder random percentage : 2.0
+
+time :9.871 / won / guard distance : 4626.542 / intruder distance : 769.1956 / intruder random percentage : 2.0
+
+time :3.511 / won / guard distance : 1827.1245 / intruder distance : 266.74695 / intruder random percentage : 2.0
+
+time :3.327 / won / guard distance : 1780.7732 / intruder distance : 236.87686 / intruder random percentage : 2.0
+
+time :4.242 / won / guard distance : 2255.7542 / intruder distance : 442.34778 / intruder random percentage : 2.0
+
+time :4.227 / lost / guard distance : 2041.0035 / intruder distance : 336.12714 / intruder random percentage : 2.0
+
+time :0.05 / won / guard distance : 0.83333427 / intruder distance : 0.16665606 / intruder random percentage : 2.0
+
+time :4.905 / lost / guard distance : 2344.419 / intruder distance : 299.73593 / intruder random percentage : 2.0
+
+time :1.278 / lost / guard distance : 733.70496 / intruder distance : 44.450695 / intruder random percentage : 2.0
+
+time :2.049 / won / guard distance : 1062.6863 / intruder distance : 185.09544 / intruder random percentage : 2.0
+
+time :2.157 / won / guard distance : 1163.8909 / intruder distance : 190.55711 / intruder random percentage : 2.0
+
+time :0.204 / lost / guard distance : 48.33326 / intruder distance : 17.666697 / intruder random percentage : 2.0
+
+time :0.686 / won / guard distance : 251.32321 / intruder distance : 39.245865 / intruder random percentage : 2.0
+
+time :14.266 / lost / guard distance : 6491.321 / intruder distance : 992.061 / intruder random percentage : 2.0
+
+time :2.791 / lost / guard distance : 1535.5552 / intruder distance : 259.18848 / intruder random percentage : 2.0
+
+time :2.388 / lost / guard distance : 965.8332 / intruder distance : 268.6985 / intruder random percentage : 2.0
+
+time :2.089 / lost / guard distance : 1113.4553 / intruder distance : 227.23364 / intruder random percentage : 2.0
+
+time :40.784 / won / guard distance : 14638.913 / intruder distance : 2771.4038 / intruder random percentage : 2.0
+
+time :20.558 / lost / guard distance : 7807.8203 / intruder distance : 1526.1509 / intruder random percentage : 2.0
+
+time :1.377 / lost / guard distance : 668.91327 / intruder distance : 144.67311 / intruder random percentage : 2.0
+
+time :2.244 / won / guard distance : 1221.1067 / intruder distance : 268.49487 / intruder random percentage : 2.0
+
+time :12.513 / lost / guard distance : 4039.482 / intruder distance : 1077.9009 / intruder random percentage : 2.0
+
+time :4.086 / lost / guard distance : 1787.2994 / intruder distance : 147.74649 / intruder random percentage : 2.0
+
+time :3.987 / won / guard distance : 2092.063 / intruder distance : 367.41843 / intruder random percentage : 2.0
+
+time :2.57 / won / guard distance : 1394.2712 / intruder distance : 134.69472 / intruder random percentage : 2.0
+
+time :11.602 / won / guard distance : 5295.4775 / intruder distance : 969.09357 / intruder random percentage : 2.0
+
+time :4.387 / lost / guard distance : 2175.418 / intruder distance : 356.46262 / intruder random percentage : 2.0
+
+time :0.555 / lost / guard distance : 287.69995 / intruder distance : 42.666748 / intruder random percentage : 2.0
+
+time :13.473 / lost / guard distance : 6405.9214 / intruder distance : 208.71558 / intruder random percentage : 2.0
+
+time :6.718 / lost / guard distance : 3017.6565 / intruder distance : 660.18567 / intruder random percentage : 2.0
+
+time :2.799 / lost / guard distance : 1246.1179 / intruder distance : 220.80328 / intruder random percentage : 2.0
+
+time :2.386 / lost / guard distance : 1071.5715 / intruder distance : 213.37086 / intruder random percentage : 2.0
+
+time :0.406 / won / guard distance : 160.9067 / intruder distance : 14.581397 / intruder random percentage : 2.0
+
+time :0.787 / won / guard distance : 429.2035 / intruder distance : 58.001606 / intruder random percentage : 2.0
+
+time :1.387 / lost / guard distance : 663.37573 / intruder distance : 130.25864 / intruder random percentage : 2.0
+
+time :13.013 / won / guard distance : 6041.5596 / intruder distance : 1287.5469 / intruder random percentage : 2.0
+
+time :0.806 / lost / guard distance : 513.71606 / intruder distance : 90.8099 / intruder random percentage : 2.0
+
+time :1.085 / won / guard distance : 606.5687 / intruder distance : 96.10038 / intruder random percentage : 2.0
+
+time :15.675 / lost / guard distance : 7393.11 / intruder distance : 1427.1272 / intruder random percentage : 2.0
+
+time :1.625 / lost / guard distance : 840.0494 / intruder distance : 157.42125 / intruder random percentage : 2.0
+
+time :6.911 / lost / guard distance : 2901.231 / intruder distance : 557.3646 / intruder random percentage : 2.0
+
+time :11.097 / won / guard distance : 5060.392 / intruder distance : 987.10785 / intruder random percentage : 2.0
+
+time :0.606 / lost / guard distance : 316.31747 / intruder distance : 50.340023 / intruder random percentage : 2.0
+
+time :5.387 / lost / guard distance : 2569.0154 / intruder distance : 465.9162 / intruder random percentage : 2.0
+
+time :1.337 / won / guard distance : 682.6392 / intruder distance : 133.26085 / intruder random percentage : 2.0
+
+time :7.288 / won / guard distance : 3489.2688 / intruder distance : 712.40643 / intruder random percentage : 2.0
+
+time :2.97 / lost / guard distance : 1530.5219 / intruder distance : 171.73964 / intruder random percentage : 2.0
+
+time :2.859 / lost / guard distance : 1443.2985 / intruder distance : 266.3351 / intruder random percentage : 2.0
+
+time :2.307 / won / guard distance : 1191.1434 / intruder distance : 81.14347 / intruder random percentage : 2.0
+
+time :2.054 / lost / guard distance : 1120.9077 / intruder distance : 203.09726 / intruder random percentage : 2.0
+
+time :0.572 / won / guard distance : 284.2211 / intruder distance : 22.991531 / intruder random percentage : 2.0
+
+time :1.887 / lost / guard distance : 925.47546 / intruder distance : 113.97017 / intruder random percentage : 2.0
+
+time :6.824 / lost / guard distance : 3278.5703 / intruder distance : 485.28204 / intruder random percentage : 2.0
+
+time :3.621 / lost / guard distance : 1787.1718 / intruder distance : 256.5572 / intruder random percentage : 2.0
+
+time :2.704 / lost / guard distance : 1402.8739 / intruder distance : 245.05997 / intruder random percentage : 2.0
+
+time :17.533 / won / guard distance : 7917.338 / intruder distance : 1210.0063 / intruder random percentage : 2.0
+
+time :13.222 / lost / guard distance : 6100.0728 / intruder distance : 1147.9365 / intruder random percentage : 2.0
+
+time :13.272 / lost / guard distance : 5708.136 / intruder distance : 1057.4034 / intruder random percentage : 2.0
+
+time :11.687 / won / guard distance : 5654.029 / intruder distance : 668.76184 / intruder random percentage : 2.0
+
+time :1.305 / lost / guard distance : 723.1061 / intruder distance : 97.39491 / intruder random percentage : 2.0
+
+time :7.003 / lost / guard distance : 3275.245 / intruder distance : 591.8344 / intruder random percentage : 2.0
+
+time :8.521 / lost / guard distance : 3986.0176 / intruder distance : 821.7123 / intruder random percentage : 2.0
+
+time :0.93 / won / guard distance : 507.8182 / intruder distance : 91.06822 / intruder random percentage : 2.0
+
+time :4.442 / lost / guard distance : 2364.5781 / intruder distance : 311.99103 / intruder random percentage : 2.0
+
+time :13.607 / lost / guard distance : 4430.4395 / intruder distance : 1105.187 / intruder random percentage : 2.0
+
+time :1.19 / won / guard distance : 715.43774 / intruder distance : 131.48341 / intruder random percentage : 2.0
+
+time :1.587 / lost / guard distance : 914.1135 / intruder distance : 105.98761 / intruder random percentage : 2.0
+
+time :1.43 / lost / guard distance : 855.90094 / intruder distance : 135.50455 / intruder random percentage : 2.0
+
+time :5.553 / lost / guard distance : 2613.229 / intruder distance : 319.62183 / intruder random percentage : 2.0
+
+time :3.903 / lost / guard distance : 2022.0885 / intruder distance : 212.09586 / intruder random percentage : 2.0
+
+time :3.321 / won / guard distance : 1769.2771 / intruder distance : 275.28925 / intruder random percentage : 2.0
+
+time :4.316 / lost / guard distance : 2115.1829 / intruder distance : 328.59924 / intruder random percentage : 2.0
+
+time :3.143 / lost / guard distance : 1542.8864 / intruder distance : 281.84418 / intruder random percentage : 2.0
+
+time :0.894 / lost / guard distance : 509.46033 / intruder distance : 97.719376 / intruder random percentage : 2.0
+
+time :2.394 / lost / guard distance : 1155.1273 / intruder distance : 256.85052 / intruder random percentage : 2.0
+
+time :19.524 / lost / guard distance : 9179.777 / intruder distance : 1793.4596 / intruder random percentage : 2.0
+
+time :0.901 / won / guard distance : 500.9367 / intruder distance : 81.91435 / intruder random percentage : 2.0
+
+time :3.952 / lost / guard distance : 1964.4773 / intruder distance : 234.56712 / intruder random percentage : 2.0
+
+time :1.209 / lost / guard distance : 608.1006 / intruder distance : 118.62191 / intruder random percentage : 2.0
+
+time :1.621 / lost / guard distance : 667.3537 / intruder distance : 75.763336 / intruder random percentage : 2.0
+
+time :2.14 / lost / guard distance : 1175.8265 / intruder distance : 232.9337 / intruder random percentage : 2.0
+
+time :6.859 / won / guard distance : 2732.5356 / intruder distance : 580.18866 / intruder random percentage : 2.0
+
+time :4.342 / lost / guard distance : 2183.2056 / intruder distance : 358.54404 / intruder random percentage : 2.0
+
+time :8.221 / won / guard distance : 3792.379 / intruder distance : 747.8085 / intruder random percentage : 2.0
+
+time :7.551 / lost / guard distance : 3587.4507 / intruder distance : 696.57 / intruder random percentage : 2.0
+
+time :20.412 / lost / guard distance : 8114.198 / intruder distance : 833.1194 / intruder random percentage : 2.0
+
+time :10.166 / lost / guard distance : 4871.9707 / intruder distance : 752.21655 / intruder random percentage : 2.0
+
+time :7.533 / lost / guard distance : 3185.461 / intruder distance : 661.3829 / intruder random percentage : 2.0
+
+time :2.219 / lost / guard distance : 1169.6051 / intruder distance : 146.1719 / intruder random percentage : 2.0
+
+time :11.71 / lost / guard distance : 5421.9355 / intruder distance : 843.68 / intruder random percentage : 2.0
+
+time :1.413 / lost / guard distance : 683.25867 / intruder distance : 9.6667 / intruder random percentage : 2.0
+
+time :4.476 / lost / guard distance : 2214.5515 / intruder distance : 372.9166 / intruder random percentage : 2.0
+
+time :13.857 / lost / guard distance : 6499.499 / intruder distance : 984.2726 / intruder random percentage : 2.0
+
+time :4.178 / won / guard distance : 2075.666 / intruder distance : 381.14728 / intruder random percentage : 2.0
+
+time :2.808 / lost / guard distance : 1358.7313 / intruder distance : 289.28683 / intruder random percentage : 2.0
+
+time :3.319 / lost / guard distance : 1578.853 / intruder distance : 254.21669 / intruder random percentage : 2.0
+
+time :4.354 / lost / guard distance : 2085.7837 / intruder distance : 319.4666 / intruder random percentage : 2.0
+
+time :1.008 / won / guard distance : 616.4099 / intruder distance : 70.973305 / intruder random percentage : 2.0
+
+time :10.487 / lost / guard distance : 4875.414 / intruder distance : 825.63196 / intruder random percentage : 2.0
+
+time :13.55 / lost / guard distance : 6165.6895 / intruder distance : 835.9663 / intruder random percentage : 2.0
+
+time :6.148 / lost / guard distance : 3070.0845 / intruder distance : 521.4571 / intruder random percentage : 2.0
+
+time :3.742 / won / guard distance : 1814.3181 / intruder distance : 186.7977 / intruder random percentage : 2.0
+
+time :2.321 / lost / guard distance : 1244.263 / intruder distance : 165.25497 / intruder random percentage : 2.0
+
+time :13.526 / lost / guard distance : 6264.1396 / intruder distance : 1331.9032 / intruder random percentage : 2.0
+
+time :4.695 / won / guard distance : 2197.803 / intruder distance : 310.89713 / intruder random percentage : 2.0
+
+time :3.39 / won / guard distance : 1421.5671 / intruder distance : 242.74059 / intruder random percentage : 2.0
+
+time :0.575 / won / guard distance : 276.6351 / intruder distance : 26.998251 / intruder random percentage : 2.0
+
+time :0.484 / won / guard distance : 243.69025 / intruder distance : 17.118872 / intruder random percentage : 2.0
+
+time :3.931 / lost / guard distance : 1920.4337 / intruder distance : 343.80823 / intruder random percentage : 2.0
+
+time :1.445 / lost / guard distance : 776.8167 / intruder distance : 148.81734 / intruder random percentage : 2.0
+
+time :2.309 / lost / guard distance : 1102.5703 / intruder distance : 199.37741 / intruder random percentage : 2.0
+
+time :3.445 / lost / guard distance : 1690.3547 / intruder distance : 310.31747 / intruder random percentage : 2.0
+
+time :0.831 / lost / guard distance : 429.5053 / intruder distance : 68.477715 / intruder random percentage : 2.0
+
+time :4.468 / lost / guard distance : 1897.978 / intruder distance : 342.5184 / intruder random percentage : 2.0
+
+time :0.889 / lost / guard distance : 452.87262 / intruder distance : 55.18844 / intruder random percentage : 2.0
+
+time :10.819 / won / guard distance : 5140.4775 / intruder distance : 957.46124 / intruder random percentage : 2.0
+
+time :1.706 / lost / guard distance : 742.4358 / intruder distance : 124.70802 / intruder random percentage : 2.0
+
+time :3.383 / lost / guard distance : 1840.372 / intruder distance : 237.86374 / intruder random percentage : 2.0
+
+time :1.006 / lost / guard distance : 560.8099 / intruder distance : 88.72055 / intruder random percentage : 2.0
+
+time :43.537 / won / guard distance : 14777.155 / intruder distance : 2566.005 / intruder random percentage : 2.0
+
+time :0.331 / lost / guard distance : 184.38866 / intruder distance : 32.66665 / intruder random percentage : 2.0
+
+time :1.443 / lost / guard distance : 794.563 / intruder distance : 155.06488 / intruder random percentage : 2.0
+
+time :8.621 / won / guard distance : 4000.5042 / intruder distance : 812.2347 / intruder random percentage : 2.0
+
+time :1.539 / won / guard distance : 705.1404 / intruder distance : 124.59179 / intruder random percentage : 2.0
+
+time :9.522 / lost / guard distance : 4639.9316 / intruder distance : 547.7021 / intruder random percentage : 2.0
+
+time :4.219 / lost / guard distance : 2051.459 / intruder distance : 299.92773 / intruder random percentage : 2.0
+
+time :0.374 / lost / guard distance : 194.49554 / intruder distance : 35.16671 / intruder random percentage : 2.0
+
+time :2.743 / lost / guard distance : 1440.6759 / intruder distance : 113.47478 / intruder random percentage : 2.0
+
+time :0.087 / lost / guard distance : 11.066669 / intruder distance : 0.16666685 / intruder random percentage : 2.0
+
+time :3.369 / lost / guard distance : 1837.1676 / intruder distance : 265.19025 / intruder random percentage : 2.0
+
+time :9.721 / won / guard distance : 4601.9233 / intruder distance : 824.19006 / intruder random percentage : 2.0
+
+time :1.071 / won / guard distance : 586.2023 / intruder distance : 105.943535 / intruder random percentage : 2.0
+
+time :1.922 / lost / guard distance : 1019.62646 / intruder distance : 155.09818 / intruder random percentage : 2.0
+
+time :12.002 / lost / guard distance : 5360.0605 / intruder distance : 299.6393 / intruder random percentage : 2.0
+
+time :1.229 / lost / guard distance : 718.00085 / intruder distance : 149.70332 / intruder random percentage : 2.0
+
+time :9.723 / lost / guard distance : 4599.4375 / intruder distance : 692.52203 / intruder random percentage : 2.0
+
+time :3.423 / won / guard distance : 1779.6909 / intruder distance : 284.84207 / intruder random percentage : 2.0
+
+time :5.179 / lost / guard distance : 2571.978 / intruder distance : 533.558 / intruder random percentage : 2.0
+
+time :2.986 / lost / guard distance : 1490.4062 / intruder distance : 197.29745 / intruder random percentage : 2.0
+
+time :9.321 / lost / guard distance : 3949.6985 / intruder distance : 667.9747 / intruder random percentage : 2.0
+
+time :2.378 / won / guard distance : 1172.9214 / intruder distance : 157.50127 / intruder random percentage : 2.0
+
+time :1.238 / lost / guard distance : 602.0679 / intruder distance : 88.96113 / intruder random percentage : 2.0
+
+time :0.242 / lost / guard distance : 65.10051 / intruder distance : 10.166698 / intruder random percentage : 2.0
+
+time :2.055 / lost / guard distance : 1099.9712 / intruder distance : 202.4307 / intruder random percentage : 2.0
+
+time :1.179 / won / guard distance : 609.4215 / intruder distance : 122.01091 / intruder random percentage : 2.0
+
+time :11.124 / won / guard distance : 4444.568 / intruder distance : 721.27563 / intruder random percentage : 2.0
+
+time :2.781 / won / guard distance : 1308.0122 / intruder distance : 270.02948 / intruder random percentage : 2.0
+
+time :1.708 / lost / guard distance : 871.56635 / intruder distance : 135.65067 / intruder random percentage : 2.0
+
+time :17.324 / lost / guard distance : 7982.514 / intruder distance : 1287.1803 / intruder random percentage : 2.0
+
+time :3.698 / lost / guard distance : 1850.468 / intruder distance : 219.17706 / intruder random percentage : 2.0
+
+time :3.725 / lost / guard distance : 1857.9474 / intruder distance : 336.3333 / intruder random percentage : 2.0
+
+time :4.902 / lost / guard distance : 2411.0435 / intruder distance : 418.93494 / intruder random percentage : 2.0
+
+time :0.522 / won / guard distance : 282.35788 / intruder distance : 27.116215 / intruder random percentage : 2.0
+
+time :0.224 / lost / guard distance : 54.333267 / intruder distance : 5.166669 / intruder random percentage : 2.0
+
+time :0.578 / won / guard distance : 267.80936 / intruder distance : 35.15977 / intruder random percentage : 2.0
+
+time :2.091 / lost / guard distance : 948.16785 / intruder distance : 191.74812 / intruder random percentage : 2.0
+
+time :14.44 / lost / guard distance : 6687.3066 / intruder distance : 1205.593 / intruder random percentage : 2.0
+
+time :2.397 / lost / guard distance : 1279.5748 / intruder distance : 234.30563 / intruder random percentage : 2.0
+
+time :1.309 / won / guard distance : 766.8893 / intruder distance : 91.762436 / intruder random percentage : 2.0
+
+time :43.393 / lost / guard distance : 8762.731 / intruder distance : 2754.8965 / intruder random percentage : 2.0
+
+time :4.683 / won / guard distance : 2365.9429 / intruder distance : 406.13806 / intruder random percentage : 2.0
+
+time :5.239 / won / guard distance : 2550.1265 / intruder distance : 473.7492 / intruder random percentage : 2.0
+
+time :2.127 / lost / guard distance : 1021.82025 / intruder distance : 128.11386 / intruder random percentage : 2.0
+
+time :0.759 / lost / guard distance : 338.87012 / intruder distance : 66.16275 / intruder random percentage : 2.0
+
+time :5.188 / lost / guard distance : 2703.9985 / intruder distance : 158.43811 / intruder random percentage : 2.0
+
+time :6.895 / lost / guard distance : 3422.9497 / intruder distance : 580.0828 / intruder random percentage : 2.0
+
+time :4.958 / lost / guard distance : 2407.5217 / intruder distance : 323.9131 / intruder random percentage : 2.0
+
+time :4.123 / won / guard distance : 2126.2935 / intruder distance : 271.34906 / intruder random percentage : 2.0
+
+time :0.469 / lost / guard distance : 250.90025 / intruder distance : 52.66681 / intruder random percentage : 2.0
+
+time :14.671 / won / guard distance : 6016.5054 / intruder distance : 1272.767 / intruder random percentage : 2.0
+
+time :0.195 / lost / guard distance : 55.833275 / intruder distance : 2.666668 / intruder random percentage : 2.0
+
+time :5.175 / won / guard distance : 2406.755 / intruder distance : 438.18372 / intruder random percentage : 2.0
+
+time :14.455 / won / guard distance : 6684.233 / intruder distance : 1203.8387 / intruder random percentage : 2.0
+
+time :3.367 / won / guard distance : 1684.1313 / intruder distance : 352.74448 / intruder random percentage : 2.0
+
+time :2.172 / lost / guard distance : 1071.4894 / intruder distance : 157.05159 / intruder random percentage : 2.0
+
+time :3.528 / lost / guard distance : 1722.0748 / intruder distance : 251.90129 / intruder random percentage : 2.0
+
+time :6.359 / lost / guard distance : 2794.3665 / intruder distance : 507.12375 / intruder random percentage : 2.0
+
+time :13.352 / won / guard distance : 6378.4277 / intruder distance : 874.913 / intruder random percentage : 2.0
+
+time :7.959 / lost / guard distance : 3836.6824 / intruder distance : 556.951 / intruder random percentage : 2.0
+
+time :2.627 / lost / guard distance : 1110.4598 / intruder distance : 285.15045 / intruder random percentage : 2.0
+
+time :1.239 / lost / guard distance : 721.2709 / intruder distance : 118.11796 / intruder random percentage : 2.0
+
+time :2.171 / lost / guard distance : 1080.3499 / intruder distance : 217.45264 / intruder random percentage : 2.0
+
+time :8.71 / lost / guard distance : 3428.5173 / intruder distance : 708.2062 / intruder random percentage : 2.0
+
+time :6.509 / lost / guard distance : 3220.5017 / intruder distance : 554.69806 / intruder random percentage : 2.0
+
+time :8.374 / lost / guard distance : 3968.0425 / intruder distance : 769.7016 / intruder random percentage : 2.0
+
+time :1.469 / lost / guard distance : 743.8902 / intruder distance : 132.79733 / intruder random percentage : 2.0
+
+time :1.847 / lost / guard distance : 1016.72424 / intruder distance : 193.92764 / intruder random percentage : 2.0
+
+time :7.422 / won / guard distance : 3774.121 / intruder distance : 571.14 / intruder random percentage : 2.0
+
+time :3.669 / lost / guard distance : 1890.6876 / intruder distance : 237.1723 / intruder random percentage : 2.0
+
+time :4.227 / won / guard distance : 1954.5852 / intruder distance : 297.50906 / intruder random percentage : 2.0
+
+time :5.181 / lost / guard distance : 2671.5337 / intruder distance : 350.32233 / intruder random percentage : 2.0
+
+time :2.711 / lost / guard distance : 1322.8762 / intruder distance : 65.822296 / intruder random percentage : 2.0
+
+time :4.152 / lost / guard distance : 2124.6228 / intruder distance : 459.43518 / intruder random percentage : 2.0
+
+time :5.147 / lost / guard distance : 2462.9224 / intruder distance : 514.50793 / intruder random percentage : 2.0
+
+time :2.89 / lost / guard distance : 1326.0889 / intruder distance : 246.35643 / intruder random percentage : 2.0
+
+time :0.536 / won / guard distance : 246.77441 / intruder distance : 33.047237 / intruder random percentage : 2.0
+
+time :6.023 / lost / guard distance : 2667.1628 / intruder distance : 392.81674 / intruder random percentage : 2.0
+
+time :1.66 / lost / guard distance : 911.0417 / intruder distance : 144.297 / intruder random percentage : 2.0
+
+time :2.217 / lost / guard distance : 1051.2456 / intruder distance : 112.408264 / intruder random percentage : 2.0
+
+time :3.941 / lost / guard distance : 1339.5947 / intruder distance : 199.35648 / intruder random percentage : 2.0
+
+time :10.297 / lost / guard distance : 4854.5493 / intruder distance : 984.96814 / intruder random percentage : 2.0
+
+time :1.974 / lost / guard distance : 1098.9192 / intruder distance : 188.86795 / intruder random percentage : 2.0
+
+time :4.184 / lost / guard distance : 1465.2694 / intruder distance : 250.55324 / intruder random percentage : 2.0
+
+time :2.056 / lost / guard distance : 1234.3811 / intruder distance : 192.30789 / intruder random percentage : 2.0
+
+time :7.158 / won / guard distance : 3484.3208 / intruder distance : 440.47748 / intruder random percentage : 2.0
+
+time :0.719 / lost / guard distance : 348.55328 / intruder distance : 25.1666 / intruder random percentage : 2.0
+
+time :14.875 / lost / guard distance : 6969.461 / intruder distance : 1088.2128 / intruder random percentage : 2.0
+
+time :15.064 / lost / guard distance : 7165.158 / intruder distance : 1316.4531 / intruder random percentage : 2.0
+
+time :2.863 / won / guard distance : 1329.181 / intruder distance : 247.86664 / intruder random percentage : 2.0
+
+time :0.88 / won / guard distance : 545.19275 / intruder distance : 72.485115 / intruder random percentage : 2.0
+
+time :2.477 / won / guard distance : 1266.4708 / intruder distance : 164.25554 / intruder random percentage : 2.0
+
+time :7.39 / won / guard distance : 3440.9521 / intruder distance : 633.61414 / intruder random percentage : 2.0
+
+time :9.581 / lost / guard distance : 4347.5264 / intruder distance : 850.32886 / intruder random percentage : 2.0
+
+time :2.65 / won / guard distance : 1311.4403 / intruder distance : 193.83334 / intruder random percentage : 2.0
+
+time :1.173 / won / guard distance : 514.806 / intruder distance : 124.31485 / intruder random percentage : 2.0
+
+time :3.622 / lost / guard distance : 1926.8984 / intruder distance : 288.38818 / intruder random percentage : 2.0
+
+time :0.22 / lost / guard distance : 98.285736 / intruder distance : 20.166641 / intruder random percentage : 2.0
+
+time :1.171 / lost / guard distance : 678.06396 / intruder distance : 144.61662 / intruder random percentage : 2.0
+
+time :7.309 / lost / guard distance : 3499.204 / intruder distance : 494.29178 / intruder random percentage : 2.0
+
+time :18.994 / lost / guard distance : 8723.231 / intruder distance : 1677.6953 / intruder random percentage : 2.0
+
+time :1.286 / lost / guard distance : 596.1468 / intruder distance : 61.667828 / intruder random percentage : 2.0
+
+time :0.756 / won / guard distance : 396.62708 / intruder distance : 51.51412 / intruder random percentage : 2.0
+
+time :0.142 / lost / guard distance : 38.333282 / intruder distance : 2.6666577 / intruder random percentage : 2.0
+
+time :1.007 / won / guard distance : 406.4137 / intruder distance : 95.9025 / intruder random percentage : 2.0
+
+time :3.494 / lost / guard distance : 1733.5542 / intruder distance : 314.59964 / intruder random percentage : 2.0
+
+time :0.64 / won / guard distance : 283.5424 / intruder distance : 31.540155 / intruder random percentage : 2.0
+
+time :0.816 / won / guard distance : 406.32962 / intruder distance : 68.5455 / intruder random percentage : 2.0
+
+time :1.772 / lost / guard distance : 974.49976 / intruder distance : 202.40556 / intruder random percentage : 2.0
+
+time :0.469 / won / guard distance : 214.47746 / intruder distance : 18.049206 / intruder random percentage : 2.0
+
+time :0.125 / lost / guard distance : 16.06667 / intruder distance : 5.166655 / intruder random percentage : 2.0
+
+time :5.024 / lost / guard distance : 2439.872 / intruder distance : 357.18625 / intruder random percentage : 2.0
+
+time :1.422 / lost / guard distance : 858.1126 / intruder distance : 138.35774 / intruder random percentage : 2.0
+
+time :4.746 / lost / guard distance : 2339.6272 / intruder distance : 434.85834 / intruder random percentage : 2.0
+
+time :22.339 / lost / guard distance : 6165.036 / intruder distance : 1562.7966 / intruder random percentage : 2.0
+
+time :14.925 / lost / guard distance : 6811.1914 / intruder distance : 1331.899 / intruder random percentage : 2.0
+
+time :17.96 / won / guard distance : 6974.7715 / intruder distance : 1321.3535 / intruder random percentage : 2.0
+
+time :15.389 / won / guard distance : 7119.138 / intruder distance : 1237.2969 / intruder random percentage : 2.0
+
+time :0.857 / lost / guard distance : 523.6471 / intruder distance : 60.750034 / intruder random percentage : 2.0
+
+time :2.159 / lost / guard distance : 1117.5166 / intruder distance : 180.83398 / intruder random percentage : 2.0
+
+time :2.773 / lost / guard distance : 1455.4645 / intruder distance : 272.51584 / intruder random percentage : 2.0
+
+time :2.506 / lost / guard distance : 1403.9462 / intruder distance : 150.79822 / intruder random percentage : 2.0
+
+time :5.737 / lost / guard distance : 2417.6357 / intruder distance : 456.33612 / intruder random percentage : 2.0
+
+time :16.56 / won / guard distance : 5301.8164 / intruder distance : 1457.1495 / intruder random percentage : 2.0
+
+time :3.245 / won / guard distance : 1610.01 / intruder distance : 304.67245 / intruder random percentage : 2.0
+
+time :0.776 / lost / guard distance : 403.313 / intruder distance : 78.54837 / intruder random percentage : 2.0
+
+time :6.295 / won / guard distance : 2949.3792 / intruder distance : 539.4841 / intruder random percentage : 2.0
+
+time :4.226 / lost / guard distance : 2154.1677 / intruder distance : 282.464 / intruder random percentage : 2.0
+
+time :3.308 / lost / guard distance : 1706.4111 / intruder distance : 270.0396 / intruder random percentage : 2.0
+
+time :2.759 / lost / guard distance : 891.225 / intruder distance : 210.99522 / intruder random percentage : 2.0
+
+time :5.959 / lost / guard distance : 2992.039 / intruder distance : 424.81665 / intruder random percentage : 2.0
+
+time :9.659 / lost / guard distance : 3753.7676 / intruder distance : 709.0942 / intruder random percentage : 2.0
+
+time :1.721 / won / guard distance : 905.5286 / intruder distance : 136.01523 / intruder random percentage : 2.0
+
+time :5.177 / lost / guard distance : 2019.1898 / intruder distance : 451.84824 / intruder random percentage : 2.0
+
+time :4.109 / lost / guard distance : 2017.6409 / intruder distance : 272.12833 / intruder random percentage : 2.0
+
+time :25.473 / lost / guard distance : 10290.43 / intruder distance : 1749.1954 / intruder random percentage : 2.0
+
+time :6.063 / lost / guard distance : 3080.787 / intruder distance : 547.7032 / intruder random percentage : 2.0
+
+time :2.576 / lost / guard distance : 1153.8009 / intruder distance : 181.71863 / intruder random percentage : 2.0
+
+time :1.733 / lost / guard distance : 900.3606 / intruder distance : 113.07166 / intruder random percentage : 2.0
+
+time :0.125 / won / guard distance : 10.833337 / intruder distance : 2.6666522 / intruder random percentage : 2.0
+
+time :6.641 / lost / guard distance : 2753.5227 / intruder distance : 559.0536 / intruder random percentage : 2.0
+
+time :0.568 / won / guard distance : 298.57825 / intruder distance : 21.590279 / intruder random percentage : 2.0
+
+time :5.342 / lost / guard distance : 2631.0952 / intruder distance : 161.4604 / intruder random percentage : 2.0
+
+time :26.112 / won / guard distance : 12293.644 / intruder distance : 2218.7153 / intruder random percentage : 2.0
+
+time :0.826 / won / guard distance : 453.8907 / intruder distance : 60.195988 / intruder random percentage : 2.0
+
+time :3.627 / won / guard distance : 1869.1947 / intruder distance : 297.8495 / intruder random percentage : 2.0
+
+time :12.275 / lost / guard distance : 5469.1333 / intruder distance : 652.1796 / intruder random percentage : 2.0
+
+time :1.77 / lost / guard distance : 901.142 / intruder distance : 203.19872 / intruder random percentage : 2.0
+
+time :1.985 / won / guard distance : 1146.9832 / intruder distance : 106.26112 / intruder random percentage : 2.0
+
+time :7.662 / lost / guard distance : 3441.4817 / intruder distance : 447.95862 / intruder random percentage : 2.0
+
+time :2.315 / won / guard distance : 1073.9174 / intruder distance : 201.21758 / intruder random percentage : 2.0
+
+time :2.16 / lost / guard distance : 1228.3535 / intruder distance : 242.97006 / intruder random percentage : 2.0
+
+time :1.792 / lost / guard distance : 952.8858 / intruder distance : 166.86523 / intruder random percentage : 2.0
+
+time :19.228 / won / guard distance : 8785.88 / intruder distance : 1766.0436 / intruder random percentage : 2.0
+
+time :200.011 / lost / guard distance : 51353.34 / intruder distance : 465.17105 / intruder random percentage : 2.0
+
+time :25.858 / lost / guard distance : 12008.043 / intruder distance : 2052.0103 / intruder random percentage : 2.0
+
+time :11.841 / lost / guard distance : 5641.8516 / intruder distance : 699.02527 / intruder random percentage : 2.0
+
+time :3.766 / lost / guard distance : 1800.3147 / intruder distance : 343.8955 / intruder random percentage : 2.0
+
+time :10.358 / won / guard distance : 4588.0854 / intruder distance : 782.3779 / intruder random percentage : 2.0
+
+time :5.736 / won / guard distance : 1788.1636 / intruder distance : 485.6697 / intruder random percentage : 2.0
+
+time :0.427 / lost / guard distance : 248.33347 / intruder distance : 47.666748 / intruder random percentage : 2.0
+
+time :4.486 / won / guard distance : 2294.385 / intruder distance : 431.40808 / intruder random percentage : 2.0
+
+time :10.995 / lost / guard distance : 5282.4326 / intruder distance : 946.95435 / intruder random percentage : 2.0
+
+time :0.792 / lost / guard distance : 406.0586 / intruder distance : 32.666603 / intruder random percentage : 2.0
+
+time :4.172 / won / guard distance : 2069.3303 / intruder distance : 371.93115 / intruder random percentage : 2.0
+
+time :1.074 / won / guard distance : 627.43286 / intruder distance : 80.166725 / intruder random percentage : 2.0
+
+time :4.543 / lost / guard distance : 1992.9492 / intruder distance : 469.7869 / intruder random percentage : 2.0
+
+time :5.697 / won / guard distance : 2238.2314 / intruder distance : 480.78668 / intruder random percentage : 2.0
+
+time :16.424 / lost / guard distance : 7756.8994 / intruder distance : 1308.489 / intruder random percentage : 2.0
+
+time :1.299 / won / guard distance : 708.19806 / intruder distance : 134.13023 / intruder random percentage : 2.0
+
+time :24.273 / lost / guard distance : 11056.66 / intruder distance : 1889.4998 / intruder random percentage : 2.0
+
+time :1.566 / lost / guard distance : 788.1488 / intruder distance : 186.23872 / intruder random percentage : 2.0
+
+time :2.69 / lost / guard distance : 1574.1042 / intruder distance : 168.98834 / intruder random percentage : 2.0
+
+time :1.122 / lost / guard distance : 620.80493 / intruder distance : 80.01784 / intruder random percentage : 2.0
+
+time :6.453 / lost / guard distance : 3403.4485 / intruder distance : 685.80115 / intruder random percentage : 2.0
+
+time :5.077 / won / guard distance : 2392.5803 / intruder distance : 373.95743 / intruder random percentage : 2.0
+
+time :2.036 / won / guard distance : 936.0683 / intruder distance : 110.31825 / intruder random percentage : 2.0
+
+time :5.308 / lost / guard distance : 2352.9573 / intruder distance : 42.66672 / intruder random percentage : 2.0
+
+time :2.811 / lost / guard distance : 1505.4236 / intruder distance : 74.99747 / intruder random percentage : 2.0
+
+time :1.341 / won / guard distance : 646.40686 / intruder distance : 133.34288 / intruder random percentage : 2.0
+
+time :2.12 / lost / guard distance : 1094.7462 / intruder distance : 154.34196 / intruder random percentage : 2.0
+
+time :2.041 / lost / guard distance : 1057.5868 / intruder distance : 168.29245 / intruder random percentage : 2.0
+
+time :1.362 / lost / guard distance : 710.04846 / intruder distance : 150.23767 / intruder random percentage : 2.0
+
+time :1.007 / lost / guard distance : 584.0352 / intruder distance : 113.36868 / intruder random percentage : 2.0
+
+time :1.127 / lost / guard distance : 641.5564 / intruder distance : 97.71005 / intruder random percentage : 2.0
+
+time :1.757 / lost / guard distance : 1035.22 / intruder distance : 199.68181 / intruder random percentage : 2.0
+
+time :1.218 / lost / guard distance : 681.60095 / intruder distance : 139.26337 / intruder random percentage : 2.0
+
+time :10.053 / won / guard distance : 4462.3633 / intruder distance : 719.14996 / intruder random percentage : 2.0
+
+time :3.512 / lost / guard distance : 1742.4956 / intruder distance : 314.09885 / intruder random percentage : 2.0
+
+time :0.947 / won / guard distance : 562.6965 / intruder distance : 78.19975 / intruder random percentage : 2.0
+
+time :3.095 / lost / guard distance : 1331.3531 / intruder distance : 323.31342 / intruder random percentage : 2.0
+
+time :4.135 / lost / guard distance : 2189.3135 / intruder distance : 419.08368 / intruder random percentage : 2.0
+
+time :14.188 / lost / guard distance : 6456.671 / intruder distance : 937.4793 / intruder random percentage : 2.0
+
+time :2.922 / lost / guard distance : 1445.1184 / intruder distance : 277.0773 / intruder random percentage : 2.0
+
+time :0.359 / lost / guard distance : 143.56674 / intruder distance : 30.166616 / intruder random percentage : 2.0
+
+time :7.599 / lost / guard distance : 3693.6035 / intruder distance : 306.58887 / intruder random percentage : 2.0
+
+time :11.173 / lost / guard distance : 5171.9644 / intruder distance : 926.6282 / intruder random percentage : 2.0
+
+time :1.15 / lost / guard distance : 595.6126 / intruder distance : 118.765594 / intruder random percentage : 2.0
+
+time :4.505 / lost / guard distance : 2271.6372 / intruder distance : 228.34065 / intruder random percentage : 2.0
+
+time :8.553 / lost / guard distance : 3257.5303 / intruder distance : 659.2521 / intruder random percentage : 2.0
+
+time :8.038 / won / guard distance : 3959.5957 / intruder distance : 564.51196 / intruder random percentage : 2.0
+
+time :1.775 / won / guard distance : 905.68396 / intruder distance : 115.95071 / intruder random percentage : 2.0
+
+time :6.072 / lost / guard distance : 2986.63 / intruder distance : 399.7206 / intruder random percentage : 2.0
+
+time :0.245 / lost / guard distance : 95.83327 / intruder distance : 12.666653 / intruder random percentage : 2.0
+
+time :2.421 / lost / guard distance : 1257.5249 / intruder distance : 258.48822 / intruder random percentage : 2.0
+
+time :5.74 / lost / guard distance : 2747.8054 / intruder distance : 510.9361 / intruder random percentage : 2.0
+
+time :14.667 / lost / guard distance : 6898.0986 / intruder distance : 934.31915 / intruder random percentage : 2.0
+
+time :5.361 / lost / guard distance : 2622.1248 / intruder distance : 549.79694 / intruder random percentage : 2.0
+
+time :0.577 / lost / guard distance : 294.40613 / intruder distance : 65.16663 / intruder random percentage : 2.0
+
+time :0.412 / won / guard distance : 158.52228 / intruder distance : 16.27903 / intruder random percentage : 2.0
+
+time :11.184 / lost / guard distance : 5492.7583 / intruder distance : 1044.3123 / intruder random percentage : 2.0
+
+time :4.55 / lost / guard distance : 1945.4507 / intruder distance : 385.95148 / intruder random percentage : 2.0
+
+time :3.075 / lost / guard distance : 1566.3975 / intruder distance : 165.64757 / intruder random percentage : 2.0
+
+time :14.073 / lost / guard distance : 6734.3096 / intruder distance : 1374.6123 / intruder random percentage : 2.0
+
+time :12.533 / won / guard distance : 5905.174 / intruder distance : 967.296 / intruder random percentage : 2.0
+
+time :13.025 / lost / guard distance : 5974.1113 / intruder distance : 990.7968 / intruder random percentage : 2.0
+
+time :9.317 / lost / guard distance : 3989.69 / intruder distance : 659.0043 / intruder random percentage : 2.0
+
+time :4.371 / lost / guard distance : 1761.5652 / intruder distance : 399.63293 / intruder random percentage : 2.0
+
+time :2.06 / won / guard distance : 1146.7858 / intruder distance : 142.04465 / intruder random percentage : 2.0
+
+time :2.757 / lost / guard distance : 1134.9211 / intruder distance : 228.24341 / intruder random percentage : 2.0
+
+time :4.821 / lost / guard distance : 2303.2847 / intruder distance : 402.80576 / intruder random percentage : 2.0
+
+time :10.54 / lost / guard distance : 4256.321 / intruder distance : 1016.61395 / intruder random percentage : 2.0
+
+time :0.837 / won / guard distance : 493.4822 / intruder distance : 66.646095 / intruder random percentage : 2.0
+
+time :0.143 / lost / guard distance : 23.566658 / intruder distance : 0.16666146 / intruder random percentage : 2.0
+
+time :1.559 / lost / guard distance : 901.256 / intruder distance : 155.70265 / intruder random percentage : 2.0
+
+time :3.512 / lost / guard distance : 1635.7594 / intruder distance : 316.36392 / intruder random percentage : 2.0
+
+time :0.544 / won / guard distance : 235.08461 / intruder distance : 22.270744 / intruder random percentage : 2.0
+
+time :2.345 / lost / guard distance : 1085.6239 / intruder distance : 208.17474 / intruder random percentage : 2.0
+
+time :9.826 / lost / guard distance : 4606.6167 / intruder distance : 870.2936 / intruder random percentage : 2.0
+
+time :0.485 / lost / guard distance : 190.11475 / intruder distance : 30.16663 / intruder random percentage : 2.0
+
+time :0.212 / lost / guard distance : 85.833275 / intruder distance : 12.666657 / intruder random percentage : 2.0
+
+time :6.076 / lost / guard distance : 2934.9055 / intruder distance : 656.1458 / intruder random percentage : 2.0
+
+time :1.81 / won / guard distance : 862.6777 / intruder distance : 162.47302 / intruder random percentage : 2.0
+
+time :5.203 / won / guard distance : 2685.8948 / intruder distance : 300.2619 / intruder random percentage : 2.0
+
+time :6.994 / lost / guard distance : 3308.5015 / intruder distance : 566.00824 / intruder random percentage : 2.0
+
+time :4.525 / won / guard distance : 1958.6648 / intruder distance : 458.22296 / intruder random percentage : 2.0
+
+time :39.296 / lost / guard distance : 12922.465 / intruder distance : 2753.7498 / intruder random percentage : 2.0
+
+time :3.159 / lost / guard distance : 1604.565 / intruder distance : 234.74005 / intruder random percentage : 2.0
+
+time :2.855 / lost / guard distance : 1425.8368 / intruder distance : 195.83415 / intruder random percentage : 2.0
+
+time :0.089 / won / guard distance : 5.83331 / intruder distance : 2.6666777 / intruder random percentage : 2.0
+
+time :3.641 / lost / guard distance : 1885.8782 / intruder distance : 280.47272 / intruder random percentage : 2.0
+
+time :3.844 / lost / guard distance : 2002.3699 / intruder distance : 289.59558 / intruder random percentage : 2.0
+
+time :1.726 / won / guard distance : 975.201 / intruder distance : 124.455864 / intruder random percentage : 2.0
+
+time :2.761 / lost / guard distance : 1312.9703 / intruder distance : 275.8608 / intruder random percentage : 2.0
+
+time :0.545 / won / guard distance : 277.53522 / intruder distance : 19.111818 / intruder random percentage : 2.0
+
+time :12.644 / won / guard distance : 6044.526 / intruder distance : 892.41516 / intruder random percentage : 2.0
+
+time :0.209 / lost / guard distance : 88.33328 / intruder distance : 7.6666565 / intruder random percentage : 2.0
+
+time :14.279 / lost / guard distance : 6642.7344 / intruder distance : 1255.013 / intruder random percentage : 2.0
+
+time :1.875 / lost / guard distance : 1130.7926 / intruder distance : 157.79147 / intruder random percentage : 2.0
+
+time :0.358 / lost / guard distance : 200.83342 / intruder distance : 40.166622 / intruder random percentage : 2.0
+
+time :15.635 / lost / guard distance : 7524.334 / intruder distance : 1117.2269 / intruder random percentage : 2.0
+
+time :3.172 / lost / guard distance : 1634.0898 / intruder distance : 270.66943 / intruder random percentage : 2.0
+
+time :2.503 / won / guard distance : 1260.2152 / intruder distance : 217.8947 / intruder random percentage : 2.0
+
+time :3.726 / won / guard distance : 1917.9233 / intruder distance : 356.68268 / intruder random percentage : 2.0
+
+time :2.929 / lost / guard distance : 1551.7576 / intruder distance : 162.63298 / intruder random percentage : 2.0
+
+time :7.757 / won / guard distance : 3729.5886 / intruder distance : 583.3669 / intruder random percentage : 2.0
+
+time :2.783 / lost / guard distance : 1452.834 / intruder distance : 254.81699 / intruder random percentage : 2.0
+
+time :6.928 / lost / guard distance : 3192.9783 / intruder distance : 572.05835 / intruder random percentage : 2.0
+
+time :0.31 / lost / guard distance : 128.33325 / intruder distance : 22.666588 / intruder random percentage : 2.0
+
+time :0.902 / lost / guard distance : 514.5067 / intruder distance : 87.58628 / intruder random percentage : 2.0
+
+time :3.045 / won / guard distance : 1358.1713 / intruder distance : 241.0371 / intruder random percentage : 2.0
+
+time :10.125 / won / guard distance : 4168.8286 / intruder distance : 442.6617 / intruder random percentage : 2.0
+
+time :4.109 / lost / guard distance : 1449.5311 / intruder distance : 363.59402 / intruder random percentage : 2.0
+
+time :4.586 / lost / guard distance : 2302.0356 / intruder distance : 195.86061 / intruder random percentage : 2.0
+
+time :9.994 / lost / guard distance : 4988.4014 / intruder distance : 898.5793 / intruder random percentage : 2.0
+
+time :0.693 / lost / guard distance : 300.292 / intruder distance : 90.16643 / intruder random percentage : 2.0
+
+time :0.734 / lost / guard distance : 366.00256 / intruder distance : 63.034245 / intruder random percentage : 2.0
+
+time :6.026 / won / guard distance : 2907.7039 / intruder distance : 552.17004 / intruder random percentage : 2.0
+
+time :7.031 / lost / guard distance : 3362.5452 / intruder distance : 465.91385 / intruder random percentage : 2.0
+
+time :0.41 / lost / guard distance : 163.44662 / intruder distance : 27.666746 / intruder random percentage : 2.0
+
+time :4.82 / won / guard distance : 2332.9954 / intruder distance : 287.54327 / intruder random percentage : 2.0
+
+time :13.595 / lost / guard distance : 6376.0527 / intruder distance : 1228.4048 / intruder random percentage : 2.0
+
+time :1.68 / lost / guard distance : 854.00885 / intruder distance : 96.31653 / intruder random percentage : 2.0
+
+time :2.261 / lost / guard distance : 1159.622 / intruder distance : 148.10388 / intruder random percentage : 2.0
+
+time :2.642 / won / guard distance : 1294.386 / intruder distance : 244.49588 / intruder random percentage : 2.0
+
+time :6.653 / lost / guard distance : 3161.7896 / intruder distance : 529.31274 / intruder random percentage : 2.0
+
+time :7.811 / lost / guard distance : 3789.4902 / intruder distance : 464.68744 / intruder random percentage : 2.0
+
+time :2.445 / lost / guard distance : 1217.6654 / intruder distance : 251.5598 / intruder random percentage : 2.0
+
+time :5.723 / lost / guard distance : 2823.6348 / intruder distance : 512.151 / intruder random percentage : 2.0
+
+time :0.829 / lost / guard distance : 475.73328 / intruder distance : 85.35665 / intruder random percentage : 2.0
+
+time :6.361 / lost / guard distance : 2400.6064 / intruder distance : 619.4365 / intruder random percentage : 2.0
+
+time :1.501 / won / guard distance : 754.3971 / intruder distance : 97.161385 / intruder random percentage : 2.0
+
+time :17.109 / lost / guard distance : 7862.399 / intruder distance : 1514.8429 / intruder random percentage : 2.0
+
+time :4.496 / won / guard distance : 2114.806 / intruder distance : 287.8527 / intruder random percentage : 2.0
+
+time :2.424 / lost / guard distance : 1318.9108 / intruder distance : 170.34065 / intruder random percentage : 2.0
+
+time :1.205 / lost / guard distance : 693.17474 / intruder distance : 88.81512 / intruder random percentage : 2.0
+
+time :6.409 / won / guard distance : 3019.0537 / intruder distance : 574.49384 / intruder random percentage : 2.0
+
+time :22.277 / lost / guard distance : 10257.963 / intruder distance : 1850.9454 / intruder random percentage : 2.0
+
+time :0.605 / won / guard distance : 338.083 / intruder distance : 25.474506 / intruder random percentage : 2.0
+
+time :46.162 / won / guard distance : 18854.55 / intruder distance : 2279.39 / intruder random percentage : 2.0
+
+time :10.924 / lost / guard distance : 5104.6416 / intruder distance : 915.4019 / intruder random percentage : 2.0
+
+time :5.775 / lost / guard distance : 2341.8464 / intruder distance : 228.6825 / intruder random percentage : 2.0
+
+time :1.97 / won / guard distance : 1193.0374 / intruder distance : 152.31741 / intruder random percentage : 2.0
+
+time :13.721 / lost / guard distance : 6257.9224 / intruder distance : 1132.6252 / intruder random percentage : 2.0
+
+time :18.303 / lost / guard distance : 8525.285 / intruder distance : 1339.1912 / intruder random percentage : 2.0
+
+time :8.886 / won / guard distance : 3992.3865 / intruder distance : 771.2726 / intruder random percentage : 2.0
+
+time :4.322 / won / guard distance : 1778.1895 / intruder distance : 359.8939 / intruder random percentage : 2.0
+
+time :4.321 / won / guard distance : 2184.2083 / intruder distance : 401.02884 / intruder random percentage : 2.0
+
+time :4.52 / won / guard distance : 2181.0552 / intruder distance : 361.91492 / intruder random percentage : 2.0
+
+time :2.383 / lost / guard distance : 1217.754 / intruder distance : 146.3393 / intruder random percentage : 2.0
+
+time :2.958 / lost / guard distance : 1618.0298 / intruder distance : 270.66238 / intruder random percentage : 2.0
+
+time :12.173 / lost / guard distance : 5747.8604 / intruder distance : 754.03955 / intruder random percentage : 2.0
+
+time :4.354 / lost / guard distance : 2183.4229 / intruder distance : 271.7393 / intruder random percentage : 2.0
+
+time :6.814 / lost / guard distance : 3324.7031 / intruder distance : 584.5689 / intruder random percentage : 2.0
+
+time :9.609 / won / guard distance : 4496.011 / intruder distance : 832.25433 / intruder random percentage : 2.0
+
+time :11.191 / lost / guard distance : 5346.5107 / intruder distance : 771.9945 / intruder random percentage : 2.0
+
+time :2.139 / lost / guard distance : 1176.2168 / intruder distance : 201.87254 / intruder random percentage : 2.0
+
+time :0.769 / lost / guard distance : 400.70636 / intruder distance : 27.666668 / intruder random percentage : 2.0
+
+time :1.921 / lost / guard distance : 1062.5947 / intruder distance : 209.05139 / intruder random percentage : 2.0
+
+time :9.172 / won / guard distance : 4001.4224 / intruder distance : 441.46527 / intruder random percentage : 2.0
+
+time :0.864 / lost / guard distance : 499.22726 / intruder distance : 83.62941 / intruder random percentage : 2.0
+
+time :9.82 / lost / guard distance : 4688.667 / intruder distance : 870.8059 / intruder random percentage : 2.0
+
+time :8.06 / won / guard distance : 3768.002 / intruder distance : 464.319 / intruder random percentage : 2.0
+
+time :6.945 / won / guard distance : 2691.855 / intruder distance : 354.11478 / intruder random percentage : 2.0
+
+time :15.569 / won / guard distance : 6341.2 / intruder distance : 1126.6245 / intruder random percentage : 2.0
+
+time :9.738 / lost / guard distance : 4608.882 / intruder distance : 656.3738 / intruder random percentage : 2.0
+
+time :201.994 / lost / guard distance : 1543.031 / intruder distance : 300.3783 / intruder random percentage : 2.0
+
+time :1.18 / lost / guard distance : 582.80023 / intruder distance : 133.4562 / intruder random percentage : 2.0
+
+time :1.755 / lost / guard distance : 962.00195 / intruder distance : 181.03912 / intruder random percentage : 2.0
+
+time :8.353 / lost / guard distance : 3595.5535 / intruder distance : 609.24475 / intruder random percentage : 2.0
+
+time :0.603 / won / guard distance : 233.85593 / intruder distance : 18.70332 / intruder random percentage : 2.0
+
+time :4.983 / won / guard distance : 1920.8923 / intruder distance : 463.64423 / intruder random percentage : 2.0
+
+time :11.362 / won / guard distance : 5130.657 / intruder distance : 961.3272 / intruder random percentage : 2.0
+
+time :0.221 / lost / guard distance : 95.83314 / intruder distance : 12.666666 / intruder random percentage : 2.0
+
+time :8.773 / won / guard distance : 3747.3281 / intruder distance : 561.20807 / intruder random percentage : 2.0
+
+time :4.703 / won / guard distance : 2396.7385 / intruder distance : 411.7085 / intruder random percentage : 2.0
+
+time :1.738 / lost / guard distance : 968.64355 / intruder distance : 177.34601 / intruder random percentage : 2.0
+
+time :71.835 / lost / guard distance : 5458.761 / intruder distance : 1090.7915 / intruder random percentage : 2.0
+
+time :20.915 / lost / guard distance : 9724.395 / intruder distance : 1575.7933 / intruder random percentage : 2.0
+
+time :0.856 / won / guard distance : 494.29248 / intruder distance : 70.016266 / intruder random percentage : 2.0
+
+time :0.52 / won / guard distance : 277.86066 / intruder distance : 29.570877 / intruder random percentage : 2.0
+
+time :3.438 / lost / guard distance : 1636.6136 / intruder distance : 277.03284 / intruder random percentage : 2.0
+
+time :2.087 / lost / guard distance : 1082.821 / intruder distance : 129.31332 / intruder random percentage : 2.0
+
+time :5.021 / lost / guard distance : 2546.5166 / intruder distance : 510.87946 / intruder random percentage : 2.0
+
+time :0.39 / won / guard distance : 218.33331 / intruder distance : 12.236112 / intruder random percentage : 2.0
+
+time :4.886 / won / guard distance : 2148.941 / intruder distance : 462.58524 / intruder random percentage : 2.0
+
+time :10463.108 / lost / guard distance : 3390.7139 / intruder distance : 605.0215 / intruder random percentage : 2.0
+
+time :1.972 / won / guard distance : 963.1278 / intruder distance : 122.35767 / intruder random percentage : 2.0
+
+time :1.253 / lost / guard distance : 716.1004 / intruder distance : 163.06326 / intruder random percentage : 2.0
+
+time :2883.093 / lost / guard distance : 440.09286 / intruder distance : 10.581525 / intruder random percentage : 2.0
+
+time :6.285 / won / guard distance : 2951.4807 / intruder distance : 451.19955 / intruder random percentage : 2.0
+
+time :0.471 / won / guard distance : 203.11218 / intruder distance : 17.206944 / intruder random percentage : 2.0
+
+time :18.945 / won / guard distance : 8299.848 / intruder distance : 947.34937 / intruder random percentage : 2.0
+
+time :2341.199 / lost / guard distance : 3785.8948 / intruder distance : 356.75827 / intruder random percentage : 2.0
+
+time :6.032 / lost / guard distance : 2922.664 / intruder distance : 442.84686 / intruder random percentage : 2.0
+
+time :7.808 / won / guard distance : 3701.631 / intruder distance : 652.2945 / intruder random percentage : 2.0
+
+time :2.991 / lost / guard distance : 1663.4458 / intruder distance : 193.13684 / intruder random percentage : 2.0
+
+time :0.208 / lost / guard distance : 80.83333 / intruder distance : 20.166708 / intruder random percentage : 2.0
+
+time :8.803 / lost / guard distance : 4102.7197 / intruder distance : 746.4868 / intruder random percentage : 2.0
+
+time :5.015 / won / guard distance : 2512.1084 / intruder distance : 389.71802 / intruder random percentage : 2.0
+
+time :5.414 / won / guard distance : 2618.7761 / intruder distance : 217.9993 / intruder random percentage : 2.0
+
+time :5.019 / lost / guard distance : 2448.21 / intruder distance : 360.12057 / intruder random percentage : 2.0
+
+time :2.552 / lost / guard distance : 1296.4072 / intruder distance : 225.12425 / intruder random percentage : 2.0
+
+time :2.321 / lost / guard distance : 1266.5983 / intruder distance : 245.02242 / intruder random percentage : 2.0
+
+time :5.573 / lost / guard distance : 2115.9685 / intruder distance : 348.59256 / intruder random percentage : 2.0
+
+time :1.01 / lost / guard distance : 577.3412 / intruder distance : 121.64931 / intruder random percentage : 2.0
+
+time :2.371 / won / guard distance : 1203.8435 / intruder distance : 214.65004 / intruder random percentage : 2.0
+
+time :2.191 / won / guard distance : 1169.9583 / intruder distance : 193.35382 / intruder random percentage : 2.0
+
+time :4.528 / won / guard distance : 2232.0188 / intruder distance : 274.41632 / intruder random percentage : 2.0
+
+time :6.365 / won / guard distance : 3044.9697 / intruder distance : 273.57526 / intruder random percentage : 2.0
+
+time :1.409 / won / guard distance : 774.31323 / intruder distance : 149.79726 / intruder random percentage : 2.0
+
+time :0.37 / lost / guard distance : 184.7333 / intruder distance : 25.166664 / intruder random percentage : 2.0
+
+time :2.821 / lost / guard distance : 1456.0581 / intruder distance : 298.74658 / intruder random percentage : 2.0
+
+time :0.437 / won / guard distance : 212.13211 / intruder distance : 19.84985 / intruder random percentage : 2.0
+
+time :17.001 / won / guard distance : 5193.1357 / intruder distance : 1221.8744 / intruder random percentage : 2.0
+
+time :0.705 / won / guard distance : 370.27063 / intruder distance : 59.201923 / intruder random percentage : 2.0
+
+time :3.481 / lost / guard distance : 1660.8741 / intruder distance : 274.7229 / intruder random percentage : 2.0
+
+time :4.177 / lost / guard distance : 1746.1526 / intruder distance : 413.71185 / intruder random percentage : 2.0
+
+time :1.289 / lost / guard distance : 689.5742 / intruder distance : 83.18256 / intruder random percentage : 2.0
+
+time :2.703 / won / guard distance : 1536.9644 / intruder distance : 263.03635 / intruder random percentage : 2.0
+
+time :16.968 / won / guard distance : 7889.0586 / intruder distance : 1302.1554 / intruder random percentage : 2.0
+
+time :11.433 / won / guard distance : 5276.003 / intruder distance : 990.85565 / intruder random percentage : 2.0
+
+time :6.211 / lost / guard distance : 2915.3274 / intruder distance : 661.38696 / intruder random percentage : 2.0
+
+time :1.783 / lost / guard distance : 1007.20593 / intruder distance : 136.43979 / intruder random percentage : 2.0
+
+time :0.227 / lost / guard distance : 108.33336 / intruder distance : 12.6666765 / intruder random percentage : 2.0
+
+time :6.076 / lost / guard distance : 3115.7854 / intruder distance : 566.9519 / intruder random percentage : 2.0
+
+time :11.455 / won / guard distance : 5132.104 / intruder distance : 722.931 / intruder random percentage : 2.0
+
+time :0.37 / won / guard distance : 206.84079 / intruder distance : 35.166656 / intruder random percentage : 2.0
+
+time :200.004 / lost / guard distance : 60748.93 / intruder distance : 613.08264 / intruder random percentage : 2.0
+
+time :6.155 / won / guard distance : 2980.0293 / intruder distance : 429.08746 / intruder random percentage : 2.0
+
+time :3.587 / lost / guard distance : 1892.0924 / intruder distance : 256.03513 / intruder random percentage : 2.0
+
+time :3.778 / won / guard distance : 1779.2134 / intruder distance : 324.23648 / intruder random percentage : 2.0
+
+time :2.949 / lost / guard distance : 1336.2346 / intruder distance : 240.65439 / intruder random percentage : 2.0
+
+time :3.564 / lost / guard distance : 1783.5807 / intruder distance : 175.6301 / intruder random percentage : 2.0
+
+time :1.637 / lost / guard distance : 902.96014 / intruder distance : 151.66716 / intruder random percentage : 2.0
+
+time :16.036 / won / guard distance : 4722.826 / intruder distance : 1280.2589 / intruder random percentage : 2.0
+
+time :0.269 / lost / guard distance : 148.33339 / intruder distance : 25.166645 / intruder random percentage : 2.0
+
+time :0.208 / lost / guard distance : 95.83334 / intruder distance : 15.16669 / intruder random percentage : 2.0
+
+time :0.552 / won / guard distance : 269.10825 / intruder distance : 29.66383 / intruder random percentage : 2.0

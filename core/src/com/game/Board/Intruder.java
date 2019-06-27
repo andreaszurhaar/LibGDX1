@@ -45,6 +45,7 @@ public class Intruder extends Agent {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        maxSpeed = 1.4f;
 	}
 	
 	public float getSpeed() {

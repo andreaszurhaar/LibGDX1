@@ -65,7 +65,7 @@ public class TestState extends State {
     public TestWriter testWriter;
     public float guardTravel = 0;
     public float intruderTravel = 0;
-    private final int NR_OF_SIMULATIONS = 3;
+    private final int NR_OF_SIMULATIONS = 100;
     public long startTime;
     public int intruder_randomness = 100 - 98;
 

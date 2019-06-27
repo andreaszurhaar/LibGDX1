@@ -38,7 +38,7 @@ public class Guard extends Agent {
 	private boolean reachedCentre;
 	private double timeOfLastMessage;
 	private final double INTER_MESSAGE_TIME = 5; //in seconds
-	private final float RADIUS = 400;
+	private final float RADIUS = 450;
 
 
 	public Guard(float x, float y, float width, float height) {

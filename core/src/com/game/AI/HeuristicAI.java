@@ -358,7 +358,9 @@ public class HeuristicAI extends AI {
                         index = i;
                     }
                 }
-                point = explorationPoints.get(index);
+                if(explorationPoints.size() != 0) {
+                    point = explorationPoints.get(index);
+                }
                 exploredStructures.remove(0);
                 return point;
             }
