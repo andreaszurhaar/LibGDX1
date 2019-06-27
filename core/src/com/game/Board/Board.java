@@ -422,10 +422,8 @@ public class Board {
 		float ang = vect.angle();
 		while(ang > 45) {ang = ang-90f;}
 		if(ang < -45) {ang = ang+90f;}
-		float len = 10;
-		if(vect.x > vect.y) {len = vect.x;}
-		else {len = vect.y;}
-		float tot = len/(float) (Math.cos(Math.toRadians((double) Math.abs(ang)))); 
-		return (tot-rect1.width/2-rect2.width/2);
+		float len = vect.len();
+		float ext = (rect1.width/2+rect2.width/2)/(float) (Math.cos(Math.toRadians((double) Math.abs(ang)))); 
+		return len-ext;
 	}
 }
